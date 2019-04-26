@@ -19,8 +19,29 @@ import java.util.List;
  */
 public class DataManager implements IBLL {
 
+    public String loadJSON(File file) throws FileNotFoundException, IOException {
+        FileReader filereader = new FileReader(new File("./data/JSON.txt"));
+        BufferedReader bufferedReader = new BufferedReader(filereader);
+        String data = "";
+        String line;
+
+        while ((line = bufferedReader.readLine()) != null) {
+            data += line;
+        }
+        return data;
+    }
+
     @Override
-    public String loadJSON() throws FileNotFoundException, IOException {
+    public void extractDataFromJSON() throws FileNotFoundException, IOException {
+        String[] array = loadData().split("//[");
+        List<String> workersString = new ArrayList();
+        
+        
+        
+    }
+
+    @Override
+    public String loadData() throws FileNotFoundException, IOException {
         FileReader filereader = new FileReader(new File("./data/JSON.txt"));
         BufferedReader bufferedReader = new BufferedReader(filereader);
         String data = "";

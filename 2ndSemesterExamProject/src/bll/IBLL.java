@@ -14,8 +14,8 @@ import java.io.IOException;
  */
 public interface IBLL
 {
-    public String loadJSON () throws FileNotFoundException, IOException;
+    public String loadData () throws FileNotFoundException, IOException;
     
-    public void extractDataFromJSON();
+    public void extractDataFromJSON()throws FileNotFoundException, IOException;
             
 }
