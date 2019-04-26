@@ -15,6 +15,11 @@ public class Worker {
     private String initials;
     private String salaryNumber;
 
+    @Override
+    public String toString() {
+        return "Worker{" + "initials=" + initials + " name=" + name + ", salaryNumber=" + salaryNumber + '}';
+    }
+
     public Worker(String name, String initials, String salaryNumber) {
         this.name = name;
         this.initials = initials;
