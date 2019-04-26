@@ -5,11 +5,17 @@
  */
 package bll;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
  *
  * @author andreas
  */
 public interface IBLL
 {
+    public String loadJSON () throws FileNotFoundException, IOException;
     
+    public void extractDataFromJSON();
+            
 }
