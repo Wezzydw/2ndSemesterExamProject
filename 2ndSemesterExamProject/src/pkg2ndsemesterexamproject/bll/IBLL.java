@@ -5,11 +5,17 @@
  */
 package pkg2ndsemesterexamproject.bll;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
  *
  * @author andreas
  */
 public interface IBLL
 {
+    public String loadData () throws FileNotFoundException, IOException;
     
+    public void extractDataFromJSON()throws FileNotFoundException, IOException;
+            
 }

@@ -1,0 +1,67 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26-04-2019, 10:23:05
+    Author     : mpoul
+*/
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 08-02-2019, 09:15:34
+    Author     : marce
+*/
+
+.root 
+{
+    -fx-border-color: #191e2c;
+    -fx-border-width: 3px;
+    -fx-border-radius: 3px;
+    -fx-border-insets: 0px;
+    -fx-padding: 10px;
+    -fx-spacing: 3px;
+    -fx-background-color: #c6d6f2;
+    -fx-background-insets: 5px;
+}
+ 
+.button-style-yes
+{
+    -fx-background-color: #91ccfa;
+    -fx-background-insets: 5;
+    -fx-background-radius: 10;
+}
+.button-style-no
+{
+    -fx-background-color: #cc3e20;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+ 
+.button-style-cancel
+{
+    -fx-background-color: #bc1e12;
+    -fx-background-insets: 5 10 15 20;
+    -fx-background-radius: 0 20 10 10;
+}
+ 
+.button 
+{
+    -fx-font-size: 10px;
+    -fx-border-insets: 0;
+    -fx-border-width: 2;
+    -fx-border-color: #231e5e;
+    -fx-border-radius: 3;
+}
+ 
+.label
+{
+    -fx-font-family: "calibri";
+    -fx-font-size: 16px;
+    -fx-font-weight: bolder;
+}
