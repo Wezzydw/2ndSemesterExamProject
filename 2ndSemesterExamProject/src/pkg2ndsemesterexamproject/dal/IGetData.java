@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dal;
+package pkg2ndsemesterexamproject.dal;
+
+import pkg2ndsemesterexamproject.be.Department;
+import pkg2ndsemesterexamproject.be.Order;
+import java.util.List;
 
 /**
  *
@@ -11,5 +15,10 @@ package dal;
  */
 public interface IGetData
 {
+    List<Department> getAllDepartments();
     
+    List<Order> getAllOrders();
+    
+    
+            
 }

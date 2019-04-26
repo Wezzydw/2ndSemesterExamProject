@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be;
+package pkg2ndsemesterexamproject.be;
 
 /**
  *
  * @author andreas
  */
-public class Order
+public class Department
 {
     
 }

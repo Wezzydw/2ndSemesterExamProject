@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dal;
+package pkg2ndsemesterexamproject.bll;
 
 /**
  *
  * @author andreas
  */
-public class DatabaseConnection
+public class PassThrough
 {
     
 }
