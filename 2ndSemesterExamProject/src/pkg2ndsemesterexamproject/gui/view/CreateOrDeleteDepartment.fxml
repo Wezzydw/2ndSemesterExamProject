@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="231.0" prefWidth="333.0" stylesheets="@css/PostItCSS.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+   <children>
+      <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+      <Button layoutX="14.0" layoutY="189.0" mnemonicParsing="false" text="Create Department" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
+      <Button layoutX="144.0" layoutY="186.0" mnemonicParsing="false" text="Delete Department" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="125.0" />
+      <Label layoutX="285.0" layoutY="5.0" text="Manager" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="8.0" />
+      <Label layoutX="355.0" layoutY="18.0" text="Clock" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="8.0" />
+   </children>
+</AnchorPane>
