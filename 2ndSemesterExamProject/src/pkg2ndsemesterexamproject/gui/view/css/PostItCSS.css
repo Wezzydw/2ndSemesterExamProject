@@ -62,12 +62,12 @@ and open the template in the editor.
 .label
 {
     -fx-font-family: "calibri";
-    -fx-font-size: 16px;
+    -fx-font-size: 12px;
     -fx-font-weight: bolder;
     -fx-border-color: #4a4948;
     
 }
-.Combobox
+.ProgressBar
 {
     
 }
