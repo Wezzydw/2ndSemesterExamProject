@@ -5,33 +5,28 @@
  */
 package pkg2ndsemesterexamproject.be;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author andreas
  */
-public class Department
-{
+public class Department implements IDepartment {
+
     private String name;
 
-    public Department(String name)
-    {
-        this.name = name;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
+    public Department(String name) {
         this.name = name;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return name;
     }
-    
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
 }

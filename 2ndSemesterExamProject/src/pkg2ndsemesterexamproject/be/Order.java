@@ -9,23 +9,17 @@ package pkg2ndsemesterexamproject.be;
  *
  * @author andreas
  */
-public class Order
+public class Order implements IOrder
 {
-    private int number;
+    private String number;
 
-    public Order(int number)
-    {
+    public Order(String number) {
         this.number = number;
     }
 
-    public int getNumber()
-    {
+    @Override
+    public String getOrderNumber() {
         return number;
-    }
-
-    public void setNumber(int number)
-    {
-        this.number = number;
     }
     
 }

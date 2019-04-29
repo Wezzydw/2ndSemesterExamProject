@@ -9,45 +9,36 @@ package pkg2ndsemesterexamproject.be;
  *
  * @author Wezzy Laptop
  */
-public class Worker {
+public class Worker implements IWorker {
 
     private String name;
     private String initials;
-    private String salaryNumber;
+    private int salaryNumber;
 
     @Override
     public String toString() {
         return "Worker{" + "initials=" + initials + " name=" + name + ", salaryNumber=" + salaryNumber + '}';
     }
 
-    public Worker(String name, String initials, String salaryNumber) {
+    public Worker(String name, String initials, int salaryNumber) {
         this.name = name;
         this.initials = initials;
         this.salaryNumber = salaryNumber;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    @Override
     public String getInitials() {
         return initials;
     }
 
-    public void setInitials(String initials) {
-        this.initials = initials;
-    }
-
-    public String getSalaryNumber() {
+    @Override
+    public int getSalaryNumber() {
         return salaryNumber;
-    }
-
-    public void setSalaryNumber(String salaryNumber) {
-        this.salaryNumber = salaryNumber;
     }
 
 }

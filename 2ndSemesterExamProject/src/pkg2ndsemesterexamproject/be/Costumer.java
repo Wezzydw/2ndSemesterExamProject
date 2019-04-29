@@ -9,7 +9,7 @@ package pkg2ndsemesterexamproject.be;
  *
  * @author Wezzy Laptop
  */
-public class Costumer {
+public class Costumer implements ICostumer{
 
     private String name;
 
@@ -17,6 +17,7 @@ public class Costumer {
         this.name = name;
     }
 
+    @Override
     public String getName() {
         return name;
     }

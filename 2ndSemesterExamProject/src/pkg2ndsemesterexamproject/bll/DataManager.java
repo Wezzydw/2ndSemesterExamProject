@@ -81,7 +81,8 @@ public class DataManager implements IBLL {
 //            int saleryNumberStartIndex = string.indexOf("Name", nameEndIndex);
 //            int saleryEndIndex = string.indexOf(",", saleryNumberStartIndex);
 //            String saleryNumber = string.substring(saleryNumberStartIndex + saleryNumberIndexLength, saleryEndIndex-1);
-                workers.add(new Worker(name, initials, saleryNumber));
+                int s = Integer.parseInt(saleryNumber);
+                workers.add(new Worker(name, initials, s));
             }
         }
         for (Worker worker : workers) {
@@ -103,8 +104,7 @@ public class DataManager implements IBLL {
     }
 
     @Override
-    public void sendOrderIsDone()
-    {
+    public void sendOrderIsDone() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

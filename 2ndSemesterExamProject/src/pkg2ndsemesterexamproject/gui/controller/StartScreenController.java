@@ -104,7 +104,7 @@ public class StartScreenController implements Initializable
             System.out.println("Error" + ex);
         }
         DepartmentScreenViewController display = loader.getController();
-
+        
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));

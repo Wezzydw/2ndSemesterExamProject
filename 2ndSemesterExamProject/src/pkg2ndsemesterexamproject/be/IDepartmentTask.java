@@ -5,12 +5,27 @@
  */
 package pkg2ndsemesterexamproject.be;
 
+import java.time.LocalDate;
+import java.util.List;
+
 /**
  *
  * @author Wezzy Laptop
  */
 public interface IDepartmentTask {
-    
-    
-    
+
+    List<IWorker> getActiveWorkers();
+
+    Department getDepartment();
+
+    Boolean getFinishedOrder();
+
+    LocalDate getStartDate();
+
+    LocalDate getEndDate();
+
+    void addWorker(IWorker worker);
+
+    void removeWorker(IWorker worker);
+
 }

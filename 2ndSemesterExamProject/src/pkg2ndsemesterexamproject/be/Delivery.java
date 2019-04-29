@@ -5,10 +5,23 @@
  */
 package pkg2ndsemesterexamproject.be;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author Wezzy Laptop
  */
-public class Delivery {
-    
+public class Delivery implements IDelivery {
+
+    private LocalDate localDate;
+
+    public Delivery(LocalDate localDate) {
+        this.localDate = localDate;
+    }
+
+    @Override
+    public LocalDate getDeliveryTime() {
+        return localDate;
+    }
+
 }
