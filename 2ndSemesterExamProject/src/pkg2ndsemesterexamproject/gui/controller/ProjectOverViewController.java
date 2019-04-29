@@ -41,7 +41,6 @@ public class ProjectOverViewController implements Initializable
     {
         // TODO
         model = new Model();
-           lblOrder.setFont(new Font(22));
     }    
 
     @FXML
