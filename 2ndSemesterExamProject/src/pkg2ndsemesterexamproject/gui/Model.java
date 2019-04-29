@@ -5,12 +5,18 @@
  */
 package pkg2ndsemesterexamproject.gui;
 
+import java.awt.Font;
+import java.io.IOException;
 import pkg2ndsemesterexamproject.be.Department;
 import java.util.List;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -18,6 +24,7 @@ import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.Order;
 import pkg2ndsemesterexamproject.bll.IBLL;
 import pkg2ndsemesterexamproject.bll.PassThrough;
+import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
 
 /**
  *
@@ -76,14 +83,32 @@ public class Model
         expectedProgress.setLayoutX(5);
         expectedProgress.setLayoutY(130);
         
+        EventHandler<MouseEvent> event1 = (MouseEvent e) ->
+        {
+            goToOverview();
+        };
+        orderPane.setOnMousePressed(event1);
+        
         orderPane.getChildren().addAll(circle, orderNum, startDate, endDate, progress, expectedProgress);
         
-//        orderPane.getChildren().add(orderNum);
-//        orderPane.getChildren().add(startDate);
-//        orderPane.getChildren().add(endDate);
-//        orderPane.getChildren().add(progress);
-//        orderPane.getChildren().add(expectedProgress);
         return orderPane;
+    }
+    private void goToOverview(){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/ProjectOverView.fxml"));
+        try
+        {
+            loader.load();
+        } catch (IOException ex)
+        {
+            System.out.println("Error" + ex);
+        }
+        ProjectOverViewController display = loader.getController();
+
+        Parent p = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(p));
+        stage.showAndWait();
     }
     
     public void placeOrderInUI(){
