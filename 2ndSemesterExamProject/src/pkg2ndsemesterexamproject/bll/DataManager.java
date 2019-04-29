@@ -102,4 +102,10 @@ public class DataManager implements IBLL {
         return data;
     }
 
+    @Override
+    public void sendOrderIsDone()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

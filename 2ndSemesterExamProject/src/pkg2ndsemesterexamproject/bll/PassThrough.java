@@ -5,11 +5,32 @@
  */
 package pkg2ndsemesterexamproject.bll;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
  *
  * @author andreas
  */
-public class PassThrough
+public class PassThrough implements IBLL
 {
+
+    @Override
+    public String loadData() throws FileNotFoundException, IOException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void extractWorkersFromJSON() throws FileNotFoundException, IOException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void sendOrderIsDone()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

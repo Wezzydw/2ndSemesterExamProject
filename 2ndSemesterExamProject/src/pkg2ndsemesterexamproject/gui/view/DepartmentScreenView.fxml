@@ -14,17 +14,17 @@
    <top>
       <AnchorPane prefHeight="33.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox layoutX="8.0" layoutY="2.0" prefWidth="150.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
-            <Label layoutX="155.0" layoutY="8.0" text="montage2" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="8.0" />
-            <Label layoutX="558.0" layoutY="11.0" text="26-04-2019" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-            <JFXTextField layoutX="260.0" layoutY="4.0" prefHeight="25.0" prefWidth="257.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="5.0" />
+            <ComboBox fx:id="comboBox" layoutX="8.0" layoutY="2.0" prefWidth="150.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+            <Label fx:id="lblComboText" layoutX="155.0" layoutY="8.0" text="montage2" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="8.0" />
+            <Label fx:id="lblDate" layoutX="558.0" layoutY="11.0" text="26-04-2019" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+            <JFXTextField fx:id="txtSearchfield" layoutX="260.0" layoutY="4.0" onKeyReleased="#searchBar" prefHeight="25.0" prefWidth="257.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="5.0" />
          </children>
       </AnchorPane>
    </top>
    <center>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <content>
-          <AnchorPane prefHeight="365.0" prefWidth="598.0">
+          <AnchorPane fx:id="departmentAnchorPane" prefHeight="365.0" prefWidth="598.0">
                <children>
                   <Pane layoutX="7.0" prefHeight="178.0" prefWidth="208.0" style="-fx-background-color: grey;" AnchorPane.topAnchor="5.0">
                      <children>
@@ -32,7 +32,7 @@
                         <Label layoutX="46.0" layoutY="14.0" text="Order: 1234-1234" />
                         <Label layoutX="22.0" layoutY="103.0" text="Start date" />
                         <Label layoutX="136.0" layoutY="103.0" text="End date" />
-                        <ProgressBar layoutX="4.0" layoutY="140.0" prefWidth="200.0" progress="0.0" />
+                        <ProgressBar layoutX="4.0" layoutY="139.0" prefWidth="200.0" progress="0.0" />
                      </children>
                   </Pane>
                   <Pane layoutX="224.0" layoutY="5.0" prefHeight="178.0" prefWidth="208.0" style="-fx-background-color: grey;" AnchorPane.topAnchor="5.0">

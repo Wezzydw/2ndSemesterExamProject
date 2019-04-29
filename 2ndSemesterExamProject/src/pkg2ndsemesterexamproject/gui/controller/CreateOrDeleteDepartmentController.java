@@ -40,15 +40,16 @@ public class CreateOrDeleteDepartmentController implements Initializable
     @FXML
     private void createDepartment(ActionEvent event)
     {
+
         if (!createNewDepartment.getText().isEmpty())
 
         {
             Department dep1 = new Department(createNewDepartment.getText());
             createNewDepartment.clear();
             comboCreateBox.getItems().add(dep1);
-        }
-    }
 
+    }
+    }
     @FXML
     private void deleteDepartment(ActionEvent event)
     {

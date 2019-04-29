@@ -19,6 +19,7 @@ public interface IGetData
     
     List<Order> getAllOrders();
     
+    void sendOrderIsDone();
     
             
 }
