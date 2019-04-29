@@ -39,7 +39,7 @@ public class CreateOrDeleteDepartmentController implements Initializable
     @FXML
     private void createDepartment(ActionEvent event)
     {
-        Department dep1 = new Department();
+        Department dep1 = new Department("ja");
     }
 
     @FXML
