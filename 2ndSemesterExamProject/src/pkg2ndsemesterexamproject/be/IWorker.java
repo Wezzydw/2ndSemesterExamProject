@@ -5,18 +5,16 @@
  */
 package pkg2ndsemesterexamproject.be;
 
-import java.util.List;
-
 /**
  *
  * @author Wezzy Laptop
  */
-public interface IProductionOrder {
+public interface IWorker {
 
-    List<IDepartmentTask> getDepartmentTasks();
+    String getName();
 
-    void addDepartmentTask(IDepartmentTask task);
+    String getInitials();
 
-    void removeDepartmentTask(IDepartmentTask task);
+    int getSalaryNumber();
     
 }

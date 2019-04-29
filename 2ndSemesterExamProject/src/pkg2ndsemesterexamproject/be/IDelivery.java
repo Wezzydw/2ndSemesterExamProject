@@ -5,18 +5,14 @@
  */
 package pkg2ndsemesterexamproject.be;
 
-import java.util.List;
+import java.time.LocalDate;
 
 /**
  *
  * @author Wezzy Laptop
  */
-public interface IProductionOrder {
+public interface IDelivery {
 
-    List<IDepartmentTask> getDepartmentTasks();
+    LocalDate getDeliveryTime();
 
-    void addDepartmentTask(IDepartmentTask task);
-
-    void removeDepartmentTask(IDepartmentTask task);
-    
 }

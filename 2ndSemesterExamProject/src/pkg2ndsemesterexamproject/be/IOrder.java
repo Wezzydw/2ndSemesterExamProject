@@ -5,18 +5,10 @@
  */
 package pkg2ndsemesterexamproject.be;
 
-import java.util.List;
-
 /**
  *
  * @author Wezzy Laptop
  */
-public interface IProductionOrder {
-
-    List<IDepartmentTask> getDepartmentTasks();
-
-    void addDepartmentTask(IDepartmentTask task);
-
-    void removeDepartmentTask(IDepartmentTask task);
-    
+public interface IOrder {
+    String getOrderNumber();
 }
