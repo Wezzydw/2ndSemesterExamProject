@@ -8,31 +8,24 @@ package pkg2ndsemesterexamproject.gui.controller;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Button;
+import pkg2ndsemesterexamproject.be.Department;
 
 /**
  * FXML Controller class
  *
- * @author andreas
+ * @author marce
  */
-public class DepartmentScreenViewController implements Initializable
+public class CreateOrDeleteDepartmentController implements Initializable
 {
 
     @FXML
-    private ComboBox<?> comboBox;
-    @FXML
-    private Label lblComboText;
-    @FXML
-    private Label lblDate;
-    @FXML
-    private JFXTextField txtSearchfield;
-    @FXML
-    private AnchorPane departmentAnchorPane;
+    private JFXTextField createNewDepartment;
+
+
 
     /**
      * Initializes the controller class.
@@ -44,7 +37,19 @@ public class DepartmentScreenViewController implements Initializable
     }    
 
     @FXML
-    private void searchBar(KeyEvent event) {
+    private void createDepartment(ActionEvent event)
+    {
+        Department dep1 = new Department();
     }
+
+    @FXML
+    private void deleteDepartment(ActionEvent event)
+    {
+        
+    }
+    
+    
+    
+    
     
 }
