@@ -21,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -68,6 +69,8 @@ public class StartScreenController implements Initializable
             departmentBtns.add(item);
         }
         MenuButton.getItems().addAll(departmentBtns);
+        
+        
     }    
     
     private void goToManagerScreen(){
@@ -115,7 +118,14 @@ public class StartScreenController implements Initializable
             goToManagerScreen();
         }
         else{
-            goToDepartmentScreen();
+            Pane orderPane = model.createOrderInGUI();
+        Scene scene = new Scene(orderPane, 200, 150);
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle("Hello World!");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+            
+//            goToDepartmentScreen();
         }
     }
                 
