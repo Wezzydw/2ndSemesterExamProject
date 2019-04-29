@@ -10,8 +10,9 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minWidth="-Infinity" prefHeight="376.0" prefWidth="777.0" stylesheets="@css/PostItCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController">
+<AnchorPane id="AnchorPane" minWidth="-Infinity" prefHeight="376.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController">
    <children>
       <HBox layoutX="9.0" layoutY="12.0" prefHeight="33.0" prefWidth="602.0">
          <children>
@@ -24,9 +25,15 @@
             <ToggleButton mnemonicParsing="false" prefHeight="32.0" prefWidth="86.0" text="Department" />
          </children>
       </HBox>
-      <Label fx:id="lblOrder" layoutX="20.0" layoutY="44.0" text="Order: 1590-2100" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="44.0" />
-      <Label fx:id="lblCustomer" layoutX="20.0" layoutY="68.0" text="Customer: Karl Kalasnikov" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="68.0" />
-      <Label fx:id="lblDeliveryDate" layoutX="401.0" layoutY="290.0" text="Delivery Date 24/9-19" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="401.0" />
+      <Label fx:id="lblOrder" layoutX="221.0" layoutY="60.0" text="Order: 1590-2100" AnchorPane.leftAnchor="221.0" AnchorPane.topAnchor="60.0">
+         <font>
+            <Font size="34.0" />
+         </font></Label>
+      <Label fx:id="lblCustomer" layoutX="29.0" layoutY="136.0" text="Customer: Karl Kalasnikov" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="115.0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label fx:id="lblDeliveryDate" layoutX="423.0" layoutY="339.0" text="Delivery Date 24/9-19" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="423.0" />
       <ProgressBar layoutX="14.0" layoutY="285.0" prefHeight="20.0" prefWidth="396.0" progress="0.0" AnchorPane.bottomAnchor="15.0" />
       <Button layoutX="535.0" layoutY="272.0" mnemonicParsing="false" text="Flag as done" AnchorPane.rightAnchor="20.0" />
       <SplitPane dividerPositions="0.15" layoutX="441.0" layoutY="57.0" orientation="VERTICAL" prefHeight="206.0" prefWidth="171.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="20.0">
@@ -47,7 +54,7 @@
             </AnchorPane>
         </items>
       </SplitPane>
-      <Label fx:id="lblClock" layoutX="624.0" layoutY="20.0" prefHeight="16.0" prefWidth="71.0" text="Clock" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+      <Label fx:id="lblClock" layoutX="701.0" layoutY="18.0" prefHeight="16.0" prefWidth="71.0" text="Clock" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="18.0" />
       <Button layoutX="701.0" layoutY="323.0" mnemonicParsing="false" onAction="#orderIsDone" text="Done" />
    </children>
 </AnchorPane>
