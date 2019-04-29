@@ -17,5 +17,7 @@ public interface IBLL
     public String loadData () throws FileNotFoundException, IOException;
     
     public void extractWorkersFromJSON()throws FileNotFoundException, IOException;
+
+    public void sendOrderIsDone();
             
 }
