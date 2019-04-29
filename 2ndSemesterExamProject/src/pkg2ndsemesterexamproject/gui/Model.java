@@ -5,7 +5,6 @@
  */
 package pkg2ndsemesterexamproject.gui;
 
-import java.awt.Font;
 import java.io.IOException;
 import pkg2ndsemesterexamproject.be.Department;
 import java.util.List;
