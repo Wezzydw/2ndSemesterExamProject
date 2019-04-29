@@ -20,13 +20,13 @@ and open the template in the editor.
 
 .root 
 {
-    -fx-border-color: #191e2c;
-    -fx-border-width: 3px;
+    -fx-border-color: #4a4948;
+    -fx-border-width: 5px;
     -fx-border-radius: 3px;
     -fx-border-insets: 0px;
     -fx-padding: 10px;
     -fx-spacing: 3px;
-    -fx-background-color: #c6d6f2;
+    -fx-background-color: #e3e3e3;
     -fx-background-insets: 5px;
 }
  
@@ -55,13 +55,19 @@ and open the template in the editor.
     -fx-font-size: 10px;
     -fx-border-insets: 0;
     -fx-border-width: 2;
-    -fx-border-color: #231e5e;
+    -fx-border-color: #4a4948;
     -fx-border-radius: 3;
 }
  
 .label
 {
     -fx-font-family: "calibri";
-    -fx-font-size: 16px;
+    -fx-font-size: 12px;
     -fx-font-weight: bolder;
+    -fx-border-color: #4a4948;
+    
+}
+.ProgressBar
+{
+    
 }
