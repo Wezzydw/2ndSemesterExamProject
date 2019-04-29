@@ -5,9 +5,15 @@
  */
 package pkg2ndsemesterexamproject.gui.controller;
 
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -17,6 +23,17 @@ import javafx.fxml.Initializable;
 public class DepartmentScreenViewController implements Initializable
 {
 
+    @FXML
+    private ComboBox<?> comboBox;
+    @FXML
+    private Label lblComboText;
+    @FXML
+    private Label lblDate;
+    @FXML
+    private JFXTextField txtSearchfield;
+    @FXML
+    private AnchorPane departmentAnchorPane;
+
     /**
      * Initializes the controller class.
      */
@@ -25,5 +42,9 @@ public class DepartmentScreenViewController implements Initializable
     {
         // TODO
     }    
+
+    @FXML
+    private void searchBar(KeyEvent event) {
+    }
     
 }
