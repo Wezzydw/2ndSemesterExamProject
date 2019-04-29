@@ -51,9 +51,10 @@ public class StartScreenController implements Initializable
         
         EventHandler<ActionEvent> event1 = (ActionEvent e) ->
         {
-            MenuItem temp = (MenuItem) e.getSource();
-            System.out.println(temp.getText());
-            selectDepartment(temp.getText());
+            Department temp = (Department) e.getSource();
+            
+            System.out.println(temp.getName());
+            selectDepartment(temp);
                 
             
         };
@@ -93,7 +94,7 @@ public class StartScreenController implements Initializable
         stage.showAndWait();
     }
     
-    private void goToDepartmentScreen(){
+    private void goToDepartmentScreen(Department department){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/DepartmentScreenView.fxml"));
         try
@@ -104,7 +105,7 @@ public class StartScreenController implements Initializable
             System.out.println("Error" + ex);
         }
         DepartmentScreenViewController display = loader.getController();
-        
+        display.setDepartment(department);
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
@@ -113,8 +114,8 @@ public class StartScreenController implements Initializable
         stage.showAndWait();
     }
     
-    private void selectDepartment(String department){
-        if (department.equals("manager")){
+    private void selectDepartment(Department department){
+        if (department.getName().equals("manager")){
             goToManagerScreen();
         }
         else{
