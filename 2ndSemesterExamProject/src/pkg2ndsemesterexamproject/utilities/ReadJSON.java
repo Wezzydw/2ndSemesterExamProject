@@ -5,7 +5,7 @@
  */
 package pkg2ndsemesterexamproject.utilities;
 
-import bll.DataManager;
+import pkg2ndsemesterexamproject.bll.DataManager;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;

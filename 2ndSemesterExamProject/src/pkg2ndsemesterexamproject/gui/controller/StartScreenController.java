@@ -45,7 +45,9 @@ public class StartScreenController implements Initializable
         
         EventHandler<ActionEvent> event1 = (ActionEvent e) ->
         {
-            System.out.println(e.getSource());
+            System.out.println("1" + e.getSource());
+            MenuItem temp = (MenuItem) e.getSource();
+            System.out.println(temp.getText());
             {
                 
             }
@@ -54,10 +56,10 @@ public class StartScreenController implements Initializable
         };
         List<MenuItem> departmentBtns = new ArrayList();
 //        for (Department allDepartment : allDepartments)
-        List<String> departmentNames = new ArrayList();
-        departmentNames.add("halv");
-        departmentNames.add("tom");        
-        for (String depar : departmentNames)
+        List<Department> departmentNames = new ArrayList();
+        departmentNames.add(new Department("halv"));
+        departmentNames.add(new Department("tom"));        
+        for (Department depar : departmentNames)
         {
             MenuItem item = new MenuItem("label");//label skal være allDepartment.getName() fra BE laget 
             item.setOnAction(event1);

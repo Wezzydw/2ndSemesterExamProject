@@ -5,7 +5,7 @@
  */
 package pkg2ndsemesterexamproject.bll;
 
-import be.Worker;
+import pkg2ndsemesterexamproject.be.Worker;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
