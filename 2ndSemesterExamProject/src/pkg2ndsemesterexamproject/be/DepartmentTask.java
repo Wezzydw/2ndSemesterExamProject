@@ -19,6 +19,7 @@ public class DepartmentTask implements IDepartmentTask {
     private Boolean finishedOrder;
     private LocalDate startDate;
     private LocalDate endDate;
+    
 
     public DepartmentTask(List<IWorker> activeWorkers, Department department, Boolean finishedOrder, LocalDate startDate, LocalDate endDate) {
         this.activeWorkers = activeWorkers;
@@ -62,5 +63,6 @@ public class DepartmentTask implements IDepartmentTask {
     public void removeWorker(IWorker worker) {
         activeWorkers.remove(worker);
     }
+
 
 }
