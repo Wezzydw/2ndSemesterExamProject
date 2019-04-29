@@ -13,8 +13,8 @@ public class Order implements IOrder
 {
     private String number;
 
-    public Order(String number) {
-        this.number = number;
+    public Order(int number) {
+        this.number = "" + number;
     }
 
     @Override
