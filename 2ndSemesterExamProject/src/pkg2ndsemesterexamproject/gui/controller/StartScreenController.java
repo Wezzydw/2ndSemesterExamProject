@@ -72,7 +72,7 @@ public class StartScreenController implements Initializable
     
     private void goToManagerScreen(){
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/Manager.fxml"));
+        loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/CreateOrDeleteDepartment.fxml"));
         try
         {
             loader.load();
@@ -80,7 +80,7 @@ public class StartScreenController implements Initializable
         {
             System.out.println("Error" + ex);
         }
-        ManagerController display = loader.getController();
+        CreateOrDeleteDepartmentController display = loader.getController();
 
         Parent p = loader.getRoot();
         Stage stage = new Stage();
