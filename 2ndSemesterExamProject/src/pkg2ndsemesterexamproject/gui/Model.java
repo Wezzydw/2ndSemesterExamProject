@@ -55,7 +55,7 @@ public class Model
     {
         ptl.sendOrderIsDone();
     }
-    //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
+    //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){ // muligvis bare en order eller noget
     public Pane createOrderInGUI(){
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200, 150);
@@ -94,7 +94,7 @@ public class Model
         
         return orderPane;
     }
-    private void goToOverview(){
+    private void goToOverview(){//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/ProjectOverView.fxml"));
         try
@@ -109,11 +109,8 @@ public class Model
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
-        System.out.println("show");
         stage.showAndWait();
-        System.out.println("close");
         display.closeWindow();
-        System.out.println("11111111");
         stage.close();
         
     }
