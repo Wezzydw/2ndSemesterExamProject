@@ -23,6 +23,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * FXML Controller class
@@ -51,12 +52,17 @@ public class StartScreenController implements Initializable
         
         EventHandler<ActionEvent> event1 = (ActionEvent e) ->
         {
-            Department temp = (Department) e.getSource();
-            
-            System.out.println(temp.getName());
-            selectDepartment(temp);
-                
-            
+            Department temp;
+            MenuItem tja = (MenuItem) e.getSource();
+            String name = tja.getText();
+            for (Department allDepartment : allDepartments)
+            {
+                if(allDepartment.getName().equals(name)){
+                    temp = allDepartment;
+                    selectDepartment(temp);
+                }
+            }
+            System.out.println(tja.getText());
         };
         List<MenuItem> departmentBtns = new ArrayList();
         allDepartments = new ArrayList();
@@ -118,16 +124,21 @@ public class StartScreenController implements Initializable
         if (department.getName().equals("manager")){
             goToManagerScreen();
         }
-        else{
-            Pane orderPane = model.createOrderInGUI();
-        Scene scene = new Scene(orderPane, 200, 150);
-        Stage primaryStage = new Stage();
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-            
-//            goToDepartmentScreen();
-        }
+
+          else{
+//            Pane orderPane = model.createOrderInGUI();
+//        Scene scene = new Scene(orderPane, 200, 150);
+//        Stage primaryStage = new Stage();
+//        primaryStage.setTitle("Hello World!");
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
+//            
+          goToDepartmentScreen(department);
+          }
+
+
+        
+
     }
                 
 }
