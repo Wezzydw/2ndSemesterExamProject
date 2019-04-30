@@ -51,10 +51,20 @@ public class StartScreenController implements Initializable
         
         EventHandler<ActionEvent> event1 = (ActionEvent e) ->
         {
-            Department temp = (Department) e.getSource();
+            Department temp;
+            MenuItem tja = (MenuItem) e.getSource();
+            String name = tja.getText();
+            for (Department allDepartment : allDepartments)
+            {
+                if(allDepartment.getName().equals(name)){
+                    temp = allDepartment;
+                    selectDepartment(temp);
+                }
+            }
             
-            System.out.println(temp.getName());
-            selectDepartment(temp);
+            
+            System.out.println(tja.getText());
+            
                 
             
         };
