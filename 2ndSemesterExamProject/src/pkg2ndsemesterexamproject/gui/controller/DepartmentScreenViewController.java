@@ -9,6 +9,8 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -45,7 +47,14 @@ public class DepartmentScreenViewController implements Initializable
     {
         LocalDate date = LocalDate.now();
         lblDate.setText(date.toString());
+        departmentAnchorPane.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                System.out.println("Olde: " + oldValue + " New: " + newValue);
+            }
+        });{
         
+    }
     }    
 
     @FXML

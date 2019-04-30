@@ -12,8 +12,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import pkg2ndsemesterexamproject.be.Costumer;
+import pkg2ndsemesterexamproject.be.Delivery;
+import pkg2ndsemesterexamproject.be.ICostumer;
+import pkg2ndsemesterexamproject.be.IDelivery;
 import pkg2ndsemesterexamproject.be.Worker;
 
 /**
@@ -88,6 +93,46 @@ public class DataManager implements IBLL {
         for (Worker worker : workers) {
             System.out.println(worker);
         }
+    }
+
+    public void extractProductionOrdersFromJSON() throws IOException {
+        String[] array = loadData().split("ProductionOrder:");
+        List<ICostumer> costumers = new ArrayList();
+        List<IDelivery> deliveries = new ArrayList();
+        outerLoop:
+        for (int i = 1; i < array.length; i++) {
+            int start;
+            int end;
+            start = array[i].indexOf("Name") + 7;
+            end = array[i].indexOf('"', start);
+            String name = array[i].substring(start, end);
+            costumers.add(new Costumer(name));
+
+            start = array[i].indexOf("DeliveryTime") + 22;
+            end = array[i].indexOf("+", start);
+            LocalDate deliveryDate = LocalDate.parse(array[i].substring(start, end));
+            IDelivery delivery = new Delivery(deliveryDate);
+            deliveries.add(delivery);
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+
+        for (ICostumer costumer : costumers) {
+            System.out.println(costumer.getName());
+        }
+        
+        for (IDelivery delivery : deliveries) {
+            delivery.getDeliveryTime().toString();
+        }
+
     }
 
     @Override
