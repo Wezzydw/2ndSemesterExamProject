@@ -46,7 +46,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="80.0" prefWidth="158.0">
                <children>
-                  <ListView layoutX="2.0" prefHeight="124.0" prefWidth="183.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
+                  <ListView fx:id="lstView" layoutX="2.0" prefHeight="124.0" prefWidth="183.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
                   <ScrollBar layoutX="155.0" layoutY="-2.0" orientation="VERTICAL" prefHeight="169.0" prefWidth="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-5.0" AnchorPane.topAnchor="0.0" />
                </children>
                <padding>
@@ -55,7 +55,7 @@
             </AnchorPane>
         </items>
       </SplitPane>
-      <Label fx:id="lblClock" layoutX="701.0" layoutY="18.0" prefHeight="16.0" prefWidth="71.0" text="Clock" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="18.0" />
+      <Label fx:id="lblClock" layoutX="701.0" layoutY="18.0" prefHeight="17.0" prefWidth="186.0" text="Clock" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="18.0" />
 
 
       <Button layoutX="701.0" layoutY="323.0" mnemonicParsing="false" onAction="#orderIsDone" text="Done" />

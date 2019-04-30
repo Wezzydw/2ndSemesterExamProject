@@ -25,6 +25,8 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import pkg2ndsemesterexamproject.be.Order;
 import pkg2ndsemesterexamproject.bll.IBLL;
 import pkg2ndsemesterexamproject.bll.PassThrough;
@@ -119,11 +121,17 @@ public class Model {
             System.out.println("Error" + ex);
         }
         ProjectOverViewController display = loader.getController();
-
+        display.startClock();
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
+        System.out.println("show");
         stage.showAndWait();
+        System.out.println("close");
+        display.closeWindow();
+        System.out.println("11111111");
+        stage.close();
+        
     }
 
     public void placeOrderInUI() {
