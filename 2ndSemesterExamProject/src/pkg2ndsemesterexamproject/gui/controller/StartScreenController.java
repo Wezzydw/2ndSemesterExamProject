@@ -23,6 +23,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * FXML Controller class
@@ -61,12 +62,7 @@ public class StartScreenController implements Initializable
                     selectDepartment(temp);
                 }
             }
-            
-            
             System.out.println(tja.getText());
-            
-                
-            
         };
         List<MenuItem> departmentBtns = new ArrayList();
         allDepartments = new ArrayList();
@@ -128,6 +124,7 @@ public class StartScreenController implements Initializable
         if (department.getName().equals("manager")){
             goToManagerScreen();
         }
+
           else{
 //            Pane orderPane = model.createOrderInGUI();
 //        Scene scene = new Scene(orderPane, 200, 150);
@@ -138,6 +135,10 @@ public class StartScreenController implements Initializable
 //            
           goToDepartmentScreen(department);
           }
+
+
+        
+
     }
                 
 }
