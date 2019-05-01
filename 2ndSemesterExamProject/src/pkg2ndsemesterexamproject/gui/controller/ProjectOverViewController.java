@@ -21,10 +21,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import pkg2ndsemesterexamproject.be.Order;
+import pkg2ndsemesterexamproject.be.Worker;
 import pkg2ndsemesterexamproject.gui.Model;
 
 /**
@@ -46,7 +48,9 @@ public class ProjectOverViewController implements Initializable
     
     private ExecutorService executor;
     @FXML
-    private ListView<?> lstView;
+    private ListView<Worker> lstView;
+    @FXML
+    private HBox hboxDepartments;
     /**
      * Initializes the controller class.
      */
