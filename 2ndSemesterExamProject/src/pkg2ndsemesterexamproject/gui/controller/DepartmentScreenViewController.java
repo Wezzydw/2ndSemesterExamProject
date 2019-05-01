@@ -66,7 +66,7 @@ public class DepartmentScreenViewController implements Initializable
         });{
         model = new Model();
         model.placeOrderInUI(departmentAnchorPane);
-        tmpLoop();
+        //tmpLoop();
         
     }
     }    
@@ -78,37 +78,37 @@ public class DepartmentScreenViewController implements Initializable
     public void setDepartment(Department department){
         lblText.setText(department.getName());
     }
-    public void tmpLoop(){
-       Thread thread1 = new Thread(new Runnable() {
-    @Override
-    public void run(){
-        while (true)
-        {            
-            System.out.println(borderPane.getWidth());
-//            System.out.println(departmentAnchorPane.getHeight()); 
-//            System.out.println(departmentAnchorPane.getWidth());
-//            System.out.println(departmentAnchorPane.getHeight()); 
-//            System.out.println(departmentAnchorPane.getPrefWidth());
-//            System.out.println(departmentAnchorPane.getPrefHeight()); 
-//            System.out.println(departmentAnchorPane.getMaxWidth());
-//            System.out.println(departmentAnchorPane.getMaxHeight()); 
-//            System.out.println(departmentAnchorPane.getMinHeight());
-//            System.out.println(departmentAnchorPane.getMinWidth());
-            
-            
-            try
-            {
-                Thread.sleep(2000);
-            } catch (InterruptedException ex)
-            {
-                Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//    public void tmpLoop(){
+//       Thread thread1 = new Thread(new Runnable() {
+//    @Override
+//    public void run(){
+//        while (true)
+//        {            
+//            System.out.println(borderPane.getWidth());
+////            System.out.println(departmentAnchorPane.getHeight()); 
+////            System.out.println(departmentAnchorPane.getWidth());
+////            System.out.println(departmentAnchorPane.getHeight()); 
+////            System.out.println(departmentAnchorPane.getPrefWidth());
+////            System.out.println(departmentAnchorPane.getPrefHeight()); 
+////            System.out.println(departmentAnchorPane.getMaxWidth());
+////            System.out.println(departmentAnchorPane.getMaxHeight()); 
+////            System.out.println(departmentAnchorPane.getMinHeight());
+////            System.out.println(departmentAnchorPane.getMinWidth());
+//            
+//            
+//            try
+//            {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException ex)
+//            {
+//                Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        
+//    }
+//});
+// 
+//thread1.start();
         
-    }
-});
- 
-thread1.start();
-        
-    }
+    //}
 }
