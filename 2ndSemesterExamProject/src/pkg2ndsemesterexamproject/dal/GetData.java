@@ -5,6 +5,8 @@
  */
 package pkg2ndsemesterexamproject.dal;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.be.Order;
 import java.util.List;
@@ -16,7 +18,17 @@ import pkg2ndsemesterexamproject.be.Worker;
  */
 public class GetData implements IGetData
 {
+    
+    OrderDAO odao;
 
+    public GetData() throws IOException
+    {
+        odao = new OrderDAO();
+    }
+    
+    
+            
+            
     @Override
     public List<Department> getAllDepartments()
     {
@@ -30,9 +42,9 @@ public class GetData implements IGetData
     }
 
     @Override
-    public void sendOrderIsDone()
+    public void sendOrderIsDone(Order order, Department department) throws SQLException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        odao.orderIsDone(order, department);
     }
 
     @Override
@@ -40,5 +52,7 @@ public class GetData implements IGetData
         
         return null;
     }
+
+   
     
 }
