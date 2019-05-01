@@ -92,7 +92,9 @@ public class Model
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         gc.setFill(Color.GREEN);
-        gc.fillRect(0, 0, 175, 50);
+        gc.fillRect(0, 0, 160, 15);
+        gc.setStroke(Color.BLACK);
+        gc.strokeRect(0, 0, 175, 15);
 
         orderPane.getChildren().add(canvas);
 
