@@ -120,6 +120,8 @@ public class DataManager implements IBLL {
             LocalDateTime ass = b.plus(a, ChronoUnit.MILLIS);
             IDelivery delivery = new Delivery(ass);
             deliveries.add(delivery);
+            
+            
 
         }
 
