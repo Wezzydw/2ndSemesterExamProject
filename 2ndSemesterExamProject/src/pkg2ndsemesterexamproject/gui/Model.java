@@ -43,6 +43,7 @@ public class Model
     private IBLL ptl;
     private final double orderPaneWidth = 200;
     private final double orderPaneHeigth = 150;
+    private final int tmpListSize = 100;
 
     public Model() throws IOException {
         ptl = new PassThrough();
@@ -160,7 +161,6 @@ public class Model
 
     public void placeOrderInUI(AnchorPane departmentView)
     {
-        int i = 50;
         double viewHeight = departmentView.getPrefHeight();
         double viewWidth = departmentView.getPrefWidth();
 
@@ -170,7 +170,7 @@ public class Model
         int counter = 0;
 
         outerloop:
-        for (int k = 0; k < i; k++)
+        for (int k = 0; k < tmpListSize; k++)
         {
 
             for (int j = 0; j < xNumberOfPanes; j++)
@@ -179,7 +179,7 @@ public class Model
                 pane.setLayoutX(10 + j * (orderPaneWidth + 10));
                 pane.setLayoutY(10 + k * (orderPaneHeigth + 10));
                 departmentView.getChildren().add(pane);
-                if (counter == i-1)
+                if (counter == tmpListSize-1)
                 {
                     break outerloop;
                 }
@@ -192,16 +192,21 @@ public class Model
 
     }
 
-    public void extentAnchorPaneY(AnchorPane departmentAnchorPane, BorderPane borderP){
-        departmentAnchorPane.setTopAnchor(borderP, orderPaneWidth);
-        departmentAnchorPane.setLeftAnchor(borderP, orderPaneWidth);
-        departmentAnchorPane.setRightAnchor(borderP, orderPaneWidth);
-        departmentAnchorPane.setBottomAnchor(borderP, orderPaneWidth);
-        borderP.getChildren().addAll();  
+    public void extentAnchorPaneX(AnchorPane anchorP,BorderPane borderP){
+            anchorP.setPrefWidth(borderP.getWidth());
+    
     }
     
     
-    public void extentAnchorPaneX(){
+    public void extentAnchorPaneY(AnchorPane anchorP){
+       
+        
+        double viewWidth = anchorP.getPrefWidth();
+        double numberOfPanes = viewWidth / orderPaneWidth;
+        int yNumberOfPanes = (int) (numberOfPanes);
+        yNumberOfPanes += 1;
+       anchorP.setPrefHeight(yNumberOfPanes*orderPaneHeigth+50*yNumberOfPanes);
+        
         
         
     }

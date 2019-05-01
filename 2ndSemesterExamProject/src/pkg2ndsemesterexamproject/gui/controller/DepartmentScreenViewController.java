@@ -61,7 +61,11 @@ public class DepartmentScreenViewController implements Initializable
         borderPane.widthProperty().addListener(new ChangeListener<Number>(){
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue){
-                System.out.println(borderPane.getWidth());
+                model.extentAnchorPaneX(departmentAnchorPane, borderPane);
+                System.out.println(borderPane.getWidth()+ " " + departmentAnchorPane.getWidth());
+                departmentAnchorPane.getChildren().clear();
+                model.extentAnchorPaneY(departmentAnchorPane);
+                model.placeOrderInUI(departmentAnchorPane);
             }
                     
         });
