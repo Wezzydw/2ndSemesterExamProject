@@ -13,8 +13,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -55,6 +57,14 @@ public class DepartmentScreenViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        borderPane.widthProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue){
+                System.out.println(borderPane.getWidth());
+            }
+                    
+        });
+        
         LocalDate date = LocalDate.now();
         lblDate.setText(date.toString());
 
@@ -111,4 +121,6 @@ public class DepartmentScreenViewController implements Initializable
 //thread1.start();
         
     //}
+    
+    
 }

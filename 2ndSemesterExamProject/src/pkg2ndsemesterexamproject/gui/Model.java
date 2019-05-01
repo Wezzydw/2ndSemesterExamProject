@@ -12,6 +12,7 @@ import java.util.List;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -21,6 +22,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -195,9 +197,25 @@ public class Model
         }
 
     }
-
+    public void extentAnchorPaneY(AnchorPane departmentAnchorPane, BorderPane borderP){
+        departmentAnchorPane.setTopAnchor(borderP, orderPaneWidth);
+        departmentAnchorPane.setLeftAnchor(borderP, orderPaneWidth);
+        departmentAnchorPane.setRightAnchor(borderP, orderPaneWidth);
+        departmentAnchorPane.setBottomAnchor(borderP, orderPaneWidth);
+        borderP.getChildren().addAll();  
+    }
+    
+    
+    public void extentAnchorPaneX(){
+        
+        
+    }
+    
+    
+    
     public List<Worker> updateListViewWorkersAssigned() throws IOException {
         return ptl.getWorkersFromDB();
     }
 
+   
 }
