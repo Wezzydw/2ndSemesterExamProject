@@ -43,7 +43,7 @@ public class Model
     private final double orderPaneWidth = 200;
     private final double orderPaneHeigth = 150;
 
-    public Model() {
+    public Model() throws IOException {
         ptl = new PassThrough();
     }
 
@@ -159,7 +159,7 @@ public class Model
 
     public void placeOrderInUI(AnchorPane departmentView)
     {
-        int i = 11;
+        int i = 50;
         double viewHeight = departmentView.getPrefHeight();
         double viewWidth = departmentView.getPrefWidth();
 
@@ -194,7 +194,6 @@ public class Model
     public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException {
 
         return ptl.getWorkersFromDB();
-
     }
 
 }
