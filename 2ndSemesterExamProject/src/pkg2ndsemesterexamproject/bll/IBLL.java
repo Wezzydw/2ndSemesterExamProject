@@ -21,5 +21,7 @@ public interface IBLL
     public void extractWorkersFromJSON()throws FileNotFoundException, IOException;
 
     public void sendOrderIsDone();
-            
+
+    public List<Worker> getWorkersFromDB();
+       
 }
