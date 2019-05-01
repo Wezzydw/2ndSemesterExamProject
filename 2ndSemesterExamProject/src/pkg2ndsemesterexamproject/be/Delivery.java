@@ -6,7 +6,6 @@
 package pkg2ndsemesterexamproject.be;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  *
@@ -14,14 +13,14 @@ import java.time.LocalDateTime;
  */
 public class Delivery implements IDelivery {
 
-    private LocalDateTime localDate;
+    private LocalDate localDate;
 
-    public Delivery(LocalDateTime localDate) {
+    public Delivery(LocalDate localDate) {
         this.localDate = localDate;
     }
 
     @Override
-    public LocalDateTime getDeliveryTime() {
+    public LocalDate getDeliveryTime() {
         return localDate;
     }
 

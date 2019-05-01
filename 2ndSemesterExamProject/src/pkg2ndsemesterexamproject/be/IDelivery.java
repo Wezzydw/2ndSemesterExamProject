@@ -6,7 +6,6 @@
 package pkg2ndsemesterexamproject.be;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  *
@@ -14,6 +13,6 @@ import java.time.LocalDateTime;
  */
 public interface IDelivery {
 
-    LocalDateTime getDeliveryTime();
+    LocalDate getDeliveryTime();
 
 }

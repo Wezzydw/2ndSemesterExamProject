@@ -25,6 +25,5 @@
           <AnchorPane fx:id="departmentAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="780.0" />
         </content>
       </ScrollPane>
-      </ScrollPane>
    </center>
 </BorderPane>

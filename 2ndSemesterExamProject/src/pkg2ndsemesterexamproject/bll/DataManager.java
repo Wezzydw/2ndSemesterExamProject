@@ -14,8 +14,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import pkg2ndsemesterexamproject.be.Costumer;
@@ -102,7 +100,7 @@ public class DataManager implements IBLL {
         String[] array = loadData().split("ProductionOrder:");
         List<ICostumer> costumers = new ArrayList();
         List<IDelivery> deliveries = new ArrayList();
-
+        
         for (int i = 1; i < array.length; i++) {
             int start;
             int end;
@@ -113,20 +111,26 @@ public class DataManager implements IBLL {
 
             start = array[i].indexOf("DeliveryTime") + 22;
             end = array[i].indexOf("+", start);
-            long a = Long.parseLong(array[i].substring(start, end));
-            LocalDateTime b = LocalDateTime.of(1970, 1, 1, 0, 0);
             //LocalDate deliveryDate = LocalDate.parse(array[i].substring(start, end));
-
-            LocalDateTime ass = b.plus(a, ChronoUnit.MILLIS);
-            IDelivery delivery = new Delivery(ass);
-            deliveries.add(delivery);
-
+            //IDelivery delivery = new Delivery(deliveryDate);
+            
+            LocalDateTime a = LocalDateTime.parse(array[i].substring(start, end));
+            
+            System.out.println(a.toString());
+                    
+            
+            
+            
+            
+            
+            
+            
         }
 
         for (ICostumer costumer : costumers) {
             System.out.println(costumer.getName());
         }
-
+        
         for (IDelivery delivery : deliveries) {
             delivery.getDeliveryTime().toString();
         }
