@@ -63,13 +63,13 @@ public class DepartmentScreenViewController implements Initializable
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 System.out.println("Olde: " + oldValue + " New: " + newValue);
             }
-        });
+        });{
         model = new Model();
         model.placeOrderInUI(departmentAnchorPane);
         tmpLoop();
         
     }
-    
+    }    
 
     @FXML
     private void searchBar(KeyEvent event) {
