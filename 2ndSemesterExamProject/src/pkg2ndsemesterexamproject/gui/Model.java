@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -191,9 +192,27 @@ public class Model
 
     }
 
+    public void extentAnchorPaneY(AnchorPane departmentAnchorPane, BorderPane borderP){
+        departmentAnchorPane.setTopAnchor(borderP, orderPaneWidth);
+        departmentAnchorPane.setLeftAnchor(borderP, orderPaneWidth);
+        departmentAnchorPane.setRightAnchor(borderP, orderPaneWidth);
+        departmentAnchorPane.setBottomAnchor(borderP, orderPaneWidth);
+        borderP.getChildren().addAll();  
+    }
+    
+    
+    public void extentAnchorPaneX(){
+        
+        
+    }
+    
+    
+    
+
     public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException {
 
         return ptl.getWorkersFromDB();
     }
 
+   
 }
