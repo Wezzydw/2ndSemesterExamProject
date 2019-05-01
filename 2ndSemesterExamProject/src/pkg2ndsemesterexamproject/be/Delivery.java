@@ -14,15 +14,15 @@ import java.time.LocalDateTime;
  */
 public class Delivery implements IDelivery {
 
-    private LocalDateTime localDate;
+    private LocalDateTime localDateTime;
 
     public Delivery(LocalDateTime localDate) {
-        this.localDate = localDate;
+        this.localDateTime = localDate;
     }
 
     @Override
     public LocalDateTime getDeliveryTime() {
-        return localDate;
+        return localDateTime;
     }
 
 }

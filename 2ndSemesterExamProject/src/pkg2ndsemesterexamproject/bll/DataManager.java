@@ -113,7 +113,7 @@ public class DataManager implements IBLL {
 
             start = array[i].indexOf("DeliveryTime") + 22;
             end = array[i].indexOf("+", start);
-            long a = Long.parseLong(array[i].substring(start, end));
+            long a = Long.parseLong(array[i].substring(start, end) + 200);
             LocalDateTime b = LocalDateTime.of(1970, 1, 1, 0, 0);
             //LocalDate deliveryDate = LocalDate.parse(array[i].substring(start, end));
 
@@ -123,13 +123,13 @@ public class DataManager implements IBLL {
 
         }
 
-        for (ICostumer costumer : costumers) {
-            System.out.println(costumer.getName());
-        }
-
-        for (IDelivery delivery : deliveries) {
-            delivery.getDeliveryTime().toString();
-        }
+//        for (ICostumer costumer : costumers) {
+//            System.out.println(costumer.getName());
+//        }
+//        System.out.println("Size:" + deliveries.size());
+//        for (IDelivery delivery : deliveries) {
+//            System.out.println(delivery.getDeliveryTime().toString());
+//        }
 
     }
 
