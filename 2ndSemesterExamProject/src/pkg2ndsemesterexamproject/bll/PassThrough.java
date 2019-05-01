@@ -7,8 +7,9 @@ package pkg2ndsemesterexamproject.bll;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
-import pkg2ndsemesterexamproject.be.Worker;
+import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.dal.GetData;
 
 /**
@@ -17,7 +18,13 @@ import pkg2ndsemesterexamproject.dal.GetData;
  */
 public class PassThrough implements IBLL
 {
-    GetData getDataFromDB = new GetData();
+    GetData getDataFromDB;
+
+    public PassThrough() throws IOException {
+        getDataFromDB = new GetData();
+    }
+    
+    
 
     @Override
     public String loadData() throws FileNotFoundException, IOException
@@ -38,7 +45,7 @@ public class PassThrough implements IBLL
     }
 
     @Override
-    public List<Worker> getWorkersFromDB() {
+    public List<IWorker> getWorkersFromDB()throws SQLException {
         return getDataFromDB.getAllWorkers();
     }
     

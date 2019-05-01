@@ -7,6 +7,7 @@ package pkg2ndsemesterexamproject.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
@@ -58,8 +59,12 @@ public class ProjectOverViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
-        model = new Model();
+        try {
+            // TODO
+            model = new Model();
+        } catch (IOException ex) {
+            Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
     
     public void startClock(){
@@ -111,6 +116,8 @@ public class ProjectOverViewController implements Initializable
         try {
             model.updateListViewWorkersAssigned();
         } catch (IOException ex) {
+            Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

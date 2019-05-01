@@ -5,10 +5,11 @@
  */
 package pkg2ndsemesterexamproject.dal;
 
+import java.sql.SQLException;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.be.Order;
 import java.util.List;
-import pkg2ndsemesterexamproject.be.Worker;
+import pkg2ndsemesterexamproject.be.IWorker;
 
 /**
  *
@@ -20,9 +21,9 @@ public interface IGetData
     
     List<Order> getAllOrders();
     
-    void sendOrderIsDone();
+    void sendOrderIsDone(Order order, Department department) throws SQLException;
     
-    List<Worker> getAllWorkers();
+    List<IWorker> getAllWorkers()throws SQLException;
     
             
 }

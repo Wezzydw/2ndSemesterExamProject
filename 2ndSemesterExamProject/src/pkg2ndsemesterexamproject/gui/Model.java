@@ -6,33 +6,27 @@
 package pkg2ndsemesterexamproject.gui;
 
 import java.io.IOException;
-import static java.lang.System.exit;
+import java.sql.SQLException;
 import pkg2ndsemesterexamproject.be.Department;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
+import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.be.Order;
-import pkg2ndsemesterexamproject.be.Worker;
 import pkg2ndsemesterexamproject.bll.IBLL;
 import pkg2ndsemesterexamproject.bll.PassThrough;
 import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
@@ -50,7 +44,7 @@ public class Model
     private final double orderPaneWidth = 200;
     private final double orderPaneHeigth = 150;
 
-    public Model() {
+    public Model() throws IOException {
         ptl = new PassThrough();
     }
 
@@ -197,6 +191,7 @@ public class Model
         }
 
     }
+
     public void extentAnchorPaneY(AnchorPane departmentAnchorPane, BorderPane borderP){
         departmentAnchorPane.setTopAnchor(borderP, orderPaneWidth);
         departmentAnchorPane.setLeftAnchor(borderP, orderPaneWidth);
@@ -213,7 +208,9 @@ public class Model
     
     
     
-    public List<Worker> updateListViewWorkersAssigned() throws IOException {
+
+    public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException {
+
         return ptl.getWorkersFromDB();
     }
 
