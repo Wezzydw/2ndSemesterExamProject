@@ -73,6 +73,7 @@ public class Model
 
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200, 150);
+        orderPane.setStyle("-fx-background-color: Yellow");
         Circle circle = new Circle(13);
         circle.setFill(Paint.valueOf("Green"));
         Label orderNum = new Label("Ordernumber: " + 12321312);
@@ -178,8 +179,8 @@ public class Model
             for (int j = 0; j < xNumberOfPanes; j++)
             {
                 Pane pane = createOrderInGUI();
-                pane.setLayoutX(10 + j * orderPaneWidth);
-                pane.setLayoutY(20 + k * orderPaneHeigth);
+                pane.setLayoutX(10 + j * (orderPaneWidth + 10));
+                pane.setLayoutY(10 + k * (orderPaneHeigth + 10));
                 departmentView.getChildren().add(pane);
                 if (counter == i-1)
                 {
