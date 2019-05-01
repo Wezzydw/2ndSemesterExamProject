@@ -16,17 +16,15 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
+import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.be.Order;
 import pkg2ndsemesterexamproject.be.Worker;
 import pkg2ndsemesterexamproject.gui.Model;
@@ -38,6 +36,9 @@ import pkg2ndsemesterexamproject.gui.Model;
  */
 public class ProjectOverViewController implements Initializable
 {
+    private ObservableList<IWorker> allWorkers = FXCollections.observableArrayList();
+    
+    
     private Model model;
     @FXML
     private Label lblOrder;
@@ -50,7 +51,7 @@ public class ProjectOverViewController implements Initializable
     
     private ExecutorService executor;
     @FXML
-    private ListView<Worker> lstView;
+    private ListView<IWorker> lstView;
     @FXML
     private HBox hboxDepartments;
     /**
@@ -65,6 +66,7 @@ public class ProjectOverViewController implements Initializable
         } catch (IOException ex) {
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        updateListViewWorkersAssigned();
     }    
     
     public void startClock(){
@@ -113,13 +115,20 @@ public class ProjectOverViewController implements Initializable
     @FXML
     private void updateListViewWorkersAssigned(){
         
+        allWorkers.clear();
+        
         try {
-            model.updateListViewWorkersAssigned();
+            for (IWorker iWorker : model.updateListViewWorkersAssigned()) {
+                allWorkers.add(iWorker);
+            }
         } catch (IOException ex) {
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+            lstView.setItems(allWorkers);
+        
+        
     }
     
 }
