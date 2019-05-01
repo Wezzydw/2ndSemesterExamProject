@@ -164,7 +164,7 @@ public class Model
 
     public void placeOrderInUI(AnchorPane departmentView)
     {
-        int i = 11;
+        int i = 50;
         double viewHeight = departmentView.getPrefHeight();
         double viewWidth = departmentView.getPrefWidth();
 
@@ -198,6 +198,7 @@ public class Model
 
     public List<Worker> updateListViewWorkersAssigned() throws IOException {
         ptl.extractWorkersFromJSON();
+        return null;
     }
 
 }
