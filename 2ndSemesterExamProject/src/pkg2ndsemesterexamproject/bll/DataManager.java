@@ -19,8 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 import pkg2ndsemesterexamproject.be.Costumer;
 import pkg2ndsemesterexamproject.be.Delivery;
+import pkg2ndsemesterexamproject.be.Department;
+import pkg2ndsemesterexamproject.be.DepartmentTask;
 import pkg2ndsemesterexamproject.be.ICostumer;
 import pkg2ndsemesterexamproject.be.IDelivery;
+import pkg2ndsemesterexamproject.be.IDepartment;
+import pkg2ndsemesterexamproject.be.IDepartmentTask;
+import pkg2ndsemesterexamproject.be.IOrder;
+import pkg2ndsemesterexamproject.be.IProductionOrder;
+import pkg2ndsemesterexamproject.be.Order;
+import pkg2ndsemesterexamproject.be.ProductionOrder;
 import pkg2ndsemesterexamproject.be.Worker;
 
 /**
@@ -100,44 +108,96 @@ public class DataManager {
         String[] array = loadData().split("ProductionOrder:");
         List<ICostumer> costumers = new ArrayList();
         List<IDelivery> deliveries = new ArrayList();
-
+        List<IDepartmentTask> departmentTasks = new ArrayList();
+        List<IOrder> orders = new ArrayList();
+        List<IProductionOrder> productionOrders = new ArrayList();
+        
         for (int i = 1; i < array.length; i++) {
             int start;
             int end;
             start = array[i].indexOf("Name") + 7;
             end = array[i].indexOf('"', start);
             String name = array[i].substring(start, end);
-            costumers.add(new Costumer(name));
+            ICostumer costumer =new Costumer(name);
+            costumers.add(costumer);
 
             start = array[i].indexOf("DeliveryTime") + 22;
             end = array[i].indexOf("+", start);
-            long a = Long.parseLong(array[i].substring(start, end) + 200);
-            LocalDateTime b = LocalDateTime.of(1970, 1, 1, 0, 0);
-            //LocalDate deliveryDate = LocalDate.parse(array[i].substring(start, end));
+            long timeInMilis = Long.parseLong(array[i].substring(start, end));
+            LocalDateTime timeAt0 = LocalDateTime.of(1970, 1, 1, 0, 0);
 
-            LocalDateTime ass = b.plus(a, ChronoUnit.MILLIS);
-            IDelivery delivery = new Delivery(ass);
+            LocalDateTime deliveryDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
+            IDelivery delivery = new Delivery(deliveryDate);
             deliveries.add(delivery);
 
+            String[] departmentStringArray = array[i].split("DepartmentTask:");
+            for (int j = 1; j < departmentStringArray.length; j++) {
+                start = array[j].indexOf("Name") + 7;
+                end = array[j].indexOf('"', start);
+                String departmentName = array[j].substring(start, end);
+                System.out.println("DepartmentName : " + departmentName);
+                IDepartment department = new Department(departmentName);
+
+                start = array[j].indexOf("EndDate") + 17;
+                end = array[j].indexOf('+', start);
+                timeInMilis = Long.parseLong(array[j].substring(start, end));
+                timeAt0 = LocalDateTime.of(1970, 1, 1, 0, 0);
+                LocalDateTime endDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
+                System.out.println("endDate : " + endDate.toString());
+
+                start = array[j].indexOf("FinishedOrder") + 15;
+                end = array[j].indexOf('"', start);
+                String isTrue = array[j].substring(start, end);
+                boolean isOrderFinished = false;
+                if (isTrue.equals("true")) {
+                    isOrderFinished = true;
+                }
+
+                start = array[j].indexOf("StartDate") + 19;
+                end = array[j].indexOf('+', start);
+                timeInMilis = Long.parseLong(array[j].substring(start, end));
+                timeAt0 = LocalDateTime.of(1970, 1, 1, 0, 0);
+                LocalDateTime startDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
+                IDepartmentTask departmentTask = new DepartmentTask(department, isOrderFinished, startDate, endDate);
+                departmentTasks.add(departmentTask);
+            }
+
+            start = array[i].indexOf("OrderNumber") + 14;
+            end = array[i].indexOf('}', start) - 1;
+            String orderNumber = array[i].substring(start, end);
+            IOrder order = new Order(orderNumber);
+            orders.add(order);
+            
+            IProductionOrder productionOrder = new ProductionOrder(order, delivery, costumer, departmentTasks);
+            productionOrders.add(productionOrder);
+            departmentTasks = new ArrayList();
+            
+            
+        }
+//
 //        for (ICostumer costumer : costumers) {
 //            System.out.println(costumer.getName());
 //        }
-//        System.out.println("Size:" + deliveries.size());
-//        for (IDelivery delivery : deliveries) {
-//            System.out.println(delivery.getDeliveryTime().toString());
+//
+//        for (IDelivery deliveryt : deliveries) {
+//            System.out.println(deliveryt.getDeliveryTime().toString());
 //        }
-            //LocalDate deliveryDate = LocalDate.parse(array[i].substring(start, end));
-            //IDelivery delivery = new Delivery(deliveryDate);
-        }
+//        
+//        for (IDepartmentTask departmentTask : departmentTasks) {
+//            System.out.println(departmentTask.toString());
+//        }
+//        
+//        for (IOrder order : orders) {
+//            System.out.println(order.getOrderNumber());
+//        }
 
-        for (ICostumer costumer : costumers) {
-            System.out.println(costumer.getName());
+        for (IProductionOrder productionOrder : productionOrders) {
+//            System.out.println(productionOrder);
+            for (IDepartmentTask object : productionOrder.getDepartmentTasks()) {
+                System.out.println(object.getEndDate());
+            }
+            
         }
-
-        for (IDelivery delivery : deliveries) {
-            delivery.getDeliveryTime().toString();
-        }
-
     }
 
     public String loadData() throws FileNotFoundException, IOException {

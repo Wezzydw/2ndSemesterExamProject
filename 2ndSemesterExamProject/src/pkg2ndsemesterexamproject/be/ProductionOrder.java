@@ -4,7 +4,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pkg2ndsemesterexamproject.be;
 
 import java.util.ArrayList;
@@ -16,18 +15,18 @@ import java.util.List;
  */
 public class ProductionOrder implements IProductionOrder {
 
-    private Order order;
-    private Delivery delivery;
-    private Costumer costumer;
+    private IOrder order;
+    private IDelivery delivery;
+    private ICostumer costumer;
     private List<IDepartmentTask> departmenTask;
 
-    public ProductionOrder(Order order, Delivery delivery, Costumer costumer) {
+    public ProductionOrder(IOrder order, IDelivery delivery, ICostumer costumer, List<IDepartmentTask> tasks) {
         this.order = order;
         this.delivery = delivery;
         this.costumer = costumer;
         this.departmenTask = new ArrayList();
+        departmenTask.addAll(tasks);
     }
-
 
     @Override
     public List<IDepartmentTask> getDepartmentTasks() {
@@ -42,5 +41,25 @@ public class ProductionOrder implements IProductionOrder {
     @Override
     public void removeDepartmentTask(IDepartmentTask task) {
         departmenTask.remove(task);
+    }
+
+    @Override
+    public IOrder getOrder() {
+        return order;
+    }
+
+    @Override
+    public IDelivery getDelivery() {
+        return delivery;
+    }
+
+    @Override
+    public ICostumer getCostumer() {
+        return costumer;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductionOrder{" + "order=" + order + ", delivery=" + delivery.toString() + ", costumer=" + costumer + ", departmenTask=" + departmenTask + '}';
     }
 }

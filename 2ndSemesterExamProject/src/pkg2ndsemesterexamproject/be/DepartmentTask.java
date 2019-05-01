@@ -6,6 +6,7 @@
 package pkg2ndsemesterexamproject.be;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -15,13 +16,13 @@ import java.util.List;
 public class DepartmentTask implements IDepartmentTask {
 
     private List<IWorker> activeWorkers;
-    private Department department;
+    private IDepartment department;
     private Boolean finishedOrder;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     
 
-    public DepartmentTask(List<IWorker> activeWorkers, Department department, Boolean finishedOrder, LocalDate startDate, LocalDate endDate) {
+    public DepartmentTask(IDepartment department, Boolean finishedOrder, LocalDateTime startDate, LocalDateTime endDate) {
         this.activeWorkers = activeWorkers;
         this.department = department;
         this.finishedOrder = finishedOrder;
@@ -30,12 +31,17 @@ public class DepartmentTask implements IDepartmentTask {
     }
 
     @Override
+    public String toString() {
+        return "DepartmentTask{" + "department=" + department + ", finishedOrder=" + finishedOrder + ", startDate=" + startDate.toString() + ", endDate=" + endDate.toString() + '}';
+    }
+
+    @Override
     public List<IWorker> getActiveWorkers() {
         return activeWorkers;
     }
 
     @Override
-    public Department getDepartment() {
+    public IDepartment getDepartment() {
         return department;
     }
 
@@ -45,12 +51,12 @@ public class DepartmentTask implements IDepartmentTask {
     }
 
     @Override
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
     @Override
-    public LocalDate getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 

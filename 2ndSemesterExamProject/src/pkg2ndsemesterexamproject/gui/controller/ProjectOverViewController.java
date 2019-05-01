@@ -77,7 +77,7 @@ public class ProjectOverViewController implements Initializable
     @FXML
     private void orderIsDone(ActionEvent event)
     {
-        Order order = new Order(12);
+        Order order = new Order("12");
         model.orderIsDone(order);
     }
     

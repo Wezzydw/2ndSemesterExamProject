@@ -25,4 +25,9 @@ public class Delivery implements IDelivery {
         return localDateTime;
 
     }
+
+    @Override
+    public String toString() {
+        return "Delivery{" + "localDateTime=" + localDateTime.toString() + '}';
+    }
 }

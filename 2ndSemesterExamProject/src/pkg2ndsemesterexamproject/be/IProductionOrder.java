@@ -19,4 +19,10 @@ public interface IProductionOrder {
 
     void removeDepartmentTask(IDepartmentTask task);
     
+    IOrder getOrder();
+    
+    IDelivery getDelivery();
+    
+    ICostumer getCostumer();
+    
 }

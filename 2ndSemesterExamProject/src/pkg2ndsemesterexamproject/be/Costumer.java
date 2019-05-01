@@ -19,6 +19,11 @@ public class Costumer implements ICostumer{
 
     @Override
     public String getName() {
-        return name;
+        return name.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "Costumer{" + "name=" + name.toString() + '}';
     }
 }

@@ -6,6 +6,7 @@
 package pkg2ndsemesterexamproject.be;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -16,13 +17,13 @@ public interface IDepartmentTask {
 
     List<IWorker> getActiveWorkers();
 
-    Department getDepartment();
+    IDepartment getDepartment();
 
     Boolean getFinishedOrder();
 
-    LocalDate getStartDate();
+    LocalDateTime getStartDate();
 
-    LocalDate getEndDate();
+    LocalDateTime getEndDate();
 
     void addWorker(IWorker worker);
 

@@ -21,7 +21,7 @@ public class Department implements IDepartment {
 
     @Override
     public String toString() {
-        return name;
+        return name.toString();
     }
 
     @Override

@@ -13,13 +13,18 @@ public class Order implements IOrder
 {
     private String number;
 
-    public Order(int number) {
+    public Order(String number) {
         this.number = "" + number;
     }
 
     @Override
     public String getOrderNumber() {
-        return number;
+        return number.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" + "number=" + number.toString() + '}';
     }
     
 }
