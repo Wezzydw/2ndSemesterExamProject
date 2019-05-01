@@ -30,6 +30,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import pkg2ndsemesterexamproject.be.Order;
+import pkg2ndsemesterexamproject.be.Worker;
 import pkg2ndsemesterexamproject.bll.IBLL;
 import pkg2ndsemesterexamproject.bll.PassThrough;
 import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
@@ -192,6 +193,10 @@ public class Model
 
         }
 
+    }
+
+    public List<Worker> updateListViewWorkersAssigned() throws IOException {
+        ptl.extractWorkersFromJSON();
     }
 
 }

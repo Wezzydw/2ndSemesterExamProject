@@ -5,6 +5,7 @@
  */
 package pkg2ndsemesterexamproject.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
@@ -102,6 +103,16 @@ public class ProjectOverViewController implements Initializable
 //        int second = LocalDateTime.now().getSecond();
 //        String clock = hours + ":" + minute + ":" + second;
 //        lblClock.setText(clock);
+    }
+    
+    @FXML
+    private void updateListViewWorkersAssigned(){
+        
+        try {
+            model.updateListViewWorkersAssigned();
+        } catch (IOException ex) {
+            Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
