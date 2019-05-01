@@ -20,11 +20,9 @@
    </top>
    <center>
       <ScrollPane fx:id="scrollPane" BorderPane.alignment="CENTER">
-      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
         <content>
-          <AnchorPane fx:id="departmentAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="780.0" />
+          <AnchorPane fx:id="departmentAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="755.0" />
         </content>
-      </ScrollPane>
       </ScrollPane>
    </center>
 </BorderPane>

@@ -12,6 +12,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -45,7 +47,11 @@ public class StartScreenController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        model = new Model();
+        try {
+            model = new Model();
+        } catch (IOException ex) {
+            Logger.getLogger(StartScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
 //        allDepartments = model.getAllDepartments();
 //        model.setMenuItems(MenuButton, model.getAllDepartments());

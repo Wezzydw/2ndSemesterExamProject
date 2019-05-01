@@ -7,6 +7,10 @@ package pkg2ndsemesterexamproject.bll;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+import pkg2ndsemesterexamproject.be.IWorker;
+import pkg2ndsemesterexamproject.dal.GetData;
 
 /**
  *
@@ -14,6 +18,13 @@ import java.io.IOException;
  */
 public class PassThrough implements IBLL
 {
+    GetData getDataFromDB;
+
+    public PassThrough() throws IOException {
+        getDataFromDB = new GetData();
+    }
+    
+    
 
     @Override
     public String loadData() throws FileNotFoundException, IOException
@@ -31,6 +42,11 @@ public class PassThrough implements IBLL
     public void sendOrderIsDone()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<IWorker> getWorkersFromDB()throws SQLException {
+        return getDataFromDB.getAllWorkers();
     }
     
 }

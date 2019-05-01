@@ -6,6 +6,7 @@
 package pkg2ndsemesterexamproject.gui.controller;
 
 import com.jfoenix.controls.JFXTextField;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -13,8 +14,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -55,6 +58,18 @@ public class DepartmentScreenViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        borderPane.widthProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue){
+                model.extentAnchorPaneX(departmentAnchorPane, borderPane);
+                System.out.println(borderPane.getWidth()+ " " + departmentAnchorPane.getWidth());
+                departmentAnchorPane.getChildren().clear();
+                model.extentAnchorPaneY(departmentAnchorPane);
+                model.placeOrderInUI(departmentAnchorPane);
+            }
+                    
+        });
+        
         LocalDate date = LocalDate.now();
         lblDate.setText(date.toString());
 
@@ -64,9 +79,13 @@ public class DepartmentScreenViewController implements Initializable
                 System.out.println("Olde: " + oldValue + " New: " + newValue);
             }
         });{
-        model = new Model();
+            try {
+                model = new Model();
+            } catch (IOException ex) {
+                Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         model.placeOrderInUI(departmentAnchorPane);
-        tmpLoop();
+        //tmpLoop();
         
     }
     }    
@@ -78,37 +97,39 @@ public class DepartmentScreenViewController implements Initializable
     public void setDepartment(Department department){
         lblText.setText(department.getName());
     }
-    public void tmpLoop(){
-       Thread thread1 = new Thread(new Runnable() {
-    @Override
-    public void run(){
-        while (true)
-        {            
-            System.out.println(borderPane.getWidth());
-//            System.out.println(departmentAnchorPane.getHeight()); 
-//            System.out.println(departmentAnchorPane.getWidth());
-//            System.out.println(departmentAnchorPane.getHeight()); 
-//            System.out.println(departmentAnchorPane.getPrefWidth());
-//            System.out.println(departmentAnchorPane.getPrefHeight()); 
-//            System.out.println(departmentAnchorPane.getMaxWidth());
-//            System.out.println(departmentAnchorPane.getMaxHeight()); 
-//            System.out.println(departmentAnchorPane.getMinHeight());
-//            System.out.println(departmentAnchorPane.getMinWidth());
-            
-            
-            try
-            {
-                Thread.sleep(2000);
-            } catch (InterruptedException ex)
-            {
-                Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//    public void tmpLoop(){
+//       Thread thread1 = new Thread(new Runnable() {
+//    @Override
+//    public void run(){
+//        while (true)
+//        {            
+//            System.out.println(borderPane.getWidth());
+////            System.out.println(departmentAnchorPane.getHeight()); 
+////            System.out.println(departmentAnchorPane.getWidth());
+////            System.out.println(departmentAnchorPane.getHeight()); 
+////            System.out.println(departmentAnchorPane.getPrefWidth());
+////            System.out.println(departmentAnchorPane.getPrefHeight()); 
+////            System.out.println(departmentAnchorPane.getMaxWidth());
+////            System.out.println(departmentAnchorPane.getMaxHeight()); 
+////            System.out.println(departmentAnchorPane.getMinHeight());
+////            System.out.println(departmentAnchorPane.getMinWidth());
+//            
+//            
+//            try
+//            {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException ex)
+//            {
+//                Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        
+//    }
+//});
+// 
+//thread1.start();
         
-    }
-});
- 
-thread1.start();
-        
-    }
+    //}
+    
+    
 }
