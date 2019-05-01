@@ -18,7 +18,13 @@ import pkg2ndsemesterexamproject.dal.GetData;
  */
 public class PassThrough implements IBLL
 {
-    GetData getDataFromDB = new GetData();
+    GetData getDataFromDB;
+
+    public PassThrough() throws IOException {
+        getDataFromDB = new GetData();
+    }
+    
+    
 
     @Override
     public String loadData() throws FileNotFoundException, IOException

@@ -59,8 +59,12 @@ public class ProjectOverViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
-        model = new Model();
+        try {
+            // TODO
+            model = new Model();
+        } catch (IOException ex) {
+            Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
     
     public void startClock(){

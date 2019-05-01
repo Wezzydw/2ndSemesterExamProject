@@ -6,6 +6,7 @@
 package pkg2ndsemesterexamproject.gui.controller;
 
 import com.jfoenix.controls.JFXTextField;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -64,7 +65,11 @@ public class DepartmentScreenViewController implements Initializable
                 System.out.println("Olde: " + oldValue + " New: " + newValue);
             }
         });{
-        model = new Model();
+            try {
+                model = new Model();
+            } catch (IOException ex) {
+                Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         model.placeOrderInUI(departmentAnchorPane);
         //tmpLoop();
         
