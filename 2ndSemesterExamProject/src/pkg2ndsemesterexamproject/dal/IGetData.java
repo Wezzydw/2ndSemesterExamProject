@@ -8,6 +8,7 @@ package pkg2ndsemesterexamproject.dal;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.be.Order;
 import java.util.List;
+import pkg2ndsemesterexamproject.be.Worker;
 
 /**
  *
@@ -20,6 +21,8 @@ public interface IGetData
     List<Order> getAllOrders();
     
     void sendOrderIsDone();
+    
+    List<Worker> getAllWorkers();
     
             
 }

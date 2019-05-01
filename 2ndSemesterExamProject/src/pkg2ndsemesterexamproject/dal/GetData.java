@@ -8,6 +8,7 @@ package pkg2ndsemesterexamproject.dal;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.be.Order;
 import java.util.List;
+import pkg2ndsemesterexamproject.be.Worker;
 
 /**
  *
@@ -31,6 +32,11 @@ public class GetData implements IGetData
     @Override
     public void sendOrderIsDone()
     {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Worker> getAllWorkers() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
