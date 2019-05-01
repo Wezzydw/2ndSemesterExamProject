@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import pkg2ndsemesterexamproject.be.Costumer;
@@ -99,7 +100,7 @@ public class DataManager implements IBLL {
         String[] array = loadData().split("ProductionOrder:");
         List<ICostumer> costumers = new ArrayList();
         List<IDelivery> deliveries = new ArrayList();
-        outerLoop:
+        
         for (int i = 1; i < array.length; i++) {
             int start;
             int end;
@@ -110,12 +111,13 @@ public class DataManager implements IBLL {
 
             start = array[i].indexOf("DeliveryTime") + 22;
             end = array[i].indexOf("+", start);
-            LocalDate deliveryDate = LocalDate.parse(array[i].substring(start, end));
-            IDelivery delivery = new Delivery(deliveryDate);
-            deliveries.add(delivery);
+            //LocalDate deliveryDate = LocalDate.parse(array[i].substring(start, end));
+            //IDelivery delivery = new Delivery(deliveryDate);
             
+            LocalDateTime a = LocalDateTime.parse(array[i].substring(start, end));
             
-            
+            System.out.println(a.toString());
+                    
             
             
             

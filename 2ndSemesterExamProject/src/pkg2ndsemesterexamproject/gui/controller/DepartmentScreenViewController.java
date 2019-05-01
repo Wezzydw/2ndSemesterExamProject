@@ -17,8 +17,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.gui.Model;
 
@@ -42,6 +44,10 @@ public class DepartmentScreenViewController implements Initializable
     private AnchorPane departmentAnchorPane;
     @FXML
     private Label lblText;
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private BorderPane borderPane;
 
     /**
      * Initializes the controller class.
@@ -78,15 +84,17 @@ public class DepartmentScreenViewController implements Initializable
     public void run(){
         while (true)
         {            
-            System.out.println(departmentAnchorPane.getHeight()); 
-            System.out.println(departmentAnchorPane.getWidth());
-            System.out.println(departmentAnchorPane.getHeight()); 
-            System.out.println(departmentAnchorPane.getPrefWidth());
-            System.out.println(departmentAnchorPane.getPrefHeight()); 
-            System.out.println(departmentAnchorPane.getMaxWidth());
-            System.out.println(departmentAnchorPane.getMaxHeight()); 
-            System.out.println(departmentAnchorPane.getMinHeight());
-            System.out.println(departmentAnchorPane.getMinWidth());
+            System.out.println(borderPane.getWidth());
+//            System.out.println(departmentAnchorPane.getHeight()); 
+//            System.out.println(departmentAnchorPane.getWidth());
+//            System.out.println(departmentAnchorPane.getHeight()); 
+//            System.out.println(departmentAnchorPane.getPrefWidth());
+//            System.out.println(departmentAnchorPane.getPrefHeight()); 
+//            System.out.println(departmentAnchorPane.getMaxWidth());
+//            System.out.println(departmentAnchorPane.getMaxHeight()); 
+//            System.out.println(departmentAnchorPane.getMinHeight());
+//            System.out.println(departmentAnchorPane.getMinWidth());
+            
             
             try
             {
