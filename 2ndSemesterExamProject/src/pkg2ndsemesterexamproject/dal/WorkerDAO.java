@@ -5,6 +5,7 @@
  */
 package pkg2ndsemesterexamproject.dal;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,11 +22,14 @@ import pkg2ndsemesterexamproject.be.Worker;
 public class WorkerDAO {
     
     private DatabaseConnection conProvider;
+
+    public WorkerDAO() throws IOException {
+        conProvider = new DatabaseConnection();
+    }
     
     public List<IWorker> getAllWorkers() throws SQLException {
         
         List<IWorker> allWorkers = new ArrayList();
-
         try (Connection con = conProvider.getConnection()) {
             String a = "SELECT * FROM Worker;";
             PreparedStatement prst = con.prepareStatement(a);
