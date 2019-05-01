@@ -23,6 +23,6 @@ public class Delivery implements IDelivery {
     @Override
     public LocalDateTime getDeliveryTime() {
         return localDateTime;
-    }
 
+    }
 }

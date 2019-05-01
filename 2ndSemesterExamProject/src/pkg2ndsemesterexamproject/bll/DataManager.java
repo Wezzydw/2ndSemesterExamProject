@@ -14,8 +14,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import pkg2ndsemesterexamproject.be.Costumer;
@@ -47,57 +45,6 @@ public class DataManager implements IBLL {
         return data;
     }
 
-    @Override
-    public void extractWorkersFromJSON() throws FileNotFoundException, IOException {
-        String[] array = loadData().split("\\[");
-        String workerString = array[1];
-        String[] workersString = workerString.split("\\{");
-        List<Worker> workers = new ArrayList();
-        System.out.println(workersString[0]);
-        for (String string : workersString) {
-            if (!string.isEmpty()) {
-                int index = 0;
-                System.out.println(string);
-                index = string.indexOf(":");
-                index = string.indexOf(":", index + 1);
-                index = string.indexOf(":", index + 1);
-                System.out.println(index);
-                int indexStart = index + 2;
-                int indexEnd = string.indexOf('"', indexStart + 1);
-
-                String initials = string.substring(indexStart, indexEnd);
-
-                index = string.indexOf(":", indexEnd);
-                indexStart = index + 2;
-                indexEnd = string.indexOf('"', indexStart);
-
-                String name = string.substring(indexStart, indexEnd);
-
-                index = string.indexOf(":", indexEnd);
-                indexStart = index + 1;
-                indexEnd = string.indexOf('}', indexStart);
-
-                String saleryNumber = string.substring(indexStart, indexEnd);
-
-//            int initialsStartIndex = string.indexOf("Initials", 0);
-//            int initialsEndIndex = string.indexOf(",", initialsStartIndex);
-//            String initials = string.substring(initialsStartIndex + initialsIndexLength, initialsEndIndex - 1);
-//
-//            int nameStartIndex = string.indexOf("Name", initialsEndIndex);
-//            int nameEndIndex = string.indexOf(",", nameStartIndex);
-//            String name = string.substring(nameStartIndex + nameIndexLength, nameEndIndex-1);
-//            int saleryNumberStartIndex = string.indexOf("Name", nameEndIndex);
-//            int saleryEndIndex = string.indexOf(",", saleryNumberStartIndex);
-//            String saleryNumber = string.substring(saleryNumberStartIndex + saleryNumberIndexLength, saleryEndIndex-1);
-                int s = Integer.parseInt(saleryNumber);
-                workers.add(new Worker(name, initials, s));
-            }
-        }
-        for (Worker worker : workers) {
-            System.out.println(worker);
-        }
-    }
-
     public void extractProductionOrdersFromJSON() throws IOException {
         String[] array = loadData().split("ProductionOrder:");
         List<ICostumer> costumers = new ArrayList();
@@ -120,10 +67,6 @@ public class DataManager implements IBLL {
             LocalDateTime ass = b.plus(a, ChronoUnit.MILLIS);
             IDelivery delivery = new Delivery(ass);
             deliveries.add(delivery);
-            
-            
-
-        }
 
 //        for (ICostumer costumer : costumers) {
 //            System.out.println(costumer.getName());
@@ -132,7 +75,17 @@ public class DataManager implements IBLL {
 //        for (IDelivery delivery : deliveries) {
 //            System.out.println(delivery.getDeliveryTime().toString());
 //        }
+            //LocalDate deliveryDate = LocalDate.parse(array[i].substring(start, end));
+            //IDelivery delivery = new Delivery(deliveryDate);
+        }
 
+        for (ICostumer costumer : costumers) {
+            System.out.println(costumer.getName());
+        }
+
+        for (IDelivery delivery : deliveries) {
+            delivery.getDeliveryTime().toString();
+        }
     }
 
     @Override

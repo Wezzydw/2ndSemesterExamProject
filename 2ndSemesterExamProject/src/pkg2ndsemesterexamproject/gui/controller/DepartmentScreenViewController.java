@@ -57,11 +57,18 @@ public class DepartmentScreenViewController implements Initializable
     {
         LocalDate date = LocalDate.now();
         lblDate.setText(date.toString());
+
+        departmentAnchorPane.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                System.out.println("Olde: " + oldValue + " New: " + newValue);
+            }
+        });{
         model = new Model();
         model.placeOrderInUI(departmentAnchorPane);
         tmpLoop();
         
-    
+    }
     }    
 
     @FXML
