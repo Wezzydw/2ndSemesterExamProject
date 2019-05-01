@@ -197,6 +197,7 @@ public class Model
 
     public List<Worker> updateListViewWorkersAssigned() throws IOException {
         ptl.extractWorkersFromJSON();
+        return null;
     }
 
 }
