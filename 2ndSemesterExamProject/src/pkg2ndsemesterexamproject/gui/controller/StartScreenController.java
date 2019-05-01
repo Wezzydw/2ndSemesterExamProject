@@ -124,17 +124,21 @@ public class StartScreenController implements Initializable
         if (department.getName().equals("manager")){
             goToManagerScreen();
         }
-        else{
-            Pane orderPane = model.createOrderInGUI();
-        Scene scene = new Scene(orderPane, 200, 150);
-        Stage primaryStage = new Stage();
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+
+          else{
+//            Pane orderPane = model.createOrderInGUI();
+//        Scene scene = new Scene(orderPane, 200, 150);
+//        Stage primaryStage = new Stage();
+//        primaryStage.setTitle("Hello World!");
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
+//            
+          goToDepartmentScreen(department);
+          }
+
+
         
-            
-//            goToDepartmentScreen();
-        }
+
     }
                 
 }

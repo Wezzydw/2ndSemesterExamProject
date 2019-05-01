@@ -24,8 +24,8 @@ public class ReadJSON {
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
         DataManager dm = new DataManager();
-        dm.extractWorkersFromJSON();
-        
+        //dm.extractWorkersFromJSON();
+        dm.extractProductionOrdersFromJSON();
 //        File f = new File("C:\\Users\\Wezzy Laptop\\Desktop\\JSON.txt");
 //        FileReader fr = new FileReader("C:\\Users\\Wezzy Laptop\\Desktop\\JSON.txt");
 //        BufferedReader br = new BufferedReader(fr);

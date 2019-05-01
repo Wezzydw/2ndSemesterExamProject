@@ -3,14 +3,11 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Circle?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@css/PostItCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.controller.DepartmentScreenViewController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@css/PostItCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.controller.DepartmentScreenViewController">
    <top>
       <AnchorPane prefHeight="33.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -22,30 +19,9 @@
       </AnchorPane>
    </top>
    <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
         <content>
-          <AnchorPane fx:id="departmentAnchorPane" prefHeight="365.0" prefWidth="598.0">
-               <children>
-                  <Pane layoutX="7.0" prefHeight="178.0" prefWidth="208.0" style="-fx-background-color: grey;" AnchorPane.topAnchor="5.0">
-                     <children>
-                        <Circle fill="#1fff3f" layoutX="183.0" layoutY="23.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label layoutX="46.0" layoutY="14.0" text="Order: 1234-1234" />
-                        <Label layoutX="22.0" layoutY="103.0" text="Start date" />
-                        <Label layoutX="136.0" layoutY="103.0" text="End date" />
-                        <ProgressBar layoutX="4.0" layoutY="139.0" prefWidth="200.0" progress="0.0" />
-                     </children>
-                  </Pane>
-                  <Pane layoutX="224.0" layoutY="5.0" prefHeight="178.0" prefWidth="208.0" style="-fx-background-color: grey;" AnchorPane.topAnchor="5.0">
-                     <children>
-                        <Circle fill="#ff4321" layoutX="183.0" layoutY="23.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label layoutX="46.0" layoutY="14.0" text="Order: 1234-1234" />
-                        <Label layoutX="22.0" layoutY="103.0" text="Start date" />
-                        <Label layoutX="136.0" layoutY="103.0" text="End date" />
-                        <ProgressBar layoutX="4.0" layoutY="140.0" prefWidth="200.0" progress="0.0" />
-                     </children>
-                  </Pane>
-               </children>
-            </AnchorPane>
+          <AnchorPane fx:id="departmentAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="780.0" />
         </content>
       </ScrollPane>
    </center>

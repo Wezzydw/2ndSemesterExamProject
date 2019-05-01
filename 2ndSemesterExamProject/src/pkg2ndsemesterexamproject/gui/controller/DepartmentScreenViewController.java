@@ -9,6 +9,10 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -16,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import pkg2ndsemesterexamproject.be.Department;
+import pkg2ndsemesterexamproject.gui.Model;
 
 /**
  * FXML Controller class
@@ -25,6 +30,7 @@ import pkg2ndsemesterexamproject.be.Department;
 public class DepartmentScreenViewController implements Initializable
 {    
     private Department currentDepartment;
+    private Model model;
     
     @FXML
     private ComboBox<?> comboBox;
@@ -45,7 +51,18 @@ public class DepartmentScreenViewController implements Initializable
     {
         LocalDate date = LocalDate.now();
         lblDate.setText(date.toString());
+
+        departmentAnchorPane.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                System.out.println("Olde: " + oldValue + " New: " + newValue);
+            }
+        });{
+        model = new Model();
+        model.placeOrderInUI(departmentAnchorPane);
+        tmpLoop();
         
+    }
     }    
 
     @FXML
@@ -55,5 +72,35 @@ public class DepartmentScreenViewController implements Initializable
     public void setDepartment(Department department){
         lblText.setText(department.getName());
     }
-    
+    public void tmpLoop(){
+       Thread thread1 = new Thread(new Runnable() {
+    @Override
+    public void run(){
+        while (true)
+        {            
+            System.out.println(departmentAnchorPane.getHeight()); 
+            System.out.println(departmentAnchorPane.getWidth());
+            System.out.println(departmentAnchorPane.getHeight()); 
+            System.out.println(departmentAnchorPane.getPrefWidth());
+            System.out.println(departmentAnchorPane.getPrefHeight()); 
+            System.out.println(departmentAnchorPane.getMaxWidth());
+            System.out.println(departmentAnchorPane.getMaxHeight()); 
+            System.out.println(departmentAnchorPane.getMinHeight());
+            System.out.println(departmentAnchorPane.getMinWidth());
+            
+            try
+            {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex)
+            {
+                Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
+});
+ 
+thread1.start();
+        
+    }
 }
