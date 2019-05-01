@@ -5,9 +5,15 @@
  */
 package pkg2ndsemesterexamproject.dal;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.be.Order;
 import java.util.List;
+import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.be.Worker;
 
 /**
@@ -16,7 +22,7 @@ import pkg2ndsemesterexamproject.be.Worker;
  */
 public class GetData implements IGetData
 {
-
+WorkerDAO wDAO = new WorkerDAO();
     @Override
     public List<Department> getAllDepartments()
     {
@@ -34,11 +40,9 @@ public class GetData implements IGetData
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public List<Worker> getAllWorkers() {
-        
-        return null;
-    }
     
+@Override
+    public List<IWorker> getAllWorkers() throws SQLException{
+        return wDAO.getAllWorkers();
+    }
 }

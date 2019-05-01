@@ -7,8 +7,9 @@ package pkg2ndsemesterexamproject.bll;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
-import pkg2ndsemesterexamproject.be.Worker;
+import pkg2ndsemesterexamproject.be.IWorker;
 
 /**
  *
@@ -22,6 +23,6 @@ public interface IBLL
 
     public void sendOrderIsDone();
 
-    public List<Worker> getWorkersFromDB();
+    public List<IWorker> getWorkersFromDB()throws SQLException;
        
 }
