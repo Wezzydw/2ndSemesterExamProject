@@ -24,6 +24,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.gui.Model;
 
@@ -66,6 +67,8 @@ public class DepartmentScreenViewController implements Initializable
                 departmentAnchorPane.getChildren().clear();
                 model.extentAnchorPaneY(departmentAnchorPane);
                 model.placeOrderInUI(departmentAnchorPane);
+                Stage stage =(Stage)borderPane.getScene().getWindow();
+                stage.setFullScreen(true);
             }
                     
         });
