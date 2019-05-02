@@ -36,10 +36,7 @@ import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
  *
  * @author andreas
  */
-
-public class Model
-{
-
+public class Model {
 
     private IBLL ptl;
     private final double orderPaneWidth = 200;
@@ -54,9 +51,7 @@ public class Model
         ptl = new PassThrough();
     }
 
-
-    public List<Department> getAllDepartments()
-    {
+    public List<Department> getAllDepartments() {
 
         return null;
     }
@@ -69,10 +64,8 @@ public class Model
         ptl.sendOrderIsDone();
     }
 
-
     //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
-    public Pane createOrderInGUI()
-    {
+    public Pane createOrderInGUI() {
 
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200, 150);
@@ -80,10 +73,9 @@ public class Model
         Circle circle = new Circle(13);
         circle.setFill(Paint.valueOf("Green"));
         Label orderNum = new Label("Ordernumber: " + 12321312);
-        Label customer = new Label ("Customer: " + "Karl Kalashnikov");
+        Label customer = new Label("Customer: " + "Karl Kalashnikov");
         Label startDate = new Label("29-04-2019");
         Label endDate = new Label("09-05-2019");
-
 
         Pane progress = new Pane();
         progress.setMaxSize(175, 15);
@@ -105,17 +97,15 @@ public class Model
         circle.setLayoutX(180);
         circle.setLayoutY(20);
 
-
         orderNum.setLayoutX(50);
         orderNum.setLayoutY(15);
 
         startDate.setLayoutX(20);
         startDate.setLayoutY(100);
 
-
         orderNum.setLayoutX(25);
         orderNum.setLayoutY(40);
-        
+
         customer.setLayoutX(25);
         customer.setLayoutY(60);
 
@@ -129,21 +119,20 @@ public class Model
         progress.setLayoutX(5);
         progress.setLayoutY(130);
 
-        EventHandler<MouseEvent> event1 = (MouseEvent e) ->
-        {
+        EventHandler<MouseEvent> event1 = (MouseEvent e)
+                -> {
 
             goToOverview();
         };
         orderPane.setOnMousePressed(event1);
 
-
         orderPane.getChildren().addAll(circle, orderNum, startDate, endDate, customer);
 
         return orderPane;
-    
-    }
-    private void goToOverview(){//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
 
+    }
+
+    private void goToOverview() {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/ProjectOverView.fxml"));
@@ -160,32 +149,28 @@ public class Model
         stage.showAndWait();
         display.closeWindow();
         stage.close();
-        
+
     }
 
-
-    public void placeOrderInUI(AnchorPane departmentView)
-    {
+    public void placeOrderInUI(AnchorPane departmentView) {
         double viewHeight = departmentView.getPrefHeight();
         double viewWidth = departmentView.getPrefWidth();
 
-        double numberOfPanes = viewWidth / (orderPaneWidth+minMargenX);
+        double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
         int xNumberOfPanes = (int) (numberOfPanes);
-
+        double rest = (numberOfPanes - xNumberOfPanes) * orderPaneWidth - minMargenEdgeX * 2;
+        System.out.println("Rest " + rest);
         int counter = 0;
 
         outerloop:
-        for (int k = 0; k < tmpListSize; k++)
-        {
+        for (int k = 0; k < tmpListSize; k++) {
 
-            for (int j = 0; j < xNumberOfPanes; j++)
-            {
+            for (int j = 0; j < xNumberOfPanes; j++) {
                 Pane pane = createOrderInGUI();
                 pane.setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
                 pane.setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
                 departmentView.getChildren().add(pane);
-                if (counter == tmpListSize-1)
-                {
+                if (counter == tmpListSize - 1) {
                     break outerloop;
                 }
 
@@ -197,35 +182,28 @@ public class Model
 
     }
 
-    public void extentAnchorPaneX(AnchorPane anchorP,BorderPane borderP){
-            anchorP.setPrefWidth(borderP.getWidth()-50);
-            
-    
+    public void extentAnchorPaneX(AnchorPane anchorP, BorderPane borderP) {
+        anchorP.setPrefWidth(borderP.getWidth() - 50);
+
     }
-    
-    
-    public void extentAnchorPaneY(AnchorPane anchorP){
-       
-        
+
+    public void extentAnchorPaneY(AnchorPane anchorP) {
+
         double viewWidth = anchorP.getPrefWidth();
         double numberOfPanes = viewWidth / orderPaneWidth;
         int yNumberOfPanes = (int) (numberOfPanes);
         yNumberOfPanes += 1;
-       anchorP.setPrefHeight(yNumberOfPanes*orderPaneHeigth+50*yNumberOfPanes);
-        
-        
-        
+        anchorP.setPrefHeight(yNumberOfPanes * orderPaneHeigth + 50 * yNumberOfPanes);
+
     }
-    
 
     public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException {
 
         return ptl.getWorkersFromDB();
     }
-    public void msOnDepartmentView(){
-        
+
+    public void msOnDepartmentView() {
+
     }
-    
-    
-   
+
 }

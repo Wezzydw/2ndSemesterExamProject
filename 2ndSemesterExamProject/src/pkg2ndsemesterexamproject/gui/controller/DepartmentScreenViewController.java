@@ -33,11 +33,11 @@ import pkg2ndsemesterexamproject.gui.Model;
  *
  * @author andreas
  */
-public class DepartmentScreenViewController implements Initializable
-{    
+public class DepartmentScreenViewController implements Initializable {
+
     private Department currentDepartment;
     private Model model;
-    
+
     @FXML
     private ComboBox<?> comboBox;
     @FXML
@@ -57,22 +57,27 @@ public class DepartmentScreenViewController implements Initializable
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
-        borderPane.widthProperty().addListener(new ChangeListener<Number>(){
+    public void initialize(URL url, ResourceBundle rb) {
+
+        try {
+            model = new Model();
+        } catch (IOException ex) {
+            Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        borderPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue){
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 model.extentAnchorPaneX(departmentAnchorPane, borderPane);
-                System.out.println(borderPane.getWidth()+ " " + departmentAnchorPane.getWidth());
+                System.out.println(borderPane.getWidth() + " " + departmentAnchorPane.getWidth());
                 departmentAnchorPane.getChildren().clear();
                 model.extentAnchorPaneY(departmentAnchorPane);
                 model.placeOrderInUI(departmentAnchorPane);
-                Stage stage =(Stage)borderPane.getScene().getWindow();
-                stage.setFullScreen(true);
+
             }
-                    
+
         });
-        
+        Stage stage = (Stage) borderPane.getScene().getWindow();
+        stage.setFullScreen(true);
         LocalDate date = LocalDate.now();
         lblDate.setText(date.toString());
 
@@ -81,23 +86,20 @@ public class DepartmentScreenViewController implements Initializable
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 System.out.println("Olde: " + oldValue + " New: " + newValue);
             }
-        });{
-            try {
-                model = new Model();
-            } catch (IOException ex) {
-                Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        model.placeOrderInUI(departmentAnchorPane);
-        //tmpLoop();
-        
+        });
+        {
+
+            model.placeOrderInUI(departmentAnchorPane);
+            //tmpLoop();
+
+        }
     }
-    }    
 
     @FXML
     private void searchBar(KeyEvent event) {
     }
-    
-    public void setDepartment(Department department){
+
+    public void setDepartment(Department department) {
         lblText.setText(department.getName());
     }
 //    public void tmpLoop(){
@@ -131,8 +133,6 @@ public class DepartmentScreenViewController implements Initializable
 //});
 // 
 //thread1.start();
-        
+
     //}
-    
-    
 }
