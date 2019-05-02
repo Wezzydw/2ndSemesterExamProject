@@ -104,7 +104,7 @@ public class DataManager {
         }
     }
 
-    public void extractProductionOrdersFromJSON() throws IOException {
+    public List<IProductionOrder> extractProductionOrdersFromJSON() throws IOException {
         String[] array = loadData().split("ProductionOrder:");
         List<ICostumer> costumers = new ArrayList();
         List<IDelivery> deliveries = new ArrayList();
@@ -131,22 +131,17 @@ public class DataManager {
             deliveries.add(delivery);
 
             String[] departmentStringArray = array[i].split("Department:#ProductionMonitor");
-            System.out.println(departmentStringArray[0]);
-            System.out.println(departmentStringArray[1]);
             for (int j = 1; j < departmentStringArray.length; j++) {
-                System.out.println("j" + j);
                 start = departmentStringArray[j].indexOf("Name") + 7;
                 end = departmentStringArray[j].indexOf('"', start);
                 String departmentName = departmentStringArray[j].substring(start, end);
                 IDepartment department = new Department(departmentName);
-                System.out.println(departmentName + "Start " + start + "  end " + end);
                 
                 start = departmentStringArray[j].indexOf("EndDate") + 17;
                 end = departmentStringArray[j].indexOf('+', start);
                 timeInMilis = Long.parseLong(departmentStringArray[j].substring(start, end));
                 timeAt0 = LocalDateTime.of(1970, 1, 1, 0, 0);
                 LocalDateTime endDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
-                System.out.println(endDate.toString() + "Start " + start + "  end " + end);
                 
                 start = departmentStringArray[j].indexOf("FinishedOrder") + 15;
                 end = departmentStringArray[j].indexOf('"', start);
@@ -155,7 +150,6 @@ public class DataManager {
                 if (isTrue.equals("true")) {
                     isOrderFinished = true;
                 }
-                System.out.println("Start " + start + "  end " + end);
 
                 start = departmentStringArray[j].indexOf("StartDate") + 19;
                 end = departmentStringArray[j].indexOf('+', start);
@@ -164,7 +158,6 @@ public class DataManager {
                 LocalDateTime startDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
                 IDepartmentTask departmentTask = new DepartmentTask(department, isOrderFinished, startDate, endDate);
                 departmentTasks.add(departmentTask);
-                System.out.println(startDate.toString() + "Start " + start + "  end " + end);
             }
 
             start = array[i].indexOf("OrderNumber") + 14;
@@ -203,6 +196,7 @@ public class DataManager {
 //            }
             
         }
+        return productionOrders;
     }
 
     public String loadData() throws FileNotFoundException, IOException {
