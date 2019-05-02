@@ -49,6 +49,7 @@ public class Model
     private final int minMargenEdgeY = 10;
     private final int minMargenX = 20;
     private final int minMargenY = 10;
+    private long lastTime = 0;
 
     public Model() throws IOException {
         ptl = new PassThrough();
@@ -222,10 +223,37 @@ public class Model
 
         return ptl.getWorkersFromDB();
     }
-    public void msOnDepartmentView(){
-        
+    public void msOnDepartmentView(AnchorPane departmentView){
+        long timeDiff = 0;
+        long currentTime = System.currentTimeMillis();
+        if (lastTime == 0 && currentTime == 0)
+        {
+            timeDiff = currentTime + lastTime;
+            if(timeDiff >=20)
+            {    
+                        placeOrderInUI(departmentView);                              
+            }
+                        
+        }
+        lastTime = currentTime;
     }
     
     
+//        public void songListClicks(Song song)
+//    {
+//        long timeDiff = 0;
+//        long currentTime = System.currentTimeMillis();
+//
+//        if (lastTime != 0 && currentTime != 0)
+//        {
+//            timeDiff = currentTime - lastTime;
+//            if (timeDiff <= 215)
+//            {
+//                playNowSelectedSong(song);
+//            }
+//        }
+//        lastTime = currentTime;
+//    }
+//    
    
 }
