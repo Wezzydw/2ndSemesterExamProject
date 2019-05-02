@@ -67,19 +67,22 @@ public class DepartmentScreenViewController implements Initializable {
         borderPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                model.extentAnchorPaneX(departmentAnchorPane, borderPane);
-                System.out.println(borderPane.getWidth() + " " + departmentAnchorPane.getWidth());
-                departmentAnchorPane.getChildren().clear();
-                model.extentAnchorPaneY(departmentAnchorPane);
-                model.placeOrderInUI(departmentAnchorPane);
+//                model.extentAnchorPaneX(departmentAnchorPane, borderPane);
+//                System.out.println(borderPane.getWidth() + " " + departmentAnchorPane.getWidth());
+//
+//                model.extentAnchorPaneY(departmentAnchorPane);
+                //model.placeOrderInUI(departmentAnchorPane);
 
+                model.msOnDepartmentView(departmentAnchorPane, borderPane);
             }
 
         });
-        Stage stage = (Stage) borderPane.getScene().getWindow();
-        stage.setFullScreen(true);
+
         LocalDate date = LocalDate.now();
         lblDate.setText(date.toString());
+        Stage stage = (Stage) borderPane.getScene().getWindow();
+        stage.setFullScreen(true);
+        model.placeOrderInUI(departmentAnchorPane);
 
         departmentAnchorPane.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -87,12 +90,8 @@ public class DepartmentScreenViewController implements Initializable {
                 System.out.println("Olde: " + oldValue + " New: " + newValue);
             }
         });
-        {
 
-            model.placeOrderInUI(departmentAnchorPane);
-            //tmpLoop();
-
-        }
+        //tmpLoop();
     }
 
     @FXML
