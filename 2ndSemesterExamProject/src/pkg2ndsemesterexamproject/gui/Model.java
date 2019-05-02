@@ -25,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.objects.NativeDate;
 import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.be.Order;
 import pkg2ndsemesterexamproject.bll.IBLL;
@@ -44,6 +45,11 @@ public class Model
     private final double orderPaneWidth = 200;
     private final double orderPaneHeigth = 150;
     private final int tmpListSize = 100;
+    private final int minMargenEdgeX = 25;
+    private final int minMargenEdgeY = 10;
+    private final int minMargenX = 20;
+    private final int minMargenY = 10;
+    private long lastTime = 0;
 
     public Model() throws IOException {
         ptl = new PassThrough();
@@ -164,7 +170,7 @@ public class Model
         double viewHeight = departmentView.getPrefHeight();
         double viewWidth = departmentView.getPrefWidth();
 
-        double numberOfPanes = viewWidth / orderPaneWidth;
+        double numberOfPanes = viewWidth / (orderPaneWidth+minMargenX);
         int xNumberOfPanes = (int) (numberOfPanes);
 
         int counter = 0;
@@ -176,8 +182,8 @@ public class Model
             for (int j = 0; j < xNumberOfPanes; j++)
             {
                 Pane pane = createOrderInGUI();
-                pane.setLayoutX(10 + j * (orderPaneWidth + 10));
-                pane.setLayoutY(10 + k * (orderPaneHeigth + 10));
+                pane.setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
+                pane.setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
                 departmentView.getChildren().add(pane);
                 if (counter == tmpListSize-1)
                 {
@@ -193,7 +199,8 @@ public class Model
     }
 
     public void extentAnchorPaneX(AnchorPane anchorP,BorderPane borderP){
-            anchorP.setPrefWidth(borderP.getWidth());
+            anchorP.setPrefWidth(borderP.getWidth()-50);
+            
     
     }
     
@@ -211,13 +218,42 @@ public class Model
         
     }
     
-    
-    
 
     public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException {
 
         return ptl.getWorkersFromDB();
     }
-
+    public void msOnDepartmentView(AnchorPane departmentView){
+        long timeDiff = 0;
+        long currentTime = System.currentTimeMillis();
+        if (lastTime == 0 && currentTime == 0)
+        {
+            timeDiff = currentTime + lastTime;
+            if(timeDiff >=20)
+            {    
+                        placeOrderInUI(departmentView);                              
+            }
+                        
+        }
+        lastTime = currentTime;
+    }
+    
+    
+//        public void songListClicks(Song song)
+//    {
+//        long timeDiff = 0;
+//        long currentTime = System.currentTimeMillis();
+//
+//        if (lastTime != 0 && currentTime != 0)
+//        {
+//            timeDiff = currentTime - lastTime;
+//            if (timeDiff <= 215)
+//            {
+//                playNowSelectedSong(song);
+//            }
+//        }
+//        lastTime = currentTime;
+//    }
+//    
    
 }
