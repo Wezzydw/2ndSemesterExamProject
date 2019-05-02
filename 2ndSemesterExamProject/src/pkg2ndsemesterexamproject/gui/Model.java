@@ -41,11 +41,12 @@ public class Model {
     private IBLL ptl;
     private final double orderPaneWidth = 200;
     private final double orderPaneHeigth = 150;
-    private final int tmpListSize = 100;
+    private final int tmpListSize = 50;
     private final int minMargenEdgeX = 25;
     private final int minMargenEdgeY = 10;
     private final int minMargenX = 20;
     private final int minMargenY = 10;
+    private long lastTime = 0;
 
     public Model() throws IOException {
         ptl = new PassThrough();
@@ -202,8 +203,39 @@ public class Model {
         return ptl.getWorkersFromDB();
     }
 
-    public void msOnDepartmentView() {
+    public void msOnDepartmentView(AnchorPane departmentView, BorderPane borderPane) {
+//        long timeDiff = 0;
+//        long currentTime = System.currentTimeMillis();
+//        if (lastTime != 0 && currentTime != 0) {
+//            
+//            timeDiff = currentTime - lastTime;
+//            System.out.println(timeDiff);
+//            if (timeDiff >= 25) {
+//                System.out.println(timeDiff);
+        departmentView.getChildren().clear();
+        placeOrderInUI(departmentView);
+        extentAnchorPaneX(departmentView, borderPane);
+        extentAnchorPaneY(departmentView);
+//            }
 
+//        }
+//        lastTime = currentTime;
     }
 
+//        public void songListClicks(Song song)
+//    {
+//        long timeDiff = 0;
+//        long currentTime = System.currentTimeMillis();
+//
+//        if (lastTime != 0 && currentTime != 0)
+//        {
+//            timeDiff = currentTime - lastTime;
+//            if (timeDiff <= 215)
+//            {
+//                playNowSelectedSong(song);
+//            }
+//        }
+//        lastTime = currentTime;
+//    }
+//    
 }
