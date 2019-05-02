@@ -5,12 +5,12 @@
  */
 package pkg2ndsemesterexamproject.utilities;
 
-import pkg2ndsemesterexamproject.bll.DataManager;
+import pkg2ndsemesterexamproject.dal.JsonFormater;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import pkg2ndsemesterexamproject.bll.DataManager;
+import pkg2ndsemesterexamproject.dal.JsonFormater;
 
 /**
  *
@@ -22,7 +22,7 @@ public class ReadJSON {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        DataManager dm = new DataManager();
+        JsonFormater dm = new JsonFormater();
         //dm.extractWorkersFromJSON();
         dm.extractProductionOrdersFromJSON();
         

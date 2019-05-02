@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkg2ndsemesterexamproject.bll;
+package pkg2ndsemesterexamproject.dal;
 
 import pkg2ndsemesterexamproject.be.Worker;
 
@@ -35,7 +35,7 @@ import pkg2ndsemesterexamproject.be.Worker;
  *
  * @author Wezzy Laptop
  */
-public class DataManager {
+public class JsonFormater {
 
     private int jsonWorkerIndex = 2;
     private int initialsIndexLength = 11;
