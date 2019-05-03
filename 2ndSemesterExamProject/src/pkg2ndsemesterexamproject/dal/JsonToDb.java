@@ -9,71 +9,87 @@ import pkg2ndsemesterexamproject.be.IDelivery;
 import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
+import pkg2ndsemesterexamproject.be.IWorker;
 
 /**
  *
  * @author mpoul
  */
 public class JsonToDb {
+
     private DatabaseConnection conProvider;
-    
-    private void fuckingEtEllerAndet(List<IProductionOrder> po){
-        
+
+    private void dataDumper(List<IProductionOrder> po) {
+
         for (IProductionOrder iProductionOrder : po) {
-            
+
         }
     }
-    
-    private void writeCustomerToDB(ICostumer costumer){
-        try (Connection con = conProvider.getConnection()){
-            String query = "INSERT INTO Costumer (cName) VALUES(?);";
-            PreparedStatement prst = con.prepareStatement(query);
-            prst.setString(1, costumer.getName());
-        } catch (SQLException ex) {
-        }
-    
-}
-    
-    private void writeDeliveryToDB(IDelivery deliverydate){
-    try (Connection con = conProvider.getConnection()){
-            String query = "INSERT INTO Delivery (deliveryDate) VALUES(?);";
-            PreparedStatement prst = con.prepareStatement(query);
-            prst.setString(1, deliverydate.getDeliveryTime().toString());
-        } catch (SQLException ex) {
-        }
-}
-    
-    private void writeDepartmentToDB(IDepartment department){
-    try (Connection con = conProvider.getConnection()){
+
+    private void writeDepartmentToDB(List<IDepartment> d) {
+        try (Connection con = conProvider.getConnection()) {
             String query = "INSERT INTO Department (dName) VALUES(?);";
             PreparedStatement prst = con.prepareStatement(query);
-            prst.setString(1, department.getName());
+            
+            for (IDepartment department : d) {
+                prst.setString(1, department.getName());
+                prst.addBatch();
+            }
+            
+            prst.executeBatch();
+            
         } catch (SQLException ex) {
         }
-}
-    
-    private void writeDepartmentTaskToDB(IDepartmentTask departmentTask){
-    try (Connection con = conProvider.getConnection()){
+    }
+
+    private void writeDepartmentTaskToDB(List<IDepartmentTask> dTask) {
+        try (Connection con = conProvider.getConnection()) {
             String query = "INSERT INTO DepartmentTask(workers, isFinished, startDate, endDate) VALUES(?,?,?,?);";
             PreparedStatement prst = con.prepareStatement(query);
-            prst.setString(1, departmentTask.getActiveWorkers().toString());
-            prst.setBoolean(2, departmentTask.getFinishedOrder());
-            prst.setString(3, departmentTask.getStartDate().toString());
-            prst.setString(4, departmentTask.getEndDate().toString());
+
+            for (IDepartmentTask departmentTask : dTask) {
+                prst.setString(1, departmentTask.getActiveWorkers().toString());
+                prst.setBoolean(2, departmentTask.getFinishedOrder());
+                prst.setString(3, departmentTask.getStartDate().toString());
+                prst.setString(4, departmentTask.getEndDate().toString());
+                prst.addBatch();
+            }
+            prst.executeBatch();
         } catch (SQLException ex) {
         }
-}
-    
-    private void writeOrderToDB(){
-    
-}
-    
-    private void writeProductionOrderToDB(){
-    
-}
-    
-    private void writeWorkerToDB(){
-    
-}
-    
+    }
+
+    private void writeProductionOrderToDB(List<IProductionOrder> pos) {
+        try (Connection con = conProvider.getConnection()) {
+            String query = "INSERT INTO ProductionOrder (customerId, deliveryDate, orderId) VALUES(?,?,?);";
+            PreparedStatement prst = con.prepareStatement(query);
+
+            for (IProductionOrder po : pos) {
+                prst.setString(1, po.getCostumer().toString());
+                prst.setString(2, po.getDelivery().toString());
+                prst.setString(3, po.getOrder().toString());
+                prst.addBatch();
+            }
+            prst.executeBatch();
+        } catch (SQLException ex) {
+        }
+    }
+
+    private void writeWorkerToDB(List<IWorker> w) throws SQLException {
+        try (Connection con = conProvider.getConnection()) {
+            String query = "INSERT INTO Worker (name, initials, salaryNumber) VALUES(?,?,?);";
+            PreparedStatement prst = con.prepareStatement(query);
+            
+            for (IWorker worker : w) {
+                prst.setString(1, worker.getName());
+                prst.setString(2, worker.getInitials());
+                prst.setInt(3, worker.getSalaryNumber());
+                prst.addBatch();
+            }
+
+            prst.executeBatch();
+        } catch (SQLException ex) {
+        }
+    }
+
 }
