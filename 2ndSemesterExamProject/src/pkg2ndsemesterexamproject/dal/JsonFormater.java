@@ -17,11 +17,10 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import pkg2ndsemesterexamproject.be.Costumer;
+import pkg2ndsemesterexamproject.be.Customer;
 import pkg2ndsemesterexamproject.be.Delivery;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.be.DepartmentTask;
-import pkg2ndsemesterexamproject.be.ICostumer;
 import pkg2ndsemesterexamproject.be.IDelivery;
 import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
@@ -30,6 +29,7 @@ import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.Order;
 import pkg2ndsemesterexamproject.be.ProductionOrder;
 import pkg2ndsemesterexamproject.be.Worker;
+import pkg2ndsemesterexamproject.be.ICustomer;
 
 /**
  *
@@ -106,7 +106,7 @@ public class JsonFormater {
 
     public List<IProductionOrder> extractProductionOrdersFromJSON() throws IOException {
         String[] array = loadData().split("ProductionOrder:");
-        List<ICostumer> costumers = new ArrayList();
+        List<ICustomer> customers = new ArrayList();
         List<IDelivery> deliveries = new ArrayList();
         List<IDepartmentTask> departmentTasks = new ArrayList();
         List<IOrder> orders = new ArrayList();
@@ -118,8 +118,8 @@ public class JsonFormater {
             start = array[i].indexOf("Name") + 7;
             end = array[i].indexOf('"', start);
             String name = array[i].substring(start, end);
-            ICostumer costumer =new Costumer(name);
-            costumers.add(costumer);
+            ICustomer customer =new Customer(name);
+            customers.add(customer);
 
             start = array[i].indexOf("DeliveryTime") + 22;
             end = array[i].indexOf("+", start);
@@ -166,15 +166,15 @@ public class JsonFormater {
             IOrder order = new Order(orderNumber);
             orders.add(order);
             
-            IProductionOrder productionOrder = new ProductionOrder(order, delivery, costumer, departmentTasks);
+            IProductionOrder productionOrder = new ProductionOrder(order, delivery, customer, departmentTasks);
             productionOrders.add(productionOrder);
             departmentTasks = new ArrayList();
             
             
         }
 //
-//        for (ICostumer costumer : costumers) {
-//            System.out.println(costumer.getName());
+//        for (ICustomer customer : customers) {
+//            System.out.println(customer.getName());
 //        }
 //
 //        for (IDelivery deliveryt : deliveries) {

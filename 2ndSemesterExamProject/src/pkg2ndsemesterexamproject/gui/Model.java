@@ -47,7 +47,6 @@ public class Model {
     private IBLL ptl;
     private final double orderPaneWidth = 200;
     private final double orderPaneHeigth = 150;
-
     private final int tmpListSize = 200;
     private final int minMargenEdgeX = 25;
     private final int minMargenEdgeY = 10;
@@ -190,7 +189,6 @@ public class Model {
         double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
         int xNumberOfPanes = (int) (numberOfPanes);
         double rest = (numberOfPanes - xNumberOfPanes) * orderPaneWidth - minMargenEdgeX * 2;
-        System.out.println("Rest " + rest);
         int counter = 0;
 
         outerloop:
