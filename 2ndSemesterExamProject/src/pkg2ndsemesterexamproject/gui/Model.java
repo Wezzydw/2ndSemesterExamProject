@@ -7,6 +7,7 @@ package pkg2ndsemesterexamproject.gui;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import pkg2ndsemesterexamproject.be.Department;
 import java.util.List;
 import javafx.animation.KeyFrame;
@@ -41,13 +42,12 @@ import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
  *
  * @author andreas
  */
-public class Model
-{
+public class Model {
 
     private IBLL ptl;
     private final double orderPaneWidth = 200;
     private final double orderPaneHeigth = 150;
-    private final int tmpListSize = 200;
+    private final int tmpListSize = 100;
     private final int minMargenEdgeX = 25;
     private final int minMargenEdgeY = 10;
     private final int minMargenX = 20;
@@ -56,15 +56,14 @@ public class Model
     private final Timeline animation;
     private AnchorPane anchorPane;
     private BorderPane borderPane;
+    private List<Pane> panes;
 
-    public Model() throws IOException
-    {
+    public Model() throws IOException {
+        panes = new ArrayList();
         ptl = new PassThrough();
-        animation = new Timeline(new KeyFrame(Duration.seconds(0.2), new EventHandler<ActionEvent>()
-        {
+        animation = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event)
-            {
+            public void handle(ActionEvent event) {
                 anchorPane.getChildren().clear();
                 extentAnchorPaneX(anchorPane, borderPane);
                 extentAnchorPaneY(anchorPane);
@@ -75,25 +74,21 @@ public class Model
         animation.setCycleCount(1);
     }
 
-    public List<Department> getAllDepartments()
-    {
+    public List<Department> getAllDepartments() {
 
         return null;
     }
 
-    public void setMenuItems(MenuButton MenuButton, List<Department> allDepartments)
-    {
+    public void setMenuItems(MenuButton MenuButton, List<Department> allDepartments) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void orderIsDone(Order order)
-    {
+    public void orderIsDone(Order order) {
         ptl.sendOrderIsDone();
     }
 
     //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
-    public Pane createOrderInGUI()
-    {
+    public Pane createOrderInGUI() {
 
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200, 150);
@@ -148,8 +143,7 @@ public class Model
         progress.setLayoutY(130);
 
         EventHandler<MouseEvent> event1 = (MouseEvent e)
-                ->
-        {
+                -> {
 
             goToOverview();
         };
@@ -161,16 +155,13 @@ public class Model
 
     }
 
-    private void goToOverview()
-    {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
+    private void goToOverview() {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/ProjectOverView.fxml"));
-        try
-        {
+        try {
             loader.load();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             System.out.println("Error" + ex);
         }
         ProjectOverViewController display = loader.getController();
@@ -184,8 +175,14 @@ public class Model
 
     }
 
-    public void placeOrderInUI(AnchorPane departmentView)
-    {
+    public void placeOrderInUI(AnchorPane departmentView) {
+        //Indtil vi har faktiske ordrer
+        if (panes.isEmpty()) {
+            System.out.println("Generation");
+            for (int i = 0; i < tmpListSize; i++) {
+                panes.add(createOrderInGUI());
+            }
+        }
         double viewHeight = departmentView.getPrefHeight();
         double viewWidth = departmentView.getPrefWidth();
 
@@ -196,17 +193,14 @@ public class Model
         int counter = 0;
 
         outerloop:
-        for (int k = 0; k < tmpListSize; k++)
-        {
+        for (int k = 0; k < panes.size(); k++) {
 
-            for (int j = 0; j < xNumberOfPanes; j++)
-            {
-                Pane pane = createOrderInGUI();
-                pane.setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
-                pane.setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
-                departmentView.getChildren().add(pane);
-                if (counter == tmpListSize - 1)
-                {
+            for (int j = 0; j < xNumberOfPanes; j++) {
+                //Pane pane = createOrderInGUI();
+                panes.get(counter).setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
+                panes.get(counter).setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
+                departmentView.getChildren().add(panes.get(counter));
+                if (counter == tmpListSize - 1) {
                     break outerloop;
                 }
 
@@ -218,14 +212,12 @@ public class Model
 
     }
 
-    public void extentAnchorPaneX(AnchorPane anchorP, BorderPane borderP)
-    {
+    public void extentAnchorPaneX(AnchorPane anchorP, BorderPane borderP) {
         anchorP.setPrefWidth(borderP.getWidth() - 50);
 
     }
 
-    public void extentAnchorPaneY(AnchorPane anchorP)
-    {
+    public void extentAnchorPaneY(AnchorPane anchorP) {
 
         double viewWidth = anchorP.getPrefWidth();
         double numberOfPanes = viewWidth / orderPaneWidth;
@@ -235,14 +227,12 @@ public class Model
 
     }
 
-    public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException
-    {
+    public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException {
 
         return ptl.getWorkersFromDB();
     }
 
-    public void msOnDepartmentView(AnchorPane departmentView, BorderPane borderPane)
-    {
+    public void msOnDepartmentView(AnchorPane departmentView, BorderPane borderPane) {
 
         anchorPane = departmentView;
         this.borderPane = borderPane;
