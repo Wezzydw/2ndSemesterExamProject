@@ -199,7 +199,7 @@ public class Model {
                 panes.get(counter).setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
                 panes.get(counter).setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
                 departmentView.getChildren().add(panes.get(counter));
-                if (counter == tmpListSize - 1) {
+                if (counter == panes.size() - 1) {
                     break outerloop;
                 }
 
@@ -208,7 +208,6 @@ public class Model {
             }
 
         }
-
     }
 
     public void extentAnchorPaneX(AnchorPane anchorP, BorderPane borderP) {
@@ -219,10 +218,11 @@ public class Model {
     public void extentAnchorPaneY(AnchorPane anchorP) {
 
         double viewWidth = anchorP.getPrefWidth();
-        double numberOfPanes = viewWidth / orderPaneWidth;
-        int yNumberOfPanes = (int) (numberOfPanes);
+        double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
+        int yNumberOfPanes = (int) (panes.size() / numberOfPanes);
         yNumberOfPanes += 1;
-        anchorP.setPrefHeight(yNumberOfPanes * orderPaneHeigth + 50 * yNumberOfPanes);
+        System.out.println("Number of panes: " + yNumberOfPanes + " calcheight : " + (yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes));
+        anchorP.setPrefHeight(yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes);
 
     }
 
