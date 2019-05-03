@@ -9,11 +9,11 @@ package pkg2ndsemesterexamproject.be;
  *
  * @author Wezzy Laptop
  */
-public class Costumer implements ICostumer{
+public class Customer implements ICustomer{
 
     private String name;
 
-    public Costumer(String name) {
+    public Customer(String name) {
         this.name = name;
     }
 
@@ -24,6 +24,6 @@ public class Costumer implements ICostumer{
 
     @Override
     public String toString() {
-        return "Costumer{" + "name=" + name.toString() + '}';
+        return "customer{" + "name=" + name.toString() + '}';
     }
 }

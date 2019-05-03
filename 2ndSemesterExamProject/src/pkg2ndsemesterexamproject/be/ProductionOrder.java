@@ -17,13 +17,13 @@ public class ProductionOrder implements IProductionOrder {
 
     private IOrder order;
     private IDelivery delivery;
-    private ICostumer costumer;
+    private ICustomer customer;
     private List<IDepartmentTask> departmenTask;
 
-    public ProductionOrder(IOrder order, IDelivery delivery, ICostumer costumer, List<IDepartmentTask> tasks) {
+    public ProductionOrder(IOrder order, IDelivery delivery, ICustomer customer, List<IDepartmentTask> tasks) {
         this.order = order;
         this.delivery = delivery;
-        this.costumer = costumer;
+        this.customer = customer;
         this.departmenTask = new ArrayList();
         departmenTask.addAll(tasks);
     }
@@ -54,12 +54,12 @@ public class ProductionOrder implements IProductionOrder {
     }
 
     @Override
-    public ICostumer getCostumer() {
-        return costumer;
+    public ICustomer getCustomer() {
+        return customer;
     }
 
     @Override
     public String toString() {
-        return "ProductionOrder{" + "order=" + order + ", delivery=" + delivery.toString() + ", costumer=" + costumer + ", departmenTask=" + departmenTask + '}';
+        return "ProductionOrder{" + "order=" + order + ", delivery=" + delivery.toString() + ", customer=" + customer + ", departmenTask=" + departmenTask + '}';
     }
 }

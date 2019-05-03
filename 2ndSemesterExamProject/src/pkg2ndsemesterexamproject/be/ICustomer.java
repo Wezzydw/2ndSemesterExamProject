@@ -9,7 +9,7 @@ package pkg2ndsemesterexamproject.be;
  *
  * @author Wezzy Laptop
  */
-public interface ICostumer {
+public interface ICustomer {
     
     String getName();
 }

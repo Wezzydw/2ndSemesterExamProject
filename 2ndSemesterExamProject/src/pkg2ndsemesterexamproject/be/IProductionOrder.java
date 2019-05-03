@@ -23,6 +23,6 @@ public interface IProductionOrder {
     
     IDelivery getDelivery();
     
-    ICostumer getCostumer();
+    ICustomer getCustomer();
     
 }
