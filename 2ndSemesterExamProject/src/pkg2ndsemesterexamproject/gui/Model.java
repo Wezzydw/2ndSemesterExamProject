@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import pkg2ndsemesterexamproject.be.Department;
 import java.util.List;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,6 +29,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import jdk.nashorn.internal.objects.NativeDate;
 import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.be.Order;
@@ -36,37 +41,60 @@ import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
  *
  * @author andreas
  */
-public class Model {
+public class Model
+{
 
     private IBLL ptl;
     private final double orderPaneWidth = 200;
     private final double orderPaneHeigth = 150;
-    private final int tmpListSize = 100;
+
+    private final int tmpListSize = 200;
     private final int minMargenEdgeX = 25;
     private final int minMargenEdgeY = 10;
     private final int minMargenX = 20;
     private final int minMargenY = 10;
     private long lastTime = 0;
+    private final Timeline animation;
+    private AnchorPane anchorPane;
+    private BorderPane borderPane;
 
-    public Model() throws IOException {
+    public Model() throws IOException
+    {
         ptl = new PassThrough();
+        animation = new Timeline(new KeyFrame(Duration.seconds(0.2), new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                anchorPane.getChildren().clear();
+                extentAnchorPaneX(anchorPane, borderPane);
+                extentAnchorPaneY(anchorPane);
+                placeOrderInUI(anchorPane);
+
+            }
+        }));
+        animation.setCycleCount(1);
     }
 
-    public List<Department> getAllDepartments() {
+    public List<Department> getAllDepartments()
+    {
 
         return null;
     }
 
-    public void setMenuItems(MenuButton MenuButton, List<Department> allDepartments) {
+    public void setMenuItems(MenuButton MenuButton, List<Department> allDepartments)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void orderIsDone(Order order) {
+    public void orderIsDone(Order order)
+    {
         ptl.sendOrderIsDone();
     }
 
     //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
-    public Pane createOrderInGUI() {
+    public Pane createOrderInGUI()
+    {
 
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200, 150);
@@ -121,7 +149,8 @@ public class Model {
         progress.setLayoutY(130);
 
         EventHandler<MouseEvent> event1 = (MouseEvent e)
-                -> {
+                ->
+        {
 
             goToOverview();
         };
@@ -133,13 +162,16 @@ public class Model {
 
     }
 
-    private void goToOverview() {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
+    private void goToOverview()
+    {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/ProjectOverView.fxml"));
-        try {
+        try
+        {
             loader.load();
-        } catch (IOException ex) {
+        } catch (IOException ex)
+        {
             System.out.println("Error" + ex);
         }
         ProjectOverViewController display = loader.getController();
@@ -153,7 +185,8 @@ public class Model {
 
     }
 
-    public void placeOrderInUI(AnchorPane departmentView) {
+    public void placeOrderInUI(AnchorPane departmentView)
+    {
         double viewHeight = departmentView.getPrefHeight();
         double viewWidth = departmentView.getPrefWidth();
 
@@ -164,14 +197,17 @@ public class Model {
         int counter = 0;
 
         outerloop:
-        for (int k = 0; k < tmpListSize; k++) {
+        for (int k = 0; k < tmpListSize; k++)
+        {
 
-            for (int j = 0; j < xNumberOfPanes; j++) {
+            for (int j = 0; j < xNumberOfPanes; j++)
+            {
                 Pane pane = createOrderInGUI();
                 pane.setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
                 pane.setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
                 departmentView.getChildren().add(pane);
-                if (counter == tmpListSize - 1) {
+                if (counter == tmpListSize - 1)
+                {
                     break outerloop;
                 }
 
@@ -183,12 +219,14 @@ public class Model {
 
     }
 
-    public void extentAnchorPaneX(AnchorPane anchorP, BorderPane borderP) {
+    public void extentAnchorPaneX(AnchorPane anchorP, BorderPane borderP)
+    {
         anchorP.setPrefWidth(borderP.getWidth() - 50);
 
     }
 
-    public void extentAnchorPaneY(AnchorPane anchorP) {
+    public void extentAnchorPaneY(AnchorPane anchorP)
+    {
 
         double viewWidth = anchorP.getPrefWidth();
         double numberOfPanes = viewWidth / orderPaneWidth;
@@ -198,12 +236,19 @@ public class Model {
 
     }
 
-    public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException {
+    public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException
+    {
 
         return ptl.getWorkersFromDB();
     }
 
-    public void msOnDepartmentView(AnchorPane departmentView, BorderPane borderPane) {
+    public void msOnDepartmentView(AnchorPane departmentView, BorderPane borderPane)
+    {
+
+        anchorPane = departmentView;
+        this.borderPane = borderPane;
+        animation.play();
+
 //        long timeDiff = 0;
 //        long currentTime = System.currentTimeMillis();
 //        if (lastTime != 0 && currentTime != 0) {
@@ -212,12 +257,7 @@ public class Model {
 //            System.out.println(timeDiff);
 //            if (timeDiff >= 25) {
 //                System.out.println(timeDiff);
-        departmentView.getChildren().clear();
-        placeOrderInUI(departmentView);
-        extentAnchorPaneX(departmentView, borderPane);
-        extentAnchorPaneY(departmentView);
 //            }
-
 //        }
 //        lastTime = currentTime;
     }
