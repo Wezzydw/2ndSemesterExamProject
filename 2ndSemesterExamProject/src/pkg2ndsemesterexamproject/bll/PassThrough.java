@@ -16,7 +16,7 @@ import pkg2ndsemesterexamproject.dal.GetData;
  *
  * @author andreas
  */
-public class PassThrough implements IBLL
+public class PassThrough implements IPassthrough
 {
     GetData getDataFromDB;
 

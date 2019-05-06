@@ -34,9 +34,9 @@ import javafx.util.Duration;
 import jdk.nashorn.internal.objects.NativeDate;
 import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.be.Order;
-import pkg2ndsemesterexamproject.bll.IBLL;
 import pkg2ndsemesterexamproject.bll.PassThrough;
 import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
+import pkg2ndsemesterexamproject.bll.IPassthrough;
 
 /**
  *
@@ -44,7 +44,7 @@ import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
  */
 public class Model {
 
-    private IBLL ptl;
+    private IPassthrough ptl;
     private final double orderPaneWidth = 200;
     private final double orderPaneHeigth = 150;
     private final int tmpListSize = 200;
