@@ -35,10 +35,10 @@ import pkg2ndsemesterexamproject.gui.Model;
  * @author andreas
  */
 public class DepartmentScreenViewController implements Initializable {
-    
+
     private Department currentDepartment;
     private Model model;
-    
+
     @FXML
     private ComboBox<?> comboBox;
     @FXML
@@ -59,7 +59,7 @@ public class DepartmentScreenViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         try {
             model = new Model();
         } catch (IOException ex) {
@@ -76,16 +76,16 @@ public class DepartmentScreenViewController implements Initializable {
 
                 model.msOnDepartmentView(departmentAnchorPane, borderPane);
             }
-            
+
         });
-        
+
         LocalDate date = LocalDate.now();
         lblDate.setText(date.toString());
 //        Stage stage = (Stage) borderPane.getScene().getWindow();
 //        stage.setFullScreen(true);
         model.msOnDepartmentView(departmentAnchorPane, borderPane);
         functionThatUpdatedGUIEvery5Seconds();
-        
+
         departmentAnchorPane.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -95,17 +95,17 @@ public class DepartmentScreenViewController implements Initializable {
 
         //tmpLoop();
     }
-    
+
     @FXML
     private void searchBar(KeyEvent event) {
     }
-    
+
     public void setDepartment(Department department) {
         lblText.setText(department.getName());
     }
-    
+
     public void functionThatUpdatedGUIEvery5Seconds() {
-        
+
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -124,11 +124,11 @@ public class DepartmentScreenViewController implements Initializable {
                         }
                     });
                 }
-                
+
             }
         });
         t.setDaemon(true);
         t.start();
     }
-    
+
 }
