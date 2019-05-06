@@ -7,6 +7,8 @@ package pkg2ndsemesterexamproject.gui;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import pkg2ndsemesterexamproject.be.Department;
 import java.util.List;
@@ -111,11 +113,17 @@ public class Model {
         progress.setMaxSize(175, 15);
         Canvas canvas = new Canvas();
         canvas.setHeight(15);
-        canvas.setWidth(200);
+        canvas.setWidth(175);
         canvas.setLayoutX(13);
         canvas.setLayoutY(130);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        
+//        Long daysBetween = ChronoUnit.DAYS.between(dt.getStartDate(), dt.getEndDate());
+//        int progressInterval = (int) (175 / daysBetween);
+//        LocalDateTime todayIs = LocalDateTime.now();
+//        Long startToNow = ChronoUnit.DAYS.between(dt.getStartDate(), todayIs);
+//        gc.fillRect(0, 0, progressInterval * startToNow, 20);
 
         gc.setFill(Color.GREEN);
         gc.fillRect(0, 0, 160, 15);

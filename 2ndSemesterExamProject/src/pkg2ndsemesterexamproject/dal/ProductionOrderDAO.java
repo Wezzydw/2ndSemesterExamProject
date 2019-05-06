@@ -70,7 +70,7 @@ public class ProductionOrderDAO
         return po;
     }
     
-    private List<IDepartmentTask> getAllTaksForProductionOrder(String orderNum) throws SQLException{
+    public List<IDepartmentTask> getAllTaksForProductionOrder(String orderNum) throws SQLException{
         List<IDepartmentTask> tasks = new ArrayList();
         try (Connection con = conProvider.getConnection()) {
 //            String a = "SELECT * FROM DepartmentTask;";
