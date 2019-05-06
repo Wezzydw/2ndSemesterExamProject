@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package pkg2ndsemesterexamproject.gui;
 
 import java.io.IOException;
@@ -172,7 +173,6 @@ public class Model {
         stage.showAndWait();
         display.closeWindow();
         stage.close();
-
     }
 
     public void placeOrderInUI(AnchorPane departmentView) {
@@ -223,47 +223,15 @@ public class Model {
         yNumberOfPanes += 1;
         System.out.println("Number of panes: " + yNumberOfPanes + " calcheight : " + (yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes));
         anchorP.setPrefHeight(yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes);
-
     }
 
     public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException {
-
         return ptl.getWorkersFromDB();
     }
 
     public void msOnDepartmentView(AnchorPane departmentView, BorderPane borderPane) {
-
         anchorPane = departmentView;
         this.borderPane = borderPane;
         animation.play();
-
-//        long timeDiff = 0;
-//        long currentTime = System.currentTimeMillis();
-//        if (lastTime != 0 && currentTime != 0) {
-//            
-//            timeDiff = currentTime - lastTime;
-//            System.out.println(timeDiff);
-//            if (timeDiff >= 25) {
-//                System.out.println(timeDiff);
-//            }
-//        }
-//        lastTime = currentTime;
     }
-
-//        public void songListClicks(Song song)
-//    {
-//        long timeDiff = 0;
-//        long currentTime = System.currentTimeMillis();
-//
-//        if (lastTime != 0 && currentTime != 0)
-//        {
-//            timeDiff = currentTime - lastTime;
-//            if (timeDiff <= 215)
-//            {
-//                playNowSelectedSong(song);
-//            }
-//        }
-//        lastTime = currentTime;
-//    }
-//    
 }
