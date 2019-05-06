@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -172,7 +173,11 @@ public class ProjectOverViewController implements Initializable
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         gc.setFill(Color.GREEN);
-        gc.fillRect(0, 0, 160, 20);
+        Long daysBetween = ChronoUnit.DAYS.between(dt.getStartDate(), dt.getEndDate());
+        int progressInterval = (int) (400 / daysBetween);
+        LocalDateTime todayIs = LocalDateTime.now();
+        Long startToNow = ChronoUnit.DAYS.between(dt.getStartDate(), todayIs);
+        gc.fillRect(0, 0, progressInterval * startToNow, 20);
         gc.setStroke(Color.BLACK);
         gc.strokeRect(0, 0, 400, 20);
         
