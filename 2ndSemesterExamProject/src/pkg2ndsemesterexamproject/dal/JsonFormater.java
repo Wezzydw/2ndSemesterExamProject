@@ -17,11 +17,10 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import pkg2ndsemesterexamproject.be.Costumer;
+import pkg2ndsemesterexamproject.be.Customer;
 import pkg2ndsemesterexamproject.be.Delivery;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.be.DepartmentTask;
-import pkg2ndsemesterexamproject.be.ICostumer;
 import pkg2ndsemesterexamproject.be.IDelivery;
 import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
@@ -30,6 +29,8 @@ import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.Order;
 import pkg2ndsemesterexamproject.be.ProductionOrder;
 import pkg2ndsemesterexamproject.be.Worker;
+import pkg2ndsemesterexamproject.be.ICustomer;
+import pkg2ndsemesterexamproject.be.IWorker;
 
 /**
  *
@@ -41,6 +42,13 @@ public class JsonFormater {
     private int initialsIndexLength = 11;
     private int nameIndexLength = 7;
     private int saleryNumberIndexLength = 14;
+    private List<IDepartment> departments;
+    private List<IDepartmentTask> departmenttasks;
+
+    public JsonFormater() {
+        departments = new ArrayList();
+        departmenttasks = new ArrayList();
+    }
 
     public String loadJSON(File file) throws FileNotFoundException, IOException {
         FileReader filereader = new FileReader(new File("./data/JSON.txt"));
@@ -54,11 +62,11 @@ public class JsonFormater {
         return data;
     }
 
-    public void extractWorkersFromJSON() throws FileNotFoundException, IOException {
+    public List<IWorker> extractWorkersFromJSON() throws FileNotFoundException, IOException {
         String[] array = loadData().split("\\[");
         String workerString = array[1];
         String[] workersString = workerString.split("\\{");
-        List<Worker> workers = new ArrayList();
+        List<IWorker> workers = new ArrayList();
         System.out.println(workersString[0]);
         for (String string : workersString) {
             if (!string.isEmpty()) {
@@ -99,27 +107,28 @@ public class JsonFormater {
                 workers.add(new Worker(name, initials, s));
             }
         }
-        for (Worker worker : workers) {
+        for (IWorker worker : workers) {
             System.out.println(worker);
         }
+        return workers;
     }
 
     public List<IProductionOrder> extractProductionOrdersFromJSON() throws IOException {
         String[] array = loadData().split("ProductionOrder:");
-        List<ICostumer> costumers = new ArrayList();
+        List<ICustomer> customers = new ArrayList();
         List<IDelivery> deliveries = new ArrayList();
         List<IDepartmentTask> departmentTasks = new ArrayList();
         List<IOrder> orders = new ArrayList();
         List<IProductionOrder> productionOrders = new ArrayList();
-        
+
         for (int i = 1; i < array.length; i++) {
             int start;
             int end;
             start = array[i].indexOf("Name") + 7;
             end = array[i].indexOf('"', start);
             String name = array[i].substring(start, end);
-            ICostumer costumer =new Costumer(name);
-            costumers.add(costumer);
+            ICustomer customer = new Customer(name);
+            customers.add(customer);
 
             start = array[i].indexOf("DeliveryTime") + 22;
             end = array[i].indexOf("+", start);
@@ -136,13 +145,14 @@ public class JsonFormater {
                 end = departmentStringArray[j].indexOf('"', start);
                 String departmentName = departmentStringArray[j].substring(start, end);
                 IDepartment department = new Department(departmentName);
-                
+                this.departments.add(department);
+
                 start = departmentStringArray[j].indexOf("EndDate") + 17;
                 end = departmentStringArray[j].indexOf('+', start);
                 timeInMilis = Long.parseLong(departmentStringArray[j].substring(start, end));
                 timeAt0 = LocalDateTime.of(1970, 1, 1, 0, 0);
                 LocalDateTime endDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
-                
+
                 start = departmentStringArray[j].indexOf("FinishedOrder") + 15;
                 end = departmentStringArray[j].indexOf('"', start);
                 String isTrue = departmentStringArray[j].substring(start, end);
@@ -157,6 +167,7 @@ public class JsonFormater {
                 timeAt0 = LocalDateTime.of(1970, 1, 1, 0, 0);
                 LocalDateTime startDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
                 IDepartmentTask departmentTask = new DepartmentTask(department, isOrderFinished, startDate, endDate);
+                this.departmenttasks.add(departmentTask);
                 departmentTasks.add(departmentTask);
             }
 
@@ -165,16 +176,15 @@ public class JsonFormater {
             String orderNumber = array[i].substring(start, end);
             IOrder order = new Order(orderNumber);
             orders.add(order);
-            
-            IProductionOrder productionOrder = new ProductionOrder(order, delivery, costumer, departmentTasks);
+
+            IProductionOrder productionOrder = new ProductionOrder(order, delivery, customer, departmentTasks);
             productionOrders.add(productionOrder);
             departmentTasks = new ArrayList();
-            
-            
+
         }
 //
-//        for (ICostumer costumer : costumers) {
-//            System.out.println(costumer.getName());
+//        for (ICustomer customer : customers) {
+//            System.out.println(customer.getName());
 //        }
 //
 //        for (IDelivery deliveryt : deliveries) {
@@ -194,7 +204,7 @@ public class JsonFormater {
 //            for (IDepartmentTask object : productionOrder.getDepartmentTasks()) {
 //                System.out.println(object);
 //            }
-            
+
         }
         return productionOrders;
     }
@@ -209,6 +219,14 @@ public class JsonFormater {
             data += line;
         }
         return data;
+    }
+
+    public List<IDepartment> getDepartments() {
+        return departments;
+    }
+
+    public List<IDepartmentTask> getDepartmentTasks() {
+        return departmenttasks;
     }
 
 }
