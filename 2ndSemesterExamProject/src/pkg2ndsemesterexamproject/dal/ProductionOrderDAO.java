@@ -45,7 +45,7 @@ public class ProductionOrderDAO
         }
     }
     
-    private List<IProductionOrder> getProductionOrders() throws SQLException{
+    public List<IProductionOrder> getProductionOrders() throws SQLException{
         List<IProductionOrder> po = new ArrayList();
 
         try (Connection con = conProvider.getConnection()) {
@@ -70,7 +70,7 @@ public class ProductionOrderDAO
         return po;
     }
     
-    private List<IDepartmentTask> getAllTaksForProductionOrder(String orderNum) throws SQLException{
+    public List<IDepartmentTask> getAllTaksForProductionOrder(String orderNum) throws SQLException{
         List<IDepartmentTask> tasks = new ArrayList();
         try (Connection con = conProvider.getConnection()) {
 //            String a = "SELECT * FROM DepartmentTask;";
@@ -97,7 +97,7 @@ public class ProductionOrderDAO
         return tasks;
     }
     
-    private List<IDepartment> getAllDepartments() throws SQLException{
+    public List<IDepartment> getAllDepartments() throws SQLException{
         List<IDepartment> departments = new ArrayList();
         try (Connection con = conProvider.getConnection()) {
             String a = "SELECT * FROM Department;";
