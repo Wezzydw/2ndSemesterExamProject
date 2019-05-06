@@ -66,3 +66,10 @@ and open the template in the editor.
     -fx-border-color: #4a4948;
     
 }
+.pane
+{
+    -fx-background-color: #4a4948;
+    -fx-border-color: #4a4948;
+    -fx-font-weight: bolder;
+    -fx-text-colour: #e3e3e3;
+}

@@ -91,16 +91,21 @@ public class Model {
 
     //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
     public Pane createOrderInGUI() {
-
+        
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200, 150);
-        orderPane.setStyle("-fx-background-color: Yellow");
+        orderPane.getStyleClass().add("pane");
+        //orderPane.setStyle("-fx-background-color: Yellow");
         Circle circle = new Circle(13);
         circle.setFill(Paint.valueOf("Green"));
         Label orderNum = new Label("Ordernumber: " + 12321312);
         Label customer = new Label("Customer: " + "Karl Kalashnikov");
         Label startDate = new Label("29-04-2019");
         Label endDate = new Label("09-05-2019");
+        orderNum.getStyleClass().add("label");
+        customer.getStyleClass().add("label");
+        startDate.getStyleClass().add("label");
+        endDate.getStyleClass().add("label");
 
         Pane progress = new Pane();
         progress.setMaxSize(175, 15);
@@ -247,7 +252,14 @@ public class Model {
             }
         }
     }
+        public boolean checkConnection(){
+         return true;
+        }
+        
+          
 }
+
+
 
 //        long timeDiff = 0;
 //        long currentTime = System.currentTimeMillis();
