@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pkg2ndsemesterexamproject.gui;
 
 import java.io.IOException;
@@ -33,6 +32,8 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import jdk.nashorn.internal.objects.NativeDate;
+import pkg2ndsemesterexamproject.be.DepartmentTask;
+import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.be.Order;
 import pkg2ndsemesterexamproject.bll.PassThrough;
@@ -234,4 +235,44 @@ public class Model {
         this.borderPane = borderPane;
         animation.play();
     }
+
+    public void ChangeColour(Circle circle) {
+        List<IDepartmentTask> departmentTask = new ArrayList();
+        for (IDepartmentTask IdepartmentTask : departmentTask) {
+            if (IdepartmentTask.getFinishedOrder() == true) {
+                circle.setFill(Paint.valueOf("Green"));
+            } else {
+
+                circle.setFill(Paint.valueOf("Red"));
+            }
+        }
+    }
 }
+
+//        long timeDiff = 0;
+//        long currentTime = System.currentTimeMillis();
+//        if (lastTime != 0 && currentTime != 0) {
+//            
+//            timeDiff = currentTime - lastTime;
+//            System.out.println(timeDiff);
+//            if (timeDiff >= 25) {
+//                System.out.println(timeDiff);
+//            }
+//        }
+//        lastTime = currentTime;
+//        public void songListClicks(Song song)
+//    {
+//        long timeDiff = 0;
+//        long currentTime = System.currentTimeMillis();
+//
+//        if (lastTime != 0 && currentTime != 0)
+//        {
+//            timeDiff = currentTime - lastTime;
+//            if (timeDiff <= 215)
+//            {
+//                playNowSelectedSong(song);
+//            }
+//        }
+//        lastTime = currentTime;
+//    }
+//    
