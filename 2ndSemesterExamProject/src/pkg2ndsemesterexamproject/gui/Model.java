@@ -32,11 +32,13 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import jdk.nashorn.internal.objects.NativeDate;
+import pkg2ndsemesterexamproject.be.DepartmentTask;
+import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.be.Order;
-import pkg2ndsemesterexamproject.bll.IBLL;
 import pkg2ndsemesterexamproject.bll.PassThrough;
 import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
+import pkg2ndsemesterexamproject.bll.IPassthrough;
 
 /**
  *
@@ -44,7 +46,7 @@ import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
  */
 public class Model {
 
-    private IBLL ptl;
+    private IPassthrough ptl;
     private final double orderPaneWidth = 200;
     private final double orderPaneHeigth = 150;
     private final int tmpListSize = 200;
@@ -172,7 +174,6 @@ public class Model {
         stage.showAndWait();
         display.closeWindow();
         stage.close();
-
     }
 
     public void placeOrderInUI(AnchorPane departmentView) {
@@ -223,19 +224,30 @@ public class Model {
         yNumberOfPanes += 1;
         System.out.println("Number of panes: " + yNumberOfPanes + " calcheight : " + (yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes));
         anchorP.setPrefHeight(yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes);
-
     }
 
     public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException {
-
         return ptl.getWorkersFromDB();
     }
 
     public void msOnDepartmentView(AnchorPane departmentView, BorderPane borderPane) {
-
         anchorPane = departmentView;
         this.borderPane = borderPane;
         animation.play();
+    }
+
+    public void ChangeColour(Circle circle) {
+        List<IDepartmentTask> departmentTask = new ArrayList();
+        for (IDepartmentTask IdepartmentTask : departmentTask) {
+            if (IdepartmentTask.getFinishedOrder() == true) {
+                circle.setFill(Paint.valueOf("Green"));
+            } else {
+
+                circle.setFill(Paint.valueOf("Red"));
+            }
+        }
+    }
+}
 
 //        long timeDiff = 0;
 //        long currentTime = System.currentTimeMillis();
@@ -248,8 +260,6 @@ public class Model {
 //            }
 //        }
 //        lastTime = currentTime;
-    }
-
 //        public void songListClicks(Song song)
 //    {
 //        long timeDiff = 0;
@@ -266,4 +276,3 @@ public class Model {
 //        lastTime = currentTime;
 //    }
 //    
-}

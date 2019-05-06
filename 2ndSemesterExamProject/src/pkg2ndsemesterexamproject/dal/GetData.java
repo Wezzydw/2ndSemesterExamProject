@@ -9,8 +9,10 @@ import java.sql.SQLException;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.be.Order;
 import java.util.List;
+import pkg2ndsemesterexamproject.be.IDepartment;
+import pkg2ndsemesterexamproject.be.IDepartmentTask;
+import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
-import pkg2ndsemesterexamproject.be.Worker;
 
 /**
  *
@@ -18,43 +20,40 @@ import pkg2ndsemesterexamproject.be.Worker;
  */
 public class GetData implements IGetData
 {
-
-
-
-    
-    OrderDAO odao;
-    WorkerDAO wDAO;
+    ProductionOrderDAO poDAO;
+    WorkerDAO wDAO ;
 
     public GetData() throws IOException
     {
-        odao = new OrderDAO();
+        poDAO = new ProductionOrderDAO();
         wDAO = new WorkerDAO();
     }
     
+    @Override
+    public List<IDepartment> getAllDepartments() throws SQLException
+    {
+        return poDAO.getAllDepartments();
+    }
+
     
-            
-            
-
-    @Override
-    public List<Department> getAllDepartments()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Order> getAllOrders()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void sendOrderIsDone(Order order, Department department) throws SQLException
     {
-        odao.orderIsDone(order, department);
+        
     }
 
 @Override
     public List<IWorker> getAllWorkers() throws SQLException{
         return wDAO.getAllWorkers();
     }
+
+    @Override
+    public List<IProductionOrder> getAllProductionOrders() throws SQLException
+    {
+        return poDAO.getProductionOrders();
+    }
+
+    
+   
 }

@@ -5,11 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
-import pkg2ndsemesterexamproject.be.IDelivery;
 import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
-import pkg2ndsemesterexamproject.be.ICustomer;
 import pkg2ndsemesterexamproject.be.IWorker;
 
 /**

@@ -15,7 +15,7 @@ import pkg2ndsemesterexamproject.be.IWorker;
  *
  * @author andreas
  */
-public interface IBLL
+public interface IPassthrough
 {
     public String loadData () throws FileNotFoundException, IOException;
     
