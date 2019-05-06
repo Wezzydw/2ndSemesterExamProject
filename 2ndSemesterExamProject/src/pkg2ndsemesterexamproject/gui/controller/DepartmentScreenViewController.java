@@ -14,6 +14,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,10 +35,10 @@ import pkg2ndsemesterexamproject.gui.Model;
  * @author andreas
  */
 public class DepartmentScreenViewController implements Initializable {
-
+    
     private Department currentDepartment;
     private Model model;
-
+    
     @FXML
     private ComboBox<?> comboBox;
     @FXML
@@ -58,7 +59,7 @@ public class DepartmentScreenViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         try {
             model = new Model();
         } catch (IOException ex) {
@@ -75,15 +76,16 @@ public class DepartmentScreenViewController implements Initializable {
 
                 model.msOnDepartmentView(departmentAnchorPane, borderPane);
             }
-
+            
         });
-
+        
         LocalDate date = LocalDate.now();
         lblDate.setText(date.toString());
-        Stage stage = (Stage) borderPane.getScene().getWindow();
-        stage.setFullScreen(true);
-        model.placeOrderInUI(departmentAnchorPane);
-
+//        Stage stage = (Stage) borderPane.getScene().getWindow();
+//        stage.setFullScreen(true);
+        model.msOnDepartmentView(departmentAnchorPane, borderPane);
+        functionThatUpdatedGUIEvery5Seconds();
+        
         departmentAnchorPane.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -93,45 +95,40 @@ public class DepartmentScreenViewController implements Initializable {
 
         //tmpLoop();
     }
-
+    
     @FXML
     private void searchBar(KeyEvent event) {
     }
-
+    
     public void setDepartment(Department department) {
         lblText.setText(department.getName());
     }
-//    public void tmpLoop(){
-//       Thread thread1 = new Thread(new Runnable() {
-//    @Override
-//    public void run(){
-//        while (true)
-//        {            
-//            System.out.println(borderPane.getWidth());
-////            System.out.println(departmentAnchorPane.getHeight()); 
-////            System.out.println(departmentAnchorPane.getWidth());
-////            System.out.println(departmentAnchorPane.getHeight()); 
-////            System.out.println(departmentAnchorPane.getPrefWidth());
-////            System.out.println(departmentAnchorPane.getPrefHeight()); 
-////            System.out.println(departmentAnchorPane.getMaxWidth());
-////            System.out.println(departmentAnchorPane.getMaxHeight()); 
-////            System.out.println(departmentAnchorPane.getMinHeight());
-////            System.out.println(departmentAnchorPane.getMinWidth());
-//            
-//            
-//            try
-//            {
-//                Thread.sleep(2000);
-//            } catch (InterruptedException ex)
-//            {
-//                Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//        
-//    }
-//});
-// 
-//thread1.start();
-
-    //}
+    
+    public void functionThatUpdatedGUIEvery5Seconds() {
+        
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            //Insert metoder her
+                            model.msOnDepartmentView(departmentAnchorPane, borderPane);
+                            System.out.println("Tester");
+                        }
+                    });
+                }
+                
+            }
+        });
+        t.setDaemon(true);
+        t.start();
+    }
+    
 }
