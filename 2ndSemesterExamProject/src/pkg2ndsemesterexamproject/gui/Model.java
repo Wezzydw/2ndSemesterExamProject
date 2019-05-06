@@ -32,6 +32,8 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import jdk.nashorn.internal.objects.NativeDate;
+import pkg2ndsemesterexamproject.be.DepartmentTask;
+import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.be.Order;
 import pkg2ndsemesterexamproject.bll.IBLL;
@@ -236,6 +238,20 @@ public class Model {
         anchorPane = departmentView;
         this.borderPane = borderPane;
         animation.play();
+    }
+        public void ChangeColour(Circle circle){
+            List<IDepartmentTask> departmentTask = new ArrayList();      
+            for (IDepartmentTask IdepartmentTask : departmentTask)
+            {
+               if(IdepartmentTask.getFinishedOrder()==true)
+            {
+               circle.setFill(Paint.valueOf("Green")); 
+            }
+            else  {
+                   
+            circle.setFill(Paint.valueOf("Red"));}     
+            }                      
+        }}
 
 //        long timeDiff = 0;
 //        long currentTime = System.currentTimeMillis();
@@ -248,7 +264,7 @@ public class Model {
 //            }
 //        }
 //        lastTime = currentTime;
-    }
+    
 
 //        public void songListClicks(Song song)
 //    {
@@ -266,4 +282,4 @@ public class Model {
 //        lastTime = currentTime;
 //    }
 //    
-}
+
