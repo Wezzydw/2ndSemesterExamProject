@@ -54,10 +54,6 @@ public class GetData implements IGetData
         return poDAO.getProductionOrders();
     }
 
-    @Override
-    public List<Order> getAllOrders() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
    
 }
