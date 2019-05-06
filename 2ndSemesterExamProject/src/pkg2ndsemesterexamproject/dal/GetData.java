@@ -23,7 +23,7 @@ public class GetData implements IGetData
 
     
     OrderDAO odao;
-    WorkerDAO wDAO ;
+    WorkerDAO wDAO;
 
     public GetData() throws IOException
     {
