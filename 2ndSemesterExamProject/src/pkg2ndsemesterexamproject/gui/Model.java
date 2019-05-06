@@ -47,7 +47,6 @@ public class Model
     private IBLL ptl;
     private final double orderPaneWidth = 200;
     private final double orderPaneHeigth = 150;
-
     private final int tmpListSize = 200;
     private final int minMargenEdgeX = 25;
     private final int minMargenEdgeY = 10;
