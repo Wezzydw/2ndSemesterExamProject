@@ -19,6 +19,6 @@ import pkg2ndsemesterexamproject.be.IWorker;
 public class DataHandler implements IDataHandler {
 
     public DataHandler() {
-
     }
+
 }

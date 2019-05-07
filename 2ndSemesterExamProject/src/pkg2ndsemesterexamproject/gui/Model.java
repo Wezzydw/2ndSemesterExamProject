@@ -4,7 +4,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pkg2ndsemesterexamproject.gui;
 
 import java.io.IOException;
@@ -37,6 +36,7 @@ import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.be.Order;
+import pkg2ndsemesterexamproject.bll.DataHandler;
 import pkg2ndsemesterexamproject.bll.PassThrough;
 import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
 import pkg2ndsemesterexamproject.bll.IPassthrough;
@@ -56,15 +56,22 @@ public class Model {
     private final int minMargenX = 20;
     private final int minMargenY = 10;
     private long lastTime = 0;
-    private final Timeline animation;
+    private final Timeline guiUpdateLimit;
     private AnchorPane anchorPane;
     private BorderPane borderPane;
     private List<Pane> panes;
+    private DataHandler dataHandler;
 
     public Model() throws IOException {
         panes = new ArrayList();
         ptl = new PassThrough();
-        animation = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
+        dataHandler = new DataHandler();
+        guiUpdateLimit = initializeGUIUpdateLimit();
+        guiUpdateLimit.setCycleCount(1);
+    }
+
+    public Timeline initializeGUIUpdateLimit() {
+        return new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 anchorPane.getChildren().clear();
@@ -74,7 +81,7 @@ public class Model {
 
             }
         }));
-        animation.setCycleCount(1);
+
     }
 
     /*
@@ -289,7 +296,7 @@ public class Model {
     public void msOnDepartmentView(AnchorPane departmentView, BorderPane borderPane) {
         anchorPane = departmentView;
         this.borderPane = borderPane;
-        animation.play();
+        guiUpdateLimit.play();
     }
 
     /*
