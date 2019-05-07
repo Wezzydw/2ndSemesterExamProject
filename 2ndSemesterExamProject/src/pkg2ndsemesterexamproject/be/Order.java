@@ -24,7 +24,7 @@ public class Order implements IOrder
 
     @Override
     public String toString() {
-        return "Order{" + "number=" + number.toString() + '}';
+        return number;
     }
     
 }

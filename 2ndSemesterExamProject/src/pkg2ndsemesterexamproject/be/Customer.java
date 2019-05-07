@@ -24,6 +24,6 @@ public class Customer implements ICustomer{
 
     @Override
     public String toString() {
-        return "customer{" + "name=" + name.toString() + '}';
+        return name;
     }
 }
