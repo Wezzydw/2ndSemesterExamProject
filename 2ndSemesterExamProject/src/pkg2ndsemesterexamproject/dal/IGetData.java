@@ -22,8 +22,6 @@ public interface IGetData
 {
     List<IDepartment> getAllDepartments() throws SQLException;
     
-    List<Order> getAllOrders();
-    
     void sendOrderIsDone(Order order, Department department) throws SQLException;
     
     List<IWorker> getAllWorkers()throws SQLException;
