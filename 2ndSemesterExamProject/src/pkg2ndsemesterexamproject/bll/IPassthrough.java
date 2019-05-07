@@ -9,7 +9,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import pkg2ndsemesterexamproject.be.Department;
+import pkg2ndsemesterexamproject.be.IDepartment;
+import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
+import pkg2ndsemesterexamproject.be.Order;
 
 /**
  *
@@ -25,4 +29,11 @@ public interface IPassthrough
 
     public List<IWorker> getWorkersFromDB()throws SQLException;
        
+    List<IDepartment> getAllDepartments() throws SQLException;
+    
+    void sendOrderIsDone(Order order, Department department) throws SQLException;
+    
+    List<IWorker> getAllWorkers()throws SQLException;
+    
+    List<IProductionOrder> getAllProductionOrders() throws SQLException;
 }
