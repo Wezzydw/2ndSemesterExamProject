@@ -75,26 +75,42 @@ public class Model {
         animation.setCycleCount(1);
     }
 
+    /*
+    Henter alle departments fra databasen
+     */
     public List<Department> getAllDepartments() {
 
         return null;
     }
 
+    /*
+    
+     */
     public void setMenuItems(MenuButton MenuButton, List<Department> allDepartments) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /*
+    Metoden registerer om ordren er færdig og sender den videre ned igennem lagene
+     */
     public void orderIsDone(Order order) {
         ptl.sendOrderIsDone();
     }
 
+    /*
+    Denne metode laver vores departmentview/panes samt tilføjelser labels med de 
+    nødvendige informationer, en cirkel med status på ordre, samt en bar over 
+    projectets nuværende situation
+     */
     //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
+
     public Pane createOrderInGUI() {//IProductionOrder po, IDepartmentTask dp
         
 //        Label orderNum = new Label(po.getOrder().toString());
 //        Label customer = new Label("Customer: " + po.getCustomer().getName());
 //        Label startDate = new Label(dp.getStartDate().toLocalDate().toString());
 //        Label endDate = new Label(dp.getEndDate().toLocalDate().toString());
+
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200, 150);
         orderPane.getStyleClass().add("pane");
@@ -119,13 +135,12 @@ public class Model {
         canvas.setLayoutY(130);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        
+
 //        Long daysBetween = ChronoUnit.DAYS.between(dt.getStartDate(), dt.getEndDate());
 //        int progressInterval = (int) (175 / daysBetween);
 //        LocalDateTime todayIs = LocalDateTime.now();
 //        Long startToNow = ChronoUnit.DAYS.between(dt.getStartDate(), todayIs);
 //        gc.fillRect(0, 0, progressInterval * startToNow, 20);
-
         gc.setFill(Color.GREEN);
         gc.fillRect(0, 0, 160, 15);
         gc.setStroke(Color.BLACK);
@@ -171,6 +186,10 @@ public class Model {
 
     }
 
+    /*
+    skifter fra det generelle overview over alle departmenttask til en specific 
+    departmenttask.
+     */
     private void goToOverview() {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
 
         FXMLLoader loader = new FXMLLoader();
@@ -190,6 +209,10 @@ public class Model {
         stage.close();
     }
 
+    /*
+    Denne metode sørge for at vi kan placere alle departmentTask/panes i vores
+    departmentview uden begrænsninger, samt gør designet mere brugervenligt.
+     */
     public void placeOrderInUI(AnchorPane departmentView) {
         //Indtil vi har faktiske ordrer
         if (panes.isEmpty()) {
@@ -225,11 +248,20 @@ public class Model {
         }
     }
 
+    /*
+    Metoden her trækker -50 på borderpanede for at undgå en sidescroller så,
+    vi altid har samme x-værdi på programmet, som medfører der altid er samme 
+    antal panes henaf x-aksen.
+     */
     public void extentAnchorPaneX(AnchorPane anchorP, BorderPane borderP) {
         anchorP.setPrefWidth(borderP.getWidth() - 50);
 
     }
 
+    /*
+    denne metode justere på vores y-akse, således at programmet udvider sig selv,
+    hvis nødvendigt for at få alle efterspurgte panes puttes ind i viewet.
+     */
     public void extentAnchorPaneY(AnchorPane anchorP) {
 
         double viewWidth = anchorP.getPrefWidth();
@@ -239,63 +271,50 @@ public class Model {
         yNumberOfPanes += 1;
         System.out.println("Number of panes: " + yNumberOfPanes + " calcheight : " + (yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes));
         anchorP.setPrefHeight(yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes);
-        
+
     }
 
+    /*
+    returnere alle workers fra databasen, så vi kan finde ud af hvilke projekter,
+    de er tilmeldt.
+     */
     public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException {
         return ptl.getWorkersFromDB();
     }
 
+    /*
+    Metoden gør at vi kan flowcontrolle, så der max kan blive opdateret 10 gange
+    i sekundet, for at undgå konstante updates, der ville skabe delay i programmet
+     */
     public void msOnDepartmentView(AnchorPane departmentView, BorderPane borderPane) {
         anchorPane = departmentView;
         this.borderPane = borderPane;
         animation.play();
     }
 
+    /*
+    Denne metode sørge for at visuelt vise projectes tilstand i form at en farve
+    beskrivelse på en cirkel, der viser hvad status er på projectet.
+     */
     public void ChangeColour(Circle circle) {
         List<IDepartmentTask> departmentTask = new ArrayList();
         for (IDepartmentTask IdepartmentTask : departmentTask) {
             if (IdepartmentTask.getFinishedOrder() == true) {
                 circle.setFill(Paint.valueOf("Green"));
             } else {
-
                 circle.setFill(Paint.valueOf("Red"));
             }
+
         }
     }
-        public boolean checkConnection(){
-         return true;
-        }
-        
-          
+
+    /*
+    denne metode viser brugeren om de har forbindelse til databasen, og hvis ikke
+    sendes der en meddelse om at IT-service burde kontaktes.
+     */
+    public boolean checkConnection() {
+
+        return true;
+    }
+
 }
-
-
-
-//        long timeDiff = 0;
-//        long currentTime = System.currentTimeMillis();
-//        if (lastTime != 0 && currentTime != 0) {
-//            
-//            timeDiff = currentTime - lastTime;
-//            System.out.println(timeDiff);
-//            if (timeDiff >= 25) {
-//                System.out.println(timeDiff);
-//            }
-//        }
-//        lastTime = currentTime;
-//        public void songListClicks(Song song)
-//    {
-//        long timeDiff = 0;
-//        long currentTime = System.currentTimeMillis();
-//
-//        if (lastTime != 0 && currentTime != 0)
-//        {
-//            timeDiff = currentTime - lastTime;
-//            if (timeDiff <= 215)
-//            {
-//                playNowSelectedSong(song);
-//            }
-//        }
-//        lastTime = currentTime;
-//    }
-//    
