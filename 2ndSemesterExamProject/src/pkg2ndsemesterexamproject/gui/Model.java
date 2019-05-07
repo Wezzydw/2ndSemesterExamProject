@@ -32,6 +32,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
+import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.be.Order;
 import pkg2ndsemesterexamproject.bll.PassThrough;
@@ -102,7 +103,13 @@ public class Model {
     projectets nuværende situation
      */
     //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
-    public Pane createOrderInGUI() {
+
+    public Pane createOrderInGUI() {//IProductionOrder po, IDepartmentTask dp
+        
+//        Label orderNum = new Label(po.getOrder().toString());
+//        Label customer = new Label("Customer: " + po.getCustomer().getName());
+//        Label startDate = new Label(dp.getStartDate().toLocalDate().toString());
+//        Label endDate = new Label(dp.getEndDate().toLocalDate().toString());
 
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200, 150);
