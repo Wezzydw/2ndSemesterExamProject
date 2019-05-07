@@ -32,6 +32,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
@@ -87,9 +88,8 @@ public class Model {
     /*
     Henter alle departments fra databasen
      */
-    public List<Department> getAllDepartments() {
-
-        return null;
+    public List<IDepartment> getAllDepartments() throws SQLException {
+        return ptl.getAllDepartments();
     }
 
     /*
