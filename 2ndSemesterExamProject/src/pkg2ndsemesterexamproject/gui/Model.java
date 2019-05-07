@@ -7,6 +7,8 @@ package pkg2ndsemesterexamproject.gui;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import pkg2ndsemesterexamproject.be.Department;
 import java.util.List;
@@ -220,10 +222,12 @@ public class Model {
 
         double viewWidth = anchorP.getPrefWidth();
         double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
-        int yNumberOfPanes = (int) (panes.size() / numberOfPanes);
+        int xNumberOfPanes = (int) (numberOfPanes);
+        int yNumberOfPanes = (int) (panes.size() / xNumberOfPanes);
         yNumberOfPanes += 1;
         System.out.println("Number of panes: " + yNumberOfPanes + " calcheight : " + (yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes));
         anchorP.setPrefHeight(yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes);
+        
     }
 
     public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException {
