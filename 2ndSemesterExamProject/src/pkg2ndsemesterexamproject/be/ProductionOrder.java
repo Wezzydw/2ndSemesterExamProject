@@ -60,6 +60,6 @@ public class ProductionOrder implements IProductionOrder {
 
     @Override
     public String toString() {
-        return "ProductionOrder{" + "order=" + order + ", delivery=" + delivery.toString() + ", customer=" + customer + ", departmenTask=" + departmenTask + '}';
+        return order + delivery.toString() + customer + departmenTask;
     }
 }

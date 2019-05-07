@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -32,20 +33,19 @@ import pkg2ndsemesterexamproject.be.Worker;
  *
  * @author andreas
  */
-public class ProductionOrderDAO
-{
+public class ProductionOrderDAO {
+
     private DatabaseConnection conProvider;
 
-    public ProductionOrderDAO() throws IOException
-    {
+    public ProductionOrderDAO() throws IOException {
         try {
             conProvider = new DatabaseConnection();
         } catch (IOException ex) {
             throw new IOException("No database connection established " + ex);
         }
     }
-    
-    public List<IProductionOrder> getProductionOrders() throws SQLException{
+
+    public List<IProductionOrder> getProductionOrders() throws SQLException {
         List<IProductionOrder> po = new ArrayList();
 
         try (Connection con = conProvider.getConnection()) {
@@ -75,10 +75,10 @@ public class ProductionOrderDAO
         try (Connection con = conProvider.getConnection()) {
 //            String a = "SELECT * FROM DepartmentTask;";
             String a = "SELECT * From DepartmentTask WHERE orderNumber = ?;";
-            PreparedStatement prst = con.prepareStatement(a);   
+            PreparedStatement prst = con.prepareStatement(a);
             prst.setString(1, orderNum);
             ResultSet rs = prst.executeQuery();
-            
+
             while (rs.next()) {
                 int id = rs.getInt("id");
                 boolean done = rs.getBoolean("isFinished");
@@ -93,11 +93,11 @@ public class ProductionOrderDAO
             }
         } catch (SQLException ex) {
             throw new SQLException("No data from getAllTasks" + ex);
-        }        
+        }
         return tasks;
     }
-    
-    public List<IDepartment> getAllDepartments() throws SQLException{
+
+    public List<IDepartment> getAllDepartments() throws SQLException {
         List<IDepartment> departments = new ArrayList();
         try (Connection con = conProvider.getConnection()) {
             String a = "SELECT * FROM Department;";
@@ -106,15 +106,15 @@ public class ProductionOrderDAO
 
             while (rs.next()) {
                 String department = rs.getString("dname");
-                
+
                 departments.add(new Department(department));
             }
         } catch (SQLException ex) {
             throw new SQLException("No data from getAllDepartments" + ex);
-        }        
+        }
         return departments;
     }
-    
+
 //    private List<IWorker> getAllWorkers() throws SQLException{
 //        List<IWorker> workers = new ArrayList();
 //        try (Connection con = conProvider.getConnection()) {
@@ -133,6 +133,4 @@ public class ProductionOrderDAO
 //        }        
 //        return workers;        
 //    }
-            
-            
 }
