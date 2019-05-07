@@ -17,7 +17,7 @@ public class Worker implements IWorker {
 
     @Override
     public String toString() {
-        return "Worker{" + "initials=" + initials + " name=" + name + ", salaryNumber=" + salaryNumber + '}';
+        return "" + salaryNumber;
     }
 
     public Worker(String name, String initials, int salaryNumber) {
