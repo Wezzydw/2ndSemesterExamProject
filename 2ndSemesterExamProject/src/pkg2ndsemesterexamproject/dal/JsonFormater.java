@@ -14,6 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,15 +68,12 @@ public class JsonFormater {
         String workerString = array[1];
         String[] workersString = workerString.split("\\{");
         List<IWorker> workers = new ArrayList();
-        System.out.println(workersString[0]);
         for (String string : workersString) {
             if (!string.isEmpty()) {
                 int index = 0;
-                System.out.println(string);
                 index = string.indexOf(":");
                 index = string.indexOf(":", index + 1);
                 index = string.indexOf(":", index + 1);
-                System.out.println(index);
                 int indexStart = index + 2;
                 int indexEnd = string.indexOf('"', indexStart + 1);
 

@@ -92,7 +92,7 @@ public class Model {
 
     //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
     public Pane createOrderInGUI() {
-        
+
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200, 150);
         orderPane.getStyleClass().add("pane");
@@ -117,13 +117,12 @@ public class Model {
         canvas.setLayoutY(130);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        
+
 //        Long daysBetween = ChronoUnit.DAYS.between(dt.getStartDate(), dt.getEndDate());
 //        int progressInterval = (int) (175 / daysBetween);
 //        LocalDateTime todayIs = LocalDateTime.now();
 //        Long startToNow = ChronoUnit.DAYS.between(dt.getStartDate(), todayIs);
 //        gc.fillRect(0, 0, progressInterval * startToNow, 20);
-
         gc.setFill(Color.GREEN);
         gc.fillRect(0, 0, 160, 15);
         gc.setStroke(Color.BLACK);
@@ -237,7 +236,7 @@ public class Model {
         yNumberOfPanes += 1;
         System.out.println("Number of panes: " + yNumberOfPanes + " calcheight : " + (yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes));
         anchorP.setPrefHeight(yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes);
-        
+
     }
 
     public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException {
@@ -261,14 +260,12 @@ public class Model {
             }
         }
     }
-        public boolean checkConnection(){
-         return true;
-        }
-        
-          
+
+    public boolean checkConnection() {
+        return true;
+    }
+
 }
-
-
 
 //        long timeDiff = 0;
 //        long currentTime = System.currentTimeMillis();
