@@ -1,20 +1,18 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkg2ndsemesterexamproject.dal;
 
-import pkg2ndsemesterexamproject.be.Worker;
+package pkg2ndsemesterexamproject.dal;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +37,6 @@ import pkg2ndsemesterexamproject.be.IWorker;
  */
 public class JsonFormater {
 
-    private int jsonWorkerIndex = 2;
-    private int initialsIndexLength = 11;
-    private int nameIndexLength = 7;
-    private int saleryNumberIndexLength = 14;
     private List<IDepartment> departments;
     private List<IDepartmentTask> departmenttasks;
 
@@ -51,6 +45,14 @@ public class JsonFormater {
         departmenttasks = new ArrayList();
     }
 
+    /**
+     * Tager en JSON fil og converterer/returnerer en lang string
+     *
+     * @param file
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public String loadJSON(File file) throws FileNotFoundException, IOException {
         FileReader filereader = new FileReader(new File("./data/JSON.txt"));
         BufferedReader bufferedReader = new BufferedReader(filereader);
@@ -63,6 +65,14 @@ public class JsonFormater {
         return data;
     }
 
+    /**
+     * Trækker alle workers ud af JSON string fra loadData, og returnerer en
+     * liste over disse
+     *
+     * @return List<IWorker>
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public List<IWorker> extractWorkersFromJSON() throws FileNotFoundException, IOException {
         String[] array = loadData().split("\\[");
         String workerString = array[1];
@@ -105,12 +115,16 @@ public class JsonFormater {
                 workers.add(new Worker(name, initials, s));
             }
         }
-        for (IWorker worker : workers) {
-            System.out.println(worker);
-        }
         return workers;
     }
 
+    /**
+     * Tager string fra loadData() og trækker alle productionOrders ud af denne
+     * Og samler alle i en liste med alt dets indhold.
+     *
+     * @return List<IProductionOrder>
+     * @throws IOException
+     */
     public List<IProductionOrder> extractProductionOrdersFromJSON() throws IOException {
         String[] array = loadData().split("ProductionOrder:");
         List<ICustomer> customers = new ArrayList();
@@ -180,33 +194,16 @@ public class JsonFormater {
             departmentTasks = new ArrayList();
 
         }
-//
-//        for (ICustomer customer : customers) {
-//            System.out.println(customer.getName());
-//        }
-//
-//        for (IDelivery deliveryt : deliveries) {
-//            System.out.println(deliveryt.getDeliveryTime().toString());
-//        }
-//        
-//        for (IDepartmentTask departmentTask : departmentTasks) {
-//            System.out.println(departmentTask.toString());
-//        }
-//        
-//        for (IOrder order : orders) {
-//            System.out.println(order.getOrderNumber());
-//        }
-
-        for (IProductionOrder productionOrder : productionOrders) {
-            System.out.println(productionOrder);
-//            for (IDepartmentTask object : productionOrder.getDepartmentTasks()) {
-//                System.out.println(object);
-//            }
-
-        }
         return productionOrders;
     }
 
+    /**
+     * Loader JSONdata fra hardcoded fil placering
+     *
+     * @return String
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public String loadData() throws FileNotFoundException, IOException {
         FileReader filereader = new FileReader(new File("./data/JSON.txt"));
         BufferedReader bufferedReader = new BufferedReader(filereader);
@@ -219,10 +216,18 @@ public class JsonFormater {
         return data;
     }
 
+    /**
+     *
+     * @return List<IDepartment>
+     */
     public List<IDepartment> getDepartments() {
         return departments;
     }
 
+    /**
+     *
+     * @return List<IDepartment>
+     */
     public List<IDepartmentTask> getDepartmentTasks() {
         return departmenttasks;
     }
