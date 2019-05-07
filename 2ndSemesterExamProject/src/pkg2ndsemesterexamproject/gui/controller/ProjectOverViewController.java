@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,12 +22,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import pkg2ndsemesterexamproject.be.IDepartmentTask;
+import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.be.Order;
-import pkg2ndsemesterexamproject.be.Worker;
 import pkg2ndsemesterexamproject.gui.Model;
 
 /**
@@ -54,6 +60,10 @@ public class ProjectOverViewController implements Initializable
     private ListView<IWorker> lstView;
     @FXML
     private HBox hboxDepartments;
+    @FXML
+    private Label lblStartDate;
+    @FXML
+    private Label lblEndDate;
     /**
      * Initializes the controller class.
      */
@@ -112,7 +122,6 @@ public class ProjectOverViewController implements Initializable
 //        lblClock.setText(clock);
     }
     
-    @FXML
     private void updateListViewWorkersAssigned(){
         
         allWorkers.clear();
@@ -127,8 +136,50 @@ public class ProjectOverViewController implements Initializable
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
             lstView.setItems(allWorkers);
-        
-        
     }
     
+    
+    public void setData(IDepartmentTask dt, IProductionOrder po){
+        lblCustomer.setText(po.getCustomer().toString());
+        lblOrder.setText(po.getOrder().toString());
+        lblDeliveryDate.setText(po.getDelivery().toString());
+        lblStartDate.setText(dt.getStartDate().toString());
+        lblEndDate.setText(dt.getEndDate().toString());
+        int indexOfDepartment = 0;
+        int counter = 0;
+        
+        for (IDepartmentTask tasks : po.getDepartmentTasks()) {
+            if(tasks.equals(dt)){
+                indexOfDepartment = counter;
+            }
+            counter++;
+        }
+        
+        for (int i = 0; i <= indexOfDepartment; i++) {
+            Label l1 = new Label();
+            l1.setText(po.getDepartmentTasks().get(i).getDepartment().toString());
+            l1.setStyle("-fx-background-color: Blue");
+            hboxDepartments.getChildren().add(l1);
+        }
+        
+        Pane progress = new Pane();
+        progress.setMaxSize(400, 20);
+        Canvas canvas = new Canvas();
+        canvas.setHeight(20);
+        canvas.setWidth(400);
+        canvas.setLayoutX(14);
+        canvas.setLayoutY(285);
+
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        gc.setFill(Color.GREEN);
+        Long daysBetween = ChronoUnit.DAYS.between(dt.getStartDate(), dt.getEndDate());
+        int progressInterval = (int) (400 / daysBetween);
+        LocalDateTime todayIs = LocalDateTime.now();
+        Long startToNow = ChronoUnit.DAYS.between(dt.getStartDate(), todayIs);
+        gc.fillRect(0, 0, progressInterval * startToNow, 20);
+        gc.setStroke(Color.BLACK);
+        gc.strokeRect(0, 0, 400, 20);
+        
+    }
 }
