@@ -1,8 +1,10 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package pkg2ndsemesterexamproject.gui;
 
 import java.io.IOException;
@@ -103,14 +105,12 @@ public class Model {
     projectets nuværende situation
      */
     //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
-
     public Pane createOrderInGUI() {//IProductionOrder po, IDepartmentTask dp
-        
+
 //        Label orderNum = new Label(po.getOrder().toString());
 //        Label customer = new Label("Customer: " + po.getCustomer().getName());
 //        Label startDate = new Label(dp.getStartDate().toLocalDate().toString());
 //        Label endDate = new Label(dp.getEndDate().toLocalDate().toString());
-
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200, 150);
         orderPane.getStyleClass().add("pane");
