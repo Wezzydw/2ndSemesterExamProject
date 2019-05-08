@@ -142,34 +142,59 @@ public class ProductionOrderDAO {
     
     public List<IProductionOrder> getAllInfo() throws SQLException{
         List<IProductionOrder> po = new ArrayList();
-
+        List<IDepartmentTask> dt = new ArrayList();
+        List<IDepartmentTask> tasks = new ArrayList();
         try (Connection con = conProvider.getConnection()) {
             String a = "SELECT orderNumber, department, startDate, endDate, isFinished, customerName, deliveryDate\n" +
 "  FROM [DepartmentTask] JOIN ProductionOrder\n" +
-"    ON [DepartmentTask].orderNumber = ProductionOrder.orderId";
+"    ON [DepartmentTask].orderNumber = ProductionOrder.orderId\n" + 
+            " ORDER BY orederNumber";
             PreparedStatement prst = con.prepareStatement(a);
             ResultSet rs = prst.executeQuery();
-
+            
             while (rs.next()) {
-                String orderNumber = rs.getString("orderNumber");
                 String cust = rs.getString("customerName");
                 String deliveryDate = rs.getString("deliveryDate");
+                boolean done = rs.getBoolean("isFinished");
+                String sDate = rs.getString("startDate");
+                String eDate = rs.getString("endDate");
                 String department = rs.getString("department");
+                String orderNumber = rs.getString("orderNumber");
                 
+                LocalDate eld = LocalDate.parse(eDate);
+                LocalDate sld = LocalDate.parse(sDate);
+                LocalDateTime endDate = eld.atStartOfDay();
+                LocalDateTime startDate = sld.atStartOfDay();
                 IOrder order = new Order(orderNumber);
-                LocalDateTime ldt = LocalDateTime.parse(deliveryDate);
+                LocalDate ld = LocalDate.parse(deliveryDate);
+                LocalDateTime ldt = ld.atStartOfDay();
                 IDelivery delivery = new Delivery(ldt);
                 ICustomer customer = new Customer(cust);
-//                List<IDepartmentTask> tasks = getAllTaksForProductionOrder(orderNumber);
-//                for (int i = 0; i < arr.length; i++)
-//                {
-//                    tasks.add(new DepartmentTask(department, Boolean.FALSE, ldt, ldt))
-//                }
                 
-//                po.add(new ProductionOrder(order, delivery, customer, tasks));
+                po.add(new ProductionOrder(order, delivery, customer, tasks));
+                
+                Department dpart = new Department(department);
+                dt.add(new DepartmentTask(dpart, done, startDate, endDate));
+                
             }
         } catch (SQLException ex) {
             throw new SQLException("No data from getProductionOrders" + ex);
+        }
+        
+        for (int i = 1; i < po.size(); i++)
+        {
+            if (po.get(i).getOrder().getOrderNumber().equals(po.get(i-1).getOrder().getOrderNumber())){
+                po.remove(po.get(i));
+            }
+        }
+        for (IDepartmentTask task : tasks)
+        {
+            for (IProductionOrder iProductionOrder : po)
+            {
+//                if(iProductionOrder.getOrder().getOrderNumber().equals(task.)){
+//                    
+//                }
+            }
         }
         return po;
     }
