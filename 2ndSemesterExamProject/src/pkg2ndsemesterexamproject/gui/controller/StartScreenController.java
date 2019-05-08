@@ -9,6 +9,7 @@ import java.io.IOException;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.gui.Model;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -26,6 +27,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import pkg2ndsemesterexamproject.be.IDepartment;
 
 /**
  * FXML Controller class
@@ -40,7 +42,7 @@ public class StartScreenController implements Initializable
     
     private Model model;
     
-    private List<Department> allDepartments;
+    private List<IDepartment> allDepartments;
     /**
      * Initializes the controller class.
      */
@@ -53,34 +55,52 @@ public class StartScreenController implements Initializable
             Logger.getLogger(StartScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-//        allDepartments = model.getAllDepartments();
+        try
+        {
+            allDepartments = model.getAllDepartments();
 //        model.setMenuItems(MenuButton, model.getAllDepartments());
+        } catch (SQLException ex)
+        {
+            System.out.println("ingen forbindelse");
+        }
         
         EventHandler<ActionEvent> event1 = (ActionEvent e) ->
         {
             Department temp;
             MenuItem tja = (MenuItem) e.getSource();
             String name = tja.getText();
-            for (Department allDepartment : allDepartments)
+            for (IDepartment allDepartment : allDepartments)
             {
                 if(allDepartment.getName().equals(name)){
-                    temp = allDepartment;
+                    temp = (Department) allDepartment;
                     selectDepartment(temp);
                 }
             }
             System.out.println(tja.getText());
         };
         List<MenuItem> departmentBtns = new ArrayList();
-        allDepartments = new ArrayList();
-        allDepartments.add(new Department("manager"));
-        allDepartments.add(new Department("halv"));
-        allDepartments.add(new Department("bælg"));
-        for (Department depar : allDepartments)
-        {
-            MenuItem item = new MenuItem(depar.getName());//label skal være allDepartment.getName() fra BE laget 
-            item.setOnAction(event1);
-            departmentBtns.add(item);
+        
+        if (allDepartments != null){
+           for (IDepartment depar : allDepartments)
+            {
+                MenuItem item = new MenuItem(depar.getName());//label skal være allDepartment.getName() fra BE laget 
+                item.setOnAction(event1);
+                departmentBtns.add(item);
+            } 
         }
+        else{
+            allDepartments = new ArrayList();
+            allDepartments.add(new Department("manager"));
+            allDepartments.add(new Department("halv"));
+            allDepartments.add(new Department("bælg"));
+            for (IDepartment depar : allDepartments)
+            {
+                MenuItem item = new MenuItem(depar.getName());//label skal være allDepartment.getName() fra BE laget 
+                item.setOnAction(event1);
+                departmentBtns.add(item);
+            } 
+        }
+        
         MenuButton.getItems().addAll(departmentBtns);
         
         

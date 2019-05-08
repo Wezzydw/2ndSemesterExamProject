@@ -15,6 +15,5 @@ import pkg2ndsemesterexamproject.be.IProductionOrder;
  */
 public interface IDataHandler {
 
-    public List<IProductionOrder> searchAllProductionOrders(String searchString);
 
 }
