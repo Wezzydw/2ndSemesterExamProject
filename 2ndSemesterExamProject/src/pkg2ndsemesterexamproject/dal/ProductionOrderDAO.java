@@ -119,8 +119,15 @@ public class ProductionOrderDAO {
         return departments;
     }
        public void updateCircleColour(){
-           
-       }
+                try (Connection con = conProvider.getConnection()) {
+
+//            prst.execute();
+            System.out.println("DILLERBANG");
+        } catch(SQLException ex){
+            
+        }
+    }
+       
     
 
 //    private List<IWorker> getAllWorkers() throws SQLException{
@@ -154,5 +161,6 @@ public class ProductionOrderDAO {
         } catch(SQLException ex){
             
         }
-    }
+}
+
 }
