@@ -72,7 +72,6 @@ public class PassThrough implements IPassthrough
         getDataFromDB.sendOrderIsDone(dt, po);
     }
 
-    @Override
     public void getCircleColour()
     {
        getDataFromDB.getCircleColour();
