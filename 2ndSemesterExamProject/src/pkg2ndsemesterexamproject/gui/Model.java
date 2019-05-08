@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import pkg2ndsemesterexamproject.be.Department;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -31,10 +34,12 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IOrder;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
+import pkg2ndsemesterexamproject.bll.DataHandler;
 import pkg2ndsemesterexamproject.bll.PassThrough;
 import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
 import pkg2ndsemesterexamproject.bll.IPassthrough;
@@ -54,33 +59,48 @@ public class Model {
     private final int minMargenX = 20;
     private final int minMargenY = 10;
     private long lastTime = 0;
-    private final Timeline animation;
+    private final Timeline guiUpdateLimit;
     private AnchorPane anchorPane;
     private BorderPane borderPane;
-    private List<Pane> panes;
+    private List<Pane> stickyNotes;
+    private DataHandler dataHandler;
+    private String selectedDepartmentName;
 
     public Model() throws IOException {
-        panes = new ArrayList();
+        stickyNotes = new ArrayList();
         ptl = new PassThrough();
-        animation = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
+        dataHandler = new DataHandler();
+        guiUpdateLimit = initializeGUIUpdateLimit();
+        guiUpdateLimit.setCycleCount(1);
+    }
+
+    public Timeline initializeGUIUpdateLimit() {
+        return new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 anchorPane.getChildren().clear();
                 extentAnchorPaneX(anchorPane, borderPane);
                 extentAnchorPaneY(anchorPane);
-                placeOrderInUI(anchorPane);
+                try {
+                    placeOrderInUI(anchorPane);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             }
         }));
-        animation.setCycleCount(1);
+
+    }
+
+    public void setSelectedDepartmentName(String name) {
+        selectedDepartmentName = name;
     }
 
     /*
     Henter alle departments fra databasen
      */
-    public List<Department> getAllDepartments() {
-
-        return null;
+    public List<IDepartment> getAllDepartments() throws SQLException {
+        return ptl.getAllDepartments();
     }
 
     /*
@@ -103,14 +123,12 @@ public class Model {
     projectets nuværende situation
      */
     //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
-
     public Pane createOrderInGUI() {//IProductionOrder po, IDepartmentTask dp
-        
+
 //        Label orderNum = new Label(po.getOrder().toString());
 //        Label customer = new Label("Customer: " + po.getCustomer().getName());
 //        Label startDate = new Label(dp.getStartDate().toLocalDate().toString());
 //        Label endDate = new Label(dp.getEndDate().toLocalDate().toString());
-
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200, 150);
         orderPane.getStyleClass().add("pane");
@@ -213,45 +231,55 @@ public class Model {
     Denne metode sørge for at vi kan placere alle departmentTask/panes i vores
     departmentview uden begrænsninger, samt gør designet mere brugervenligt.
      */
-    public void placeOrderInUI(AnchorPane departmentView) {
+    public void placeOrderInUI(AnchorPane departmentView) throws SQLException {
         //Indtil vi har faktiske ordrer
-        if (panes.isEmpty()) {
-            System.out.println("Generation");
-            for (int i = 0; i < tmpListSize; i++) {
-                panes.add(createOrderInGUI());
+//        if (stickyNotes.isEmpty()) {
+//            System.out.println("Generation");
+//            for (int i = 0; i < tmpListSize; i++) {
+//                stickyNotes.add(createOrderInGUI());
+//            }
+//        }
+        if (selectedDepartmentName != null && false) {
+
+            System.out.println(dataHandler.getAllRelevantProductionOrders(selectedDepartmentName).size());
+            for (IProductionOrder productionOrders : dataHandler.getAllRelevantProductionOrders(selectedDepartmentName)) {
+                if (stickyNotes.isEmpty()) {
+                    stickyNotes.add(createOrderInGUI());
+                }
             }
-        }
-        double viewHeight = departmentView.getPrefHeight();
-        double viewWidth = departmentView.getPrefWidth();
 
-        double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
-        int xNumberOfPanes = (int) (numberOfPanes);
-        double rest = (numberOfPanes - xNumberOfPanes) * orderPaneWidth - minMargenEdgeX * 2;
-        int counter = 0;
+            double viewHeight = departmentView.getPrefHeight();
+            double viewWidth = departmentView.getPrefWidth();
 
-        outerloop:
-        for (int k = 0; k < panes.size(); k++) {
+            double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
+            int xNumberOfPanes = (int) (numberOfPanes);
+            double rest = (numberOfPanes - xNumberOfPanes) * orderPaneWidth - minMargenEdgeX * 2;
+            int counter = 0;
 
-            for (int j = 0; j < xNumberOfPanes; j++) {
-                //Pane pane = createOrderInGUI();
-                panes.get(counter).setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
-                panes.get(counter).setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
-                departmentView.getChildren().add(panes.get(counter));
-                if (counter == panes.size() - 1) {
-                    break outerloop;
+            outerloop:
+            for (int k = 0; k < stickyNotes.size(); k++) {
+
+                for (int j = 0; j < xNumberOfPanes; j++) {
+                    //Pane pane = createOrderInGUI();
+                    stickyNotes.get(counter).setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
+                    stickyNotes.get(counter).setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
+                    departmentView.getChildren().add(stickyNotes.get(counter));
+                    if (counter == stickyNotes.size() - 1) {
+                        break outerloop;
+                    }
+
+                    counter++;
+
                 }
 
-                counter++;
-
             }
-
         }
     }
 
     /*
     Metoden her trækker -50 på borderpanede for at undgå en sidescroller så,
     vi altid har samme x-værdi på programmet, som medfører der altid er samme 
-    antal panes henaf x-aksen.
+    antal stickyNotes henaf x-aksen.
      */
     public void extentAnchorPaneX(AnchorPane anchorP, BorderPane borderP) {
         anchorP.setPrefWidth(borderP.getWidth() - 50);
@@ -260,14 +288,14 @@ public class Model {
 
     /*
     denne metode justere på vores y-akse, således at programmet udvider sig selv,
-    hvis nødvendigt for at få alle efterspurgte panes puttes ind i viewet.
+    hvis nødvendigt for at få alle efterspurgte stickyNotes puttes ind i viewet.
      */
     public void extentAnchorPaneY(AnchorPane anchorP) {
 
         double viewWidth = anchorP.getPrefWidth();
         double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
         int xNumberOfPanes = (int) (numberOfPanes);
-        int yNumberOfPanes = (int) (panes.size() / xNumberOfPanes);
+        int yNumberOfPanes = (int) (stickyNotes.size() / xNumberOfPanes);
         yNumberOfPanes += 1;
         System.out.println("Number of panes: " + yNumberOfPanes + " calcheight : " + (yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes));
         anchorP.setPrefHeight(yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes);
@@ -289,7 +317,7 @@ public class Model {
     public void msOnDepartmentView(AnchorPane departmentView, BorderPane borderPane) {
         anchorPane = departmentView;
         this.borderPane = borderPane;
-        animation.play();
+        guiUpdateLimit.play();
     }
 
     /*
@@ -301,10 +329,17 @@ public class Model {
         for (IDepartmentTask IdepartmentTask : departmentTask) {
             if (IdepartmentTask.getFinishedOrder() == true) {
                 circle.setFill(Paint.valueOf("Green"));
-            } else {
-                circle.setFill(Paint.valueOf("Red"));
-            }
 
+            } 
+           //if (IdepartmentTask.getStartDate().isBefore(otherTime));
+                //circle.setFill(Paint.valueOf("Yellow"));
+            
+            
+//            else {
+//                circle.setFill(Paint.valueOf("Red"));
+//            }
+//            
+            
         }
     }
 
