@@ -67,16 +67,15 @@ public class StartScreenController implements Initializable
         EventHandler<ActionEvent> event1 = (ActionEvent e) ->
         {
             Department temp;
-            MenuItem tja = (MenuItem) e.getSource();
-            String name = tja.getText();
+            MenuItem selectedItem = (MenuItem) e.getSource();
+            String selectedItemName = selectedItem.getText();
             for (IDepartment allDepartment : allDepartments)
             {
-                if(allDepartment.getName().equals(name)){
+                if(allDepartment.getName().equals(selectedItemName)){
                     temp = (Department) allDepartment;
                     selectDepartment(temp);
                 }
             }
-            System.out.println(tja.getText());
         };
         List<MenuItem> departmentBtns = new ArrayList();
         
@@ -105,7 +104,9 @@ public class StartScreenController implements Initializable
         
         
     }    
-    
+    /*
+    Denne metode skifter scene fra startscreen til manager screen
+    */
     private void goToManagerScreen(){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/CreateOrDeleteDepartment.fxml"));
@@ -125,7 +126,9 @@ public class StartScreenController implements Initializable
         stage1.close();
         stage.showAndWait();
     }
-    
+    /*
+    Metoden skifter scene fra startscreen til DepartmentScreenViewet
+    */
     private void goToDepartmentScreen(Department department){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/DepartmentScreenView.fxml"));

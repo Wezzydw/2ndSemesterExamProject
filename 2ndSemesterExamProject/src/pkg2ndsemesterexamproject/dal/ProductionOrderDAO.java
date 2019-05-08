@@ -118,6 +118,10 @@ public class ProductionOrderDAO {
         }
         return departments;
     }
+       public void updateCircleColour(){
+           
+       }
+    
 
 //    private List<IWorker> getAllWorkers() throws SQLException{
 //        List<IWorker> workers = new ArrayList();
@@ -137,4 +141,78 @@ public class ProductionOrderDAO {
 //        }        
 //        return workers;        
 //    }
+    
+    public List<IProductionOrder> getAllInfo() throws SQLException{
+        List<IProductionOrder> po = new ArrayList();
+        List<IDepartmentTask> dt = new ArrayList();
+        List<IDepartmentTask> tasks = new ArrayList();
+        try (Connection con = conProvider.getConnection()) {
+            String a = "SELECT orderNumber, department, startDate, endDate, isFinished, customerName, deliveryDate\n" +
+"  FROM [DepartmentTask] JOIN ProductionOrder\n" +
+"    ON [DepartmentTask].orderNumber = ProductionOrder.orderId\n" + 
+            " ORDER BY orederNumber";
+            PreparedStatement prst = con.prepareStatement(a);
+            ResultSet rs = prst.executeQuery();
+            
+            while (rs.next()) {
+                String cust = rs.getString("customerName");
+                String deliveryDate = rs.getString("deliveryDate");
+                boolean done = rs.getBoolean("isFinished");
+                String sDate = rs.getString("startDate");
+                String eDate = rs.getString("endDate");
+                String department = rs.getString("department");
+                String orderNumber = rs.getString("orderNumber");
+                
+                LocalDate eld = LocalDate.parse(eDate);
+                LocalDate sld = LocalDate.parse(sDate);
+                LocalDateTime endDate = eld.atStartOfDay();
+                LocalDateTime startDate = sld.atStartOfDay();
+                IOrder order = new Order(orderNumber);
+                LocalDate ld = LocalDate.parse(deliveryDate);
+                LocalDateTime ldt = ld.atStartOfDay();
+                IDelivery delivery = new Delivery(ldt);
+                ICustomer customer = new Customer(cust);
+                
+                po.add(new ProductionOrder(order, delivery, customer, tasks));
+                
+                Department dpart = new Department(department);
+                dt.add(new DepartmentTask(dpart, done, startDate, endDate));
+                
+            }
+        } catch (SQLException ex) {
+            throw new SQLException("No data from getProductionOrders" + ex);
+        }
+        
+        for (int i = 1; i < po.size(); i++)
+        {
+            if (po.get(i).getOrder().getOrderNumber().equals(po.get(i-1).getOrder().getOrderNumber())){
+                po.remove(po.get(i));
+            }
+        }
+        for (IDepartmentTask task : tasks)
+        {
+            for (IProductionOrder iProductionOrder : po)
+            {
+//                if(iProductionOrder.getOrder().getOrderNumber().equals(task.)){
+//                    
+//                }
+            }
+        }
+        return po;
+    }
+
+    public void updateOrderToDone(IDepartmentTask dt, IProductionOrder po){
+        try (Connection con = conProvider.getConnection()) {
+//            String a = "UPDATE DepartmentTask SET isFinished = ? WHERE (orderNumber = ? AND department = ?);";
+//            PreparedStatement prst = con.prepareStatement(a);
+//            prst.setBoolean(1, true);
+//            prst.setString(2, po.getOrder().getOrderNumber());
+//            prst.setString(3, dt.getDepartment().getName());
+//            
+//            prst.execute();
+            System.out.println("DILLERBANG");
+        } catch(SQLException ex){
+            
+        }
+    }
 }

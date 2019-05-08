@@ -37,9 +37,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
+import pkg2ndsemesterexamproject.be.IOrder;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
-import pkg2ndsemesterexamproject.be.Order;
 import pkg2ndsemesterexamproject.bll.DataHandler;
 import pkg2ndsemesterexamproject.bll.PassThrough;
 import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
@@ -114,8 +114,8 @@ public class Model {
     /*
     Metoden registerer om ordren er færdig og sender den videre ned igennem lagene
      */
-    public void orderIsDone(Order order) {
-        ptl.sendOrderIsDone();
+    public void orderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException {
+        ptl.sendOrderIsDone(dt, po);
     }
 
     /*
@@ -351,10 +351,17 @@ public class Model {
         for (IDepartmentTask IdepartmentTask : departmentTask) {
             if (IdepartmentTask.getFinishedOrder() == true) {
                 circle.setFill(Paint.valueOf("Green"));
-            } else {
-                circle.setFill(Paint.valueOf("Red"));
-            }
 
+            } 
+           //if (IdepartmentTask.getStartDate().isBefore(otherTime));
+                //circle.setFill(Paint.valueOf("Yellow"));
+            
+            
+//            else {
+//                circle.setFill(Paint.valueOf("Red"));
+//            }
+//            
+            
         }
     }
 

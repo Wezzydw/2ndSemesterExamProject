@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.be.IDepartment;
+import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.be.Order;
@@ -43,12 +44,6 @@ public class PassThrough implements IPassthrough
     }
 
     @Override
-    public void sendOrderIsDone()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public List<IWorker> getWorkersFromDB()throws SQLException {
         return getDataFromDB.getAllWorkers();
     }
@@ -59,11 +54,6 @@ public class PassThrough implements IPassthrough
         return getDataFromDB.getAllDepartments();
     }
 
-    @Override
-    public void sendOrderIsDone(Order order, Department department) throws SQLException
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public List<IWorker> getAllWorkers() throws SQLException
@@ -76,5 +66,9 @@ public class PassThrough implements IPassthrough
     {
         return getDataFromDB.getAllProductionOrders();
     }
-    
+
+    @Override
+    public void sendOrderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException {
+        getDataFromDB.sendOrderIsDone(dt, po);
+    }
 }

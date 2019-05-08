@@ -107,8 +107,12 @@ public class DepartmentScreenViewController implements Initializable {
         currentDepartment = department;
         lblText.setText(department.getName());
         model.setSelectedDepartmentName(currentDepartment.getName());
+    
     }
-
+/*
+    denne metode opdatere gui'en men med en thred.sleep delay på 5000ms så,
+    den kun opdatere programmet hver 5 sekund for at reducere lag
+    */
     public void functionThatUpdatedGUIEvery5Seconds() {
 
         Thread t = new Thread(new Runnable() {
