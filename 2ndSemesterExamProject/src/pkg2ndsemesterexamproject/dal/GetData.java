@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package pkg2ndsemesterexamproject.dal;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import pkg2ndsemesterexamproject.be.Department;
@@ -18,40 +19,34 @@ import pkg2ndsemesterexamproject.be.IWorker;
  *
  * @author andreas
  */
-public class GetData implements IGetData
-{
-    ProductionOrderDAO poDAO;
-    WorkerDAO wDAO ;
+public class GetData implements IGetData {
 
-    public GetData() throws IOException
-    {
+    ProductionOrderDAO poDAO;
+    WorkerDAO wDAO;
+
+    public GetData() throws IOException {
         poDAO = new ProductionOrderDAO();
         wDAO = new WorkerDAO();
     }
-    
+
     @Override
-    public List<IDepartment> getAllDepartments() throws SQLException
-    {
+    public List<IDepartment> getAllDepartments() throws SQLException {
         return poDAO.getAllDepartments();
     }
 
-    
-
     @Override
-    public void sendOrderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException
-    {
+    public void sendOrderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException {
         poDAO.updateOrderToDone(dt, po);
     }
 
-@Override
-    public List<IWorker> getAllWorkers() throws SQLException{
+    @Override
+    public List<IWorker> getAllWorkers() throws SQLException {
         return wDAO.getAllWorkers();
     }
 
     @Override
-    public List<IProductionOrder> getAllProductionOrders() throws SQLException
-    {
-        return poDAO.getProductionOrders();
+    public List<IProductionOrder> getAllProductionOrders() throws SQLException {
+        return poDAO.getAllInfo();
     }
 
 //    @Override
@@ -59,6 +54,4 @@ public class GetData implements IGetData
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
-   
 }
