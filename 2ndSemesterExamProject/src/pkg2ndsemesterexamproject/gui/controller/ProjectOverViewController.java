@@ -24,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
@@ -32,7 +33,6 @@ import javafx.scene.paint.Color;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
-import pkg2ndsemesterexamproject.be.Order;
 import pkg2ndsemesterexamproject.gui.Model;
 
 /**
@@ -43,6 +43,8 @@ import pkg2ndsemesterexamproject.gui.Model;
 public class ProjectOverViewController implements Initializable
 {
     private ObservableList<IWorker> allWorkers = FXCollections.observableArrayList();
+    private IDepartmentTask departmentTask;
+    private IProductionOrder productionOrder;
     
     
     private Model model;
@@ -64,6 +66,8 @@ public class ProjectOverViewController implements Initializable
     private Label lblStartDate;
     @FXML
     private Label lblEndDate;
+    @FXML
+    private Button btnIsDone;
     /**
      * Initializes the controller class.
      */
@@ -95,8 +99,13 @@ public class ProjectOverViewController implements Initializable
     @FXML
     private void orderIsDone(ActionEvent event)
     {
-        Order order = new Order("12");
-        model.orderIsDone(order);
+        
+        try {
+            model.orderIsDone(departmentTask, productionOrder);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     private void clockUpdate(){
@@ -136,6 +145,12 @@ public class ProjectOverViewController implements Initializable
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
             lstView.setItems(allWorkers);
+    }
+    
+    public void setOrder(IDepartmentTask dt, IProductionOrder po){
+        
+        this.departmentTask = dt;
+        this.productionOrder = po;
     }
     
     
