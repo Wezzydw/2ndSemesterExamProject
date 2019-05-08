@@ -71,4 +71,13 @@ public class PassThrough implements IPassthrough
     public void sendOrderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException {
         getDataFromDB.sendOrderIsDone(dt, po);
     }
-}
+
+    @Override
+    public void getCircleColour()
+    {
+       getDataFromDB.getCircleColour();
+    }
+  
+    }
+            
+

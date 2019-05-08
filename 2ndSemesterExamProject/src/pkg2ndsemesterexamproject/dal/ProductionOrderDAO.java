@@ -117,10 +117,18 @@ public class ProductionOrderDAO {
         }
         return departments;
     }
+    
+       public void updateCircleColour(){
+                try (Connection con = conProvider.getConnection()) {
 
-    public void updateCircleColour() {
-
+//            prst.execute();
+            System.out.println("DILLERBANG");
+        } catch(SQLException ex){
+            
+        }
     }
+       
+   
 
 //    private List<IWorker> getAllWorkers() throws SQLException{
 //        List<IWorker> workers = new ArrayList();
@@ -272,5 +280,6 @@ public class ProductionOrderDAO {
         } catch (SQLException ex) {
 
         }
-    }
+}
+
 }
