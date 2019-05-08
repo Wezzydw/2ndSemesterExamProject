@@ -103,7 +103,10 @@ public class DepartmentScreenViewController implements Initializable {
     public void setDepartment(Department department) {
         lblText.setText(department.getName());
     }
-
+/*
+    denne metode opdatere gui'en men med en thred.sleep delay på 5000ms så,
+    den kun opdatere programmet hver 5 sekund for at reducere lag
+    */
     public void functionThatUpdatedGUIEvery5Seconds() {
 
         Thread t = new Thread(new Runnable() {

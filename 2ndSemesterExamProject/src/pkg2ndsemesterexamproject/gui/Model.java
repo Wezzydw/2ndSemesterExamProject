@@ -287,10 +287,15 @@ public class Model {
         for (IDepartmentTask IdepartmentTask : departmentTask) {
             if (IdepartmentTask.getFinishedOrder() == true) {
                 circle.setFill(Paint.valueOf("Green"));
-            } else {
-                circle.setFill(Paint.valueOf("Red"));
-            }
+            } 
+           //if (IdepartmentTask.getStartDate().isBefore(otherTime));
+                //circle.setFill(Paint.valueOf("Yellow"));
             
+            
+//            else {
+//                circle.setFill(Paint.valueOf("Red"));
+//            }
+//            
             
         }
     }
