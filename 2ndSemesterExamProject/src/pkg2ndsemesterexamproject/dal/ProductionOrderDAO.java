@@ -118,7 +118,9 @@ public class ProductionOrderDAO {
         }
         return departments;
     }
-       
+       public void updateCircleColour(){
+           
+       }
     
 
 //    private List<IWorker> getAllWorkers() throws SQLException{
