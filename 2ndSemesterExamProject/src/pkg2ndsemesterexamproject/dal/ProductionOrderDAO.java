@@ -133,4 +133,38 @@ public class ProductionOrderDAO {
 //        }        
 //        return workers;        
 //    }
+    
+    public List<IProductionOrder> getAllInfo() throws SQLException{
+        List<IProductionOrder> po = new ArrayList();
+
+        try (Connection con = conProvider.getConnection()) {
+            String a = "SELECT orderNumber, department, startDate, endDate, isFinished, customerName, deliveryDate\n" +
+"  FROM [DepartmentTask] JOIN ProductionOrder\n" +
+"    ON [DepartmentTask].orderNumber = ProductionOrder.orderId";
+            PreparedStatement prst = con.prepareStatement(a);
+            ResultSet rs = prst.executeQuery();
+
+            while (rs.next()) {
+                String orderNumber = rs.getString("orderNumber");
+                String cust = rs.getString("customerName");
+                String deliveryDate = rs.getString("deliveryDate");
+                String department = rs.getString("department");
+                
+                IOrder order = new Order(orderNumber);
+                LocalDateTime ldt = LocalDateTime.parse(deliveryDate);
+                IDelivery delivery = new Delivery(ldt);
+                ICustomer customer = new Customer(cust);
+                List<IDepartmentTask> tasks = getAllTaksForProductionOrder(orderNumber);
+//                for (int i = 0; i < arr.length; i++)
+//                {
+//                    tasks.add(new DepartmentTask(department, Boolean.FALSE, ldt, ldt))
+//                }
+                
+                po.add(new ProductionOrder(order, delivery, customer, tasks));
+            }
+        } catch (SQLException ex) {
+            throw new SQLException("No data from getProductionOrders" + ex);
+        }
+        return po;
+    }
 }
