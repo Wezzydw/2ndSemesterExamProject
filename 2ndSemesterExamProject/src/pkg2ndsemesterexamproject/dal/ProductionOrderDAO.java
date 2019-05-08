@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,10 +59,11 @@ public class ProductionOrderDAO {
                 String cust = rs.getString("customerName");
                 String deliveryDate = rs.getString("deliveryDate");
                 IOrder order = new Order(orderNumber);
-                LocalDateTime ldt = LocalDateTime.parse(deliveryDate);
+                LocalDate ld = LocalDate.parse(deliveryDate);
+                LocalDateTime ldt = ld.atStartOfDay();
                 IDelivery delivery = new Delivery(ldt);
                 ICustomer customer = new Customer(cust);
-                List<IDepartmentTask> tasks = getAllTaksForProductionOrder(orderNumber);
+                List<IDepartmentTask> tasks = getAllTasksForProductionOrder(orderNumber);
                 po.add(new ProductionOrder(order, delivery, customer, tasks));
             }
         } catch (SQLException ex) {
@@ -69,8 +71,8 @@ public class ProductionOrderDAO {
         }
         return po;
     }
-    
-    public List<IDepartmentTask> getAllTaksForProductionOrder(String orderNum) throws SQLException{
+
+    public List<IDepartmentTask> getAllTasksForProductionOrder(String orderNum) throws SQLException {
         List<IDepartmentTask> tasks = new ArrayList();
         try (Connection con = conProvider.getConnection()) {
 //            String a = "SELECT * FROM DepartmentTask;";
@@ -86,8 +88,10 @@ public class ProductionOrderDAO {
                 String eDate = rs.getString("endDate");
                 String department = rs.getString("department");
                 String orderNumber = rs.getString("orderNumber");
-                LocalDateTime endDate = LocalDateTime.parse(eDate);
-                LocalDateTime startDate = LocalDateTime.parse(sDate);
+                LocalDate eld = LocalDate.parse(eDate);
+                LocalDate sld = LocalDate.parse(sDate);
+                LocalDateTime endDate = eld.atStartOfDay();
+                LocalDateTime startDate = sld.atStartOfDay();
                 Department dpart = new Department(department);
                 tasks.add(new DepartmentTask(dpart, done, startDate, endDate));
             }
@@ -114,6 +118,8 @@ public class ProductionOrderDAO {
         }
         return departments;
     }
+       
+    
 
 //    private List<IWorker> getAllWorkers() throws SQLException{
 //        List<IWorker> workers = new ArrayList();
@@ -154,17 +160,32 @@ public class ProductionOrderDAO {
                 LocalDateTime ldt = LocalDateTime.parse(deliveryDate);
                 IDelivery delivery = new Delivery(ldt);
                 ICustomer customer = new Customer(cust);
-                List<IDepartmentTask> tasks = getAllTaksForProductionOrder(orderNumber);
+//                List<IDepartmentTask> tasks = getAllTaksForProductionOrder(orderNumber);
 //                for (int i = 0; i < arr.length; i++)
 //                {
 //                    tasks.add(new DepartmentTask(department, Boolean.FALSE, ldt, ldt))
 //                }
                 
-                po.add(new ProductionOrder(order, delivery, customer, tasks));
+//                po.add(new ProductionOrder(order, delivery, customer, tasks));
             }
         } catch (SQLException ex) {
             throw new SQLException("No data from getProductionOrders" + ex);
         }
         return po;
+    }
+
+    public void updateOrderToDone(IDepartmentTask dt, IProductionOrder po){
+        try (Connection con = conProvider.getConnection()) {
+//            String a = "UPDATE DepartmentTask SET isFinished = ? WHERE (orderNumber = ? AND department = ?);";
+//            PreparedStatement prst = con.prepareStatement(a);
+//            prst.setBoolean(1, true);
+//            prst.setString(2, po.getOrder().getOrderNumber());
+//            prst.setString(3, dt.getDepartment().getName());
+//            
+//            prst.execute();
+            System.out.println("DILLERBANG");
+        } catch(SQLException ex){
+            
+        }
     }
 }

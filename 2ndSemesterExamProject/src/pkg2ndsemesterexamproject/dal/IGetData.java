@@ -22,7 +22,7 @@ public interface IGetData
 {
     List<IDepartment> getAllDepartments() throws SQLException;
     
-    void sendOrderIsDone(Order order, Department department) throws SQLException;
+    void sendOrderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException;
     
     List<IWorker> getAllWorkers()throws SQLException;
     
