@@ -65,6 +65,28 @@ public class DepartmentScreenViewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        
+        LocalDate date = LocalDate.now();
+        lblDate.setText(date.toString());
+//        Stage stage = (Stage) borderPane.getScene().getWindow();
+//        stage.setFullScreen(true);
+        model.msOnDepartmentView(departmentAnchorPane, borderPane);
+        functionThatUpdatedGUIEvery5Seconds();
+        initListeners();
+        //tmpLoop();
+    }
+
+    public void initListeners() {
+        departmentAnchorPane.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                System.out.println("Olde: " + oldValue + " New: " + newValue);
+            }
+        });
+        
+        
+        System.out.println("beforelistener");
         borderPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -73,27 +95,11 @@ public class DepartmentScreenViewController implements Initializable {
 //
 //                model.extentAnchorPaneY(departmentAnchorPane);
                 //model.placeOrderInUI(departmentAnchorPane);
-
+                System.out.println("Tester");
                 model.msOnDepartmentView(departmentAnchorPane, borderPane);
             }
 
         });
-
-        LocalDate date = LocalDate.now();
-        lblDate.setText(date.toString());
-//        Stage stage = (Stage) borderPane.getScene().getWindow();
-//        stage.setFullScreen(true);
-        model.msOnDepartmentView(departmentAnchorPane, borderPane);
-        functionThatUpdatedGUIEvery5Seconds();
-
-        departmentAnchorPane.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                System.out.println("Olde: " + oldValue + " New: " + newValue);
-            }
-        });
-
-        //tmpLoop();
     }
 
     @FXML
@@ -101,7 +107,9 @@ public class DepartmentScreenViewController implements Initializable {
     }
 
     public void setDepartment(Department department) {
+        currentDepartment = department;
         lblText.setText(department.getName());
+        model.setSelectedDepartmentName(currentDepartment.getName());
     }
 
     public void functionThatUpdatedGUIEvery5Seconds() {
