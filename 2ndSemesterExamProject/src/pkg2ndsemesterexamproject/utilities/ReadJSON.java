@@ -5,11 +5,10 @@
  */
 package pkg2ndsemesterexamproject.utilities;
 
-import pkg2ndsemesterexamproject.dal.JsonFormater;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+import pkg2ndsemesterexamproject.bll.DataHandler;
 import pkg2ndsemesterexamproject.dal.JsonFormater;
 
 /**
@@ -21,11 +20,18 @@ public class ReadJSON {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-        JsonFormater dm = new JsonFormater();
+    public static void main(String[] args) throws FileNotFoundException, IOException, SQLException {
+        //JsonFormater dm = new JsonFormater();
         //dm.extractWorkersFromJSON();
-        dm.extractProductionOrdersFromJSON();
-        
+        //dm.extractProductionOrdersFromJSON();
+        DataHandler hd = new DataHandler();
+        long a = System.currentTimeMillis();
+        hd.getAllRelevantProductionOrders("Maler");
+        System.out.println("Done1 - Time: " + (System.currentTimeMillis() - a)/1000);
+        hd.getAllRelevantProductionOrders("Bælg");
+        System.out.println("Done2 - Time: " + (System.currentTimeMillis() - a)/1000);
+        hd.getAllRelevantProductionOrders("Halv");
+        System.out.println("Done3 - Time: " + (System.currentTimeMillis() - a)/1000);
     }
 
 }

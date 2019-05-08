@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -78,7 +79,7 @@ public class Model {
         return new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                anchorPane.getChildren().clear();
+                //anchorPane.getChildren().clear();
                 extentAnchorPaneX(anchorPane, borderPane);
                 extentAnchorPaneY(anchorPane);
                 try {
@@ -239,40 +240,61 @@ public class Model {
 //                stickyNotes.add(createOrderInGUI());
 //            }
 //        }
-        if (selectedDepartmentName != null && false) {
 
-            System.out.println(dataHandler.getAllRelevantProductionOrders(selectedDepartmentName).size());
-            for (IProductionOrder productionOrders : dataHandler.getAllRelevantProductionOrders(selectedDepartmentName)) {
-                if (stickyNotes.isEmpty()) {
-                    stickyNotes.add(createOrderInGUI());
-                }
-            }
+        if (selectedDepartmentName != null) {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    List<IProductionOrder> orders = null;
+                    try {
+                        orders = dataHandler.getAllRelevantProductionOrders(selectedDepartmentName);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    if (stickyNotes.isEmpty()) {
+                        for (IProductionOrder productionOrders : orders) {
 
-            double viewHeight = departmentView.getPrefHeight();
-            double viewWidth = departmentView.getPrefWidth();
-
-            double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
-            int xNumberOfPanes = (int) (numberOfPanes);
-            double rest = (numberOfPanes - xNumberOfPanes) * orderPaneWidth - minMargenEdgeX * 2;
-            int counter = 0;
-
-            outerloop:
-            for (int k = 0; k < stickyNotes.size(); k++) {
-
-                for (int j = 0; j < xNumberOfPanes; j++) {
-                    //Pane pane = createOrderInGUI();
-                    stickyNotes.get(counter).setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
-                    stickyNotes.get(counter).setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
-                    departmentView.getChildren().add(stickyNotes.get(counter));
-                    if (counter == stickyNotes.size() - 1) {
-                        break outerloop;
+                            System.out.println("Bøøh");
+                            stickyNotes.add(createOrderInGUI());
+                        }
                     }
 
-                    counter++;
+                    double viewHeight = departmentView.getPrefHeight();
+                    double viewWidth = departmentView.getPrefWidth();
 
+                    double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
+                    int xNumberOfPanes = (int) (numberOfPanes);
+                    double rest = (numberOfPanes - xNumberOfPanes) * orderPaneWidth - minMargenEdgeX * 2;
+
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            int counter = 0;
+                            departmentView.getChildren().clear();
+                            outerloop:
+                            for (int k = 0; k < stickyNotes.size(); k++) {
+
+                                for (int j = 0; j < xNumberOfPanes; j++) {
+                                    //Pane pane = createOrderInGUI();
+                                    stickyNotes.get(counter).setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
+                                    stickyNotes.get(counter).setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
+                                    departmentView.getChildren().add(stickyNotes.get(counter));
+                                    if (counter == stickyNotes.size() - 1) {
+                                        break outerloop;
+                                    }
+
+                                    counter++;
+
+                                }
+
+                            }
+                        }
+                    });
                 }
-
-            }
+            });
+            t.start();
+        } else {
+            System.out.println("Else");
         }
     }
 

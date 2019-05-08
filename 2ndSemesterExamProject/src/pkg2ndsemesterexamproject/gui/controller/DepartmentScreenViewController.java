@@ -85,8 +85,6 @@ public class DepartmentScreenViewController implements Initializable {
             }
         });
         
-        
-        System.out.println("beforelistener");
         borderPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -95,7 +93,6 @@ public class DepartmentScreenViewController implements Initializable {
 //
 //                model.extentAnchorPaneY(departmentAnchorPane);
                 //model.placeOrderInUI(departmentAnchorPane);
-                System.out.println("Tester");
                 model.msOnDepartmentView(departmentAnchorPane, borderPane);
             }
 
@@ -119,7 +116,7 @@ public class DepartmentScreenViewController implements Initializable {
             public void run() {
                 while (true) {
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(10000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
                     }
