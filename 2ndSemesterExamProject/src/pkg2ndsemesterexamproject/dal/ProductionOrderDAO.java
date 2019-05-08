@@ -141,4 +141,18 @@ public class ProductionOrderDAO {
 //        }        
 //        return workers;        
 //    }
+    public void updateOrderToDone(IDepartmentTask dt, IProductionOrder po){
+        try (Connection con = conProvider.getConnection()) {
+//            String a = "UPDATE DepartmentTask SET isFinished = ? WHERE (orderNumber = ? AND department = ?);";
+//            PreparedStatement prst = con.prepareStatement(a);
+//            prst.setBoolean(1, true);
+//            prst.setString(2, po.getOrder().getOrderNumber());
+//            prst.setString(3, dt.getDepartment().getName());
+//            
+//            prst.execute();
+            System.out.println("DILLERBANG");
+        } catch(SQLException ex){
+            
+        }
+    }
 }
