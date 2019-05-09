@@ -252,8 +252,6 @@ public class Model {
                     }
                     if (stickyNotes.isEmpty()) {
                         for (IProductionOrder productionOrders : orders) {
-
-                            System.out.println("Bøøh");
                             stickyNotes.add(createOrderInGUI(productionOrders, dataHandler.getTaskForDepartment(productionOrders, selectedDepartmentName)));
                         }
                     }
