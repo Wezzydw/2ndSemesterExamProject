@@ -99,7 +99,8 @@ public class ProjectOverViewController implements Initializable
     @FXML
     private void orderIsDone(ActionEvent event)
     {
-        
+        System.out.println(departmentTask.toString());
+        System.out.println(productionOrder.toString());
         try {
             model.orderIsDone(departmentTask, productionOrder);
         } catch (SQLException ex) {

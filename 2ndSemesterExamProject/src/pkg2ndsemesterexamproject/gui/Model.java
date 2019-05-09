@@ -231,6 +231,7 @@ public class Model {
         ProjectOverViewController display = loader.getController();
         display.startClock();
         display.setData(dpt, po);
+        display.setOrder(dpt, po);
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
