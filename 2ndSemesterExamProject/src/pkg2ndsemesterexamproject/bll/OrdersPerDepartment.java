@@ -49,17 +49,25 @@ public class OrdersPerDepartment
         }
         return before;
     }
-    public List<IDepartmentTask> getTasksForDepartment(List<IProductionOrder> po, IDepartment department){
-        List<IDepartmentTask> dat = new ArrayList();
-        for (IProductionOrder iProductionOrder : po)
+    public IDepartmentTask getTasksForDepartment(IProductionOrder po, String departmentName){
+        for (IDepartmentTask departmentTask : po.getDepartmentTasks())
         {
-            for (int i = 0; i < iProductionOrder.getDepartmentTasks().size(); i++)
-            {
-                if(iProductionOrder.getDepartmentTasks().get(i).getDepartment().getName().equals(department.getName())){
-                   dat.add(iProductionOrder.getDepartmentTasks().get(i));
-                }
+            if(departmentTask.getDepartment().getName().equals(departmentName)){
+                return departmentTask;
             }
         }
-        return dat;
+        
+//        List<IDepartmentTask> dat = new ArrayList();
+//        for (IProductionOrder iProductionOrder : po)
+//        {
+//            for (int i = 0; i < iProductionOrder.getDepartmentTasks().size(); i++)
+//            {
+//                if(iProductionOrder.getDepartmentTasks().get(i).getDepartment().getName().equals(department.getName())){
+//                   dat.add(iProductionOrder.getDepartmentTasks().get(i));
+//                }
+//            }
+//        }
+//        return dat;
+        return null;
     }
 }

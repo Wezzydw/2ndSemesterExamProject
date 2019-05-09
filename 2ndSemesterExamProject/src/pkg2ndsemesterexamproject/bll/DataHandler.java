@@ -34,34 +34,31 @@ public class DataHandler implements IDataHandler {
         LocalDate today = LocalDate.now();
         List<IProductionOrder> returnList = new ArrayList();
 
-        long a = System.currentTimeMillis();
         List<IProductionOrder> all = passThrough.getAllProductionOrders();
-        System.out.println("Right before loop " + (System.currentTimeMillis() - a) / 1000);
-
-        int counter1 = 0;
-        int counter2 = 0;
-        System.out.println(all.size());
-
         loop:
         for (IProductionOrder iProductionOrder : all) {
 
-            counter1++;
             for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {
-                counter2++;
                 if (departmentName.equals(departmentTask.getDepartment().getName())
                         && !departmentTask.getFinishedOrder()
-                        && (departmentTask.getStartDate().toLocalDate().isAfter(today)
+                        && (departmentTask.getStartDate().toLocalDate().isBefore(today)
                         || departmentTask.getStartDate().toLocalDate().isEqual(today))) {
+
                     returnList.add(iProductionOrder);
-                    System.out.println("Continues");
                     continue loop;
                 }
             }
         }
-        System.out.println("counter1 " + counter1);
-        System.out.println("counter2 " + counter2);
-        System.out.println(returnList.size());
         return returnList;
+    }
+
+    public IDepartmentTask getTaskForDepartment(IProductionOrder po, String departmentName) {
+        for (IDepartmentTask departmentTask : po.getDepartmentTasks()) {
+            if (departmentTask.getDepartment().getName().equals(departmentName)) {
+                return departmentTask;
+            }
+        }
+        return null;
     }
 
 }
