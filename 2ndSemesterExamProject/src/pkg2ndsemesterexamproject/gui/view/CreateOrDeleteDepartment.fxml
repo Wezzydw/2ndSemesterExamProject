@@ -9,10 +9,10 @@
 <AnchorPane id="AnchorPane" prefHeight="282.0" prefWidth="401.0" stylesheets="@css/PostItCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.controller.CreateOrDeleteDepartmentController">
    <children>
       <ComboBox fx:id="comboCreateBox" layoutX="14.0" layoutY="14.0" prefWidth="150.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
-      <Button layoutX="14.0" layoutY="189.0" mnemonicParsing="false" onAction="#createDepartment" text="Create Department" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
-      <Button layoutX="240.0" layoutY="235.0" mnemonicParsing="false" onAction="#deleteDepartment" text="Delete Department" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="240.0" />
-      <Label layoutX="285.0" layoutY="5.0" text="Manager" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="8.0" />
-      <Label layoutX="355.0" layoutY="18.0" text="Clock" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="8.0" />
+      <Button layoutX="14.0" layoutY="189.0" mnemonicParsing="false" onAction="#createDepartment" text="Create Department" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
+      <Button layoutX="240.0" layoutY="235.0" mnemonicParsing="false" onAction="#deleteDepartment" text="Delete Department" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="240.0" />
+      <Label layoutX="285.0" layoutY="5.0" text="Manager" textFill="WHITE" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="8.0" />
+      <Label layoutX="355.0" layoutY="18.0" text="Clock" textFill="WHITE" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="8.0" />
       <JFXTextField fx:id="createNewDepartment" layoutX="20.0" layoutY="181.0" prefHeight="31.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

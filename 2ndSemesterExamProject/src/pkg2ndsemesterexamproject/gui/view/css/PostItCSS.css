@@ -2,32 +2,40 @@
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
-*/
-/* 
+
+ 
     Created on : 26-04-2019, 10:23:05
     Author     : mpoul
-*/
 
-/*
+
+
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
-*/
-/* 
+
+ 
     Created on : 08-02-2019, 09:15:34
     Author     : marce
-*/
 
-.root 
+
+*/.root 
 {
-    -fx-border-color: #4a4948;
+    -fx-border-color: #c;
+    -fx-border-width: 20px;
+    -fx-border-radius: 3px;
+    -fx-border-insets: 0px;
+    -fx-padding: 10px;
+    -fx-spacing: 3px;
+    -fx-background-color: #909090;
+    -fx-background-insets: 5px;
+/*    -fx-border-color: #4a4948;
     -fx-border-width: 5px;
     -fx-border-radius: 3px;
     -fx-border-insets: 0px;
     -fx-padding: 10px;
     -fx-spacing: 3px;
-    -fx-background-color: #e3e3e3;
-    -fx-background-insets: 5px;
+    -fx-background-color: #31beff
+    -fx-background-insets: 5px;*/
 }
  
 .button-style-yes
@@ -68,8 +76,9 @@ and open the template in the editor.
 }
 .pane
 {
-    -fx-background-color: #4a4948;
+    -fx-background-color: #ffdc24;
     -fx-border-color: #4a4948;
+    -fx-border-width: 2;
     -fx-font-weight: bolder;
-    -fx-text-colour: #e3e3e3;
+    -fx-text-colour: #e3e3e3;    
 }

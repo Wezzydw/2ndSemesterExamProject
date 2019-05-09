@@ -137,6 +137,17 @@ public class Model {
         orderPane.getStyleClass().add("pane");
         //orderPane.setStyle("-fx-background-color: Yellow");
         Circle circle = new Circle(13);
+
+        circle.setFill(Paint.valueOf("Green"));
+//        Label orderNum = new Label("Ordernumber: " + 12321312);
+//        Label customer = new Label("Customer: " + "Karl Kalashnikov");
+//        Label startDate = new Label("29-04-2019");
+//        Label endDate = new Label("09-05-2019");
+//        orderNum.getStyleClass().add("label");
+//        customer.getStyleClass().add("label");
+//        startDate.getStyleClass().add("label");
+//        endDate.getStyleClass().add("label");
+
         for (int i = 0; i < tasks.size(); i++)
         {
             if(tasks.get(i).equals(dpt) && i>0){
@@ -154,6 +165,7 @@ public class Model {
         customer.getStyleClass().add("label");
         startDate.getStyleClass().add("label");
         endDate.getStyleClass().add("label");
+
 
         Pane progress = new Pane();
         progress.setMaxSize(175, 15);
