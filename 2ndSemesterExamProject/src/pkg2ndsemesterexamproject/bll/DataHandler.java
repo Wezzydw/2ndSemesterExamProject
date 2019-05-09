@@ -63,5 +63,15 @@ public class DataHandler implements IDataHandler {
         System.out.println(returnList.size());
         return returnList;
     }
-
+    
+    public IDepartmentTask getTaskForDepartment(IProductionOrder po, String departmentName){
+        for (IDepartmentTask departmentTask : po.getDepartmentTasks())
+        {
+            if(departmentTask.getDepartment().getName().equals(departmentName)){
+                return departmentTask;
+            }
+        }
+        return null;
+    }
+    
 }

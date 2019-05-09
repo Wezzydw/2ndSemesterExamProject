@@ -124,22 +124,22 @@ public class Model {
     projectets nuværende situation
      */
     //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
-    public Pane createOrderInGUI() {//IProductionOrder po, IDepartmentTask dp
+    public Pane createOrderInGUI(IProductionOrder po, IDepartmentTask dpt) {//IProductionOrder po, IDepartmentTask dp
 
-//        Label orderNum = new Label(po.getOrder().toString());
-//        Label customer = new Label("Customer: " + po.getCustomer().getName());
-//        Label startDate = new Label(dp.getStartDate().toLocalDate().toString());
-//        Label endDate = new Label(dp.getEndDate().toLocalDate().toString());
+        Label orderNum = new Label(po.getOrder().toString());
+        Label customer = new Label("Customer: " + po.getCustomer().getName());
+        Label startDate = new Label(dpt.getStartDate().toLocalDate().toString());
+        Label endDate = new Label(dpt.getEndDate().toLocalDate().toString());
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200, 150);
         orderPane.getStyleClass().add("pane");
         //orderPane.setStyle("-fx-background-color: Yellow");
         Circle circle = new Circle(13);
         circle.setFill(Paint.valueOf("Green"));
-        Label orderNum = new Label("Ordernumber: " + 12321312);
-        Label customer = new Label("Customer: " + "Karl Kalashnikov");
-        Label startDate = new Label("29-04-2019");
-        Label endDate = new Label("09-05-2019");
+//        Label orderNum = new Label("Ordernumber: " + 12321312);
+//        Label customer = new Label("Customer: " + "Karl Kalashnikov");
+//        Label startDate = new Label("29-04-2019");
+//        Label endDate = new Label("09-05-2019");
         orderNum.getStyleClass().add("label");
         customer.getStyleClass().add("label");
         startDate.getStyleClass().add("label");
@@ -255,7 +255,7 @@ public class Model {
                         for (IProductionOrder productionOrders : orders) {
 
                             System.out.println("Bøøh");
-                            stickyNotes.add(createOrderInGUI());
+                            stickyNotes.add(createOrderInGUI(productionOrders, dataHandler.getTaskForDepartment(productionOrders, selectedDepartmentName)));
                         }
                     }
 
