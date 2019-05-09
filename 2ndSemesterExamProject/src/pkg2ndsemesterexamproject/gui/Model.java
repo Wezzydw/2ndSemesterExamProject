@@ -35,6 +35,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import pkg2ndsemesterexamproject.be.DepartmentTask;
 import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IOrder;
@@ -125,6 +126,8 @@ public class Model {
     //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
     public Pane createOrderInGUI(IProductionOrder po, IDepartmentTask dpt) {//IProductionOrder po, IDepartmentTask dp
 
+        List<IDepartmentTask> tasks = po.getDepartmentTasks();
+        IDepartmentTask task = null;
         Label orderNum = new Label(po.getOrder().toString());
         Label customer = new Label("Customer: " + po.getCustomer().getName());
         Label startDate = new Label(dpt.getStartDate().toLocalDate().toString());
@@ -134,11 +137,19 @@ public class Model {
         orderPane.getStyleClass().add("pane");
         //orderPane.setStyle("-fx-background-color: Yellow");
         Circle circle = new Circle(13);
-        circle.setFill(Paint.valueOf("Green"));
-//        Label orderNum = new Label("Ordernumber: " + 12321312);
-//        Label customer = new Label("Customer: " + "Karl Kalashnikov");
-//        Label startDate = new Label("29-04-2019");
-//        Label endDate = new Label("09-05-2019");
+        for (int i = 0; i < tasks.size(); i++)
+        {
+            if(tasks.get(i).equals(dpt) && i>0){
+                task = tasks.get(i-1);
+            }
+        }
+        if(!task.equals(null) && task.getFinishedOrder()){
+            circle.setFill(Paint.valueOf("Green"));
+        }
+        else{
+            circle.setFill(Paint.valueOf("Red"));
+        }
+        
         orderNum.getStyleClass().add("label");
         customer.getStyleClass().add("label");
         startDate.getStyleClass().add("label");
