@@ -113,10 +113,27 @@ public class ProjectOverViewController implements Initializable
             while (true) {
                 
                 Platform.runLater(()-> {
+                    String sec = "";
+                    String min = "";
+                    String hour = "";
                     int hours = LocalDateTime.now().getHour();
                     int minute = LocalDateTime.now().getMinute();
                     int second = LocalDateTime.now().getSecond();
-                    String clock = hours + ":" + minute + ":" + second;
+                    sec = "" + second;
+                    min = "" + minute;
+                    hour = "" + hours;
+                    if (second<10){
+                        sec = "0" + second;
+                    }
+                    if (minute<10){
+                        min = "0" + minute;
+                    }
+                    if (hours<10){
+                        hour = "0" + hours;
+                    }
+                    
+                    System.out.println(hour + "timer" + hours);
+                    String clock = hour + ":" + min + ":" + sec;
                     lblClock.setText(clock);
                 });
                 TimeUnit.SECONDS.sleep(1);
