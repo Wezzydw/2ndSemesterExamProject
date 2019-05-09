@@ -143,7 +143,7 @@ public class Model {
                 task = tasks.get(i-1);
             }
         }
-        if(!task.equals(null) && task.getFinishedOrder()){
+        if(task==null || task.getFinishedOrder()){
             circle.setFill(Paint.valueOf("Green"));
         }
         else{
@@ -205,7 +205,7 @@ public class Model {
         EventHandler<MouseEvent> event1 = (MouseEvent e)
                 -> {
 
-            goToOverview();
+            goToOverview(po, dpt);
         };
         orderPane.setOnMousePressed(event1);
 
@@ -219,7 +219,7 @@ public class Model {
     skifter fra det generelle overview over alle departmenttask til en specific 
     departmenttask.
      */
-    private void goToOverview() {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
+    private void goToOverview(IProductionOrder po, IDepartmentTask dpt) {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/ProjectOverView.fxml"));
@@ -230,6 +230,7 @@ public class Model {
         }
         ProjectOverViewController display = loader.getController();
         display.startClock();
+        display.setData(dpt, po);
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
