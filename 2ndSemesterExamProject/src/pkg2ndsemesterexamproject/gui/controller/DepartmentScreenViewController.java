@@ -66,11 +66,9 @@ public class DepartmentScreenViewController implements Initializable {
             Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
         LocalDate date = LocalDate.now();
         lblDate.setText(date.toString());
-//        Stage stage = (Stage) borderPane.getScene().getWindow();
-//        stage.setFullScreen(true);
+
         model.msOnDepartmentView(departmentAnchorPane, borderPane);
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();
@@ -78,21 +76,16 @@ public class DepartmentScreenViewController implements Initializable {
     }
 
     public void initListeners() {
-        departmentAnchorPane.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                System.out.println("Olde: " + oldValue + " New: " + newValue);
-            }
-        });
-        
+//        departmentAnchorPane.heightProperty().addListener(new ChangeListener<Number>() {
+//            @Override
+//            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+//                
+//            }
+//        });
+
         borderPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-//                model.extentAnchorPaneX(departmentAnchorPane, borderPane);
-//                System.out.println(borderPane.getWidth() + " " + departmentAnchorPane.getWidth());
-//
-//                model.extentAnchorPaneY(departmentAnchorPane);
-                //model.placeOrderInUI(departmentAnchorPane);
                 model.msOnDepartmentView(departmentAnchorPane, borderPane);
             }
 
@@ -101,18 +94,26 @@ public class DepartmentScreenViewController implements Initializable {
 
     @FXML
     private void searchBar(KeyEvent event) {
+        model.setSearchString(txtSearchfield.getText().toLowerCase());
+        model.msOnDepartmentView(departmentAnchorPane, borderPane);
     }
 
     public void setDepartment(Department department) {
         currentDepartment = department;
         lblText.setText(department.getName());
         model.setSelectedDepartmentName(currentDepartment.getName());
-    
+
     }
-/*
+
+    public void setFullscreen() {
+        Stage stage = (Stage) borderPane.getScene().getWindow();
+        stage.setFullScreen(true);
+    }
+
+    /*
     denne metode opdatere gui'en men med en thred.sleep delay på 5000ms så,
     den kun opdatere programmet hver 5 sekund for at reducere lag
-    */
+     */
     public void functionThatUpdatedGUIEvery5Seconds() {
 
         Thread t = new Thread(new Runnable() {
@@ -129,7 +130,6 @@ public class DepartmentScreenViewController implements Initializable {
                         public void run() {
                             //Insert metoder her
                             model.msOnDepartmentView(departmentAnchorPane, borderPane);
-                            System.out.println("Tester");
                         }
                     });
                 }

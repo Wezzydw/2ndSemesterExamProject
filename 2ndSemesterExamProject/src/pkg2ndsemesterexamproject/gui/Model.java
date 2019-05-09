@@ -44,6 +44,7 @@ import pkg2ndsemesterexamproject.bll.DataHandler;
 import pkg2ndsemesterexamproject.bll.PassThrough;
 import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
 import pkg2ndsemesterexamproject.bll.IPassthrough;
+import pkg2ndsemesterexamproject.bll.Search;
 
 /**
  *
@@ -54,7 +55,6 @@ public class Model {
     private IPassthrough ptl;
     private final double orderPaneWidth = 200;
     private final double orderPaneHeigth = 150;
-    private final int tmpListSize = 200;
     private final int minMargenEdgeX = 25;
     private final int minMargenEdgeY = 10;
     private final int minMargenX = 20;
@@ -66,6 +66,8 @@ public class Model {
     private List<Pane> stickyNotes;
     private DataHandler dataHandler;
     private String selectedDepartmentName;
+    private Search search;
+    private String searchString = "";
 
     public Model() throws IOException {
         stickyNotes = new ArrayList();
@@ -73,6 +75,7 @@ public class Model {
         dataHandler = new DataHandler();
         guiUpdateLimit = initializeGUIUpdateLimit();
         guiUpdateLimit.setCycleCount(1);
+        search = new Search();
     }
 
     public Timeline initializeGUIUpdateLimit() {
@@ -232,13 +235,6 @@ public class Model {
     departmentview uden begrænsninger, samt gør designet mere brugervenligt.
      */
     public void placeOrderInUI(AnchorPane departmentView) throws SQLException {
-        //Indtil vi har faktiske ordrer
-//        if (stickyNotes.isEmpty()) {
-//            System.out.println("Generation");
-//            for (int i = 0; i < tmpListSize; i++) {
-//                stickyNotes.add(createOrderInGUI());
-//            }
-//        }
 
         if (selectedDepartmentName != null) {
             Thread t = new Thread(new Runnable() {
@@ -246,47 +242,49 @@ public class Model {
                 public void run() {
                     List<IProductionOrder> orders = null;
                     try {
-                        orders = dataHandler.getAllRelevantProductionOrders(selectedDepartmentName);
+                        orders = dataHandler.getAllRelevantProductionOrders(selectedDepartmentName, searchString);
                     } catch (SQLException ex) {
-                        Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("Tester22");
                     }
-                    if (stickyNotes.isEmpty()) {
-                        for (IProductionOrder productionOrders : orders) {
-                            stickyNotes.add(createOrderInGUI(productionOrders, dataHandler.getTaskForDepartment(productionOrders, selectedDepartmentName)));
+                    if (orders != null) {
+                        stickyNotes.clear();
+                            for (IProductionOrder productionOrders : orders) {
+                                stickyNotes.add(createOrderInGUI(productionOrders, dataHandler.getTaskForDepartment(productionOrders, selectedDepartmentName)));
+                            
                         }
-                    }
 
-                    double viewHeight = departmentView.getPrefHeight();
-                    double viewWidth = departmentView.getPrefWidth();
+                        double viewHeight = departmentView.getPrefHeight();
+                        double viewWidth = departmentView.getPrefWidth();
 
-                    double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
-                    int xNumberOfPanes = (int) (numberOfPanes);
-                    double rest = (numberOfPanes - xNumberOfPanes) * orderPaneWidth - minMargenEdgeX * 2;
+                        double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
+                        int xNumberOfPanes = (int) (numberOfPanes);
+                        double rest = (numberOfPanes - xNumberOfPanes) * orderPaneWidth - minMargenEdgeX * 2;
 
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            int counter = 0;
-                            departmentView.getChildren().clear();
-                            outerloop:
-                            for (int k = 0; k < stickyNotes.size(); k++) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                int counter = 0;
+                                departmentView.getChildren().clear();
+                                outerloop:
+                                for (int k = 0; k < stickyNotes.size(); k++) {
 
-                                for (int j = 0; j < xNumberOfPanes; j++) {
-                                    //Pane pane = createOrderInGUI();
-                                    stickyNotes.get(counter).setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
-                                    stickyNotes.get(counter).setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
-                                    departmentView.getChildren().add(stickyNotes.get(counter));
-                                    if (counter == stickyNotes.size() - 1) {
-                                        break outerloop;
+                                    for (int j = 0; j < xNumberOfPanes; j++) {
+                                        //Pane pane = createOrderInGUI();
+                                        stickyNotes.get(counter).setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
+                                        stickyNotes.get(counter).setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
+                                        departmentView.getChildren().add(stickyNotes.get(counter));
+                                        if (counter == stickyNotes.size() - 1) {
+                                            break outerloop;
+                                        }
+
+                                        counter++;
+
                                     }
 
-                                    counter++;
-
                                 }
-
                             }
-                        }
-                    });
+                        });
+                    }
                 }
             });
             t.start();
@@ -310,13 +308,15 @@ public class Model {
     hvis nødvendigt for at få alle efterspurgte stickyNotes puttes ind i viewet.
      */
     public void extentAnchorPaneY(AnchorPane anchorP) {
-
         double viewWidth = anchorP.getPrefWidth();
         double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
         int xNumberOfPanes = (int) (numberOfPanes);
+        if (xNumberOfPanes == 0) {
+            xNumberOfPanes++;
+        }
+
         int yNumberOfPanes = (int) (stickyNotes.size() / xNumberOfPanes);
         yNumberOfPanes += 1;
-        System.out.println("Number of panes: " + yNumberOfPanes + " calcheight : " + (yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes));
         anchorP.setPrefHeight(yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes);
 
     }
@@ -369,4 +369,7 @@ public class Model {
         return true;
     }
 
+    public void setSearchString(String string) {
+        searchString = string;
+    }
 }

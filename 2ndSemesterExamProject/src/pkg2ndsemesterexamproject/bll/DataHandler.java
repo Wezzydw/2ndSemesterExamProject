@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
-import pkg2ndsemesterexamproject.be.IWorker;
 
 /**
  *
@@ -23,13 +22,14 @@ public class DataHandler implements IDataHandler {
 
     private PassThrough passThrough;
     private List<IProductionOrder> all;
+    private Search searcher;
 
     public DataHandler() throws IOException {
         passThrough = new PassThrough();
-
+        searcher = new Search();
     }
 
-    public List<IProductionOrder> getAllRelevantProductionOrders(String departmentName) throws SQLException {
+    public List<IProductionOrder> getAllRelevantProductionOrders(String departmentName, String searchString) throws SQLException {
 
         LocalDate today = LocalDate.now();
         List<IProductionOrder> returnList = new ArrayList();
@@ -37,7 +37,6 @@ public class DataHandler implements IDataHandler {
         List<IProductionOrder> all = passThrough.getAllProductionOrders();
         loop:
         for (IProductionOrder iProductionOrder : all) {
-
             for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {
                 if (departmentName.equals(departmentTask.getDepartment().getName())
                         && !departmentTask.getFinishedOrder()
@@ -49,7 +48,7 @@ public class DataHandler implements IDataHandler {
                 }
             }
         }
-        return returnList;
+        return searcher.searchAllProductionOrders(searchString, returnList, departmentName);
     }
 
     public IDepartmentTask getTaskForDepartment(IProductionOrder po, String departmentName) {

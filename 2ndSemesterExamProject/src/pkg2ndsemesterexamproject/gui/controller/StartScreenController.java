@@ -1,8 +1,10 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package pkg2ndsemesterexamproject.gui.controller;
 
 import java.io.IOException;
@@ -34,44 +36,40 @@ import pkg2ndsemesterexamproject.be.IDepartment;
  *
  * @author andreas
  */
-public class StartScreenController implements Initializable
-{
-
+public class StartScreenController implements Initializable {
+    
     @FXML
     private MenuButton MenuButton;
     
     private Model model;
     
     private List<IDepartment> allDepartments;
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         try {
             model = new Model();
         } catch (IOException ex) {
             Logger.getLogger(StartScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        try
-        {
+        try {
             allDepartments = model.getAllDepartments();
 //        model.setMenuItems(MenuButton, model.getAllDepartments());
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             System.out.println("ingen forbindelse");
         }
         
-        EventHandler<ActionEvent> event1 = (ActionEvent e) ->
-        {
+        EventHandler<ActionEvent> event1 = (ActionEvent e)
+                -> {
             Department temp;
             MenuItem selectedItem = (MenuItem) e.getSource();
             String selectedItemName = selectedItem.getText();
-            for (IDepartment allDepartment : allDepartments)
-            {
-                if(allDepartment.getName().equals(selectedItemName)){
+            for (IDepartment allDepartment : allDepartments) {
+                if (allDepartment.getName().equals(selectedItemName)) {
                     temp = (Department) allDepartment;
                     selectDepartment(temp);
                 }
@@ -79,46 +77,41 @@ public class StartScreenController implements Initializable
         };
         List<MenuItem> departmentBtns = new ArrayList();
         
-        if (allDepartments != null){
-           for (IDepartment depar : allDepartments)
-            {
+        if (allDepartments != null) {
+            for (IDepartment depar : allDepartments) {
                 MenuItem item = new MenuItem(depar.getName());//label skal være allDepartment.getName() fra BE laget 
                 item.setOnAction(event1);
                 departmentBtns.add(item);
-            } 
-        }
-        else{
+            }
+        } else {
             allDepartments = new ArrayList();
             allDepartments.add(new Department("manager"));
             allDepartments.add(new Department("halv"));
             allDepartments.add(new Department("bælg"));
-            for (IDepartment depar : allDepartments)
-            {
+            for (IDepartment depar : allDepartments) {
                 MenuItem item = new MenuItem(depar.getName());//label skal være allDepartment.getName() fra BE laget 
                 item.setOnAction(event1);
                 departmentBtns.add(item);
-            } 
+            }
         }
         
         MenuButton.getItems().addAll(departmentBtns);
         
-        
-    }    
+    }
+
     /*
     Denne metode skifter scene fra startscreen til manager screen
-    */
-    private void goToManagerScreen(){
+     */
+    private void goToManagerScreen() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/CreateOrDeleteDepartment.fxml"));
-        try
-        {
+        try {
             loader.load();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             System.out.println("Error" + ex);
         }
         CreateOrDeleteDepartmentController display = loader.getController();
-
+        
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
@@ -126,17 +119,16 @@ public class StartScreenController implements Initializable
         stage1.close();
         stage.showAndWait();
     }
+
     /*
     Metoden skifter scene fra startscreen til DepartmentScreenViewet
-    */
-    private void goToDepartmentScreen(Department department){
+     */
+    private void goToDepartmentScreen(Department department) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/DepartmentScreenView.fxml"));
-        try
-        {
+        try {
             loader.load();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             System.out.println("Error" + ex);
         }
         DepartmentScreenViewController display = loader.getController();
@@ -146,15 +138,14 @@ public class StartScreenController implements Initializable
         stage.setScene(new Scene(p));
         Stage stage1 = (Stage) MenuButton.getScene().getWindow();
         stage1.close();
+        stage.setFullScreen(true);
         stage.showAndWait();
     }
     
-    private void selectDepartment(Department department){
-        if (department.getName().equals("manager")){
+    private void selectDepartment(Department department) {
+        if (department.getName().equals("manager")) {
             goToManagerScreen();
-        }
-
-          else{
+        } else {
 //            Pane orderPane = model.createOrderInGUI();
 //        Scene scene = new Scene(orderPane, 200, 150);
 //        Stage primaryStage = new Stage();
@@ -162,12 +153,9 @@ public class StartScreenController implements Initializable
 //        primaryStage.setScene(scene);
 //        primaryStage.show();
 //            
-          goToDepartmentScreen(department);
-          }
-
-
+            goToDepartmentScreen(department);
+        }
         
-
     }
-                
+    
 }
