@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minWidth="-Infinity" prefHeight="376.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController">
+<AnchorPane id="AnchorPane" minWidth="-Infinity" prefHeight="376.0" prefWidth="777.0" stylesheets="@css/PostItCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController">
    <children>
       <HBox fx:id="hboxDepartments" layoutX="9.0" layoutY="12.0" prefHeight="33.0" prefWidth="602.0" />
       <Label fx:id="lblOrder" layoutX="221.0" layoutY="60.0" text="Order: 1590-2100" AnchorPane.leftAnchor="221.0" AnchorPane.topAnchor="60.0">
@@ -41,7 +41,7 @@
             </AnchorPane>
         </items>
       </SplitPane>
-      <Label fx:id="lblClock" layoutX="701.0" layoutY="18.0" prefHeight="17.0" prefWidth="186.0" text="Clock" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="18.0" />
+      <Label fx:id="lblClock" layoutX="715.0" layoutY="18.0" prefHeight="21.0" prefWidth="48.0" text="Clock" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="18.0" />
 
 
       <Button fx:id="btnIsDone" layoutX="701.0" layoutY="323.0" mnemonicParsing="false" onAction="#orderIsDone" text="Done" />
