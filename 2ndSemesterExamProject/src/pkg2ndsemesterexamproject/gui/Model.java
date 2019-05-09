@@ -35,6 +35,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import pkg2ndsemesterexamproject.be.DepartmentTask;
 import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IOrder;
@@ -128,6 +129,8 @@ public class Model {
     //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
     public Pane createOrderInGUI(IProductionOrder po, IDepartmentTask dpt) {//IProductionOrder po, IDepartmentTask dp
 
+        List<IDepartmentTask> tasks = po.getDepartmentTasks();
+        IDepartmentTask task = null;
         Label orderNum = new Label(po.getOrder().toString());
         Label customer = new Label("Customer: " + po.getCustomer().getName());
         Label startDate = new Label(dpt.getStartDate().toLocalDate().toString());
@@ -137,15 +140,35 @@ public class Model {
         orderPane.getStyleClass().add("pane");
         //orderPane.setStyle("-fx-background-color: Yellow");
         Circle circle = new Circle(13);
+
         circle.setFill(Paint.valueOf("Green"));
 //        Label orderNum = new Label("Ordernumber: " + 12321312);
 //        Label customer = new Label("Customer: " + "Karl Kalashnikov");
 //        Label startDate = new Label("29-04-2019");
 //        Label endDate = new Label("09-05-2019");
+//        orderNum.getStyleClass().add("label");
+//        customer.getStyleClass().add("label");
+//        startDate.getStyleClass().add("label");
+//        endDate.getStyleClass().add("label");
+
+        for (int i = 0; i < tasks.size(); i++)
+        {
+            if(tasks.get(i).equals(dpt) && i>0){
+                task = tasks.get(i-1);
+            }
+        }
+        if(task==null || task.getFinishedOrder()){
+            circle.setFill(Paint.valueOf("Green"));
+        }
+        else{
+            circle.setFill(Paint.valueOf("Red"));
+        }
+        
         orderNum.getStyleClass().add("label");
         customer.getStyleClass().add("label");
         startDate.getStyleClass().add("label");
         endDate.getStyleClass().add("label");
+
 
         Pane progress = new Pane();
         progress.setMaxSize(175, 15);
@@ -197,7 +220,7 @@ public class Model {
         EventHandler<MouseEvent> event1 = (MouseEvent e)
                 -> {
 
-            goToOverview();
+            goToOverview(po, dpt);
         };
         orderPane.setOnMousePressed(event1);
 
@@ -211,7 +234,7 @@ public class Model {
     skifter fra det generelle overview over alle departmenttask til en specific 
     departmenttask.
      */
-    private void goToOverview() {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
+    private void goToOverview(IProductionOrder po, IDepartmentTask dpt) {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/ProjectOverView.fxml"));
@@ -222,6 +245,8 @@ public class Model {
         }
         ProjectOverViewController display = loader.getController();
         display.startClock();
+        display.setData(dpt, po);
+        display.setOrder(dpt, po);
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));

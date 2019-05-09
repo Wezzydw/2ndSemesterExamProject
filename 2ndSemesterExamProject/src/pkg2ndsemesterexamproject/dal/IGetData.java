@@ -28,5 +28,5 @@ public interface IGetData
     
     List<IProductionOrder> getAllProductionOrders() throws SQLException;
     
-            
+    public void getCircleColour();
 }
