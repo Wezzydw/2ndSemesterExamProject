@@ -139,10 +139,10 @@ public class Model {
 //        Label customer = new Label("Customer: " + "Karl Kalashnikov");
 //        Label startDate = new Label("29-04-2019");
 //        Label endDate = new Label("09-05-2019");
-        orderNum.getStyleClass().add("label");
-        customer.getStyleClass().add("label");
-        startDate.getStyleClass().add("label");
-        endDate.getStyleClass().add("label");
+//        orderNum.getStyleClass().add("label");
+//        customer.getStyleClass().add("label");
+//        startDate.getStyleClass().add("label");
+//        endDate.getStyleClass().add("label");
 
         Pane progress = new Pane();
         progress.setMaxSize(175, 15);
