@@ -27,6 +27,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -67,7 +68,7 @@ public class ProjectOverViewController implements Initializable
     @FXML
     private Label lblEndDate;
     @FXML
-    private Button btnIsDone;
+    private AnchorPane mainPane;
     /**
      * Initializes the controller class.
      */
@@ -99,8 +100,6 @@ public class ProjectOverViewController implements Initializable
     @FXML
     private void orderIsDone(ActionEvent event)
     {
-        System.out.println(departmentTask.toString());
-        System.out.println(productionOrder.toString());
         try {
             model.orderIsDone(departmentTask, productionOrder);
         } catch (SQLException ex) {
@@ -132,8 +131,6 @@ public class ProjectOverViewController implements Initializable
                     if (hours<10){
                         hour = "0" + hours;
                     }
-                    
-                    System.out.println(hour + "timer" + hours);
                     String clock = hour + ":" + min + ":" + sec;
                     lblClock.setText(clock);
                 });
@@ -142,11 +139,6 @@ public class ProjectOverViewController implements Initializable
         } catch (InterruptedException ex) {
             System.out.println("Erorr");
         }
-//        int hours = LocalDateTime.now().getHour();
-//        int minute = LocalDateTime.now().getMinute();
-//        int second = LocalDateTime.now().getSecond();
-//        String clock = hours + ":" + minute + ":" + second;
-//        lblClock.setText(clock);
     }
     
     private void updateListViewWorkersAssigned(){
@@ -214,5 +206,6 @@ public class ProjectOverViewController implements Initializable
         gc.setStroke(Color.BLACK);
         gc.strokeRect(0, 0, 400, 20);
         
+        mainPane.getChildren().add(canvas);
     }
 }

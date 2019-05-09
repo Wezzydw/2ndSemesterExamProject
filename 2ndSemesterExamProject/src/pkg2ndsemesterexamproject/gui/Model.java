@@ -8,6 +8,8 @@ package pkg2ndsemesterexamproject.gui;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import java.util.ArrayList;
 import pkg2ndsemesterexamproject.be.Department;
@@ -35,10 +37,8 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import pkg2ndsemesterexamproject.be.DepartmentTask;
 import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
-import pkg2ndsemesterexamproject.be.IOrder;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.bll.DataHandler;
@@ -119,6 +119,7 @@ public class Model {
      */
     public void orderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException {
         ptl.sendOrderIsDone(dt, po);
+//        msOnDepartmentView(anchorPane, borderPane);
     }
 
     /*
@@ -142,14 +143,6 @@ public class Model {
         Circle circle = new Circle(13);
 
         circle.setFill(Paint.valueOf("Green"));
-//        Label orderNum = new Label("Ordernumber: " + 12321312);
-//        Label customer = new Label("Customer: " + "Karl Kalashnikov");
-//        Label startDate = new Label("29-04-2019");
-//        Label endDate = new Label("09-05-2019");
-//        orderNum.getStyleClass().add("label");
-//        customer.getStyleClass().add("label");
-//        startDate.getStyleClass().add("label");
-//        endDate.getStyleClass().add("label");
 
         for (int i = 0; i < tasks.size(); i++)
         {
@@ -180,13 +173,19 @@ public class Model {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-//        Long daysBetween = ChronoUnit.DAYS.between(dt.getStartDate(), dt.getEndDate());
-//        int progressInterval = (int) (175 / daysBetween);
-//        LocalDateTime todayIs = LocalDateTime.now();
-//        Long startToNow = ChronoUnit.DAYS.between(dt.getStartDate(), todayIs);
-//        gc.fillRect(0, 0, progressInterval * startToNow, 20);
+        Long daysBetween = ChronoUnit.DAYS.between(dpt.getStartDate(), dpt.getEndDate());
+        int progressInterval = (int) (175 / daysBetween);
+        LocalDateTime todayIs = LocalDateTime.now();
+        Long startToNow = ChronoUnit.DAYS.between(dpt.getStartDate(), todayIs);
+        double dd = progressInterval * startToNow;
         gc.setFill(Color.GREEN);
-        gc.fillRect(0, 0, 160, 15);
+        if (progressInterval * startToNow > 175)
+        {
+            gc.setFill(Color.RED);
+            dd = 175;
+        }
+        gc.fillRect(0, 0, dd, 20);
+//        gc.fillRect(0, 0, 160, 15);
         gc.setStroke(Color.BLACK);
         gc.strokeRect(0, 0, 175, 15);
 
