@@ -35,4 +35,7 @@ public interface IPassthrough
     List<IWorker> getAllWorkers()throws SQLException;
     
     List<IProductionOrder> getAllProductionOrders() throws SQLException;
+    
+    public void getCircleColour();
+   
 }
