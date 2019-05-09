@@ -1,8 +1,10 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package pkg2ndsemesterexamproject.bll;
 
 import java.io.FileNotFoundException;
@@ -21,49 +23,41 @@ import pkg2ndsemesterexamproject.dal.GetData;
  *
  * @author andreas
  */
-public class PassThrough implements IPassthrough
-{
+public class PassThrough implements IPassthrough {
+
     GetData getDataFromDB;
 
     public PassThrough() throws IOException {
         getDataFromDB = new GetData();
     }
-    
-    
 
     @Override
-    public String loadData() throws FileNotFoundException, IOException
-    {
+    public String loadData() throws FileNotFoundException, IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void extractWorkersFromJSON() throws FileNotFoundException, IOException
-    {
+    public void extractWorkersFromJSON() throws FileNotFoundException, IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<IWorker> getWorkersFromDB()throws SQLException {
+    public List<IWorker> getWorkersFromDB() throws SQLException {
         return getDataFromDB.getAllWorkers();
     }
 
     @Override
-    public List<IDepartment> getAllDepartments() throws SQLException
-    {
+    public List<IDepartment> getAllDepartments() throws SQLException {
         return getDataFromDB.getAllDepartments();
     }
 
-
     @Override
-    public List<IWorker> getAllWorkers() throws SQLException
-    {
+    public List<IWorker> getAllWorkers() throws SQLException {
         return getDataFromDB.getAllWorkers();
     }
 
     @Override
-    public List<IProductionOrder> getAllProductionOrders() throws SQLException
-    {
+    public List<IProductionOrder> getAllProductionOrders() throws SQLException {
         return getDataFromDB.getAllProductionOrders();
     }
 
@@ -72,11 +66,8 @@ public class PassThrough implements IPassthrough
         getDataFromDB.sendOrderIsDone(dt, po);
     }
 
-    public void getCircleColour()
-    {
-       getDataFromDB.getCircleColour();
+    public void getCircleColour() {
+        getDataFromDB.getCircleColour();
     }
-  
-    }
-            
 
+}

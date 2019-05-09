@@ -87,7 +87,6 @@ public class Model {
                 } catch (SQLException ex) {
                     Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
             }
         }));
 
@@ -352,16 +351,14 @@ public class Model {
             if (IdepartmentTask.getFinishedOrder() == true) {
                 circle.setFill(Paint.valueOf("Green"));
 
-            } 
-           //if (IdepartmentTask.getStartDate().isBefore(otherTime));
-                //circle.setFill(Paint.valueOf("Yellow"));
-            
-            
+            }
+            //if (IdepartmentTask.getStartDate().isBefore(otherTime));
+            //circle.setFill(Paint.valueOf("Yellow"));
+
 //            else {
 //                circle.setFill(Paint.valueOf("Red"));
 //            }
 //            
-            
         }
     }
 
