@@ -94,7 +94,7 @@ public class DepartmentScreenViewController implements Initializable {
 
     @FXML
     private void searchBar(KeyEvent event) {
-        model.setSearchString(txtSearchfield.getText().toLowerCase());
+        model.setSearchString(txtSearchfield.getText().toLowerCase().trim());
         model.msOnDepartmentView(departmentAnchorPane, borderPane);
     }
 

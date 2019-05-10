@@ -11,10 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
-import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.dal.GetData;
 import pkg2ndsemesterexamproject.dal.IGetData;
-import pkg2ndsemesterexamproject.dal.ProductionOrderDAO;
 
 /**
  *
@@ -39,7 +37,6 @@ public class Search {
         for (IProductionOrder ipo : orders) {
             for (IDepartmentTask idt : ipo.getDepartmentTasks()) {
 
-
                 if (idt.getEndDate().toString().contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName)) {
                     toReturn.add(ipo);
                     continue loop;
@@ -54,7 +51,7 @@ public class Search {
                 toReturn.add(ipo);
                 continue loop;
             }
-            
+
             if (ipo.getOrder().getOrderNumber().toLowerCase().contains(searchString)) {
                 toReturn.add(ipo);
                 continue loop;
