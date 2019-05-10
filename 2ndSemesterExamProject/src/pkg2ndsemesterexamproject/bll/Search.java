@@ -31,7 +31,6 @@ public class Search {
 
     public List<IProductionOrder> searchAllProductionOrders(String searchString, List<IProductionOrder> orders, String departmentName) throws SQLException {
         if (searchString.isEmpty()) {
-            System.out.println("Rerutrn");
             return orders;
         }
 
@@ -40,50 +39,28 @@ public class Search {
         for (IProductionOrder ipo : orders) {
             for (IDepartmentTask idt : ipo.getDepartmentTasks()) {
 
-//                if (idt.getDepartment().getName().contains(searchString)) {
-//                    toReturn.add(ipo);
-//                    System.out.println("added departemnet");
-//                    continue loop;
-//                }
-                if (idt.getEndDate().toString().toLowerCase().contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName)) {
-                    System.out.println(idt.getEndDate().toString());
+
+                if (idt.getEndDate().toString().contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName)) {
                     toReturn.add(ipo);
-                    System.out.println("added enddate");
                     continue loop;
                 }
-                if (idt.getStartDate().toString().toLowerCase().contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName)) {
+                if (idt.getStartDate().toString().contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName)) {
                     toReturn.add(ipo);
-                    System.out.println("added startdate");
                     continue loop;
                 }
 
-//                for (IWorker workers : idt.getActiveWorkers()) {
-//                    if (workers.getName().contains(searchString) || workers.getInitials().contains(searchString)) {
-//                        if (!toReturn.contains(idt)) {
-//                            toReturn.add(ipo);
-//                            continue loop;
-//                        }
-//                    }
-//                }
             }
             if (ipo.getCustomer().getName().toLowerCase().contains(searchString)) {
                 toReturn.add(ipo);
-                System.out.println("added constumer");
                 continue loop;
             }
-//            if (ipo.getDelivery().getDeliveryTime().toString().toLowerCase().contains(searchString)) {
-//                toReturn.add(ipo);
-//                System.out.println("addedDeliveryTime");
-//                continue loop;
-//            }
+            
             if (ipo.getOrder().getOrderNumber().toLowerCase().contains(searchString)) {
                 toReturn.add(ipo);
-                System.out.println("added ordernumber");
                 continue loop;
             }
 
         }
-        System.out.println(toReturn.size());
         return toReturn;
     }
 }

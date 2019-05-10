@@ -257,7 +257,7 @@ public class Model {
      */
     public void placeOrderInUI(AnchorPane departmentView) throws SQLException {
 
-        if (selectedDepartmentName != null) {
+        if (selectedDepartmentName != null && stickyNotes != null) {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {

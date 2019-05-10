@@ -48,7 +48,7 @@ public class DataHandler implements IDataHandler {
                 }
             }
         }
-        return searcher.searchAllProductionOrders(searchString, returnList, departmentName);
+        return searcher.searchAllProductionOrders(searchString, returnList, departmentName.toLowerCase());
     }
 
     public IDepartmentTask getTaskForDepartment(IProductionOrder po, String departmentName) {
