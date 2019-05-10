@@ -144,24 +144,21 @@ public class Model {
 
         circle.setFill(Paint.valueOf("Green"));
 
-        for (int i = 0; i < tasks.size(); i++)
-        {
-            if(tasks.get(i).equals(dpt) && i>0){
-                task = tasks.get(i-1);
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).equals(dpt) && i > 0) {
+                task = tasks.get(i - 1);
             }
         }
-        if(task==null || task.getFinishedOrder()){
+        if (task == null || task.getFinishedOrder()) {
             circle.setFill(Paint.valueOf("Green"));
-        }
-        else{
+        } else {
             circle.setFill(Paint.valueOf("Red"));
         }
-        
+
         orderNum.getStyleClass().add("label");
         customer.getStyleClass().add("label");
         startDate.getStyleClass().add("label");
         endDate.getStyleClass().add("label");
-
 
         Pane progress = new Pane();
         progress.setMaxSize(175, 15);
@@ -272,9 +269,9 @@ public class Model {
                     }
                     if (orders != null) {
                         stickyNotes.clear();
-                            for (IProductionOrder productionOrders : orders) {
-                                stickyNotes.add(createOrderInGUI(productionOrders, dataHandler.getTaskForDepartment(productionOrders, selectedDepartmentName)));
-                            
+                        for (IProductionOrder productionOrders : orders) {
+                            stickyNotes.add(createOrderInGUI(productionOrders, dataHandler.getTaskForDepartment(productionOrders, selectedDepartmentName)));
+
                         }
 
                         double viewHeight = departmentView.getPrefHeight();
