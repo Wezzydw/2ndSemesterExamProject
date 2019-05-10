@@ -78,6 +78,7 @@ public class StartScreenController implements Initializable {
         List<MenuItem> departmentBtns = new ArrayList();
         
         if (allDepartments != null) {
+            allDepartments.add(new Department("Manager"));
             for (IDepartment depar : allDepartments) {
                 MenuItem item = new MenuItem(depar.getName());//label skal være allDepartment.getName() fra BE laget 
                 item.setOnAction(event1);
@@ -85,7 +86,7 @@ public class StartScreenController implements Initializable {
             }
         } else {
             allDepartments = new ArrayList();
-            allDepartments.add(new Department("manager"));
+            allDepartments.add(new Department("Manager"));
             allDepartments.add(new Department("halv"));
             allDepartments.add(new Department("bælg"));
             for (IDepartment depar : allDepartments) {
@@ -116,7 +117,7 @@ public class StartScreenController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
         Stage stage1 = (Stage) MenuButton.getScene().getWindow();
-        stage1.close();
+//        stage1.close();
         stage.showAndWait();
     }
 
@@ -137,13 +138,13 @@ public class StartScreenController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
         Stage stage1 = (Stage) MenuButton.getScene().getWindow();
-        stage1.close();
+//        stage1.close();
         stage.setFullScreen(true);
         stage.showAndWait();
     }
     
     private void selectDepartment(Department department) {
-        if (department.getName().equals("manager")) {
+        if (department.getName().equals("Manager")) {
             goToManagerScreen();
         } else {
 //            Pane orderPane = model.createOrderInGUI();
