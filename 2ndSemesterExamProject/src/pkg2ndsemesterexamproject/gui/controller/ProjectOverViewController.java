@@ -168,8 +168,8 @@ public class ProjectOverViewController implements Initializable
         lblCustomer.setText(po.getCustomer().toString());
         lblOrder.setText(po.getOrder().toString());
         lblDeliveryDate.setText(po.getDelivery().toString());
-        lblStartDate.setText(dt.getStartDate().toString());
-        lblEndDate.setText(dt.getEndDate().toString());
+        lblStartDate.setText(dt.getStartDate().toLocalDate() + "");
+        lblEndDate.setText(dt.getEndDate().toLocalDate() + "");
         int indexOfDepartment = 0;
         int counter = 0;
         
