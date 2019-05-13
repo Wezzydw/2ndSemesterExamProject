@@ -53,7 +53,6 @@ public class ProjectOverViewController implements Initializable
     private Label lblOrder;
     @FXML
     private Label lblCustomer;
-    @FXML
     private Label lblDeliveryDate;
     @FXML
     private Label lblClock;
@@ -137,7 +136,7 @@ public class ProjectOverViewController implements Initializable
                 TimeUnit.SECONDS.sleep(1);
             }
         } catch (InterruptedException ex) {
-            System.out.println("Erorr");
+            System.out.println("Closed Window");
         }
     }
     
@@ -167,7 +166,6 @@ public class ProjectOverViewController implements Initializable
     public void setData(IDepartmentTask dt, IProductionOrder po){
         lblCustomer.setText(po.getCustomer().toString());
         lblOrder.setText(po.getOrder().toString());
-        lblDeliveryDate.setText(po.getDelivery().toString());
         lblStartDate.setText(dt.getStartDate().toLocalDate() + "");
         lblEndDate.setText(dt.getEndDate().toLocalDate() + "");
         int indexOfDepartment = 0;
