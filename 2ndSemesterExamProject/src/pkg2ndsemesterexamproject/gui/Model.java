@@ -4,6 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package pkg2ndsemesterexamproject.gui;
 
 import java.io.IOException;
@@ -333,7 +334,7 @@ public class Model {
         double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
         int xNumberOfPanes = (int) (numberOfPanes);
         if (xNumberOfPanes == 0) {
-            xNumberOfPanes++;
+            xNumberOfPanes = 1;
         }
 
         int yNumberOfPanes = (int) (stickyNotes.size() / xNumberOfPanes);
