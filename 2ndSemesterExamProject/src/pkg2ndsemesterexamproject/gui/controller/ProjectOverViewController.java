@@ -41,13 +41,12 @@ import pkg2ndsemesterexamproject.gui.Model;
  *
  * @author andreas
  */
-public class ProjectOverViewController implements Initializable
-{
+public class ProjectOverViewController implements Initializable {
+
     private ObservableList<IWorker> allWorkers = FXCollections.observableArrayList();
     private IDepartmentTask departmentTask;
     private IProductionOrder productionOrder;
-    
-    
+
     private Model model;
     @FXML
     private Label lblOrder;
@@ -56,7 +55,7 @@ public class ProjectOverViewController implements Initializable
     private Label lblDeliveryDate;
     @FXML
     private Label lblClock;
-    
+
     private ExecutorService executor;
     @FXML
     private ListView<IWorker> lstView;
@@ -68,12 +67,12 @@ public class ProjectOverViewController implements Initializable
     private Label lblEndDate;
     @FXML
     private AnchorPane mainPane;
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         try {
             // TODO
             model = new Model();
@@ -81,37 +80,37 @@ public class ProjectOverViewController implements Initializable
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         updateListViewWorkersAssigned();
-    }    
-    
-    public void startClock(){
+    }
+
+    public void startClock() {
         executor = Executors.newSingleThreadExecutor();
-        executor.submit(() ->
-        {
+        executor.submit(()
+                -> {
             clockUpdate();
         });
     }
+
     public void closeWindow() {
-        
+
         executor.shutdownNow();
-        
+
     }
-    
+
     @FXML
-    private void orderIsDone(ActionEvent event)
-    {
+    private void orderIsDone(ActionEvent event) {
         try {
             model.orderIsDone(departmentTask, productionOrder);
         } catch (SQLException ex) {
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
-    private void clockUpdate(){
+
+    private void clockUpdate() {
         try {
             while (true) {
-                
-                Platform.runLater(()-> {
+
+                Platform.runLater(() -> {
                     String sec = "";
                     String min = "";
                     String hour = "";
@@ -121,13 +120,13 @@ public class ProjectOverViewController implements Initializable
                     sec = "" + second;
                     min = "" + minute;
                     hour = "" + hours;
-                    if (second<10){
+                    if (second < 10) {
                         sec = "0" + second;
                     }
-                    if (minute<10){
+                    if (minute < 10) {
                         min = "0" + minute;
                     }
-                    if (hours<10){
+                    if (hours < 10) {
                         hour = "0" + hours;
                     }
                     String clock = hour + ":" + min + ":" + sec;
@@ -139,11 +138,11 @@ public class ProjectOverViewController implements Initializable
             System.out.println("Closed Window");
         }
     }
-    
-    private void updateListViewWorkersAssigned(){
-        
+
+    private void updateListViewWorkersAssigned() {
+
         allWorkers.clear();
-        
+
         try {
             for (IWorker iWorker : model.updateListViewWorkersAssigned()) {
                 allWorkers.add(iWorker);
@@ -153,38 +152,37 @@ public class ProjectOverViewController implements Initializable
         } catch (SQLException ex) {
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-            lstView.setItems(allWorkers);
+        lstView.setItems(allWorkers);
     }
-    
-    public void setOrder(IDepartmentTask dt, IProductionOrder po){
-        
+
+    public void setOrder(IDepartmentTask dt, IProductionOrder po) {
+
         this.departmentTask = dt;
         this.productionOrder = po;
     }
-    
-    
-    public void setData(IDepartmentTask dt, IProductionOrder po){
+
+    public void setData(IDepartmentTask dt, IProductionOrder po) {
         lblCustomer.setText(po.getCustomer().toString());
         lblOrder.setText(po.getOrder().toString());
         lblStartDate.setText(dt.getStartDate().toLocalDate() + "");
         lblEndDate.setText(dt.getEndDate().toLocalDate() + "");
         int indexOfDepartment = 0;
         int counter = 0;
-        
+
         for (IDepartmentTask tasks : po.getDepartmentTasks()) {
-            if(tasks.equals(dt)){
+            if (tasks.equals(dt)) {
                 indexOfDepartment = counter;
             }
             counter++;
         }
-        
+
         for (int i = 0; i <= indexOfDepartment; i++) {
             Label l1 = new Label();
             l1.setText(po.getDepartmentTasks().get(i).getDepartment().toString());
             l1.setStyle("-fx-background-color: Blue");
             hboxDepartments.getChildren().add(l1);
         }
-        
+
         Pane progress = new Pane();
         progress.setMaxSize(400, 20);
         Canvas canvas = new Canvas();
@@ -203,7 +201,7 @@ public class ProjectOverViewController implements Initializable
         gc.fillRect(0, 0, progressInterval * startToNow, 20);
         gc.setStroke(Color.BLACK);
         gc.strokeRect(0, 0, 400, 20);
-        
+
         mainPane.getChildren().add(canvas);
     }
 }
