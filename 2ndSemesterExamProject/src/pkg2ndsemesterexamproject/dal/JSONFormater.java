@@ -35,35 +35,16 @@ import pkg2ndsemesterexamproject.be.IWorker;
  *
  * @author Wezzy Laptop
  */
-public class JsonFormater {
+public class JSONFormater {
 
     private List<IDepartment> departments;
     private List<IDepartmentTask> departmenttasks;
 
-    public JsonFormater() {
+    public JSONFormater() {
         departments = new ArrayList();
         departmenttasks = new ArrayList();
     }
 
-    /**
-     * Tager en JSON fil og converterer/returnerer en lang string
-     *
-     * @param file
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
-     */
-    public String loadJSON(File file) throws FileNotFoundException, IOException {
-        FileReader filereader = new FileReader(new File("./data/JSON.txt"));
-        BufferedReader bufferedReader = new BufferedReader(filereader);
-        String data = "";
-        String line;
-
-        while ((line = bufferedReader.readLine()) != null) {
-            data += line;
-        }
-        return data;
-    }
 
     /**
      * Trækker alle workers ud af JSON string fra loadData, og returnerer en
