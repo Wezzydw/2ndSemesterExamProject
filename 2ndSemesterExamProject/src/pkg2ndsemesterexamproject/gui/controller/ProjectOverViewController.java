@@ -212,7 +212,7 @@ public class ProjectOverViewController implements Initializable {
         gc.strokeRect(0, 0, 400, 20);
         
         gc1.setFill(Color.GREEN);
-        Long daysBetween1 = ChronoUnit.DAYS.between(dt.getStartDate(), dt.getEndDate());
+        Long daysBetween1 = ChronoUnit.DAYS.between(po.getDepartmentTasks().get(0).getStartDate(), po.getDelivery().getDeliveryTime());
         int progressInterval1 = (int) (400 / daysBetween1);
         LocalDateTime todayIs1 = LocalDateTime.now();
         Long startToNow1 = ChronoUnit.DAYS.between(dt.getStartDate(), todayIs1);
