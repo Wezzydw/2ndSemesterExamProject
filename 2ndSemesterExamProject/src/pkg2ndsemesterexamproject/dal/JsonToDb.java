@@ -79,8 +79,8 @@ public class JsonToDb {
 //                    prst.setInt(1, 0);
 //                }
                 prst.setBoolean(1, departmentTask.getFinishedOrder());
-                prst.setString(2, departmentTask.getStartDate().toLocalDate().toString());
-                prst.setString(3, departmentTask.getEndDate().toLocalDate().toString());
+                prst.setString(2, departmentTask.getStartDate().toString());
+                prst.setString(3, departmentTask.getEndDate().toString());
                 prst.setString(4, departmentTask.getDepartment().toString());
                 prst.setString(5, po.getOrder().toString());
                 prst.addBatch();
@@ -97,7 +97,7 @@ public class JsonToDb {
 
             for (IProductionOrder po : pos) {
                 prst.setString(1, po.getCustomer().toString());
-                prst.setString(2, po.getDelivery().getDeliveryTime().toLocalDate().toString());
+                prst.setString(2, po.getDelivery().getDeliveryTime().toString());
                 prst.setString(3, po.getOrder().toString());
                 prst.addBatch();
             }

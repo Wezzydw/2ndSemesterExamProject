@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -60,6 +61,7 @@ public class DepartmentScreenViewController implements Initializable {
     @FXML
     private BorderPane borderPane;
     private ISortStrategy sortStrategy;
+
     /**
      * Initializes the controller class.
      */
@@ -73,7 +75,7 @@ public class DepartmentScreenViewController implements Initializable {
         }
 
         LocalDate date = LocalDate.now();
-        lblDate.setText(date.toString());
+        lblDate.setText(date.format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
 
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
         functionThatUpdatedGUIEvery5Seconds();
@@ -85,15 +87,16 @@ public class DepartmentScreenViewController implements Initializable {
         comboBox.getItems().add(new SortOrderId());
         comboBox.getItems().add(new SortReady());
         comboBox.getItems().add(new SortStartDate());
-        comboBox.setOnAction((ActionEvent event) ->
-        {
+        comboBox.setOnAction((ActionEvent event)
+                -> {
             sortStrategy = comboBox.getSelectionModel().getSelectedItem();
             comboChanged();
         });
-        
+
         //sortStrategy = comboBox.getSelectionModel().getSelectedItem();
     }
-    public void comboChanged(){
+
+    public void comboChanged() {
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
     }
 

@@ -10,8 +10,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import pkg2ndsemesterexamproject.be.Customer;
@@ -97,7 +99,7 @@ public class CSVFormatter implements IFormatter {
                 int dateYear = Integer.parseInt(array[2].substring(0, 4));
 
                 IOrder order = new Order(orderNumber);
-                IDelivery delivery = new Delivery(LocalDateTime.of(dateYear, dateMonth, dateDay, 0, 0));
+                IDelivery delivery = new Delivery(LocalDate.of(dateYear, dateMonth, dateDay));
                 ICustomer customer = new Customer(customerName);
                 IDepartment department = new Department(departmentName);
 
@@ -107,14 +109,14 @@ public class CSVFormatter implements IFormatter {
                 dateYear = Integer.parseInt(array[2].substring(0, 4));
 
                 List<IDepartmentTask> tasks = new ArrayList();
-                LocalDateTime ldtStartDate = LocalDateTime.of(dateYear, dateMonth, dateDay, 0, 0);
+                LocalDate ldtStartDate = LocalDate.of(dateYear, dateMonth, dateDay);
 
                 array = endDate.split("/");
                 dateMonth = Integer.parseInt(array[0]);
                 dateDay = Integer.parseInt(array[1]);
                 dateYear = Integer.parseInt(array[2].substring(0, 4));
 
-                LocalDateTime ldtEndDate = LocalDateTime.of(dateYear, dateMonth, dateDay, 0, 0);
+                LocalDate ldtEndDate = LocalDate.of(dateYear, dateMonth, dateDay);
                 tasks.add(new DepartmentTask(department, isDone, ldtStartDate, ldtEndDate));
                 IProductionOrder IPO = new ProductionOrder(order, delivery, customer, tasks);
                 productionOrders.add(IPO);
@@ -147,14 +149,14 @@ public class CSVFormatter implements IFormatter {
                 int dateDay = Integer.parseInt(array[1]);
                 int dateYear = Integer.parseInt(array[2].substring(0, 4));
 
-                LocalDateTime ldtStartDate = LocalDateTime.of(dateYear, dateMonth, dateDay, 0, 0);
+                LocalDate ldtStartDate = LocalDate.of(dateYear, dateMonth, dateDay);
 
                 array = endDate.split("/");
                 dateMonth = Integer.parseInt(array[0]);
                 dateDay = Integer.parseInt(array[1]);
                 dateYear = Integer.parseInt(array[2].substring(0, 4));
 
-                LocalDateTime ldtEndDate = LocalDateTime.of(dateYear, dateMonth, dateDay, 0, 0);
+                LocalDate ldtEndDate = LocalDate.of(dateYear, dateMonth, dateDay);
                 IDepartmentTask dTask = new DepartmentTask(department, isDone, ldtStartDate, ldtEndDate);
                 productionOrders.get(productionOrders.size() - 1).addDepartmentTask(dTask);
             } else {

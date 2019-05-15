@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
@@ -164,8 +165,8 @@ public class ProjectOverViewController implements Initializable {
     public void setData(IDepartmentTask dt, IProductionOrder po) {
         lblCustomer.setText("Customer: " + po.getCustomer().toString());
         lblOrder.setText("Order number: " + po.getOrder().toString());
-        lblStartDate.setText(dt.getStartDate().toLocalDate() + "");
-        lblEndDate.setText(dt.getEndDate().toLocalDate() + "");
+        lblStartDate.setText(dt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
+        lblEndDate.setText(dt.getEndDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
         int indexOfDepartment = 0;
         int counter = 0;
 
@@ -190,7 +191,7 @@ public class ProjectOverViewController implements Initializable {
         canvas.setWidth(400);
         canvas.setLayoutX(23);
         canvas.setLayoutY(285);
-        
+
         Pane progressRealized = new Pane();
         progressRealized.setMaxSize(400, 20);
         Canvas canvasRealized = new Canvas();
@@ -210,7 +211,7 @@ public class ProjectOverViewController implements Initializable {
         gc.fillRect(0, 0, progressInterval * startToNow, 20);
         gc.setStroke(Color.BLACK);
         gc.strokeRect(0, 0, 400, 20);
-        
+
         gc1.setFill(Color.GREEN);
         Long daysBetween1 = ChronoUnit.DAYS.between(po.getDepartmentTasks().get(0).getStartDate(), po.getDelivery().getDeliveryTime());
         int progressInterval1 = (int) (400 / daysBetween1);

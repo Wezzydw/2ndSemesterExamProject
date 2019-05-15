@@ -28,7 +28,7 @@ public class OrdersPerDepartment
                 tasks.get(i);
                 if(tasks.get(i).getDepartment().getName().equals(department.getName()) 
                         && !tasks.get(i).getFinishedOrder()
-                        && tasks.get(i).getStartDate().toLocalDate().isAfter(LocalDate.now())){
+                        && tasks.get(i).getStartDate().isAfter(LocalDate.now())){
                     rele.add(iProductionOrder);
                 }
             }

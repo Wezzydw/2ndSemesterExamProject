@@ -4,7 +4,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pkg2ndsemesterexamproject.dal;
 
 import java.io.BufferedReader;
@@ -12,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -44,7 +44,6 @@ public class JSONFormater {
         departments = new ArrayList();
         departmenttasks = new ArrayList();
     }
-
 
     /**
      * Trækker alle workers ud af JSON string fra loadData, og returnerer en
@@ -126,9 +125,9 @@ public class JSONFormater {
             start = array[i].indexOf("DeliveryTime") + 22;
             end = array[i].indexOf("+", start);
             long timeInMilis = Long.parseLong(array[i].substring(start, end));
-            LocalDateTime timeAt0 = LocalDateTime.of(1970, 1, 1, 0, 0);
+            LocalDate timeAt0 = LocalDate.of(1970, 1, 1);
 
-            LocalDateTime deliveryDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
+            LocalDate deliveryDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
             IDelivery delivery = new Delivery(deliveryDate);
             deliveries.add(delivery);
 
@@ -143,8 +142,8 @@ public class JSONFormater {
                 start = departmentStringArray[j].indexOf("EndDate") + 17;
                 end = departmentStringArray[j].indexOf('+', start);
                 timeInMilis = Long.parseLong(departmentStringArray[j].substring(start, end));
-                timeAt0 = LocalDateTime.of(1970, 1, 1, 0, 0);
-                LocalDateTime endDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
+                timeAt0 = LocalDate.of(1970, 1, 1);
+                LocalDate endDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
 
                 start = departmentStringArray[j].indexOf("FinishedOrder") + 15;
                 end = departmentStringArray[j].indexOf('"', start);
@@ -157,8 +156,8 @@ public class JSONFormater {
                 start = departmentStringArray[j].indexOf("StartDate") + 19;
                 end = departmentStringArray[j].indexOf('+', start);
                 timeInMilis = Long.parseLong(departmentStringArray[j].substring(start, end));
-                timeAt0 = LocalDateTime.of(1970, 1, 1, 0, 0);
-                LocalDateTime startDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
+                timeAt0 = LocalDate.of(1970, 1, 1);
+                LocalDate startDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
                 IDepartmentTask departmentTask = new DepartmentTask(department, isOrderFinished, startDate, endDate);
                 this.departmenttasks.add(departmentTask);
                 departmentTasks.add(departmentTask);

@@ -4,12 +4,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pkg2ndsemesterexamproject.gui;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 import java.util.ArrayList;
@@ -72,7 +72,7 @@ public class Model {
     private Search search;
     private String searchString = "";
     private ISortStrategy strategy;
-    
+
     public Model() throws IOException {
         stickyNotes = new ArrayList();
         ptl = new PassThrough();
@@ -137,8 +137,8 @@ public class Model {
         IDepartmentTask task = null;
         Label orderNum = new Label(po.getOrder().toString());
         Label customer = new Label("Customer: " + po.getCustomer().getName());
-        Label startDate = new Label(dpt.getStartDate().toLocalDate().toString());
-        Label endDate = new Label(dpt.getEndDate().toLocalDate().toString());
+        Label startDate = new Label(dpt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
+        Label endDate = new Label(dpt.getEndDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200, 150);
         orderPane.getStyleClass().add("pane");
@@ -179,8 +179,7 @@ public class Model {
         Long startToNow = ChronoUnit.DAYS.between(dpt.getStartDate(), todayIs);
         double dd = progressInterval * startToNow;
         gc.setFill(Color.GREEN);
-        if (progressInterval * startToNow > 175)
-        {
+        if (progressInterval * startToNow > 175) {
             gc.setFill(Color.RED);
             dd = 175;
         }
