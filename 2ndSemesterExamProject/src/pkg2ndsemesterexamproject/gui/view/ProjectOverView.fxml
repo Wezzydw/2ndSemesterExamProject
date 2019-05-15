@@ -17,11 +17,11 @@
          <font>
             <Font size="34.0" />
          </font></Label>
-      <Label fx:id="lblCustomer" layoutX="29.0" layoutY="136.0" text="Customer: Karl Kalasnikov" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="115.0">
+      <Label fx:id="lblCustomer" layoutX="251.0" layoutY="110.0" text="Customer: Karl Kalasnikov" AnchorPane.leftAnchor="251.0" AnchorPane.topAnchor="110.0">
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label fx:id="lblDeliveryDate" layoutX="423.0" layoutY="339.0" text="Delivery Date 24/9-19" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="423.0" />
+      <Label fx:id="lblDeliveryDate" layoutX="295.0" layoutY="155.0" text="Delivery Date 24/9-19" AnchorPane.bottomAnchor="204.0" AnchorPane.leftAnchor="295.0" />
       <Button layoutX="535.0" layoutY="272.0" mnemonicParsing="false" text="Flag as done" AnchorPane.rightAnchor="20.0" />
       <SplitPane dividerPositions="0.15" layoutX="441.0" layoutY="57.0" orientation="VERTICAL" prefHeight="206.0" prefWidth="171.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="20.0">
         <items>
@@ -44,7 +44,7 @@
       <Label fx:id="lblClock" layoutX="701.0" layoutY="18.0" prefHeight="17.0" prefWidth="186.0" text="Clock" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="18.0" />
 
 
-      <Button layoutX="701.0" layoutY="323.0" mnemonicParsing="false" onAction="#orderIsDone" text="Done" />
+      <Button layoutX="586.0" layoutY="318.0" mnemonicParsing="false" onAction="#orderIsDone" prefHeight="50.0" prefWidth="156.0" text="Set task as finished" />
       <Label fx:id="lblStartDate" layoutX="14.0" layoutY="315.0" text="Label" />
       <Label fx:id="lblEndDate" layoutX="382.0" layoutY="315.0" text="Label" />
    </children>
