@@ -188,7 +188,7 @@ public class ProjectOverViewController implements Initializable {
         Canvas canvas = new Canvas();
         canvas.setHeight(20);
         canvas.setWidth(400);
-        canvas.setLayoutX(14);
+        canvas.setLayoutX(23);
         canvas.setLayoutY(285);
         
         Pane progressRealized = new Pane();
@@ -196,7 +196,7 @@ public class ProjectOverViewController implements Initializable {
         Canvas canvasRealized = new Canvas();
         canvasRealized.setHeight(20);
         canvasRealized.setWidth(400);
-        canvasRealized.setLayoutX(15);
+        canvasRealized.setLayoutX(23);
         canvasRealized.setLayoutY(350);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
