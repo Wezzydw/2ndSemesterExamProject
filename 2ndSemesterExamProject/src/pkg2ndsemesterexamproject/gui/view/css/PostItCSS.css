@@ -26,7 +26,7 @@ and open the template in the editor.
     -fx-border-insets: 0px;
     -fx-padding: 10px;
     -fx-spacing: 3px;
-    -fx-background-color: #909090;
+    -fx-background-color: #526f90;
     -fx-background-insets: 5px;
 /*    -fx-border-color: #4a4948;
     -fx-border-width: 5px;
@@ -60,7 +60,7 @@ and open the template in the editor.
  
 .button 
 {
-    -fx-font-size: 10px;
+    -fx-font-size: 15px;
     -fx-border-insets: 0;
     -fx-border-width: 2;
     -fx-border-color: #4a4948;
