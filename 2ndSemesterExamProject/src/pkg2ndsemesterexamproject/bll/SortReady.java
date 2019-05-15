@@ -5,7 +5,9 @@
  */
 package pkg2ndsemesterexamproject.bll;
 
+import java.util.ArrayList;
 import java.util.List;
+import pkg2ndsemesterexamproject.be.IProductionOrder;
 
 /**
  *
@@ -15,12 +17,37 @@ public class SortReady implements ISortStrategy
 {
 
     @Override
-    public List sort(List list)
+    public List<IProductionOrder> sort(List<IProductionOrder> list, String departmentName)
     {
-        return readySort();
+        return readySort(list, departmentName);
     }
     
-    private List readySort(){
-        return null;
+    private List<IProductionOrder> readySort(List<IProductionOrder> list, String departmentName){
+        List<IProductionOrder> done = new ArrayList();
+        List<IProductionOrder> notDone = new ArrayList();
+        for (int i = 0; i < list.size(); i++)
+        {
+            for (int j = 0; j < list.get(i).getDepartmentTasks().size(); j++)
+            {
+                if(list.get(i).getDepartmentTasks().get(j).getDepartment().getName().equals(departmentName)){
+                    if(j-1 == -1 || list.get(i).getDepartmentTasks().get(j-1).getFinishedOrder())
+                    {
+                        done.add(list.get(i));
+                    }
+                    else{
+                        notDone.add(list.get(i));
+                    }
+                }
+            }
+        }
+        done.addAll(notDone);
+        return done;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Ready";
+    }
+    
 }
