@@ -29,7 +29,7 @@ public class DataHandler implements IDataHandler {
         searcher = new Search();
     }
 
-    public List<IProductionOrder> getAllRelevantProductionOrders(String departmentName, String searchString) throws SQLException {
+    public List<IProductionOrder> getAllRelevantProductionOrders(String departmentName, String searchString, ISortStrategy strategy) throws SQLException {
 
         LocalDate today = LocalDate.now();
         List<IProductionOrder> returnList = new ArrayList();
@@ -48,7 +48,7 @@ public class DataHandler implements IDataHandler {
                 }
             }
         }
-        return searcher.searchAllProductionOrders(searchString, returnList, departmentName.toLowerCase());
+        return strategy.sort(searcher.searchAllProductionOrders(searchString, returnList, departmentName.toLowerCase()), departmentName);
     }
 
     public IDepartmentTask getTaskForDepartment(IProductionOrder po, String departmentName) {

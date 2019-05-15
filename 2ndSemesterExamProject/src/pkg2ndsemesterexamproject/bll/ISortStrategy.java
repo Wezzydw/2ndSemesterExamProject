@@ -6,6 +6,7 @@
 package pkg2ndsemesterexamproject.bll;
 
 import java.util.List;
+import pkg2ndsemesterexamproject.be.IProductionOrder;
 
 /**
  *
@@ -19,5 +20,5 @@ public interface ISortStrategy
      * @param <error>
      * @return
      */
-    public List sort(List list);
+    public List<IProductionOrder> sort(List<IProductionOrder> list, String departmentName);
 }

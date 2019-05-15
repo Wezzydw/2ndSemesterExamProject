@@ -46,6 +46,7 @@ import pkg2ndsemesterexamproject.bll.DataHandler;
 import pkg2ndsemesterexamproject.bll.PassThrough;
 import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
 import pkg2ndsemesterexamproject.bll.IPassthrough;
+import pkg2ndsemesterexamproject.bll.ISortStrategy;
 import pkg2ndsemesterexamproject.bll.Search;
 
 /**
@@ -70,7 +71,8 @@ public class Model {
     private String selectedDepartmentName;
     private Search search;
     private String searchString = "";
-
+    private ISortStrategy strategy;
+    
     public Model() throws IOException {
         stickyNotes = new ArrayList();
         ptl = new PassThrough();
@@ -264,7 +266,7 @@ public class Model {
                 public void run() {
                     List<IProductionOrder> orders = null;
                     try {
-                        orders = dataHandler.getAllRelevantProductionOrders(selectedDepartmentName, searchString);
+                        orders = dataHandler.getAllRelevantProductionOrders(selectedDepartmentName, searchString, strategy);
                     } catch (SQLException ex) {
                         System.out.println("Tester22");
                     }
@@ -355,9 +357,10 @@ public class Model {
     Metoden gør at vi kan flowcontrolle, så der max kan blive opdateret 10 gange
     i sekundet, for at undgå konstante updates, der ville skabe delay i programmet
      */
-    public void msOnDepartmentView(AnchorPane departmentView, BorderPane borderPane) {
+    public void msOnDepartmentView(AnchorPane departmentView, BorderPane borderPane, ISortStrategy strategy) {
         anchorPane = departmentView;
         this.borderPane = borderPane;
+        this.strategy = strategy;
         guiUpdateLimit.play();
     }
 
