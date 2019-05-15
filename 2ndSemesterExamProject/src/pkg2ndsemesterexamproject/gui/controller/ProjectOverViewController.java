@@ -190,8 +190,17 @@ public class ProjectOverViewController implements Initializable {
         canvas.setWidth(400);
         canvas.setLayoutX(14);
         canvas.setLayoutY(285);
+        
+        Pane progressRealized = new Pane();
+        progressRealized.setMaxSize(400, 20);
+        Canvas canvasRealized = new Canvas();
+        canvasRealized.setHeight(20);
+        canvasRealized.setWidth(400);
+        canvasRealized.setLayoutX(15);
+        canvasRealized.setLayoutY(350);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        GraphicsContext gc1 = canvasRealized.getGraphicsContext2D();
 
         gc.setFill(Color.GREEN);
         Long daysBetween = ChronoUnit.DAYS.between(dt.getStartDate(), dt.getEndDate());
@@ -201,7 +210,17 @@ public class ProjectOverViewController implements Initializable {
         gc.fillRect(0, 0, progressInterval * startToNow, 20);
         gc.setStroke(Color.BLACK);
         gc.strokeRect(0, 0, 400, 20);
+        
+        gc1.setFill(Color.GREEN);
+        Long daysBetween1 = ChronoUnit.DAYS.between(dt.getStartDate(), dt.getEndDate());
+        int progressInterval1 = (int) (400 / daysBetween1);
+        LocalDateTime todayIs1 = LocalDateTime.now();
+        Long startToNow1 = ChronoUnit.DAYS.between(dt.getStartDate(), todayIs1);
+        gc1.fillRect(0, 0, progressInterval1 * startToNow1, 20);
+        gc1.setStroke(Color.BLACK);
+        gc1.strokeRect(0, 0, 400, 20);
 
         mainPane.getChildren().add(canvas);
+        mainPane.getChildren().add(canvasRealized);
     }
 }
