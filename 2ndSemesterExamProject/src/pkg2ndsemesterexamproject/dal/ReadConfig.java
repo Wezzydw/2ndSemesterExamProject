@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public class ReadConfig {
 
-    public int getOffsetFromDepartmentName(String name) throws FileNotFoundException, IOException {
+    public static int getOffsetFromDepartmentName(String name) throws FileNotFoundException, IOException {
         int offset = 0;
         File file = new File("lib/config.offset");
         FileReader fr = new FileReader(file);

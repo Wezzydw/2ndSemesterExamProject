@@ -38,12 +38,12 @@ public class ReadJSON {
 //        hd.getAllRelevantProductionOrders("Halv");
 //        System.out.println("Done3 - Time: " + (System.currentTimeMillis() - a)/1000);
 
-        CSVFormatter x = new CSVFormatter();
+//        CSVFormatter x = new CSVFormatter();
 //        for (IWorker arg : x.extractWorkers(x.testerString())) {
 //            System.out.println(arg);
 //        }
-        x.extractProductionOrders(x.testerString());
-//        XLSXFormatter f = new XLSXFormatter();
-//        f.testerString();
+//        x.extractProductionOrders(x.testerString());
+        XLSXFormatter f = new XLSXFormatter();
+        f.testerString();
     }
 }
