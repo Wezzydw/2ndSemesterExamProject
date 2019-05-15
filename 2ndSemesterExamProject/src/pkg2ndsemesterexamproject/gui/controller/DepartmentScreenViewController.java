@@ -6,7 +6,6 @@
 package pkg2ndsemesterexamproject.gui.controller;
 
 import com.jfoenix.controls.JFXTextField;
-import com.sun.prism.image.ViewPort;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -18,12 +17,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import static javafx.scene.input.KeyCode.R;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -84,8 +83,8 @@ public class DepartmentScreenViewController implements Initializable {
         //tmpLoop();
         
         txtSearchfield.setStyle("-fx-text-fill:White");
-
-       
+      
+        
 
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
         functionThatUpdatedGUIEvery5Seconds();

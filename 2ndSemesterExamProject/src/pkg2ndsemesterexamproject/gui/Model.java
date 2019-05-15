@@ -35,6 +35,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import static javafx.scene.paint.Color.BLACK;
 import static javafx.scene.paint.Color.color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
