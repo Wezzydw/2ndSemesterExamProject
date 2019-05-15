@@ -29,13 +29,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import static javafx.scene.paint.Color.color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import pkg2ndsemesterexamproject.be.IDepartment;
@@ -140,11 +143,13 @@ public class Model {
         Label startDate = new Label(dpt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
         Label endDate = new Label(dpt.getEndDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
         Pane orderPane = new Pane();
-        orderPane.setMaxSize(200, 150);
+        orderPane.setMaxSize(200,150);
         orderPane.getStyleClass().add("pane");
-        //orderPane.setStyle("-fx-background-color: Yellow");
+        Rectangle rec = new Rectangle(200,150);
+        rec.setArcHeight(25);
+        rec.setArcWidth(25);
+        orderPane.setShape(rec);
         Circle circle = new Circle(13);
-
         circle.setFill(Paint.valueOf("Green"));
 
         for (int i = 0; i < tasks.size(); i++) {

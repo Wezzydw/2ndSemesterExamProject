@@ -38,7 +38,7 @@ public class SortEndDate implements ISortStrategy
                 {
                     if(list1.get(i).getDepartmentTasks().get(j).getDepartment().getName().equals(departmentName)){
                         if(temp != null && temp2 !=null){
-                            if(list1.get(i).getDepartmentTasks().get(j).getStartDate().isBefore(temp.getStartDate())){
+                            if(list1.get(i).getDepartmentTasks().get(j).getEndDate().isBefore(temp.getEndDate())){
                                 //list1.sort(c); kig på comparter og sådan noget
                                 if (i-1>= 0){
                                 swapPlaces(i, i-1);
