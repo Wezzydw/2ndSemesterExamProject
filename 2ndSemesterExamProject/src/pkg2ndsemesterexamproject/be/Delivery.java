@@ -5,7 +5,8 @@
  */
 package pkg2ndsemesterexamproject.be;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -13,19 +14,19 @@ import java.time.LocalDateTime;
  */
 public class Delivery implements IDelivery {
 
-    private LocalDateTime localDateTime;
+    private LocalDate localDate;
 
-    public Delivery(LocalDateTime localDate) {
-        this.localDateTime = localDate;
+    public Delivery(LocalDate localDate) {
+        this.localDate = localDate;
     }
 
     @Override
-    public LocalDateTime getDeliveryTime() {
-        return localDateTime;
+    public LocalDate getDeliveryTime() {
+        return localDate;
     }
 
     @Override
     public String toString() {
-        return localDateTime.toLocalDate().toString();
+        return localDate.format(DateTimeFormatter.ofPattern("d/MM/YYYY"));
     }
 }

@@ -25,8 +25,8 @@ public class ReadConfig {
         String line = "";
         while ((line = br.readLine()) != null) {
             if (line.contains(name)) {
-                int index = line.indexOf("=");
-                offset = Integer.parseInt(line.substring(index + 1));
+                int index = line.indexOf("=") + 1;
+                offset = Integer.parseInt(line.substring(index));
             }
         }
         return offset;

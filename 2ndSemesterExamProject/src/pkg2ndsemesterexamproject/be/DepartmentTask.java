@@ -18,11 +18,11 @@ public class DepartmentTask implements IDepartmentTask {
     private List<IWorker> activeWorkers;
     private IDepartment department;
     private Boolean finishedOrder;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     
 
-    public DepartmentTask(IDepartment department, Boolean finishedOrder, LocalDateTime startDate, LocalDateTime endDate) {
+    public DepartmentTask(IDepartment department, Boolean finishedOrder, LocalDate startDate, LocalDate endDate) {
         this.activeWorkers = activeWorkers;
         this.department = department;
         this.finishedOrder = finishedOrder;
@@ -51,12 +51,12 @@ public class DepartmentTask implements IDepartmentTask {
     }
 
     @Override
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
     @Override
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 

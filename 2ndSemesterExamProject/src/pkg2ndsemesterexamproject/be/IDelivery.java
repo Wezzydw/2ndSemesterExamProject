@@ -14,6 +14,6 @@ import java.time.LocalDateTime;
  */
 public interface IDelivery {
 
-    LocalDateTime getDeliveryTime();
+    LocalDate getDeliveryTime();
 
 }

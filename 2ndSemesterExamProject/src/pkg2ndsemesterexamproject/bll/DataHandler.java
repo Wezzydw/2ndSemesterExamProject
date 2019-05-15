@@ -40,8 +40,8 @@ public class DataHandler implements IDataHandler {
             for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {
                 if (departmentName.equals(departmentTask.getDepartment().getName())
                         && !departmentTask.getFinishedOrder()
-                        && (departmentTask.getStartDate().toLocalDate().isBefore(today)
-                        || departmentTask.getStartDate().toLocalDate().isEqual(today))) {
+                        && (departmentTask.getStartDate().isBefore(today)
+                        || departmentTask.getStartDate().isEqual(today))) {
 
                     returnList.add(iProductionOrder);
                     continue loop;
