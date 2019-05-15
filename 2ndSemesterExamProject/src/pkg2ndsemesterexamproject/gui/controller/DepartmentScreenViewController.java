@@ -10,16 +10,17 @@ import com.sun.prism.image.ViewPort;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.event.EventType;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -28,6 +29,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.Department;
+import pkg2ndsemesterexamproject.bll.ISortStrategy;
+import pkg2ndsemesterexamproject.bll.SortCustomer;
+import pkg2ndsemesterexamproject.bll.SortEndDate;
+import pkg2ndsemesterexamproject.bll.SortOrderId;
+import pkg2ndsemesterexamproject.bll.SortReady;
+import pkg2ndsemesterexamproject.bll.SortStartDate;
 import pkg2ndsemesterexamproject.gui.Model;
 
 /**
@@ -41,7 +48,7 @@ public class DepartmentScreenViewController implements Initializable {
     private Model model;
 
     @FXML
-    private ComboBox<?> comboBox;
+    private ComboBox<ISortStrategy> comboBox;
     @FXML
     private Label lblDate;
     @FXML
@@ -54,6 +61,7 @@ public class DepartmentScreenViewController implements Initializable {
     private ScrollPane scrollPane;
     @FXML
     private BorderPane borderPane;
+    private ISortStrategy sortStrategy;
 
     /**
      * Initializes the controller class.
@@ -68,15 +76,39 @@ public class DepartmentScreenViewController implements Initializable {
         }
 
         LocalDate date = LocalDate.now();
-        lblDate.setText(date.toString());
+        lblDate.setText(date.format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
         
-        model.msOnDepartmentView(departmentAnchorPane, borderPane);
+        model.msOnDepartmentView(departmentAnchorPane, borderPane,sortStrategy);
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();
         //tmpLoop();
         
         txtSearchfield.setStyle("-fx-text-fill:White");
+
        
+
+        model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
+        functionThatUpdatedGUIEvery5Seconds();
+        initListeners();
+        //tmpLoop();
+        sortStrategy = new SortOrderId();
+        comboBox.getItems().add(new SortCustomer());
+        comboBox.getItems().add(new SortEndDate());
+        comboBox.getItems().add(new SortOrderId());
+        comboBox.getItems().add(new SortReady());
+        comboBox.getItems().add(new SortStartDate());
+        comboBox.setOnAction((ActionEvent event)
+                -> {
+            sortStrategy = comboBox.getSelectionModel().getSelectedItem();
+            comboChanged();
+        });
+
+        //sortStrategy = comboBox.getSelectionModel().getSelectedItem();
+    }
+
+    public void comboChanged() {
+        model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
+
     }
 
     public void initListeners() {
@@ -90,7 +122,7 @@ public class DepartmentScreenViewController implements Initializable {
         borderPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                model.msOnDepartmentView(departmentAnchorPane, borderPane);
+                model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
             }
 
         });
@@ -99,7 +131,7 @@ public class DepartmentScreenViewController implements Initializable {
     @FXML
     private void searchBar(KeyEvent event) {
         model.setSearchString(txtSearchfield.getText().toLowerCase().trim());
-        model.msOnDepartmentView(departmentAnchorPane, borderPane);
+        model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
     }
 
     public void setDepartment(Department department) {
@@ -133,7 +165,7 @@ public class DepartmentScreenViewController implements Initializable {
                         @Override
                         public void run() {
                             //Insert metoder her
-                            model.msOnDepartmentView(departmentAnchorPane, borderPane);
+                            model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
                         }
                     });
                 }

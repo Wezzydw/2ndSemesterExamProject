@@ -5,11 +5,8 @@
  */
 package pkg2ndsemesterexamproject.bll;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import pkg2ndsemesterexamproject.be.DepartmentTask;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 
@@ -17,17 +14,18 @@ import pkg2ndsemesterexamproject.be.IProductionOrder;
  *
  * @author andreas
  */
-public class SortEndDate implements ISortStrategy
+public class SortStartDate implements ISortStrategy
 {
     private List<IProductionOrder> list1;
-    
     @Override
     public List<IProductionOrder> sort(List<IProductionOrder> list, String departmentName)
     {
-        list1 = list;
-        return sortByEnd(list1, departmentName);
+        list1 = list; 
+        return sortStart(list1, departmentName);
     }
-    private List<IProductionOrder> sortByEnd(List<IProductionOrder> list, String departmentName){
+    
+    private List<IProductionOrder> sortStart(List<IProductionOrder> list1, String departmentName){
+        
         IDepartmentTask temp = null;
         IProductionOrder temp2 = null;
         for (int k = 0; k < list1.size(); k++)
@@ -38,7 +36,7 @@ public class SortEndDate implements ISortStrategy
                 {
                     if(list1.get(i).getDepartmentTasks().get(j).getDepartment().getName().equals(departmentName)){
                         if(temp != null && temp2 !=null){
-                            if(list1.get(i).getDepartmentTasks().get(j).getEndDate().isBefore(temp.getEndDate())){
+                            if(list1.get(i).getDepartmentTasks().get(j).getStartDate().isBefore(temp.getStartDate())){
                                 //list1.sort(c); kig på comparter og sådan noget
                                 if (i-1>= 0){
                                 swapPlaces(i, i-1);
@@ -63,7 +61,8 @@ public class SortEndDate implements ISortStrategy
     @Override
     public String toString()
     {
-        return "End Date";
+        return "Start Date";
     }
     
 }
+

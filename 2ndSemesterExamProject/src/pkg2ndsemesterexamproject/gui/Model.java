@@ -4,12 +4,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pkg2ndsemesterexamproject.gui;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 import java.util.ArrayList;
@@ -49,6 +49,7 @@ import pkg2ndsemesterexamproject.bll.DataHandler;
 import pkg2ndsemesterexamproject.bll.PassThrough;
 import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
 import pkg2ndsemesterexamproject.bll.IPassthrough;
+import pkg2ndsemesterexamproject.bll.ISortStrategy;
 import pkg2ndsemesterexamproject.bll.Search;
 
 /**
@@ -73,6 +74,7 @@ public class Model {
     private String selectedDepartmentName;
     private Search search;
     private String searchString = "";
+    private ISortStrategy strategy;
 
     public Model() throws IOException {
         stickyNotes = new ArrayList();
@@ -138,8 +140,8 @@ public class Model {
         IDepartmentTask task = null;
         Label orderNum = new Label(po.getOrder().toString());
         Label customer = new Label("Customer: " + po.getCustomer().getName());
-        Label startDate = new Label(dpt.getStartDate().toLocalDate().toString());
-        Label endDate = new Label(dpt.getEndDate().toLocalDate().toString());
+        Label startDate = new Label(dpt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
+        Label endDate = new Label(dpt.getEndDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200,150);
         orderPane.getStyleClass().add("pane");
@@ -182,8 +184,7 @@ public class Model {
         Long startToNow = ChronoUnit.DAYS.between(dpt.getStartDate(), todayIs);
         double dd = progressInterval * startToNow;
         gc.setFill(Color.GREEN);
-        if (progressInterval * startToNow > 175)
-        {
+        if (progressInterval * startToNow > 175) {
             gc.setFill(Color.RED);
             dd = 175;
         }
@@ -269,7 +270,7 @@ public class Model {
                 public void run() {
                     List<IProductionOrder> orders = null;
                     try {
-                        orders = dataHandler.getAllRelevantProductionOrders(selectedDepartmentName, searchString);
+                        orders = dataHandler.getAllRelevantProductionOrders(selectedDepartmentName, searchString, strategy);
                     } catch (SQLException ex) {
                         System.out.println("Tester22");
                     }
@@ -360,9 +361,10 @@ public class Model {
     Metoden gør at vi kan flowcontrolle, så der max kan blive opdateret 10 gange
     i sekundet, for at undgå konstante updates, der ville skabe delay i programmet
      */
-    public void msOnDepartmentView(AnchorPane departmentView, BorderPane borderPane) {
+    public void msOnDepartmentView(AnchorPane departmentView, BorderPane borderPane, ISortStrategy strategy) {
         anchorPane = departmentView;
         this.borderPane = borderPane;
+        this.strategy = strategy;
         guiUpdateLimit.play();
     }
 

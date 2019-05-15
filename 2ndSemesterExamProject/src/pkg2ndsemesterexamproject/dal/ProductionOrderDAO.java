@@ -59,8 +59,7 @@ public class ProductionOrderDAO {
                 String deliveryDate = rs.getString("deliveryDate");
                 IOrder order = new Order(orderNumber);
                 LocalDate ld = LocalDate.parse(deliveryDate);
-                LocalDateTime ldt = ld.atStartOfDay();
-                IDelivery delivery = new Delivery(ldt);
+                IDelivery delivery = new Delivery(ld);
                 ICustomer customer = new Customer(cust);
                 List<IDepartmentTask> tasks = getAllTasksForProductionOrder(orderNumber);
                 po.add(new ProductionOrder(order, delivery, customer, tasks));
@@ -87,10 +86,9 @@ public class ProductionOrderDAO {
                 String eDate = rs.getString("endDate");
                 String department = rs.getString("department");
                 String orderNumber = rs.getString("orderNumber");
-                LocalDate eld = LocalDate.parse(eDate);
-                LocalDate sld = LocalDate.parse(sDate);
-                LocalDateTime endDate = eld.atStartOfDay();
-                LocalDateTime startDate = sld.atStartOfDay();
+                LocalDate endDate = LocalDate.parse(eDate);
+                LocalDate startDate = LocalDate.parse(sDate);
+
                 Department dpart = new Department(department);
                 tasks.add(new DepartmentTask(dpart, done, startDate, endDate));
             }
@@ -117,18 +115,16 @@ public class ProductionOrderDAO {
         }
         return departments;
     }
-    
-       public void updateCircleColour(){
-                try (Connection con = conProvider.getConnection()) {
+
+    public void updateCircleColour() {
+        try (Connection con = conProvider.getConnection()) {
 
 //            prst.execute();
             System.out.println("DILLERBANG");
-        } catch(SQLException ex){
-            
+        } catch (SQLException ex) {
+
         }
     }
-       
-   
 
 //    private List<IWorker> getAllWorkers() throws SQLException{
 //        List<IWorker> workers = new ArrayList();
@@ -170,14 +166,12 @@ public class ProductionOrderDAO {
                 String department = rs.getString("department");
                 String orderNumber = rs.getString("orderNumber");
 
-                LocalDate eld = LocalDate.parse(eDate);
-                LocalDate sld = LocalDate.parse(sDate);
-                LocalDateTime endDate = eld.atStartOfDay();
-                LocalDateTime startDate = sld.atStartOfDay();
+                LocalDate endDate = LocalDate.parse(eDate);
+                LocalDate startDate = LocalDate.parse(sDate);
                 IOrder order = new Order(orderNumber);
                 LocalDate ld = LocalDate.parse(deliveryDate);
-                LocalDateTime ldt = ld.atStartOfDay();
-                IDelivery delivery = new Delivery(ldt);
+
+                IDelivery delivery = new Delivery(ld);
                 ICustomer customer = new Customer(cust);
 //                if (po.isEmpty()) {
 //                    IProductionOrder test = new ProductionOrder(order, delivery, customer, tasks);
@@ -186,7 +180,7 @@ public class ProductionOrderDAO {
 //                } 
 
                 if (test == null) {
- 
+
                     test = new ProductionOrder(order, delivery, customer, tasks);
                 }
 
@@ -200,7 +194,6 @@ public class ProductionOrderDAO {
                     test = new ProductionOrder(order, delivery, customer, tasks);
                     Department dpart = new Department(department);
                     test.getDepartmentTasks().add(new DepartmentTask(dpart, done, startDate, endDate));
-                    
 
                 }
 
@@ -274,11 +267,11 @@ public class ProductionOrderDAO {
             prst.setBoolean(1, true);
             prst.setString(2, po.getOrder().getOrderNumber());
             prst.setString(3, dt.getDepartment().getName());
-            
+
             prst.execute();
         } catch (SQLException ex) {
 
         }
-}
+    }
 
 }

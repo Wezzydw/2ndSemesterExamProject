@@ -21,9 +21,9 @@ public interface IDepartmentTask {
 
     Boolean getFinishedOrder();
 
-    LocalDateTime getStartDate();
+    LocalDate getStartDate();
 
-    LocalDateTime getEndDate();
+    LocalDate getEndDate();
 
     void addWorker(IWorker worker);
 
