@@ -7,6 +7,7 @@ package pkg2ndsemesterexamproject.gui.controller;
 
 import com.jfoenix.controls.JFXTextField;
 import com.sun.prism.image.ViewPort;
+import java.awt.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -68,7 +69,7 @@ public class DepartmentScreenViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        departmentAnchorPane.setStyle("-fx-background-color: Black");
         try {
             model = new Model();
         } catch (IOException ex) {
@@ -77,15 +78,13 @@ public class DepartmentScreenViewController implements Initializable {
 
         LocalDate date = LocalDate.now();
         lblDate.setText(date.format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
-        
-        model.msOnDepartmentView(departmentAnchorPane, borderPane,sortStrategy);
+
+        model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();
         //tmpLoop();
-        
-        txtSearchfield.setStyle("-fx-text-fill:White");
 
-       
+        txtSearchfield.setStyle("-fx-text-fill:White");
 
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
         functionThatUpdatedGUIEvery5Seconds();
@@ -108,7 +107,6 @@ public class DepartmentScreenViewController implements Initializable {
 
     public void comboChanged() {
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
-
     }
 
     public void initListeners() {
