@@ -6,6 +6,7 @@
 package pkg2ndsemesterexamproject.gui.controller;
 
 import com.jfoenix.controls.JFXTextField;
+import com.sun.prism.image.ViewPort;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -59,7 +60,7 @@ public class DepartmentScreenViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         try {
             model = new Model();
         } catch (IOException ex) {
@@ -68,11 +69,14 @@ public class DepartmentScreenViewController implements Initializable {
 
         LocalDate date = LocalDate.now();
         lblDate.setText(date.toString());
-
+        
         model.msOnDepartmentView(departmentAnchorPane, borderPane);
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();
         //tmpLoop();
+        
+        txtSearchfield.setStyle("-fx-text-fill:White");
+       
     }
 
     public void initListeners() {
