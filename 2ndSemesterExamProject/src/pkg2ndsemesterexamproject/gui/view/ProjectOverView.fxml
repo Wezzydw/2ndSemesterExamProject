@@ -13,15 +13,14 @@
 <AnchorPane id="AnchorPane" fx:id="mainPane" minWidth="-Infinity" prefHeight="376.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController">
    <children>
       <HBox fx:id="hboxDepartments" layoutX="9.0" layoutY="12.0" prefHeight="33.0" prefWidth="602.0" />
-      <Label fx:id="lblOrder" layoutX="221.0" layoutY="60.0" text="Order: 1590-2100" AnchorPane.leftAnchor="221.0" AnchorPane.topAnchor="60.0">
+      <Label fx:id="lblOrder" layoutX="158.0" layoutY="60.0" text="Order number: 1590-2100" AnchorPane.leftAnchor="158.0" AnchorPane.topAnchor="60.0">
          <font>
             <Font size="34.0" />
          </font></Label>
-      <Label fx:id="lblCustomer" layoutX="251.0" layoutY="110.0" text="Customer: Karl Kalasnikov" AnchorPane.leftAnchor="251.0" AnchorPane.topAnchor="110.0">
+      <Label fx:id="lblCustomer" layoutX="294.0" layoutY="110.0" text="Customer: Karl Kalasnikov" AnchorPane.leftAnchor="294.0" AnchorPane.topAnchor="110.0">
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label fx:id="lblDeliveryDate" layoutX="295.0" layoutY="155.0" text="Delivery Date 24/9-19" AnchorPane.bottomAnchor="204.0" AnchorPane.leftAnchor="295.0" />
       <Button layoutX="535.0" layoutY="272.0" mnemonicParsing="false" text="Flag as done" AnchorPane.rightAnchor="20.0" />
       <SplitPane dividerPositions="0.15" layoutX="441.0" layoutY="57.0" orientation="VERTICAL" prefHeight="206.0" prefWidth="171.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="20.0">
         <items>

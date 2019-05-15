@@ -162,8 +162,8 @@ public class ProjectOverViewController implements Initializable {
     }
 
     public void setData(IDepartmentTask dt, IProductionOrder po) {
-        lblCustomer.setText(po.getCustomer().toString());
-        lblOrder.setText(po.getOrder().toString());
+        lblCustomer.setText("Customer: " + po.getCustomer().toString());
+        lblOrder.setText("Order number: " + po.getOrder().toString());
         lblStartDate.setText(dt.getStartDate().toLocalDate() + "");
         lblEndDate.setText(dt.getEndDate().toLocalDate() + "");
         int indexOfDepartment = 0;
