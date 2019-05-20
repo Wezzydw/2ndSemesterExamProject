@@ -6,8 +6,6 @@
 package pkg2ndsemesterexamproject.gui.controller;
 
 import com.jfoenix.controls.JFXTextField;
-import com.sun.prism.image.ViewPort;
-import java.awt.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -19,16 +17,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import static javafx.scene.input.KeyCode.R;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.bll.ISortStrategy;
 import pkg2ndsemesterexamproject.bll.SortCustomer;
@@ -83,9 +84,10 @@ public class DepartmentScreenViewController implements Initializable {
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();
         //tmpLoop();
-
+        
         txtSearchfield.setStyle("-fx-text-fill:White");
-
+      
+        
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();
@@ -174,4 +176,21 @@ public class DepartmentScreenViewController implements Initializable {
         t.start();
     }
 
-}
+    @FXML
+    private void scrollOnTouch(TouchEvent event) {
+        System.out.println("pifspojdf");
+    }
+
+    @FXML
+    private void scrollOnDragQueen(MouseEvent event) {
+//        double getPosition = event.getY();
+//        double getMaxHeight = departmentAnchorPane.getMaxHeight();
+//        
+//        System.out.println("scene y " + event.MOUSE_CLICKED);
+//        System.out.println(""+ event.getY());
+//        scrollPane.setVvalue(0.5);
+
+          
+    }
+
+   }
