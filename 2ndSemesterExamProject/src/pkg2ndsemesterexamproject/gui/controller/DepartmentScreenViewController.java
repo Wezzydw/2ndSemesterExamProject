@@ -67,7 +67,7 @@ public class DepartmentScreenViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        departmentAnchorPane.setStyle("-fx-background-color: Black");
         try {
             model = new Model();
         } catch (IOException ex) {
@@ -76,8 +76,8 @@ public class DepartmentScreenViewController implements Initializable {
 
         LocalDate date = LocalDate.now();
         lblDate.setText(date.format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
-        
-        model.msOnDepartmentView(departmentAnchorPane, borderPane,sortStrategy);
+
+        model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();
         //tmpLoop();
@@ -85,7 +85,6 @@ public class DepartmentScreenViewController implements Initializable {
         txtSearchfield.setStyle("-fx-text-fill:White");
       
         
-
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();
@@ -107,7 +106,6 @@ public class DepartmentScreenViewController implements Initializable {
 
     public void comboChanged() {
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
-
     }
 
     public void initListeners() {
