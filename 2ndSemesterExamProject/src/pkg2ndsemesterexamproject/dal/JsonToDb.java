@@ -1,6 +1,7 @@
 package pkg2ndsemesterexamproject.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,6 +38,9 @@ public class JsonToDb {
     }
 
     private void dataDumper() throws IOException, SQLException {
+        
+        File f = new File("data/");
+        System.out.println(f.isDirectory());
         JSONFormater jf = new JSONFormater();
         GetData getData = new GetData();
         List<IProductionOrder> productionOrdersFromDB = getData.getAllProductionOrders();

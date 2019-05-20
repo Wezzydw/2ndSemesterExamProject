@@ -91,8 +91,7 @@ public class Model {
             @Override
             public void handle(ActionEvent event) {
                 //anchorPane.getChildren().clear();
-                extentAnchorPaneX(anchorPane, borderPane);
-                extentAnchorPaneY(anchorPane);
+
                 try {
                     placeOrderInUI(anchorPane);
                 } catch (SQLException ex) {
@@ -144,15 +143,14 @@ public class Model {
         Label startDate = new Label(dpt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
         Label endDate = new Label(dpt.getEndDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
         Pane orderPane = new Pane();
-        orderPane.setMaxSize(200,150);
+        orderPane.setMaxSize(200, 150);
         orderPane.getStyleClass().add("pane");
-        Rectangle rec = new Rectangle(200,150);
+        Rectangle rec = new Rectangle(200, 150);
         rec.setArcHeight(25);
         rec.setArcWidth(25);
         orderPane.setShape(rec);
         Circle circle = new Circle(13);
         circle.setFill(Paint.valueOf("Green"));
- 
 
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).equals(dpt) && i > 0) {
@@ -275,6 +273,8 @@ public class Model {
                         orders = dataHandler.getAllRelevantProductionOrders(selectedDepartmentName, searchString, strategy);
                     } catch (SQLException ex) {
                         System.out.println("Tester22");
+                    } catch (IOException ex) {
+                        Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     if (orders != null) {
                         stickyNotes.clear();
@@ -282,9 +282,8 @@ public class Model {
                             stickyNotes.add(createOrderInGUI(productionOrders, dataHandler.getTaskForDepartment(productionOrders, selectedDepartmentName)));
 
                         }
-
                         double viewHeight = departmentView.getPrefHeight();
-                        double viewWidth = departmentView.getPrefWidth();
+                        double viewWidth = departmentView.getWidth();
 
                         double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
                         int xNumberOfPanes = (int) (numberOfPanes);
@@ -295,6 +294,7 @@ public class Model {
                             public void run() {
                                 int counter = 0;
                                 departmentView.getChildren().clear();
+                                extentAnchorPaneY(anchorPane);
                                 outerloop:
                                 for (int k = 0; k < stickyNotes.size(); k++) {
 
@@ -329,7 +329,11 @@ public class Model {
     antal stickyNotes henaf x-aksen.
      */
     public void extentAnchorPaneX(AnchorPane anchorP, BorderPane borderP) {
-        anchorP.setPrefWidth(borderP.getWidth() - 50);
+//        if (anchorP.getHeight() > borderP.getHeight()) {
+//            anchorP.setPrefWidth(borderP.getWidth() - 37);
+//        } else {
+//            anchorP.setPrefWidth(borderP.getWidth() - 25);
+//        }
 
     }
 
@@ -338,7 +342,7 @@ public class Model {
     hvis nødvendigt for at få alle efterspurgte stickyNotes puttes ind i viewet.
      */
     public void extentAnchorPaneY(AnchorPane anchorP) {
-        double viewWidth = anchorP.getPrefWidth();
+        double viewWidth = anchorP.getWidth();
         double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
         int xNumberOfPanes = (int) (numberOfPanes);
         if (xNumberOfPanes == 0) {
@@ -346,7 +350,9 @@ public class Model {
         }
 
         int yNumberOfPanes = (int) (stickyNotes.size() / xNumberOfPanes);
-        yNumberOfPanes += 1;
+        if (stickyNotes.size() % xNumberOfPanes != 0) {
+            yNumberOfPanes += 1;
+        }
         anchorP.setPrefHeight(yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes);
 
     }

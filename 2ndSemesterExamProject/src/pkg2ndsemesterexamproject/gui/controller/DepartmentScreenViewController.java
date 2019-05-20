@@ -65,6 +65,7 @@ public class DepartmentScreenViewController implements Initializable {
     private ISortStrategy sortStrategy;
     private double scrollValue;
     private double lastDrag;
+
     /**
      * Initializes the controller class.
      */
@@ -76,7 +77,8 @@ public class DepartmentScreenViewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        scrollPane.setFitToWidth(true);
+        scrollPane.setMinWidth(100);
         LocalDate date = LocalDate.now();
         lblDate.setText(date.format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
 
@@ -84,10 +86,9 @@ public class DepartmentScreenViewController implements Initializable {
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();
         //tmpLoop();
-        
+
         txtSearchfield.setStyle("-fx-text-fill:White");
-      
-        
+
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();
@@ -124,6 +125,7 @@ public class DepartmentScreenViewController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
+
             }
 
         });
@@ -181,27 +183,27 @@ public class DepartmentScreenViewController implements Initializable {
     private void scrollOnTouch(TouchEvent event) {
         System.out.println("pifspojdf");
     }
-    
+
     @FXML
     private void scrollOnDragQueen(MouseEvent event) {
+
 //        departmentAnchorPane.setCursor(Cursor.V_RESIZE);
-        if (lastDrag > event.getSceneY() && lastDrag > 0){
+        if (lastDrag > event.getSceneY() && lastDrag > 0) {
             scrollValue = scrollValue + 0.1;
-        }else if(lastDrag < event.getSceneY() && lastDrag > 0){
+        } else if (lastDrag < event.getSceneY() && lastDrag > 0) {
             scrollValue = scrollValue - 0.1;
-        } 
-        if (scrollValue < 0){
+        }
+        if (scrollValue < 0) {
             scrollValue = 0;
         }
-        if (scrollValue > 1){
+        if (scrollValue > 1) {
             scrollValue = 1;
         }
         lastDrag = event.getSceneY();
-        
+
         scrollPane.setVvalue(scrollValue);
 //        System.out.println();
-    
-        
+
     }
 
-   }
+}
