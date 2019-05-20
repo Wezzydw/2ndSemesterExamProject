@@ -152,6 +152,7 @@ public class Model {
         orderPane.setShape(rec);
         Circle circle = new Circle(13);
         circle.setFill(Paint.valueOf("Green"));
+ 
 
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).equals(dpt) && i > 0) {
