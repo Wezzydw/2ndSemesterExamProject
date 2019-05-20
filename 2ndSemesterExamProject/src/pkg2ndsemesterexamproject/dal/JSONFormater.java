@@ -184,6 +184,7 @@ public class JSONFormater {
      * @throws IOException
      */
     public String loadData() throws FileNotFoundException, IOException {
+        
         FileReader filereader = new FileReader(new File("./data/JSON.txt"));
         BufferedReader bufferedReader = new BufferedReader(filereader);
         String data = "";

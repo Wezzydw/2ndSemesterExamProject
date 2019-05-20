@@ -76,7 +76,8 @@ public class DepartmentScreenViewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        scrollPane.setFitToWidth(true);
+        scrollPane.setMinWidth(100);
         LocalDate date = LocalDate.now();
         lblDate.setText(date.format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
 
@@ -84,10 +85,9 @@ public class DepartmentScreenViewController implements Initializable {
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();
         //tmpLoop();
-        
+
         txtSearchfield.setStyle("-fx-text-fill:White");
-      
-        
+
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();
@@ -123,6 +123,7 @@ public class DepartmentScreenViewController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
+
             }
 
         });
@@ -190,7 +191,6 @@ public class DepartmentScreenViewController implements Initializable {
 //        System.out.println(""+ event.getY());
 //        scrollPane.setVvalue(0.5);
 
-          
     }
 
-   }
+}
