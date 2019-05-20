@@ -14,14 +14,15 @@
             <ComboBox fx:id="comboBox" layoutX="8.0" layoutY="2.0" prefHeight="44.0" prefWidth="150.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
             <Label fx:id="lblText" layoutX="155.0" layoutY="8.0" text="montage2" textFill="WHITE" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="8.0" />
             <Label fx:id="lblDate" layoutX="558.0" layoutY="11.0" text="26-04-2019" textFill="WHITE" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-            <JFXTextField fx:id="txtSearchfield" layoutX="260.0" layoutY="4.0" onKeyReleased="#searchBar" prefHeight="25.0" prefWidth="257.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="5.0" />
+            <JFXTextField fx:id="txtSearchfield" layoutX="260.0" layoutY="4.0" onKeyReleased="#searchBar" prefHeight="25.0" prefWidth="257.0" unFocusColor="WHITE" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="5.0" />
          </children>
       </AnchorPane>
    </top>
    <center>
-      <ScrollPane fx:id="scrollPane" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="scrollPane" stylesheets="@css/PostItCSS.css" BorderPane.alignment="CENTER">
         <content>
           <AnchorPane fx:id="departmentAnchorPane" minHeight="0.0" minWidth="0.0" onMouseDragged="#scrollOnDragQueen" onTouchMoved="#scrollOnTouch" prefHeight="600.0" prefWidth="755.0" />
+
         </content>
       </ScrollPane>
    </center>

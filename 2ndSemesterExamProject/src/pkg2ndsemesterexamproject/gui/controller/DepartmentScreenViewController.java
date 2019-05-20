@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import static javafx.scene.input.KeyCode.R;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
@@ -69,7 +70,7 @@ public class DepartmentScreenViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        departmentAnchorPane.setStyle("-fx-background-color: Black");
         try {
             model = new Model();
         } catch (IOException ex) {
@@ -79,6 +80,14 @@ public class DepartmentScreenViewController implements Initializable {
         LocalDate date = LocalDate.now();
         lblDate.setText(date.format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
 
+        model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
+        functionThatUpdatedGUIEvery5Seconds();
+        initListeners();
+        //tmpLoop();
+        
+        txtSearchfield.setStyle("-fx-text-fill:White");
+      
+        
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();

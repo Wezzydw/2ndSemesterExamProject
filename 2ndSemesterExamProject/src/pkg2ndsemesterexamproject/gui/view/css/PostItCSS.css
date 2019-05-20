@@ -26,7 +26,7 @@ and open the template in the editor.
     -fx-border-insets: 0px;
     -fx-padding: 10px;
     -fx-spacing: 3px;
-    -fx-background-color: #526f90;
+    -fx-background-color: #301b61;
     -fx-background-insets: 5px;
 /*    -fx-border-color: #4a4948;
     -fx-border-width: 5px;
@@ -76,9 +76,17 @@ and open the template in the editor.
 }
 .pane
 {
-    -fx-background-color: #ffdc24;
+    -fx-background-color: #6ef982;
     -fx-border-color: #4a4948;
     -fx-border-width: 2;
     -fx-font-weight: bolder;
-    -fx-text-colour: #e3e3e3;    
 }
+/*.scrollPane
+{
+    -fx-background-color: #1f1a2a
+    
+}*/
+   
+    
+  
+
