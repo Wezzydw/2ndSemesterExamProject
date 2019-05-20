@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+<AnchorPane id="AnchorPane" prefHeight="654.0" prefWidth="851.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.view.ManagerOverviewController">
    <children>
-      <Button layoutX="447.0" layoutY="323.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="139.0" text="Switch to other view" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+      <TableView prefHeight="654.0" prefWidth="626.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+        <columns>
+          <TableColumn prefWidth="282.0" text="Order Number" />
+          <TableColumn minWidth="0.0" prefWidth="343.0" text="Customer" />
+        </columns>
+      </TableView>
+      <Button layoutX="703.0" layoutY="582.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="134.0" text="Scan FileFolder" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+      <Label layoutX="679.0" layoutY="55.0" prefHeight="21.0" prefWidth="151.0" text="Date and/or clock" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="40.0" />
+      <Label layoutX="679.0" layoutY="27.0" prefHeight="21.0" prefWidth="134.0" text="Or login username" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
    </children>
 </AnchorPane>
