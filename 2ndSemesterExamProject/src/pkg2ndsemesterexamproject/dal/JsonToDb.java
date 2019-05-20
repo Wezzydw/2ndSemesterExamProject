@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,15 +22,13 @@ public class JsonToDb {
 
     private DatabaseConnection conProvider;
 
-    public JsonToDb() throws IOException
-    {
+    public JsonToDb() throws IOException {
         this.conProvider = new DatabaseConnection();
     }
-    
-    
+
     public static void main(String[] args) throws SQLServerException, IOException {
         JsonToDb bla = new JsonToDb();
-        
+
         try {
             bla.dataDumper();
         } catch (SQLException ex) {
@@ -39,33 +38,63 @@ public class JsonToDb {
 
     private void dataDumper() throws IOException, SQLException {
         JSONFormater jf = new JSONFormater();
-        writeProductionOrderToDB(jf.extractProductionOrdersFromJSON());
-        writeDepartmentToDB(jf.getDepartments());
-        writeWorkerToDB(jf.extractWorkersFromJSON());
-        
-        for (IProductionOrder po : jf.extractProductionOrdersFromJSON()) {
-             writeDepartmentTaskToDB(po);
+        GetData getData = new GetData();
+        List<IProductionOrder> productionOrdersFromDB = getData.getAllProductionOrders();
+        List<IProductionOrder> productionOrdersFromFile = jf.extractProductionOrdersFromJSON();
+        List<IProductionOrder> nonDublicateOrders = new ArrayList();
+        outerLoop:
+        for (IProductionOrder iProductionOrderDB : productionOrdersFromDB) {
+            int count = 0;
+            for (IProductionOrder iProductionOrderFile : productionOrdersFromFile) {
+                if (iProductionOrderDB.getOrder().getOrderNumber().equals(iProductionOrderFile.getOrder().getOrderNumber())) {
+                    continue outerLoop;
+                } else if (count == productionOrdersFromFile.size() - 1) {
+                    nonDublicateOrders.add(iProductionOrderFile);
+                } else {
+                    count++;
+                }
+            }
         }
+
+        List<IDepartment> departments = new ArrayList();
+        for (IProductionOrder iProductionOrder : nonDublicateOrders) {
+            for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {
+                departments.add(departmentTask.getDepartment());
+            }
+        }
+        
+        System.out.println("tester");
+        for (IProductionOrder iProductionOrder : nonDublicateOrders) {
+            System.out.println(iProductionOrder.getOrder().getOrderNumber());
+        }
+
+//        writeProductionOrderToDB(productionOrdersFromFile);
+//        writeDepartmentToDB(departments);
+//        
+//        writeWorkerToDB(jf.extractWorkersFromJSON());
+//
+//        for (IProductionOrder po : jf.extractProductionOrdersFromJSON()) {
+//            writeDepartmentTaskToDB(po);
+//        }
     }
-    
-    
-    private void writeDepartmentToDB(List<IDepartment> d) throws SQLException{
+
+    private void writeDepartmentToDB(List<IDepartment> d) throws SQLException {
         try (Connection con = conProvider.getConnection()) {
             String query = "INSERT INTO Department (dName) VALUES(?);";
             PreparedStatement prst = con.prepareStatement(query);
-            
+
             for (IDepartment department : d) {
                 prst.setString(1, department.getName());
                 prst.addBatch();
             }
-            
+
             prst.executeBatch();
-            
+
         } catch (SQLException ex) {
         }
     }
 
-    private void writeDepartmentTaskToDB(IProductionOrder po) throws SQLException{
+    private void writeDepartmentTaskToDB(IProductionOrder po) throws SQLException {
         try (Connection con = conProvider.getConnection()) {
             String query = "INSERT INTO DepartmentTask(isFinished, startDate, endDate, department, orderNumber) VALUES(?,?,?,?,?);";
             PreparedStatement prst = con.prepareStatement(query);
@@ -110,7 +139,7 @@ public class JsonToDb {
         try (Connection con = conProvider.getConnection()) {
             String query = "INSERT INTO Worker (name, initials, salaryNumber) VALUES(?,?,?);";
             PreparedStatement prst = con.prepareStatement(query);
-            
+
             for (IWorker worker : w) {
                 prst.setString(1, worker.getName());
                 prst.setString(2, worker.getInitials());
