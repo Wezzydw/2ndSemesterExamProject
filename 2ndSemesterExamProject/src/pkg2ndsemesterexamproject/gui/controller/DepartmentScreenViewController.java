@@ -19,17 +19,16 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import static javafx.scene.input.KeyCode.R;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.bll.ISortStrategy;
 import pkg2ndsemesterexamproject.bll.SortCustomer;
@@ -64,6 +63,8 @@ public class DepartmentScreenViewController implements Initializable {
     @FXML
     private BorderPane borderPane;
     private ISortStrategy sortStrategy;
+    private double scrollValue;
+    private double lastDrag;
 
     /**
      * Initializes the controller class.
@@ -103,7 +104,8 @@ public class DepartmentScreenViewController implements Initializable {
             sortStrategy = comboBox.getSelectionModel().getSelectedItem();
             comboChanged();
         });
-
+        scrollValue = 0;
+        lastDrag = -1;
         //sortStrategy = comboBox.getSelectionModel().getSelectedItem();
     }
 
@@ -184,12 +186,23 @@ public class DepartmentScreenViewController implements Initializable {
 
     @FXML
     private void scrollOnDragQueen(MouseEvent event) {
-//        double getPosition = event.getY();
-//        double getMaxHeight = departmentAnchorPane.getMaxHeight();
-//        
-//        System.out.println("scene y " + event.MOUSE_CLICKED);
-//        System.out.println(""+ event.getY());
-//        scrollPane.setVvalue(0.5);
+
+//        departmentAnchorPane.setCursor(Cursor.V_RESIZE);
+        if (lastDrag > event.getSceneY() && lastDrag > 0) {
+            scrollValue = scrollValue + 0.1;
+        } else if (lastDrag < event.getSceneY() && lastDrag > 0) {
+            scrollValue = scrollValue - 0.1;
+        }
+        if (scrollValue < 0) {
+            scrollValue = 0;
+        }
+        if (scrollValue > 1) {
+            scrollValue = 1;
+        }
+        lastDrag = event.getSceneY();
+
+        scrollPane.setVvalue(scrollValue);
+//        System.out.println();
 
     }
 
