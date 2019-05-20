@@ -24,9 +24,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import static javafx.scene.input.KeyCode.R;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.bll.ISortStrategy;
 import pkg2ndsemesterexamproject.bll.SortCustomer;
@@ -173,4 +176,21 @@ public class DepartmentScreenViewController implements Initializable {
         t.start();
     }
 
-}
+    @FXML
+    private void scrollOnTouch(TouchEvent event) {
+        System.out.println("pifspojdf");
+    }
+
+    @FXML
+    private void scrollOnDragQueen(MouseEvent event) {
+//        double getPosition = event.getY();
+//        double getMaxHeight = departmentAnchorPane.getMaxHeight();
+//        
+//        System.out.println("scene y " + event.MOUSE_CLICKED);
+//        System.out.println(""+ event.getY());
+//        scrollPane.setVvalue(0.5);
+
+          
+    }
+
+   }

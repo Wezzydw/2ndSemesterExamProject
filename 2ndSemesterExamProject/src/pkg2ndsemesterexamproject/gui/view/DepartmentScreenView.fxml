@@ -21,7 +21,8 @@
    <center>
       <ScrollPane fx:id="scrollPane" stylesheets="@css/PostItCSS.css" BorderPane.alignment="CENTER">
         <content>
-          <AnchorPane fx:id="departmentAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="755.0" stylesheets="@css/PostItCSS.css" />
+          <AnchorPane fx:id="departmentAnchorPane" minHeight="0.0" minWidth="0.0" onMouseDragged="#scrollOnDragQueen" onTouchMoved="#scrollOnTouch" prefHeight="600.0" prefWidth="755.0" />
+
         </content>
       </ScrollPane>
    </center>
