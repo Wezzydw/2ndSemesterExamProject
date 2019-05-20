@@ -37,6 +37,7 @@ public class GetData implements IGetData {
     @Override
     public void sendOrderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException {
         poDAO.updateOrderToDone(dt, po);
+        poDAO.logToDB(dt, po);
     }
 
     @Override
