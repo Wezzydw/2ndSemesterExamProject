@@ -12,9 +12,9 @@ import javafx.fxml.Initializable;
 /**
  * FXML Controller class
  *
- * @author andreas
+ * @author marce
  */
-public class ManagerController implements Initializable
+public class OrderOverViewController implements Initializable
 {
 
     /**
