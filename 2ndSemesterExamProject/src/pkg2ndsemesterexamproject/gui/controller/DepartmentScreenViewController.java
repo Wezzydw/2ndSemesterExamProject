@@ -5,6 +5,7 @@
  */
 package pkg2ndsemesterexamproject.gui.controller;
 
+import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +25,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.AnchorPane;
@@ -65,7 +67,11 @@ public class DepartmentScreenViewController implements Initializable {
     private ISortStrategy sortStrategy;
     private double scrollValue;
     private double lastDrag;
-
+    @FXML
+    private JFXSlider postSlider;
+    @FXML
+    private Label lblZoom;
+    private double sliderVal;
     /**
      * Initializes the controller class.
      */
@@ -106,6 +112,8 @@ public class DepartmentScreenViewController implements Initializable {
         });
         scrollValue = 0;
         lastDrag = -1;
+        sliderVal = 100;
+        lblZoom.setText("" + sliderVal + "%");
         //sortStrategy = comboBox.getSelectionModel().getSelectedItem();
     }
 
@@ -179,7 +187,6 @@ public class DepartmentScreenViewController implements Initializable {
         t.start();
     }
 
-    @FXML
     private void scrollOnTouch(TouchEvent event) {
         System.out.println("pifspojdf");
     }
@@ -202,8 +209,16 @@ public class DepartmentScreenViewController implements Initializable {
         lastDrag = event.getSceneY();
 
         scrollPane.setVvalue(scrollValue);
-//        System.out.println();
 
+    }
+
+    @FXML
+    private void sliderZoom(MouseEvent event)
+    {
+        sliderVal = postSlider.getValue();
+        System.out.println(sliderVal);
+        lblZoom.setText("" + sliderVal + "%");
+        model.zoomControl(sliderVal);
     }
 
 }
