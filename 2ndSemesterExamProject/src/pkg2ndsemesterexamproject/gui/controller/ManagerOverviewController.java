@@ -67,9 +67,11 @@ public class ManagerOverviewController implements Initializable {
         orderNum.setCellValueFactory(celldata -> celldata.getValue().getOrder().getOrderProperty());
         customer.setCellValueFactory(celldata -> celldata.getValue().getCustomer().getCustomerProperty());
 
+
 //        orderNum.setCellValueFactory(new PropertyValueFactory<>("OrderNum"));
 //        customer.setCellValueFactory(new PropertyValueFactory<>("Customer"));
         try {
+
             getlistOfOrders();
         } catch (SQLException ex) {
             Logger.getLogger(ManagerOverviewController.class.getName()).log(Level.SEVERE, null, ex);
