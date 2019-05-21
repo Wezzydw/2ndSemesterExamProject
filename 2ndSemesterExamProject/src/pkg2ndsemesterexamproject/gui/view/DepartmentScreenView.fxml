@@ -22,7 +22,8 @@
    <center>
       <ScrollPane fx:id="scrollPane" BorderPane.alignment="CENTER">
         <content>
-          <AnchorPane fx:id="departmentAnchorPane" minHeight="0.0" minWidth="0.0" onMouseDragged="#scrollOnDragQueen" prefHeight="600.0" prefWidth="755.0" />
+          <AnchorPane fx:id="departmentAnchorPane" minHeight="0.0" minWidth="0.0" onMouseDragged="#scrollOnDragQueen" prefHeight="600.0" prefWidth="755.0"
+                       />
         </content>
       </ScrollPane>
    </center>
