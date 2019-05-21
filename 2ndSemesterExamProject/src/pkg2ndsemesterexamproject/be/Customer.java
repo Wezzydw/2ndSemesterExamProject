@@ -5,6 +5,9 @@
  */
 package pkg2ndsemesterexamproject.be;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author Wezzy Laptop
@@ -25,5 +28,9 @@ public class Customer implements ICustomer{
     @Override
     public String toString() {
         return name;
+    }
+    
+        public StringProperty getCustomerProperty() {
+        return new SimpleStringProperty(getName());
     }
 }

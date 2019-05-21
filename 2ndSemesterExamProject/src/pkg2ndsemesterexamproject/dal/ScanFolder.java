@@ -74,4 +74,8 @@ public class ScanFolder {
         }
         return false;
     }
+    
+    public void lookForNewFiles(){
+        
+    }
 }
