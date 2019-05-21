@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 data\JSON.txt
 data\readfiles.txt
 data\result.csv
@@ -59,3 +60,8 @@ data\JSON.txt
 data\readfiles.txt
 data\result.csv
 data\result.xlsx
+=======
+JSON.txt
+result.csv
+result.xlsx
+>>>>>>> 878bc48407083912edda582fbc56102e9c41d688
