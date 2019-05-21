@@ -1,5 +1,4 @@
 
-data\JSON.txt
-data\readfiles.txt
-data\result.csv
-data\result.xlsx
+JSON.txt
+result.csv
+result.xlsx
