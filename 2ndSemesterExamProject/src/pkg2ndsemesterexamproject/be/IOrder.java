@@ -5,10 +5,17 @@
  */
 package pkg2ndsemesterexamproject.be;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author Wezzy Laptop
  */
 public interface IOrder {
+
     String getOrderNumber();
+
+    StringProperty getOrderProperty();
+
 }
