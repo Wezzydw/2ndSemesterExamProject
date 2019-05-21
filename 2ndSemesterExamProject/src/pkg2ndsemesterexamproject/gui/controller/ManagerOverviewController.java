@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -59,7 +60,7 @@ public class ManagerOverviewController implements Initializable
     {
         try
         {
-            model = new ManagerModel(tableView);
+            model = new ManagerModel();
         } catch (IOException ex)
         {
             Logger.getLogger(StartScreenController.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,16 +68,23 @@ public class ManagerOverviewController implements Initializable
            orderNum.setCellValueFactory(celldata->celldata.getValue().getOrderProperty());
            customer.setCellValueFactory(celldata->celldata.getValue().getCustomerProperty());
                   
-           orderNum.setCellValueFactory(new PropertyValueFactory<>("OrderNumber"));
-           customer.setCellValueFactory(new PropertyValueFactory<>("Customer"));
+           //orderNum.setCellValueFactory(new PropertyValueFactory<>("OrderNum"));
+           //customer.setCellValueFactory(new PropertyValueFactory<>("Customer"));
+        try
+        {
+            getlistOfOrders();
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(ManagerOverviewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void getlistOfOrders() throws SQLException
     {
-        ObservableList managerOBS = ();
+        
         List<IProductionOrder> saveData = new ArrayList();
         saveData.addAll(model.getProductionOrders());
-        tableView.
+        tableView.setItems(model.getObservableProductionOrders());
 
         departmentTask.getDepartment();
         productionOrder.getDepartmentTasks();
