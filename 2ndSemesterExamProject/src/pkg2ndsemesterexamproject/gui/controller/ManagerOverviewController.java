@@ -70,6 +70,7 @@ public class ManagerOverviewController implements Initializable
                   
            orderNum.setCellValueFactory(new PropertyValueFactory<>("OrderNumber"));
            customer.setCellValueFactory(new PropertyValueFactory<>("Customer"));
+           model.scanFolderForNewFiles();
     }
 
     public void getlistOfOrders() throws SQLException
