@@ -17,6 +17,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -68,6 +69,7 @@ public class ManagerOverviewController implements Initializable
            orderNum.setCellValueFactory(celldata->celldata.getValue().getOrderProperty());
            customer.setCellValueFactory(celldata->celldata.getValue().getCustomerProperty());
                   
+
            //orderNum.setCellValueFactory(new PropertyValueFactory<>("OrderNum"));
            //customer.setCellValueFactory(new PropertyValueFactory<>("Customer"));
         try
@@ -77,6 +79,11 @@ public class ManagerOverviewController implements Initializable
         {
             Logger.getLogger(ManagerOverviewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+           orderNum.setCellValueFactory(new PropertyValueFactory<>("OrderNumber"));
+           customer.setCellValueFactory(new PropertyValueFactory<>("Customer"));
+           model.scanFolderForNewFiles();
+
     }
 
     public void getlistOfOrders() throws SQLException
@@ -89,6 +96,11 @@ public class ManagerOverviewController implements Initializable
         departmentTask.getDepartment();
         productionOrder.getDepartmentTasks();
 
+    }
+
+    @FXML
+    private void scanFolderForNewFiles(ActionEvent event) {
+        model.scanFolderForNewFiles();
     }
 
 }

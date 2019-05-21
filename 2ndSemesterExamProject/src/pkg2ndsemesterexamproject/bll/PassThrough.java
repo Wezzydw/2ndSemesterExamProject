@@ -11,13 +11,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import pkg2ndsemesterexamproject.be.Department;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
-import pkg2ndsemesterexamproject.be.Order;
 import pkg2ndsemesterexamproject.dal.GetData;
+import pkg2ndsemesterexamproject.dal.ScanFolder;
 
 /**
  *
@@ -26,9 +27,11 @@ import pkg2ndsemesterexamproject.dal.GetData;
 public class PassThrough implements IPassthrough {
 
     GetData getDataFromDB;
+    ScanFolder scanFolder;
 
     public PassThrough() throws IOException {
         getDataFromDB = new GetData();
+        scanFolder = new ScanFolder();
     }
 
     @Override
@@ -68,6 +71,14 @@ public class PassThrough implements IPassthrough {
 
     public void getCircleColour() {
         getDataFromDB.getCircleColour();
+    }
+
+    public void scanFolderForNewFiles() {
+        try {
+            scanFolder.updateFiles();
+        } catch (IOException ex) {
+            Logger.getLogger(PassThrough.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

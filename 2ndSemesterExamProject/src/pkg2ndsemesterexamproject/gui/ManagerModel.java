@@ -39,6 +39,7 @@ public class ManagerModel
 
     }
 
+
     public StringProperty stringConverter(String string)
     {
         return new SimpleStringProperty(string);
@@ -50,5 +51,15 @@ public class ManagerModel
         managerOBS.addAll(getProductionOrders());
         return managerOBS;
     }
+
+
+    public void scanFolderForNewFiles() {
+        managerPassThrough.scanFolderForNewFiles();
+    }
+ 
+          
+          
+          
+          
 
 }
