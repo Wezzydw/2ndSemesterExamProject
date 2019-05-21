@@ -409,4 +409,6 @@ public class Model {
     public void setSearchString(String string) {
         searchString = string;
     }
+
+    
 }
