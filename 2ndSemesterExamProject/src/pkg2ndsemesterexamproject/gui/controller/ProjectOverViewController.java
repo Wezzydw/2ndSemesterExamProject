@@ -178,9 +178,17 @@ public class ProjectOverViewController implements Initializable {
         }
 
         for (int i = 0; i <= indexOfDepartment; i++) {
+            Label ll = new Label();
+            ll.setMinSize(20, 5);
             Label l1 = new Label();
             l1.setText(po.getDepartmentTasks().get(i).getDepartment().toString());
-            l1.setStyle("-fx-background-color: Blue");
+            if (po.getDepartmentTasks().get(i).getFinishedOrder()){
+                l1.setStyle("-fx-background-color: Green" + "-fx-text-fill: Black");
+            }
+            else{
+                l1.setStyle("-fx-background-color: Red;" + "-fx-text-fill: Black");
+            }
+            hboxDepartments.getChildren().add(ll);
             hboxDepartments.getChildren().add(l1);
         }
 
