@@ -86,6 +86,7 @@ and open the template in the editor.
 .panetest{
     /*-fx-background-color: BLACK;*/
     -fx-background-image:url(wood.jpg);
+    -fx-background-repeat:stretch;
 }
 
 
