@@ -5,6 +5,9 @@
  */
 package pkg2ndsemesterexamproject.be;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author andreas
@@ -26,5 +29,7 @@ public class Order implements IOrder
     public String toString() {
         return number;
     }
-    
+    public StringProperty getOrderProperty() {
+        return new SimpleStringProperty(getOrderNumber());
+    }
 }

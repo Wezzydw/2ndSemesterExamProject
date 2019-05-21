@@ -11,6 +11,7 @@ import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.bll.PassThrough;
 
@@ -38,5 +39,9 @@ public class ManagerModel
             {
                 return new SimpleStringProperty(string);              
             }
-    
+ 
+          
+          
+          
+          
 }
