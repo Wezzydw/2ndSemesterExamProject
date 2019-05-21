@@ -7,6 +7,7 @@ package pkg2ndsemesterexamproject.gui.controller;
 
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
+import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -29,6 +30,11 @@ import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.Department;
@@ -77,7 +83,8 @@ public class DepartmentScreenViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        departmentAnchorPane.setStyle("-fx-background-color: Black");
+        departmentAnchorPane.setStyle("-fx-background-image:image/72561fc85d09c6f.jpg");
+        
         try {
             model = new Model();
         } catch (IOException ex) {

@@ -70,8 +70,8 @@ public class ManagerOverviewController implements Initializable
            customer.setCellValueFactory(celldata->celldata.getValue().getCustomerProperty());
                   
 
-           //orderNum.setCellValueFactory(new PropertyValueFactory<>("OrderNum"));
-           //customer.setCellValueFactory(new PropertyValueFactory<>("Customer"));
+           orderNum.setCellValueFactory(new PropertyValueFactory<>("orderNum"));
+           customer.setCellValueFactory(new PropertyValueFactory<>("customer"));
         try
         {
             getlistOfOrders();
