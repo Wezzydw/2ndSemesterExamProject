@@ -196,9 +196,9 @@ public class DepartmentScreenViewController implements Initializable {
 
 //        departmentAnchorPane.setCursor(Cursor.V_RESIZE);
         if (lastDrag > event.getSceneY() && lastDrag > 0) {
-            scrollValue = scrollValue + 0.1;
+            scrollValue = scrollValue + 0.01;
         } else if (lastDrag < event.getSceneY() && lastDrag > 0) {
-            scrollValue = scrollValue - 0.1;
+            scrollValue = scrollValue - 0.01;
         }
         if (scrollValue < 0) {
             scrollValue = 0;
