@@ -5,11 +5,15 @@
  */
 package pkg2ndsemesterexamproject.be;
 
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author Wezzy Laptop
  */
 public interface ICustomer {
-    
+
     String getName();
+
+    StringProperty getCustomerProperty();
 }

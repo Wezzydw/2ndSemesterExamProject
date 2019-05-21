@@ -29,6 +29,7 @@ public class Order implements IOrder
     public String toString() {
         return number;
     }
+    
     public StringProperty getOrderProperty() {
         return new SimpleStringProperty(getOrderNumber());
     }

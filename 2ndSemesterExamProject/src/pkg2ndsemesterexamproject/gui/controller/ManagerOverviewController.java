@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Pair;
 import pkg2ndsemesterexamproject.be.Customer;
 import pkg2ndsemesterexamproject.be.ICustomer;
 import pkg2ndsemesterexamproject.be.IDepartment;
@@ -30,6 +31,7 @@ import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IOrder;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.Order;
+import pkg2ndsemesterexamproject.be.ProductionOrder;
 import pkg2ndsemesterexamproject.bll.OrdersPerDepartment;
 import pkg2ndsemesterexamproject.gui.ManagerModel;
 import pkg2ndsemesterexamproject.gui.Model;
@@ -39,8 +41,7 @@ import pkg2ndsemesterexamproject.gui.Model;
  *
  * @author marce
  */
-public class ManagerOverviewController implements Initializable
-{
+public class ManagerOverviewController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -52,49 +53,37 @@ public class ManagerOverviewController implements Initializable
     @FXML
     private TableView<IProductionOrder> tableView;
     @FXML
-    private TableColumn<Order, String> orderNum;
+    private TableColumn<IProductionOrder, String> orderNum;
     @FXML
-    private TableColumn<Customer, String> customer;
+    private TableColumn<IProductionOrder, String> customer;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
-        try
-        {
+    public void initialize(URL url, ResourceBundle rb) {
+        try {
             model = new ManagerModel();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             Logger.getLogger(StartScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
-           orderNum.setCellValueFactory(celldata->celldata.getValue().getOrderProperty());
-           customer.setCellValueFactory(celldata->celldata.getValue().getCustomerProperty());
-                  
+        orderNum.setCellValueFactory(celldata -> celldata.getValue().getOrder().getOrderProperty());
+        customer.setCellValueFactory(celldata -> celldata.getValue().getCustomer().getCustomerProperty());
 
-           //orderNum.setCellValueFactory(new PropertyValueFactory<>("OrderNum"));
-           //customer.setCellValueFactory(new PropertyValueFactory<>("Customer"));
-        try
-        {
+//        orderNum.setCellValueFactory(new PropertyValueFactory<>("OrderNum"));
+//        customer.setCellValueFactory(new PropertyValueFactory<>("Customer"));
+        try {
             getlistOfOrders();
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             Logger.getLogger(ManagerOverviewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-           orderNum.setCellValueFactory(new PropertyValueFactory<>("OrderNumber"));
-           customer.setCellValueFactory(new PropertyValueFactory<>("Customer"));
-           model.scanFolderForNewFiles();
+//           orderNum.setCellValueFactory(new PropertyValueFactory<>("OrderNumber"));
+//           customer.setCellValueFactory(new PropertyValueFactory<>("Customer"));
+        model.scanFolderForNewFiles();
 
     }
 
-    public void getlistOfOrders() throws SQLException
-    {
-        
-        List<IProductionOrder> saveData = new ArrayList();
-        saveData.addAll(model.getProductionOrders());
-        tableView.setItems(model.getObservableProductionOrders());
+    public void getlistOfOrders() throws SQLException {
 
-        departmentTask.getDepartment();
-        productionOrder.getDepartmentTasks();
+        tableView.setItems(model.getObservableProductionOrders());
 
     }
 
