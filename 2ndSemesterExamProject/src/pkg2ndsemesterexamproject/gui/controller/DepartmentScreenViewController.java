@@ -77,7 +77,8 @@ public class DepartmentScreenViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        departmentAnchorPane.setStyle("-fx-background-color: Black");
+        departmentAnchorPane.getStyleClass().add("panetest");
+        
         try {
             model = new Model();
         } catch (IOException ex) {
@@ -198,9 +199,9 @@ public class DepartmentScreenViewController implements Initializable {
         double height = departmentAnchorPane.getHeight();
         double bheight = borderPane.getHeight();
         if (lastDrag > event.getSceneY() && lastDrag > 0) {
-            scrollValue = scrollValue + height/bheight/1000;
+            scrollValue = scrollValue + bheight/height/50;
         } else if (lastDrag < event.getSceneY() && lastDrag > 0) {
-            scrollValue = scrollValue - height/bheight/1000;
+            scrollValue = scrollValue - bheight/height/50;
         }
         if (scrollValue < 0) {
             scrollValue = 0;
@@ -208,6 +209,8 @@ public class DepartmentScreenViewController implements Initializable {
         if (scrollValue > 1) {
             scrollValue = 1;
         }
+        
+        
         lastDrag = event.getSceneY();
 
         scrollPane.setVvalue(scrollValue);
