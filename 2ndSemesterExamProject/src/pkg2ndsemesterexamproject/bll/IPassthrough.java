@@ -37,5 +37,7 @@ public interface IPassthrough
     List<IProductionOrder> getAllProductionOrders() throws SQLException;
     
     public void getCircleColour();
+    
+    public void scanFolderForNewFiles();
    
 }

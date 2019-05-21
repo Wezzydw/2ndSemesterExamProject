@@ -14,7 +14,7 @@
           <TableColumn fx:id="customer" minWidth="0.0" prefWidth="361.0" text="Customer" />
         </columns>
       </TableView>
-      <Button layoutX="703.0" layoutY="582.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="134.0" text="Scan FileFolder" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+      <Button layoutX="703.0" layoutY="582.0" mnemonicParsing="false" onAction="#scanFolderForNewFiles" prefHeight="58.0" prefWidth="134.0" text="Scan FileFolder" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
       <Label layoutX="679.0" layoutY="55.0" prefHeight="21.0" prefWidth="151.0" text="Date and/or clock" textFill="WHITE" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="40.0" />
       <Label layoutX="679.0" layoutY="27.0" prefHeight="21.0" prefWidth="134.0" text="Or login username" textFill="WHITE" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
    </children>

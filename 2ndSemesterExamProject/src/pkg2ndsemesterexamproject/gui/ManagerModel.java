@@ -39,6 +39,10 @@ public class ManagerModel
             {
                 return new SimpleStringProperty(string);              
             }
+
+    public void scanFolderForNewFiles() {
+        managerPassThrough.scanFolderForNewFiles();
+    }
  
           
           

@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -81,6 +82,11 @@ public class ManagerOverviewController implements Initializable
         departmentTask.getDepartment();
         productionOrder.getDepartmentTasks();
 
+    }
+
+    @FXML
+    private void scanFolderForNewFiles(ActionEvent event) {
+        model.scanFolderForNewFiles();
     }
 
 }
