@@ -28,6 +28,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.IDepartment;
@@ -43,6 +45,10 @@ public class StartScreenController implements Initializable {
     private MenuButton menuButton;
     private Model model;
     private List<IDepartment> allDepartments;
+    @FXML
+    private AnchorPane startAnchor;
+    @FXML
+    private ImageView startImage;
 
     /**
      * Initializes the controller class.
@@ -55,6 +61,10 @@ public class StartScreenController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        startAnchor.getStyleClass().add("backgroundPicture");
+        
+        
+        
         try {
             model = new Model();
             allDepartments = model.getAllDepartments();

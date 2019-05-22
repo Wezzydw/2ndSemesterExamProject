@@ -76,6 +76,7 @@ public class ProjectOverViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        mainPane.getStyleClass().add("backgroundPicture");
         try {
             // TODO
             model = new Model();
