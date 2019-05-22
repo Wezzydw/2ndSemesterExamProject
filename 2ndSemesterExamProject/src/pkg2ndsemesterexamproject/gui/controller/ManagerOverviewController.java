@@ -19,10 +19,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 import pkg2ndsemesterexamproject.be.Customer;
 import pkg2ndsemesterexamproject.be.ICustomer;
@@ -56,9 +62,12 @@ public class ManagerOverviewController implements Initializable {
     private TableColumn<IProductionOrder, String> orderNum;
     @FXML
     private TableColumn<IProductionOrder, String> customer;
+    @FXML
+    private AnchorPane managerAnchor;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        managerAnchor.getStyleClass().add("backgroundPicture");
         try {
             model = new ManagerModel();
         } catch (IOException ex) {
@@ -92,6 +101,26 @@ public class ManagerOverviewController implements Initializable {
     @FXML
     private void scanFolderForNewFiles(ActionEvent event) {
         model.scanFolderForNewFiles();
+    }
+
+    @FXML
+    private void whenClicked(MouseEvent event)
+    {
+         FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/OrderOverView.fxml"));
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            System.out.println("Error" + ex);
+        }
+        OrderOverViewController display = loader.getController();
+        display.setProductionOrder(tableView.getSelectionModel().getSelectedItem());
+        Parent p = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(p));
+        stage.showAndWait();
+        stage.close();
+
     }
 
 }

@@ -12,11 +12,11 @@
 <AnchorPane id="AnchorPane" fx:id="mainPane" minWidth="-Infinity" prefHeight="376.0" prefWidth="777.0" stylesheets="@css/PostItCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController">
    <children>
       <HBox fx:id="hboxDepartments" layoutX="9.0" layoutY="12.0" prefHeight="33.0" prefWidth="602.0" />
-      <Label fx:id="lblOrder" layoutX="20.0" layoutY="60.0" text="Order number: 1590-2100" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0">
+      <Label fx:id="lblOrder" layoutX="114.0" layoutY="19.0" text="Order number: 1590-2100" textFill="WHITE" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="25.0">
          <font>
             <Font name="System Bold" size="34.0" />
          </font></Label>
-      <Label fx:id="lblCustomer" layoutX="31.0" layoutY="123.0" text="Customer: Karl Kalasnikov">
+      <Label fx:id="lblCustomer" layoutX="114.0" layoutY="66.0" text="Customer: Karl Kalasnikov" textFill="WHITE" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="60.0">
          <font>
             <Font name="System Bold Italic" size="24.0" />
          </font></Label>
@@ -40,23 +40,24 @@
             </AnchorPane>
         </items>
       </SplitPane>
-      <Label fx:id="lblClock" layoutX="675.0" layoutY="17.0" prefHeight="23.0" prefWidth="66.0" text="Clock" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="5.0">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font></Label>
 
 
       <Button layoutX="586.0" layoutY="323.0" mnemonicParsing="false" onAction="#orderIsDone" prefHeight="61.0" prefWidth="171.0" text="Set task as finished" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font name="System Bold" size="16.0" />
          </font></Button>
-      <Label fx:id="lblStartDate" layoutX="14.0" layoutY="315.0" text="Label" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="14.0">
+      <Label fx:id="lblStartDate" layoutX="14.0" layoutY="315.0" text="Label" textFill="WHITE" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="14.0">
          <font>
-            <Font name="System Bold" size="17.0" />
+            <Font name="System Bold" size="20.0" />
          </font></Label>
-      <Label fx:id="lblEndDate" layoutX="334.0" layoutY="315.0" text="Label" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="330.0">
+      <Label fx:id="lblEndDate" layoutX="334.0" layoutY="315.0" text="Label" textFill="WHITE" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="330.0">
          <font>
-            <Font name="System Bold" size="17.0" />
+            <Font name="System Bold" size="20.0" />
          </font></Label>
+      <Label fx:id="lblClock" layoutX="671.0" layoutY="12.0" prefHeight="23.0" prefWidth="66.0" text="Clock" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

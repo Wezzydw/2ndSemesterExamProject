@@ -8,31 +8,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@css/PostItCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.controller.DepartmentScreenViewController">
+<BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="250.0" minWidth="350.0" onKeyReleased="#onF11Pressed" prefHeight="600.0" prefWidth="800.0" stylesheets="@css/PostItCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.controller.DepartmentScreenViewController">
    <top>
       <AnchorPane prefHeight="33.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <ComboBox fx:id="comboBox" layoutX="8.0" layoutY="2.0" prefWidth="150.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
             <Label fx:id="lblText" layoutX="155.0" layoutY="8.0" text="montage2" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="8.0" />
-            <Label fx:id="lblDate" layoutX="558.0" layoutY="11.0" text="26-04-2019" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-            <JFXTextField fx:id="txtSearchfield" layoutX="260.0" layoutY="4.0" onKeyReleased="#searchBar" prefHeight="25.0" prefWidth="257.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="5.0" />
+            <Label fx:id="lblDate" layoutX="408.0" layoutY="7.0" text="26-04-2019" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="8.0" />
+            <JFXTextField fx:id="txtSearchfield" layoutX="225.0" layoutY="5.0" onKeyReleased="#searchBar" prefHeight="25.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="5.0" />
          </children>
       </AnchorPane>
    </top>
    <center>
       <ScrollPane fx:id="scrollPane" BorderPane.alignment="CENTER">
         <content>
-          <AnchorPane fx:id="departmentAnchorPane" minHeight="0.0" minWidth="0.0" onMouseDragged="#scrollOnDragQueen" prefHeight="600.0" prefWidth="755.0"
-                       />
+          <AnchorPane fx:id="departmentAnchorPane" minHeight="0.0" minWidth="450.0" onMouseDragged="#scrollOnDragQueen" prefHeight="10.0" prefWidth="10.0" />
         </content>
       </ScrollPane>
    </center>
    <bottom>
-      <AnchorPane prefHeight="25.0" prefWidth="778.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="25.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXSlider fx:id="postSlider" layoutX="558.0" layoutY="6.0" majorTickUnit="40.0" max="200.0" min="50.0" onMouseReleased="#sliderZoom" snapToTicks="true" value="100.0" />
-            <Label layoutX="492.0" layoutY="5.0" text="Post it size:" />
-            <Label fx:id="lblZoom" layoutX="706.0" layoutY="4.0" text="200%" />
+            <JFXSlider fx:id="postSlider" layoutX="169.0" layoutY="6.0" majorTickUnit="40.0" max="200.0" min="50.0" onMouseReleased="#sliderZoom" snapToTicks="true" value="100.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="40.0" />
+            <Label layoutX="179.0" layoutY="6.0" text="Post it size:" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="178.0" />
+            <Label fx:id="lblZoom" layoutX="325.0" layoutY="6.0" text="200%" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
          </children>
       </AnchorPane>
    </bottom>

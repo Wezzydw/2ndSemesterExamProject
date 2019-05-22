@@ -87,16 +87,17 @@ public class Model {
         search = new Search();
     }
 
-    public Timeline initializeGUIUpdateLimit() {
+    public Timeline initializeGUIUpdateLimit() throws RuntimeException{
         return new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(ActionEvent event){
                 //anchorPane.getChildren().clear();
 
                 try {
                     placeOrderInUI(anchorPane);
                 } catch (SQLException ex) {
                     Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+                    throw new RuntimeException(ex);
                 }
             }
         }));
@@ -285,12 +286,13 @@ public class Model {
         if (selectedDepartmentName != null && stickyNotes != null) {
             Thread t = new Thread(new Runnable() {
                 @Override
-                public void run() {
+                public void run(){
                     List<IProductionOrder> orders = null;
                     try {
                         orders = dataHandler.getAllRelevantProductionOrders(selectedDepartmentName, searchString, strategy);
                     } catch (SQLException ex) {
                         System.out.println("Tester22");
+                        throw new RuntimeException(ex);
                     } catch (IOException ex) {
                         Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
                     }
