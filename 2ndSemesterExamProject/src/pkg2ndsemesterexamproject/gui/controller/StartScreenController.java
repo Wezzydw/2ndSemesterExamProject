@@ -33,6 +33,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.IDepartment;
+import pkg2ndsemesterexamproject.gui.StartScreenModel;
 
 /**
  * FXML Controller class
@@ -43,7 +44,7 @@ public class StartScreenController implements Initializable {
     
     @FXML
     private MenuButton menuButton;
-    private Model model;
+    private StartScreenModel model;
     private List<IDepartment> allDepartments;
     @FXML
     private AnchorPane startAnchor;
@@ -66,7 +67,7 @@ public class StartScreenController implements Initializable {
         
         
         try {
-            model = new Model();
+            model = new StartScreenModel();
             allDepartments = model.getAllDepartments();
         } catch (IOException ex) {
             Logger.getLogger(StartScreenController.class.getName()).log(Level.SEVERE, null, ex);

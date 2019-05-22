@@ -38,19 +38,21 @@ import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.gui.Model;
+import pkg2ndsemesterexamproject.gui.OverViewModel;
 
 /**
  * FXML Controller class
  *
  * @author andreas
  */
-public class ProjectOverViewController implements Initializable {
+public class ProjectOverViewController implements Initializable
+{
 
     private ObservableList<IWorker> allWorkers = FXCollections.observableArrayList();
     private IDepartmentTask departmentTask;
     private IProductionOrder productionOrder;
 
-    private Model model;
+    private OverViewModel model;
     @FXML
     private Label lblOrder;
     @FXML
@@ -75,31 +77,37 @@ public class ProjectOverViewController implements Initializable {
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
         mainPane.getStyleClass().add("backgroundPicture");
-        try {
-            // TODO
-            model = new Model();
-        } catch (IOException ex) {
+        try
+        {
+            model = new OverViewModel();
+        } catch (IOException ex)
+        {
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         updateListViewWorkersAssigned();
     }
 
-    public void startClock() {
+    public void startClock()
+    {
         executor = Executors.newSingleThreadExecutor();
         executor.submit(()
-                -> {
+                ->
+        {
             clockUpdate();
         });
     }
 
-    public void closeWindow() {
+    public void closeWindow()
+    {
         executor.shutdownNow();
     }
 
     @FXML
-    private void orderIsDone(ActionEvent event) {
+    private void orderIsDone(ActionEvent event)
+    {
         Button btnYes = new Button("Yes");
         Button btnNo = new Button("No");
         Label lblTxt = new Label("Are you 100% sure that you are done with\n this DepartmentTask");
@@ -109,22 +117,24 @@ public class ProjectOverViewController implements Initializable {
         btnYes.setLayoutY(125);
         btnNo.setLayoutX(200);
         btnNo.setLayoutY(125);
-        
+
         Pane root = new Pane();
         root.getChildren().addAll(btnYes, btnNo, lblTxt);
-        
+
         Scene scene = new Scene(root, 300, 250);
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);
         btnYes.setOnAction((ActionEvent event1) ->
         {
-            try {
+            try
+            {
                 model.orderIsDone(departmentTask, productionOrder);
                 primaryStage.close();
                 Stage stage11 = (Stage) lblOrder.getScene().getWindow();
                 stage11.close();
-                
-            } catch (SQLException ex) {
+
+            } catch (SQLException ex)
+            {
                 Button btnOk = new Button("Ok");
 
                 Label lblNoConnection = new Label("There is no connection to the DB");
@@ -139,26 +149,32 @@ public class ProjectOverViewController implements Initializable {
                 Scene scene2 = new Scene(root2, 300, 250);
                 Stage primaryStage2 = new Stage();
                 primaryStage2.setScene(scene2);
-                btnOk.setOnAction((ActionEvent event3) -> {
-                   primaryStage2.close();
+                btnOk.setOnAction((ActionEvent event3) ->
+                {
+                    primaryStage2.close();
                     Stage stage1 = (Stage) lblTxt.getScene().getWindow();
                     stage1.close();
                 });
                 primaryStage2.show();
-                
+
                 Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        btnNo.setOnAction((ActionEvent event2) ->{
+        btnNo.setOnAction((ActionEvent event2) ->
+        {
             primaryStage.close();
         });
         primaryStage.show();
     }
 
-    private void clockUpdate() {
-        try {
-            while (true) {
-                Platform.runLater(() -> {
+    private void clockUpdate()
+    {
+        try
+        {
+            while (true)
+            {
+                Platform.runLater(() ->
+                {
                     String sec = "";
                     String min = "";
                     String hour = "";
@@ -168,13 +184,16 @@ public class ProjectOverViewController implements Initializable {
                     sec = "" + second;
                     min = "" + minute;
                     hour = "" + hours;
-                    if (second < 10) {
+                    if (second < 10)
+                    {
                         sec = "0" + second;
                     }
-                    if (minute < 10) {
+                    if (minute < 10)
+                    {
                         min = "0" + minute;
                     }
-                    if (hours < 10) {
+                    if (hours < 10)
+                    {
                         hour = "0" + hours;
                     }
                     String clock = hour + ":" + min + ":" + sec;
@@ -182,31 +201,39 @@ public class ProjectOverViewController implements Initializable {
                 });
                 TimeUnit.SECONDS.sleep(1);
             }
-        } catch (InterruptedException ex) {
+        } catch (InterruptedException ex)
+        {
             System.out.println("Closed Window");
         }
     }
 
-    private void updateListViewWorkersAssigned() {
+    private void updateListViewWorkersAssigned()
+    {
         allWorkers.clear();
-        try {
-            for (IWorker iWorker : model.updateListViewWorkersAssigned()) {
+        try
+        {
+            for (IWorker iWorker : model.updateListViewWorkersAssigned())
+            {
                 allWorkers.add(iWorker);
             }
-        } catch (IOException ex) {
+        } catch (IOException ex)
+        {
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         lstView.setItems(allWorkers);
     }
 
-    public void setOrder(IDepartmentTask dt, IProductionOrder po) {
+    public void setOrder(IDepartmentTask dt, IProductionOrder po)
+    {
         this.departmentTask = dt;
         this.productionOrder = po;
     }
 
-    public void setData(IDepartmentTask dt, IProductionOrder po) {
+    public void setData(IDepartmentTask dt, IProductionOrder po)
+    {
         lblCustomer.setText("Customer: " + po.getCustomer().toString());
         lblOrder.setText("Order number: " + po.getOrder().toString());
         lblStartDate.setText(dt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
@@ -214,22 +241,26 @@ public class ProjectOverViewController implements Initializable {
         int indexOfDepartment = 0;
         int counter = 0;
 
-        for (IDepartmentTask tasks : po.getDepartmentTasks()) {
-            if (tasks.equals(dt)) {
+        for (IDepartmentTask tasks : po.getDepartmentTasks())
+        {
+            if (tasks.equals(dt))
+            {
                 indexOfDepartment = counter;
             }
             counter++;
         }
 
-        for (int i = 0; i <= indexOfDepartment; i++) {
+        for (int i = 0; i <= indexOfDepartment; i++)
+        {
             Label ll = new Label();
             ll.setMinSize(20, 5);
             Label l1 = new Label();
             l1.setText(po.getDepartmentTasks().get(i).getDepartment().toString());
-            if (po.getDepartmentTasks().get(i).getFinishedOrder()){
+            if (po.getDepartmentTasks().get(i).getFinishedOrder())
+            {
                 l1.setStyle("-fx-background-color: Green" + "-fx-text-fill: Black");
-            }
-            else{
+            } else
+            {
                 l1.setStyle("-fx-background-color: Red;" + "-fx-text-fill: Black");
             }
             hboxDepartments.getChildren().add(ll);
