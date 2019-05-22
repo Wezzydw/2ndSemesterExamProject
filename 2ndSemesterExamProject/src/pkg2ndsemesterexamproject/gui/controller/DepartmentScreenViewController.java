@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -217,6 +218,14 @@ public class DepartmentScreenViewController implements Initializable {
         lblZoom.setText("" + postSlider.getValue() + "%");
         model.zoomControl(postSlider.getValue());
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
+    }
+
+    @FXML
+    private void onF11Pressed(KeyEvent event)
+    {
+        if (event.getCode().equals(KeyCode.F11)){
+            setFullscreen();
+        }
     }
 
 }
