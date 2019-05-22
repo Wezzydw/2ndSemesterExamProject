@@ -260,7 +260,7 @@ public class ProductionOrderDAO {
         return po;
     }
 
-    public void updateOrderToDone(IDepartmentTask dt, IProductionOrder po) {
+    public void updateOrderToDone(IDepartmentTask dt, IProductionOrder po) throws SQLException {
         try (Connection con = conProvider.getConnection()) {
             String a = "UPDATE DepartmentTask SET isFinished = ? WHERE (orderNumber = ? AND department = ?);";
             PreparedStatement prst = con.prepareStatement(a);
@@ -270,7 +270,7 @@ public class ProductionOrderDAO {
 
             prst.execute();
         } catch (SQLException ex) {
-
+                throw new SQLException(ex);
         }
     }
 
