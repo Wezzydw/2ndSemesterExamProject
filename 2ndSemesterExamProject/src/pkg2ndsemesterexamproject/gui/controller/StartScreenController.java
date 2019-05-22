@@ -192,6 +192,7 @@ public class StartScreenController implements Initializable {
         btnOk.setOnAction((ActionEvent event) -> {
            primaryStage.close();
         });
+        primaryStage.setAlwaysOnTop(true);
         primaryStage.show();
     }
 }

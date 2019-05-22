@@ -7,7 +7,6 @@ package pkg2ndsemesterexamproject.gui.controller;
 
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
-import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -21,20 +20,12 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.Department;
@@ -52,10 +43,6 @@ import pkg2ndsemesterexamproject.gui.Model;
  * @author andreas
  */
 public class DepartmentScreenViewController implements Initializable {
-
-    private Department currentDepartment;
-    private Model model;
-
     @FXML
     private ComboBox<ISortStrategy> comboBox;
     @FXML
@@ -70,44 +57,47 @@ public class DepartmentScreenViewController implements Initializable {
     private ScrollPane scrollPane;
     @FXML
     private BorderPane borderPane;
-    private ISortStrategy sortStrategy;
-    private double scrollValue;
-    private double lastDrag;
     @FXML
     private JFXSlider postSlider;
     @FXML
     private Label lblZoom;
-    private double sliderVal;
+    
+    private Department currentDepartment;
+    private Model model;
+    private ISortStrategy sortStrategy;
+    private double scrollValue;
+    private double lastDrag;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        departmentAnchorPane.getStyleClass().add("panetest");
-        
         try {
             model = new Model();
         } catch (IOException ex) {
             Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        scrollPane.setFitToWidth(true);
-        scrollPane.setMinWidth(100);
+        lblZoom.setText("" + postSlider.getValue() + "%");
         LocalDate date = LocalDate.now();
         lblDate.setText(date.format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
-
+        scrollPane.setFitToWidth(true);
+        
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();
-        //tmpLoop();
 
-        txtSearchfield.setStyle("-fx-text-fill:White");
-
-        model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
-        functionThatUpdatedGUIEvery5Seconds();
-        initListeners();
-        //tmpLoop();
         sortStrategy = new SortOrderId();
+        setComboBox();
+        
+        scrollValue = 0;
+        lastDrag = -1;
+    }
+    
+    
+    /**
+     * Denne metode sætter comboboxens itmes og laver deres onAction.
+     */
+    private void setComboBox(){
         comboBox.getItems().add(new SortCustomer());
         comboBox.getItems().add(new SortEndDate());
         comboBox.getItems().add(new SortOrderId());
@@ -118,32 +108,20 @@ public class DepartmentScreenViewController implements Initializable {
             sortStrategy = comboBox.getSelectionModel().getSelectedItem();
             comboChanged();
         });
-        scrollValue = 0;
-        lastDrag = -1;
-        sliderVal = 100;
-        lblZoom.setText("" + sliderVal + "%");
-        //sortStrategy = comboBox.getSelectionModel().getSelectedItem();
     }
-
+    /**
+     * Denne metode kalder metoden model.msOnDepartmentView.
+     */
     public void comboChanged() {
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
     }
 
     public void initListeners() {
-//        departmentAnchorPane.heightProperty().addListener(new ChangeListener<Number>() {
-//            @Override
-//            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-//                
-//            }
-//        });
-
         borderPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
-
             }
-
         });
     }
 
@@ -152,22 +130,27 @@ public class DepartmentScreenViewController implements Initializable {
         model.setSearchString(txtSearchfield.getText().toLowerCase().trim());
         model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
     }
-
+    /**
+     * Denne metode sætter department i lblText og currentDepartment til 
+     * parameteren department, derefter kaldes model.setSelecetedDepartment 
+     * @param department 
+     */
     public void setDepartment(Department department) {
         currentDepartment = department;
         lblText.setText(department.getName());
         model.setSelectedDepartmentName(currentDepartment.getName());
-
     }
-
+    /**
+     * Denne metode sætter viewet til fullscreen
+     */
     public void setFullscreen() {
         Stage stage = (Stage) borderPane.getScene().getWindow();
         stage.setFullScreen(true);
     }
 
-    /*
-    denne metode opdatere gui'en men med en thred.sleep delay på 5000ms så,
-    den kun opdatere programmet hver 5 sekund for at reducere lag
+    /**
+     * Denne metode opdatere gui'en men med en thred.sleep delay på 5000ms så,
+     * den kun opdatere programmet hver 5 sekund for at reducere lag
      */
     public void functionThatUpdatedGUIEvery5Seconds() {
 
@@ -195,20 +178,20 @@ public class DepartmentScreenViewController implements Initializable {
         t.start();
     }
 
-    private void scrollOnTouch(TouchEvent event) {
-        System.out.println("pifspojdf");
-    }
-
+    /**
+     * Denne metode tager event som parameter, dette event 
+     * er når man trykker og trækker med musen, dette scroller 
+     * an på hvilken retting du trækker musen
+     * @param event 
+     */
     @FXML
-    private void scrollOnDragQueen(MouseEvent event) {
-
-//        departmentAnchorPane.setCursor(Cursor.V_RESIZE);
-        double height = departmentAnchorPane.getHeight();
-        double bheight = borderPane.getHeight();
+     private void scrollOnDragQueen(MouseEvent event) {
+        double apHeight = departmentAnchorPane.getHeight();
+        double bpHeight = borderPane.getHeight();
         if (lastDrag > event.getSceneY() && lastDrag > 0) {
-            scrollValue = scrollValue + bheight/height/50;
+            scrollValue = scrollValue + bpHeight/apHeight/50;
         } else if (lastDrag < event.getSceneY() && lastDrag > 0) {
-            scrollValue = scrollValue - bheight/height/50;
+            scrollValue = scrollValue - bpHeight/apHeight/50;
         }
         if (scrollValue < 0) {
             scrollValue = 0;
@@ -216,21 +199,23 @@ public class DepartmentScreenViewController implements Initializable {
         if (scrollValue > 1) {
             scrollValue = 1;
         }
-        
-        
         lastDrag = event.getSceneY();
-
         scrollPane.setVvalue(scrollValue);
-
     }
-
+    
+    /**
+     * Denne metode sætter slideren på den nærmeste 1tiende 
+     * du slipper musen ved og sætter lblZoom til den værdi, 
+     * derefter kalder den model.zoomControl() med værdien fra slideren 
+     * og updatere GUI med metoden model.msOnDepartmentView
+     * @param event 
+     */
     @FXML
     private void sliderZoom(MouseEvent event)
     {
-        sliderVal = postSlider.getValue();
-        System.out.println(sliderVal);
-        lblZoom.setText("" + sliderVal + "%");
-        model.zoomControl(sliderVal);
+        lblZoom.setText("" + postSlider.getValue() + "%");
+        model.zoomControl(postSlider.getValue());
+        model.msOnDepartmentView(departmentAnchorPane, borderPane, sortStrategy);
     }
 
 }
