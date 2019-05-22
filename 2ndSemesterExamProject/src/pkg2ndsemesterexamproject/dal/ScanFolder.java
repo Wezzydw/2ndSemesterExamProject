@@ -33,14 +33,14 @@ public class ScanFolder {
         List<String> filePaths = new ArrayList<>();
         for (File file : listOfFiles) {
             if (file.isFile()) {
-                if ((file.getName().endsWith(".xlsx") || file.getName().endsWith(".csv") || file.getName().endsWith(".txt")) && !hasFileBeenSaved(file.getAbsolutePath())) {
-                    filePaths.add(file.getPath());
-                    writeSavedFile(file.getPath());
-                    allFiles.add(file.getPath());
+                if ((file.getName().endsWith(".xlsx") || file.getName().endsWith(".csv") || file.getName().endsWith(".txt")) && !hasFileBeenSaved(file.getName())) {
+                    filePaths.add(file.getName());
+                    writeSavedFile(file.getName());
+                    allFiles.add(file.getName());
                 }
             }
         }
-        
+
     }
 
     public List<String> loadSavedFile() throws FileNotFoundException, IOException {
@@ -65,17 +65,18 @@ public class ScanFolder {
 
     public boolean hasFileBeenSaved(String filepaths) throws IOException {
         List<String> filesToRead = allFiles;
+        if(filepaths.equals("readfiles.txt")){
+            return true;
+        }
         for (String string : filesToRead) {
-            if (string.equals(filepaths)) {
-                if(!filepaths.equals("readfiles.txt")){
+            
+                if (string.equals(filepaths)) {
+                    
                     return true;
-                }
+                
             }
         }
         return false;
     }
-    
-    public void lookForNewFiles(){
-        
-    }
+
 }
