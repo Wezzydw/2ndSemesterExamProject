@@ -23,6 +23,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -32,6 +33,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
@@ -92,25 +94,69 @@ public class ProjectOverViewController implements Initializable {
     }
 
     public void closeWindow() {
-
         executor.shutdownNow();
-
     }
 
     @FXML
     private void orderIsDone(ActionEvent event) {
-        try {
-            model.orderIsDone(departmentTask, productionOrder);
-        } catch (SQLException ex) {
-            Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Button btnYes = new Button("Yes");
+        Button btnNo = new Button("No");
+        Label lblTxt = new Label("Are you 100% sure that you are done with\n this DepartmentTask");
+        lblTxt.setLayoutX(40);
+        lblTxt.setLayoutY(80);
+        btnYes.setLayoutX(100);
+        btnYes.setLayoutY(125);
+        btnNo.setLayoutX(200);
+        btnNo.setLayoutY(125);
+        
+        Pane root = new Pane();
+        root.getChildren().addAll(btnYes, btnNo, lblTxt);
+        
+        Scene scene = new Scene(root, 300, 250);
+        Stage primaryStage = new Stage();
+        primaryStage.setScene(scene);
+        btnYes.setOnAction((ActionEvent event1) ->
+        {
+            try {
+                model.orderIsDone(departmentTask, productionOrder);
+                primaryStage.close();
+                Stage stage11 = (Stage) lblOrder.getScene().getWindow();
+                stage11.close();
+                
+            } catch (SQLException ex) {
+                Button btnOk = new Button("Ok");
 
+                Label lblNoConnection = new Label("There is no connection to the DB");
+                lblNoConnection.setLayoutX(40);
+                lblNoConnection.setLayoutY(80);
+                btnOk.setLayoutX(100);
+                btnOk.setLayoutY(125);
+
+                Pane root2 = new Pane();
+                root2.getChildren().addAll(btnOk, lblNoConnection);
+
+                Scene scene2 = new Scene(root2, 300, 250);
+                Stage primaryStage2 = new Stage();
+                primaryStage2.setScene(scene2);
+                btnOk.setOnAction((ActionEvent event3) -> {
+                   primaryStage2.close();
+                    Stage stage1 = (Stage) lblTxt.getScene().getWindow();
+                    stage1.close();
+                });
+                primaryStage2.show();
+                
+                Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        btnNo.setOnAction((ActionEvent event2) ->{
+            primaryStage.close();
+        });
+        primaryStage.show();
     }
 
     private void clockUpdate() {
         try {
             while (true) {
-
                 Platform.runLater(() -> {
                     String sec = "";
                     String min = "";
@@ -141,9 +187,7 @@ public class ProjectOverViewController implements Initializable {
     }
 
     private void updateListViewWorkersAssigned() {
-
         allWorkers.clear();
-
         try {
             for (IWorker iWorker : model.updateListViewWorkersAssigned()) {
                 allWorkers.add(iWorker);
@@ -157,7 +201,6 @@ public class ProjectOverViewController implements Initializable {
     }
 
     public void setOrder(IDepartmentTask dt, IProductionOrder po) {
-
         this.departmentTask = dt;
         this.productionOrder = po;
     }
