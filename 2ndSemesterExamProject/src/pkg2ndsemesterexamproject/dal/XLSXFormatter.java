@@ -36,12 +36,17 @@ public class XLSXFormatter implements IFormatter {
     }
 
     @Override
-    public List<IProductionOrder> extractProductionOrders(List<String> string) {
+    public List<IProductionOrder> extractProductionOrders(File file) throws FileNotFoundException, IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<IWorker> extractWorkers(List<String> string) {
+    public List<IWorker> extractWorkers(File file) throws FileNotFoundException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<String> fileToStringArray(File file) throws FileNotFoundException, IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

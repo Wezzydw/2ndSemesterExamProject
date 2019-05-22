@@ -16,6 +16,8 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import pkg2ndsemesterexamproject.be.Customer;
 import pkg2ndsemesterexamproject.be.Delivery;
 import pkg2ndsemesterexamproject.be.Department;
@@ -52,10 +54,10 @@ public class CSVFormatter implements IFormatter {
     }
 
     @Override
-    public List<IProductionOrder> extractProductionOrders(List<String> data) {
+    public List<IProductionOrder> extractProductionOrders(File file) throws FileNotFoundException, IOException {
         List<IProductionOrder> productionOrders = new ArrayList();
         boolean isFirstRun = true;
-        for (String string : data) {
+        for (String string : fileToStringArray(file)) {
             int startIndex = 0;
             int endIndex = 0;
             if (string.contains("ProductionOrder:")) {
@@ -167,10 +169,10 @@ public class CSVFormatter implements IFormatter {
     }
 
     @Override
-    public List<IWorker> extractWorkers(List<String> data) {
+    public List<IWorker> extractWorkers(File file) throws FileNotFoundException, IOException {
         List<IWorker> workers = new ArrayList();
         boolean isAfterFirstRun = false;
-        for (String string : data) {
+        for (String string : fileToStringArray(file)) {
             int startIndex = 0;
             int endIndex = 0;
             if (string.startsWith("Worker:", 1)) {
@@ -202,4 +204,16 @@ public class CSVFormatter implements IFormatter {
         return workers;
     }
 
+    @Override
+    public List<String> fileToStringArray(File file) throws FileNotFoundException, IOException {
+        FileReader filereader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(filereader);
+        List<String> data = new ArrayList();
+        String line;
+
+        while ((line = bufferedReader.readLine()) != null) {
+            data.add(line);
+        }
+        return data;
+    }
 }

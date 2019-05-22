@@ -37,7 +37,7 @@ public class JsonToDb {
         }
     }
 
-    private void dataDumper() throws IOException, SQLException {
+    public void dataDumper() throws IOException, SQLException {
         
         File f = new File("data/");
         System.out.println(f.isDirectory());

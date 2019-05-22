@@ -53,8 +53,15 @@ public class JSONFormater {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public List<IWorker> extractWorkersFromJSON() throws FileNotFoundException, IOException {
-        String[] array = loadData().split("\\[");
+    public List<IWorker> extractWorkersFromJSON(File file) throws FileNotFoundException, IOException {
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+        String line;
+        String data = "";
+        while((line = br.readLine()) != null){
+            data += line;
+        }
+        String[] array = data.split("\\[");
         String workerString = array[1];
         String[] workersString = workerString.split("\\{");
         List<IWorker> workers = new ArrayList();
