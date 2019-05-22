@@ -85,13 +85,13 @@ and open the template in the editor.
 }
 .panetest{
     /*-fx-background-color: BLACK;*/
-ø
-    -fx-background-image:url(wood.jpg);
+
+    -fx-background-image:url(Wood2.jpg);
     -fx-background-size: cover;
     /*-fx-background-repeat: no-repeat;*/
 }
 .scroll-pane .viewport {
-    -fx-background-image: url('wood.jpg');
+    -fx-background-image: url('Wood2.jpg');
     -fx-background-size: cover;
 }
 
