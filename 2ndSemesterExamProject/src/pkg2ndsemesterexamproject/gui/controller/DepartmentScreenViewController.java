@@ -84,7 +84,7 @@ public class DepartmentScreenViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        departmentAnchorPane.getStyleClass().add("panetest");
+        scrollPane.getStyleClass().add("panetest");
         
         try {
             model = new Model();

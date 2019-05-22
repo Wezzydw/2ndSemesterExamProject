@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -54,6 +55,7 @@ public class OrderOverViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         orderOverviewAnchor.getStyleClass().add("panetest");
+       
     }
 
     public void setProductionOrder(IProductionOrder productionOrder)
