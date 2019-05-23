@@ -7,11 +7,11 @@
 
 <AnchorPane id="AnchorPane" fx:id="startAnchor" prefHeight="400.0" prefWidth="600.0" stylesheets="@css/PostItCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.controller.StartScreenController">
    <children>
-      <MenuButton fx:id="menuButton" layoutX="211.0" layoutY="107.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="178.0" text="Choose department" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="95.0">
+      <MenuButton fx:id="menuButton" layoutX="200.0" layoutY="115.0" maxHeight="150.0" maxWidth="200.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="200.0" text="Choose department">
          <font>
             <Font size="16.0" />
          </font></MenuButton>
-      <Label layoutX="112.0" layoutY="58.0" prefHeight="43.0" prefWidth="376.0" text="Choose a department or manager:" textFill="WHITE" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="112.0" AnchorPane.topAnchor="45.0">
+      <Label layoutX="112.0" layoutY="58.0" maxHeight="50.0" maxWidth="400.0" prefHeight="43.0" prefWidth="376.0" text="Choose a department or manager:" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font></Label>

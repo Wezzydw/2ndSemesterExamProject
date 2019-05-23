@@ -106,6 +106,8 @@ public class ManagerOverviewController implements Initializable {
     @FXML
     private void whenClicked(MouseEvent event)
     {
+        if(tableView.getSelectionModel().getSelectedItem()!=null){
+                    
          FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/OrderOverView.fxml"));
         try {
@@ -115,12 +117,13 @@ public class ManagerOverviewController implements Initializable {
         }
         OrderOverViewController display = loader.getController();
         display.setProductionOrder(tableView.getSelectionModel().getSelectedItem());
+        tableView.getSelectionModel().clearSelection();
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
         stage.showAndWait();
         stage.close();
-
+    }
     }
 
 }
