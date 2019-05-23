@@ -171,14 +171,12 @@ public class Model {
                                 anchorPane.setPrefHeight(calcAnchorPaneY(anchorPane.getWidth()));
                                 if (!orders.isEmpty()) {
                                     anchorPane.getChildren().clear();
+                                    placeStickyNotes(true);
+                                } else {
+                                    
                                     placeStickyNotes(false);
                                 }
-                                else{
-                                    placeStickyNotes(true);
-                                }
-                                
 
-                                
                             }
                         });
                     }
@@ -205,15 +203,15 @@ public class Model {
         }
     }
 
-    public void placeStickyNotes(boolean test) {
+    public void placeStickyNotes(boolean isToBeAdded) {
         int counter = 0;
         outerloop:
         for (int k = 0; k < stickyNotes.size(); k++) {
             for (int j = 0; j < calcNumberOfXPanes(anchorPane.getWidth()); j++) {
                 stickyNotes.get(counter).setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
                 stickyNotes.get(counter).setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
-                if(!test){
-                anchorPane.getChildren().add(stickyNotes.get(counter));
+                if (isToBeAdded) {
+                    anchorPane.getChildren().add(stickyNotes.get(counter));
                 }
                 if (counter == stickyNotes.size() - 1) {
                     break outerloop;
