@@ -86,7 +86,7 @@ public class DepartmentScreenViewController implements Initializable
         try
         {
             model = new Model(departmentAnchorPane, borderPane);
-        } catch (IOException ex)
+        } catch (IOException | SQLException ex)
         {
             Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -108,13 +108,15 @@ public class DepartmentScreenViewController implements Initializable
         scrollValue = 0;
         lastDrag = -1;
     }
-/**
- * metoden her sørger for at programmet ikke konstant opdaterer, som kan medføre
- * funktionalitets problemer. Istedet opdateres hver aktion hver 0.1 sekund så
- * der herved ikke forekommer ringe funktionalitet i form af lag.
- * @return
- * @throws RuntimeException 
- */
+
+    /**
+     * metoden her sørger for at programmet ikke konstant opdaterer, som kan
+     * medføre funktionalitets problemer. Istedet opdateres hver aktion hver 0.1
+     * sekund så der herved ikke forekommer ringe funktionalitet i form af lag.
+     *
+     * @return
+     * @throws RuntimeException
+     */
     private Timeline initializeGUIUpdateLimit() throws RuntimeException
     {
         return new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>()
@@ -235,7 +237,13 @@ public class DepartmentScreenViewController implements Initializable
                         @Override
                         public void run()
                         {
-                            //Insert metoder her
+                            try
+                            {
+                                model.runDataCheckInDataHandler();
+                            } catch (SQLException ex)
+                            {
+                                throw new RuntimeException();
+                            }
                             updateFlowRate();
                         }
                     });
