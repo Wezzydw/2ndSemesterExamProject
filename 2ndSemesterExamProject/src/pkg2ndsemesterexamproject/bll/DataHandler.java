@@ -24,6 +24,7 @@ public class DataHandler implements IDataHandler {
     private PassThrough passThrough;
     private List<IProductionOrder> all;
     private Search searcher;
+    private int oldHash = 0;
 
     public DataHandler() throws IOException {
         passThrough = new PassThrough();
@@ -34,8 +35,12 @@ public class DataHandler implements IDataHandler {
 
         LocalDate today = LocalDate.now();
         List<IProductionOrder> returnList = new ArrayList();
-
         List<IProductionOrder> all = passThrough.getAllProductionOrders();
+
+        if (all.hashCode() == oldHash) {
+            return returnList;
+        }
+        oldHash = all.hashCode();
         loop:
         for (IProductionOrder iProductionOrder : all) {
             for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {

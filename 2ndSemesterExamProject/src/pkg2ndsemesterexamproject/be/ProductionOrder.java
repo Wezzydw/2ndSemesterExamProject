@@ -8,6 +8,7 @@ package pkg2ndsemesterexamproject.be;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -61,5 +62,14 @@ public class ProductionOrder implements IProductionOrder {
     @Override
     public String toString() {
         return order + delivery.toString() + customer + departmenTask;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 41 * hash + order.hashCode();
+        hash = 41 * hash + customer.hashCode();
+        hash = 41 * hash + departmenTask.hashCode();
+        return hash;
     }
 }

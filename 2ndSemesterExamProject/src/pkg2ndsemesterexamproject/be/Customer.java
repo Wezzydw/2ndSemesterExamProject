@@ -5,6 +5,7 @@
  */
 package pkg2ndsemesterexamproject.be;
 
+import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -32,5 +33,12 @@ public class Customer implements ICustomer{
     
         public StringProperty getCustomerProperty() {
         return new SimpleStringProperty(getName());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.name);
+        return hash;
     }
 }
