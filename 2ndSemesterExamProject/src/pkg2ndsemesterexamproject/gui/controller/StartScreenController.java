@@ -9,7 +9,6 @@ package pkg2ndsemesterexamproject.gui.controller;
 
 import java.io.IOException;
 import pkg2ndsemesterexamproject.be.Department;
-import pkg2ndsemesterexamproject.gui.Model;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -44,12 +43,11 @@ public class StartScreenController implements Initializable {
     
     @FXML
     private MenuButton menuButton;
-    private StartScreenModel model;
-    private List<IDepartment> allDepartments;
     @FXML
     private AnchorPane startAnchor;
-    @FXML
-    private ImageView startImage;
+    
+    private StartScreenModel model;
+    private List<IDepartment> allDepartments;
 
     /**
      * Initializes the controller class.
@@ -105,18 +103,7 @@ public class StartScreenController implements Initializable {
                 item.setOnAction(event1);
                 departmentBtns.add(item);
             }
-        } 
-//        else {
-//            allDepartments = new ArrayList();
-//            allDepartments.add(new Department("Manager"));
-//            allDepartments.add(new Department("halv"));
-//            allDepartments.add(new Department("bælg"));
-//            for (IDepartment depar : allDepartments) {
-//                MenuItem item = new MenuItem(depar.getName());//label skal være allDepartment.getName() fra BE laget 
-//                item.setOnAction(event1);
-//                departmentBtns.add(item);
-//            }
-//        }
+        }
         menuButton.getItems().addAll(departmentBtns);
     }   
 
