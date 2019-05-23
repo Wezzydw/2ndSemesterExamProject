@@ -108,7 +108,13 @@ public class DepartmentScreenViewController implements Initializable
         scrollValue = 0;
         lastDrag = -1;
     }
-
+/**
+ * metoden her sørger for at programmet ikke konstant opdaterer, som kan medføre
+ * funktionalitets problemer. Istedet opdateres hver aktion hver 0.1 sekund så
+ * der herved ikke forekommer ringe funktionalitet i form af lag.
+ * @return
+ * @throws RuntimeException 
+ */
     private Timeline initializeGUIUpdateLimit() throws RuntimeException
     {
         return new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>()

@@ -89,7 +89,10 @@ public class ProjectOverViewController implements Initializable
         }
         updateListViewWorkersAssigned();
     }
-
+/**
+ * denne metode kalder clockUpdate så at vores clock i viewet bliver sat,
+ * og den rigtige tid vises.
+ */
     public void startClock()
     {
         executor = Executors.newSingleThreadExecutor();
@@ -99,7 +102,9 @@ public class ProjectOverViewController implements Initializable
             clockUpdate();
         });
     }
-
+/**
+ * denne metode stopper tråden der holder vores clock kørende
+ */    
     public void closeWindow()
     {
         executor.shutdownNow();
@@ -166,7 +171,10 @@ public class ProjectOverViewController implements Initializable
         });
         primaryStage.show();
     }
-
+/**
+ * denne metode tager fat i localdatetime og får herved localtime. If statementsne,
+ * sørger  for at vi får tiden vist med de rigtige decimaler.
+ */
     private void clockUpdate()
     {
         try
@@ -206,7 +214,9 @@ public class ProjectOverViewController implements Initializable
             System.out.println("Closed Window");
         }
     }
-
+/**
+ * 
+ */
     private void updateListViewWorkersAssigned()
     {
         allWorkers.clear();

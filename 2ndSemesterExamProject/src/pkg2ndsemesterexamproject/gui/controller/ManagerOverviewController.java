@@ -91,18 +91,31 @@ public class ManagerOverviewController implements Initializable {
         model.scanFolderForNewFiles();
 
     }
-
+/**
+ * Denne metode får fat i alle productiionsorders fra databasen til vores tableview.
+ * 
+ * @throws SQLException 
+ */
     public void getlistOfOrders() throws SQLException {
 
         tableView.setItems(model.getObservableProductionOrders());
 
     }
-
+/**
+ * Denne metode kalder scanFolderForNewFiles metoden.
+ * @param event 
+ */
     @FXML
     private void scanFolderForNewFiles(ActionEvent event) {
         model.scanFolderForNewFiles();
     }
-
+/**
+ * Denne metode tjekker efter null exceptions i vores tableview.
+ * derudover loader den det rigtige fxml view og starter det op, samt registrere
+ * hvilken ordre vi klikker på og åbner et nyt view op med den rigtige
+ * information i sig.
+ * @param event 
+ */
     @FXML
     private void whenClicked(MouseEvent event)
     {
