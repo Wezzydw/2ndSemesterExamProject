@@ -64,7 +64,16 @@ public class OrderOverViewController implements Initializable
         placeOrderInOverView();
     }
     
-
+/**
+ * denne metode laver vores panes i vores orderoverview. Den satte størrelse på panesne
+ * samt alt på vores panes positioner. den tjekker også hver odre efter om den er færdig eller ej,
+ * samt hvor langt i processen ordrene er. Herefter sættes vores progress circle 
+ * og canvas til de rigtige status farver................MER tror jeg
+ * @param po
+ * @param dpt
+ * @param scale
+ * @return 
+ */
     public Pane createOrderInOverView(IProductionOrder po, IDepartmentTask dpt, Double scale)
     {//IProductionOrder po, IDepartmentTask dp
         Label invis = new Label();
@@ -181,7 +190,11 @@ public class OrderOverViewController implements Initializable
         return orderPane;
 
     }
-
+/**
+ * denne metode åbner vores orderoverview.????????????
+ * @param po
+ * @param dpt 
+ */
     private void goToOrderOverview(IProductionOrder po, IDepartmentTask dpt)
     {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
 
@@ -205,7 +218,10 @@ public class OrderOverViewController implements Initializable
         //display.closeWindow();
         stage.close();
     }
-
+/**
+ * Denne metode sørger for at alle de panes der bliver sat ind i vores orderoverview,
+ * sættes pænt op med det ønskede mellemrum imellem hinanden.
+ */
     public void placeOrderInOverView()
     {
         List<Pane> panes = new ArrayList();

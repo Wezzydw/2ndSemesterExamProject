@@ -29,7 +29,17 @@ public class DataHandler implements IDataHandler {
         passThrough = new PassThrough();
         searcher = new Search();
     }
-
+/**
+ * Denne metode laver en liste over alle proktionsordre fra databasen.
+ * Disse ordre.........
+ * @param departmentName
+ * @param searchString
+ * @param strategy
+ * @return
+ * @throws SQLException
+ * @throws IOException 
+ */
+    
     public List<IProductionOrder> getAllRelevantProductionOrders(String departmentName, String searchString, ISortStrategy strategy) throws SQLException, IOException {
 
         LocalDate today = LocalDate.now();
