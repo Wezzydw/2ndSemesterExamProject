@@ -233,10 +233,12 @@ public class Model
             {
                 stickyNotes.get(counter).setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
                 stickyNotes.get(counter).setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
+
                 if (isToBeAdded)
                 {
                     anchorPane.getChildren().add(stickyNotes.get(counter));
                 }
+
                 if (counter == stickyNotes.size() - 1)
                 {
                     break outerloop;
@@ -332,5 +334,12 @@ public class Model
     public void runDataCheckInDataHandler() throws SQLException
     {
         dataHandler.runDataCheck();
+    }
+
+    public void resizeStickyNotes()
+    {
+        fillStickyNotes(orders);
+        anchorPane.getChildren().clear();
+        placeStickyNotes(true);
     }
 }

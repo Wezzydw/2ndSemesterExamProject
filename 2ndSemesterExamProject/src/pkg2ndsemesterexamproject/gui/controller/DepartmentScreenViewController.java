@@ -283,6 +283,7 @@ public class DepartmentScreenViewController implements Initializable
         }
         lastDrag = event.getSceneY();
         scrollPane.setVvalue(scrollValue);
+        
     }
 
     /**
@@ -298,6 +299,7 @@ public class DepartmentScreenViewController implements Initializable
     {
         lblZoom.setText("" + postSlider.getValue() + "%");
         model.zoomControl(postSlider.getValue());
+        model.resizeStickyNotes();
         updateFlowRate();
     }
 
