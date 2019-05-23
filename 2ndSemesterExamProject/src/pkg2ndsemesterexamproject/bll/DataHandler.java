@@ -22,7 +22,6 @@ import pkg2ndsemesterexamproject.dal.ReadConfig;
 public class DataHandler implements IDataHandler {
 
     private PassThrough passThrough;
-    private List<IProductionOrder> all;
     private Search searcher;
     private int oldHash = 0;
 
