@@ -5,6 +5,7 @@
  */
 package pkg2ndsemesterexamproject.be;
 
+import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -33,4 +34,14 @@ public class Order implements IOrder
     public StringProperty getOrderProperty() {
         return new SimpleStringProperty(getOrderNumber());
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.number);
+        return hash;
+    }
+
+    
+    
 }

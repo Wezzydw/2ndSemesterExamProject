@@ -28,7 +28,7 @@ import pkg2ndsemesterexamproject.be.IProductionOrder;
  */
 public class CreatePane
 {
-    public static Pane createOrderInGUI(IProductionOrder po, IDepartmentTask dpt, Double scale)
+    public static Pane createOrderInGUI(IProductionOrder po, IDepartmentTask dpt, Double scale)       
     {//IProductionOrder po, IDepartmentTask dp
         Label invis = new Label();
         invis.setMinSize(0, 0);
@@ -47,7 +47,6 @@ public class CreatePane
         orderPane.setShape(rec);
         Circle circle = new Circle(13 * scale);
         circle.setFill(Paint.valueOf("Green"));
-
         for (int i = 0; i < tasks.size(); i++)
         {
             if (tasks.get(i).equals(dpt) && i > 0)

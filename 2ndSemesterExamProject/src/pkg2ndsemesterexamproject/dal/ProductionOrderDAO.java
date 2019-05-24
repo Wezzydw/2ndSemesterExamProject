@@ -97,7 +97,11 @@ public class ProductionOrderDAO {
         }
         return tasks;
     }
-
+    /**
+     * Denne metode retunere
+     * @return
+     * @throws SQLException 
+     */
     public List<IDepartment> getAllDepartments() throws SQLException {
         List<IDepartment> departments = new ArrayList();
         try (Connection con = conProvider.getConnection()) {

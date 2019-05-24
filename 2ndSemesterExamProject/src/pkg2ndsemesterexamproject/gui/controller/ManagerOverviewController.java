@@ -91,21 +91,36 @@ public class ManagerOverviewController implements Initializable {
         model.scanFolderForNewFiles();
 
     }
-
+/**
+ * Denne metode får fat i alle productiionsorders fra databasen til vores tableview.
+ * 
+ * @throws SQLException 
+ */
     public void getlistOfOrders() throws SQLException {
 
         tableView.setItems(model.getObservableProductionOrders());
 
     }
-
+/**
+ * Denne metode kalder scanFolderForNewFiles metoden.
+ * @param event 
+ */
     @FXML
     private void scanFolderForNewFiles(ActionEvent event) {
         model.scanFolderForNewFiles();
     }
-
+/**
+ * Denne metode tjekker efter null exceptions i vores tableview.
+ * derudover loader den det rigtige fxml view og starter det op, samt registrere
+ * hvilken ordre vi klikker på og åbner et nyt view op med den rigtige
+ * information i sig.
+ * @param event 
+ */
     @FXML
     private void whenClicked(MouseEvent event)
     {
+        if(tableView.getSelectionModel().getSelectedItem()!=null){
+                    
          FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/OrderOverView.fxml"));
         try {
@@ -115,12 +130,13 @@ public class ManagerOverviewController implements Initializable {
         }
         OrderOverViewController display = loader.getController();
         display.setProductionOrder(tableView.getSelectionModel().getSelectedItem());
+        tableView.getSelectionModel().clearSelection();
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
         stage.showAndWait();
         stage.close();
-
+    }
     }
 
 }

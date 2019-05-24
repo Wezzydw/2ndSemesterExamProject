@@ -8,6 +8,7 @@ package pkg2ndsemesterexamproject.be;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -20,7 +21,6 @@ public class DepartmentTask implements IDepartmentTask {
     private Boolean finishedOrder;
     private LocalDate startDate;
     private LocalDate endDate;
-    
 
     public DepartmentTask(IDepartment department, Boolean finishedOrder, LocalDate startDate, LocalDate endDate) {
         this.activeWorkers = activeWorkers;
@@ -70,5 +70,11 @@ public class DepartmentTask implements IDepartmentTask {
         activeWorkers.remove(worker);
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.finishedOrder);
+        return hash;
+    }
 
 }

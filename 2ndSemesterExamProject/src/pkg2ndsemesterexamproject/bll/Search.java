@@ -7,6 +7,7 @@ package pkg2ndsemesterexamproject.bll;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
@@ -18,41 +19,51 @@ import pkg2ndsemesterexamproject.dal.IGetData;
  *
  * @author Wezzy Laptop
  */
-public class Search {
+public class Search
+{
 
     IGetData getData;
 
-    public Search() throws IOException {
+    public Search() throws IOException
+    {
         getData = new GetData();
 
     }
 
-    public List<IProductionOrder> searchAllProductionOrders(String searchString, List<IProductionOrder> orders, String departmentName) throws SQLException {
-        if (searchString.isEmpty()) {
+    public List<IProductionOrder> searchAllProductionOrders(String searchString, List<IProductionOrder> orders, String departmentName) throws SQLException
+    {
+        if (searchString.isEmpty())
+        {
             return orders;
         }
 
         List< IProductionOrder> toReturn = new ArrayList();
         loop:
-        for (IProductionOrder ipo : orders) {
-            for (IDepartmentTask idt : ipo.getDepartmentTasks()) {
+        for (IProductionOrder ipo : orders)
+        {
+            for (IDepartmentTask idt : ipo.getDepartmentTasks())
+            {
 
-                if (idt.getEndDate().toString().contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName)) {
+                if (idt.getEndDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")).contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName))
+                {
                     toReturn.add(ipo);
                     continue loop;
                 }
-                if (idt.getStartDate().toString().contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName)) {
+                if (idt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")).contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName))
+                {
                     toReturn.add(ipo);
                     continue loop;
                 }
 
             }
-            if (ipo.getCustomer().getName().toLowerCase().contains(searchString)) {
+            if (ipo.getCustomer().getName().toLowerCase().contains(searchString))
+            {
                 toReturn.add(ipo);
                 continue loop;
             }
 
-            if (ipo.getOrder().getOrderNumber().toLowerCase().contains(searchString)) {
+            if (ipo.getOrder().getOrderNumber().toLowerCase().contains(searchString))
+            {
                 toReturn.add(ipo);
                 continue loop;
             }
