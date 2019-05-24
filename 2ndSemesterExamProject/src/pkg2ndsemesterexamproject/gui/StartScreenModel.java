@@ -22,7 +22,11 @@ public class StartScreenModel
     {
         ptl = new PassThrough();
     }
-
+    /**
+     * Dene metode retunere en liste af departments
+     * @return List<IDepartment> 
+     * @throws SQLException 
+     */
     public List<IDepartment> getAllDepartments() throws SQLException
     {
         return ptl.getAllDepartments();

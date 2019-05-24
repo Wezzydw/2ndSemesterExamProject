@@ -28,7 +28,12 @@ public class GetData implements IGetData {
         poDAO = new ProductionOrderDAO();
         wDAO = new WorkerDAO();
     }
-
+    /**
+     * Denne metode retunere ne liste af departments
+     * som den får fra poDAO.getAllDepartments()
+     * @return List<IDepartment>
+     * @throws SQLException 
+     */
     @Override
     public List<IDepartment> getAllDepartments() throws SQLException {
         return poDAO.getAllDepartments();
