@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="managerAnchor" prefHeight="654.0" prefWidth="851.0" stylesheets="@css/PostItCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.controller.ManagerOverviewController">
    <children>
-      <TableView fx:id="tableView" onMouseClicked="#whenClicked" prefHeight="654.0" prefWidth="626.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+      <TableView fx:id="tableView" onMouseClicked="#whenClicked" prefHeight="654.0" prefWidth="626.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
           <TableColumn fx:id="orderNum" editable="false" prefWidth="274.0" resizable="false" text="Order Number" />
           <TableColumn fx:id="customer" editable="false" minWidth="0.0" prefWidth="351.0" resizable="false" text="Customer" />
