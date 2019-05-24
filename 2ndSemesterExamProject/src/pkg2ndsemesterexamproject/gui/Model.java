@@ -174,7 +174,6 @@ public class Model {
                             oldHash = orders.hashCode();
                         }
                     });
-
                 }
             });
             t.start();
