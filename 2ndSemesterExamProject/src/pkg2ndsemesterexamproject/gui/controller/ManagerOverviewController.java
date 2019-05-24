@@ -5,6 +5,7 @@
  */
 package pkg2ndsemesterexamproject.gui.controller;
 
+import com.jfoenix.controls.JFXProgressBar;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -23,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -64,9 +66,14 @@ public class ManagerOverviewController implements Initializable {
     private TableColumn<IProductionOrder, String> customer;
     @FXML
     private AnchorPane managerAnchor;
+    @FXML
+    private Label scanLbl;
+    @FXML
+    private JFXProgressBar scanProgress;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        scanProgress.setVisible(false);
         managerAnchor.getStyleClass().add("backgroundPicture");
         try {
             model = new ManagerModel();
@@ -108,6 +115,8 @@ public class ManagerOverviewController implements Initializable {
     @FXML
     private void scanFolderForNewFiles(ActionEvent event) {
         model.scanFolderForNewFiles();
+        model.checkScanFolder(scanProgress);
+        
     }
 /**
  * Denne metode tjekker efter null exceptions i vores tableview.

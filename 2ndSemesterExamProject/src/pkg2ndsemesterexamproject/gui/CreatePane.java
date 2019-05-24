@@ -36,8 +36,8 @@ public class CreatePane
         IDepartmentTask task = null;
         Label orderNum = new Label(po.getOrder().toString());
         Label customer = new Label("Customer: " + po.getCustomer().getName());
-        Label startDate = new Label(dpt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
-        Label endDate = new Label(dpt.getEndDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
+        Label startDate = new Label(dpt.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
+        Label endDate = new Label(dpt.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200 * scale, 150 * scale);
         orderPane.getStyleClass().add("pane");
