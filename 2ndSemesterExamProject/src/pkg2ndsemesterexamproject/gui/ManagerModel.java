@@ -5,12 +5,15 @@
  */
 package pkg2ndsemesterexamproject.gui;
 
+import com.jfoenix.controls.JFXProgressBar;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -46,10 +49,11 @@ public class ManagerModel
 
     private PassThrough managerPassThrough;
     private TableView tableView;
+    private Thread thread = null;
 
     public ManagerModel() throws IOException
     {
-       
+
         managerPassThrough = new PassThrough();
     }
 
@@ -58,7 +62,6 @@ public class ManagerModel
         return managerPassThrough.getAllProductionOrders();
 
     }
-
 
     public StringProperty stringConverter(String string)
     {
@@ -72,15 +75,43 @@ public class ManagerModel
         return managerOBS;
     }
 
-
-    public void scanFolderForNewFiles() {
+    public void scanFolderForNewFiles()
+    {
         managerPassThrough.scanFolderForNewFiles();
     }
- 
-          
+
+    public void checkScanFolder(JFXProgressBar scanProgress)
+    {
    
+        if (thread == null || !thread.isAlive())
+        {
 
-        
-          
+            thread = new Thread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    for (int i = 1; i <= 100; i++)
+                    {
+                        scanProgress.setProgress(0.01 * i);
+                        try
+                        {
+                            Thread.sleep(1500 / 100);
+                        } catch (InterruptedException ex)
+                        {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                    scanProgress.setVisible(false);
+                }
+            });
+        }
+        if (!thread.isAlive())
+        {
+            scanProgress.setVisible(true);
+            thread.start();
+        }
 
-}
+    }
+
+    }
