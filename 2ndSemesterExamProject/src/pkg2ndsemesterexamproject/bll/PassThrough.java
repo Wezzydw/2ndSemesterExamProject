@@ -48,7 +48,12 @@ public class PassThrough implements IPassthrough {
     public List<IWorker> getWorkersFromDB() throws SQLException {
         return getDataFromDB.getAllWorkers();
     }
-
+    /**
+     * Denne metode retunere ne liste af departments
+     * som den får fra getDataFromDB.getAllDepartments()
+     * @return List<IDepartment>
+     * @throws SQLException 
+     */
     @Override
     public List<IDepartment> getAllDepartments() throws SQLException {
         return getDataFromDB.getAllDepartments();
