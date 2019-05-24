@@ -105,7 +105,6 @@ public class DataHandler implements IDataHandler
                 }
             }
         }
-        System.out.println("Return btn");
         return oldData = strategy.sort(searcher.searchAllProductionOrders(searchString, returnList, departmentName.toLowerCase()), departmentName);
     }
 

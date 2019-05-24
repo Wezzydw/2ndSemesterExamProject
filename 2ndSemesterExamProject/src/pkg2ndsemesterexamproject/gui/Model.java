@@ -286,7 +286,6 @@ public class Model {
     sendes der en meddelse om at IT-service burde kontaktes.
      */
     public boolean checkConnection() {
-
         return true;
     }
 
