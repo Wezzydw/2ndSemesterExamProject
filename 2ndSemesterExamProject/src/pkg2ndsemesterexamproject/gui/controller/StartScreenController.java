@@ -28,7 +28,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.gui.StartScreenModel;
@@ -47,6 +49,8 @@ public class StartScreenController implements Initializable {
     
     private StartScreenModel model;
     private List<IDepartment> allDepartments;
+    @FXML
+    private BorderPane bp;
 
     /**
      * Initializes the controller class.
@@ -60,8 +64,9 @@ public class StartScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         startAnchor.getStyleClass().add("backgroundPicture");
-        
-        
+        Text txt = new Text("Choose a department or manager:");
+        txt.getStyleClass().add("fancytext");
+        bp.setBottom(txt);
         
         try {
             model = new StartScreenModel();

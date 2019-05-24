@@ -98,7 +98,13 @@ and open the template in the editor.
     -fx-background-image:url(belman.jpg);
     -fx-background-size: cover;
 }
-
+.fancytext {
+    -fx-font: Bold 24px Tahoma;
+    /*-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);*/
+    -fx-fill: white;
+    -fx-stroke: black;
+    -fx-stroke-width: 2;
+}
 
 
 
