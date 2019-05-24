@@ -31,6 +31,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.gui.StartScreenModel;
@@ -66,6 +67,7 @@ public class StartScreenController implements Initializable {
         startAnchor.getStyleClass().add("backgroundPicture");
         Text txt = new Text("Choose a department or manager:");
         txt.getStyleClass().add("fancytext");
+        txt.setTextAlignment(TextAlignment.CENTER);
         bp.setBottom(txt);
         
         try {
