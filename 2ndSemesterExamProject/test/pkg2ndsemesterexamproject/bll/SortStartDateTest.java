@@ -61,7 +61,7 @@ public class SortStartDateTest {
         list.add(po1);
         list.add(po2);
         list.add(po3);
-        String departmentName = "";
+        String departmentName = "Afdeling 1";
         SortStartDate instance = new SortStartDate();
         List<IProductionOrder> expResult = new ArrayList();
         expResult.add(po2);
