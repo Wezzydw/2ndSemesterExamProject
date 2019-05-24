@@ -157,6 +157,7 @@ public class DepartmentScreenViewController implements Initializable
         {
             sortStrategy = comboBox.getSelectionModel().getSelectedItem();
             comboChanged(sortStrategy);
+            updateFlowRate();
         });
         comboChanged(new SortStartDate());
 
