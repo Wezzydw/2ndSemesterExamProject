@@ -29,15 +29,17 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
-import pkg2ndsemesterexamproject.gui.Model;
 import pkg2ndsemesterexamproject.gui.OverViewModel;
 
 /**
@@ -53,10 +55,7 @@ public class ProjectOverViewController implements Initializable
     private IProductionOrder productionOrder;
 
     private OverViewModel model;
-    @FXML
     private Label lblOrder;
-    @FXML
-    private Label lblCustomer;
     private Label lblDeliveryDate;
     @FXML
     private Label lblClock;
@@ -65,13 +64,19 @@ public class ProjectOverViewController implements Initializable
     @FXML
     private ListView<IWorker> lstView;
     @FXML
-    private HBox hboxDepartments;
-    @FXML
-    private Label lblStartDate;
-    @FXML
-    private Label lblEndDate;
-    @FXML
     private AnchorPane mainPane;
+    @FXML
+    private BorderPane borderPane;
+    @FXML
+    private TabPane tabPane;
+    private Text txtCustomer;
+    private Text txtOrder;
+    private Text txtStartDate;
+    private Text txtEndDate;
+    private Text txtRealized;
+    private Text txtActual;
+    private Text txtRStartDate;
+    private Text txtDeliveryDate;
 
     /**
      * Initializes the controller class.
@@ -79,7 +84,7 @@ public class ProjectOverViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        mainPane.getStyleClass().add("backgroundPicture");
+        borderPane.getStyleClass().add("backgroundPicture");
         try
         {
             model = new OverViewModel();
@@ -88,6 +93,8 @@ public class ProjectOverViewController implements Initializable
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         updateListViewWorkersAssigned();
+        
+        
     }
 /**
  * denne metode kalder clockUpdate så at vores clock i viewet bliver sat,
@@ -244,10 +251,45 @@ public class ProjectOverViewController implements Initializable
 
     public void setData(IDepartmentTask dt, IProductionOrder po)
     {
-        lblCustomer.setText("Customer: " + po.getCustomer().toString());
-        lblOrder.setText("Order number: " + po.getOrder().toString());
-        lblStartDate.setText(dt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
-        lblEndDate.setText(dt.getEndDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
+        txtCustomer = new Text("Customer: " + po.getCustomer().toString());
+        txtOrder = new Text("Order number: " + po.getOrder().toString());
+        txtStartDate = new Text(dt.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
+        txtEndDate = new Text(dt.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
+        txtActual = new Text("Estimated progress");
+        txtRealized = new Text("Realized progress");
+        txtRStartDate = new Text(po.getDepartmentTasks().get(0).getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
+        txtDeliveryDate = new Text(po.getDelivery().getDeliveryTime().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
+//        lblCustomer.setText("Customer: " + po.getCustomer().toString());
+//        lblOrder.setText("Order number: " + po.getOrder().toString());
+//        lblStartDate.setText(dt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
+//        lblEndDate.setText(dt.getEndDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
+        txtCustomer.setLayoutX(5);
+        txtCustomer.setLayoutY(215);
+        txtOrder.setLayoutX(5);
+        txtOrder.setLayoutY(165);
+        txtStartDate.setLayoutX(5);
+        txtStartDate.setLayoutY(370);
+        txtEndDate.setLayoutX(502);
+        txtEndDate.setLayoutY(370);
+        txtActual.setLayoutX(230);
+        txtActual.setLayoutY(370);
+        txtRStartDate.setLayoutX(5);
+        txtRStartDate.setLayoutY(45);
+        txtRealized.setLayoutX(240);
+        txtRealized.setLayoutY(45);
+        txtDeliveryDate.setLayoutX(502);
+        txtDeliveryDate.setLayoutY(45);
+        
+        txtCustomer.getStyleClass().add("fancytext");
+        txtOrder.getStyleClass().add("fancytext");
+        txtStartDate.getStyleClass().add("fancytext2");
+        txtEndDate.getStyleClass().add("fancytext2");
+        txtActual.getStyleClass().add("fancytext2");
+        txtRealized.getStyleClass().add("fancytext2");
+        txtRStartDate.getStyleClass().add("fancytext2");
+        txtDeliveryDate.getStyleClass().add("fancytext2");
+        
+        
         int indexOfDepartment = 0;
         int counter = 0;
 
@@ -259,62 +301,63 @@ public class ProjectOverViewController implements Initializable
             }
             counter++;
         }
-
         for (int i = 0; i <= indexOfDepartment; i++)
         {
-            Label ll = new Label();
-            ll.setMinSize(20, 5);
-            Label l1 = new Label();
-            l1.setText(po.getDepartmentTasks().get(i).getDepartment().toString());
+            Tab ta = new Tab();
+            ta.setText(po.getDepartmentTasks().get(i).getDepartment().toString());
             if (po.getDepartmentTasks().get(i).getFinishedOrder())
             {
-                l1.setStyle("-fx-background-color: Green" + "-fx-text-fill: Black");
+                ta.setStyle("-fx-background-color: Green;");
+
             } else
             {
-                l1.setStyle("-fx-background-color: Red;" + "-fx-text-fill: Black");
+                ta.setStyle("-fx-background-color: Red;");
             }
-            hboxDepartments.getChildren().add(ll);
-            hboxDepartments.getChildren().add(l1);
+            tabPane.getTabs().add(ta);
         }
 
         Pane progress = new Pane();
-        progress.setMaxSize(400, 20);
+        progress.setMaxSize(585, 20);
         Canvas canvas = new Canvas();
         canvas.setHeight(20);
-        canvas.setWidth(400);
-        canvas.setLayoutX(23);
-        canvas.setLayoutY(285);
+        canvas.setWidth(585);
+        canvas.setLayoutX(5);
+        canvas.setLayoutY(376);
 
         Pane progressRealized = new Pane();
-        progressRealized.setMaxSize(400, 20);
+        progressRealized.setMaxSize(585, 20);
         Canvas canvasRealized = new Canvas();
         canvasRealized.setHeight(20);
-        canvasRealized.setWidth(400);
-        canvasRealized.setLayoutX(23);
-        canvasRealized.setLayoutY(350);
+        canvasRealized.setWidth(585);
+        canvasRealized.setLayoutX(5);
+        canvasRealized.setLayoutY(10);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         GraphicsContext gc1 = canvasRealized.getGraphicsContext2D();
 
         gc.setFill(Color.GREEN);
         Long daysBetween = ChronoUnit.DAYS.between(dt.getStartDate(), dt.getEndDate());
-        int progressInterval = (int) (400 / daysBetween);
+        int progressInterval = (int) (585 / daysBetween);
         LocalDateTime todayIs = LocalDateTime.now();
         Long startToNow = ChronoUnit.DAYS.between(dt.getStartDate(), todayIs);
         gc.fillRect(0, 0, progressInterval * startToNow, 20);
         gc.setStroke(Color.BLACK);
-        gc.strokeRect(0, 0, 400, 20);
+        gc.strokeRect(0, 0, 585, 20);
 
         gc1.setFill(Color.GREEN);
         Long daysBetween1 = ChronoUnit.DAYS.between(po.getDepartmentTasks().get(0).getStartDate(), po.getDelivery().getDeliveryTime());
-        int progressInterval1 = (int) (400 / daysBetween1);
+        int progressInterval1 = (int) (585 / daysBetween1);
         LocalDateTime todayIs1 = LocalDateTime.now();
         Long startToNow1 = ChronoUnit.DAYS.between(dt.getStartDate(), todayIs1);
         gc1.fillRect(0, 0, progressInterval1 * startToNow1, 20);
+        gc1.setFill(Color.WHITE);
+        gc1.fillRect(progressInterval1 * startToNow1, 0, 585, 20);
+        
         gc1.setStroke(Color.BLACK);
-        gc1.strokeRect(0, 0, 400, 20);
+        gc1.strokeRect(0, 0, 585, 20);
 
         mainPane.getChildren().add(canvas);
         mainPane.getChildren().add(canvasRealized);
+        mainPane.getChildren().addAll(txtCustomer, txtEndDate, txtStartDate, txtOrder, txtActual, txtRealized, txtRStartDate, txtDeliveryDate);
     }
 }

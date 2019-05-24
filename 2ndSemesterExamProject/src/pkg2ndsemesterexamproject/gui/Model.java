@@ -140,6 +140,7 @@ public class Model {
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
+        stage.setResizable(false);
         stage.showAndWait();
         display.closeWindow();
         stage.close();

@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -27,7 +28,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("gui/view/StartScreen.fxml"));
         
         Scene scene = new Scene(root);
-        
+        stage.getIcons().add(new Image("pkg2ndsemesterexamproject/gui/view/css/logo-13.jpg"));
+        stage.setTitle("Start Screen");
         stage.setScene(scene);
         stage.show();
     }
