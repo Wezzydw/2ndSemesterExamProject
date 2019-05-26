@@ -42,7 +42,7 @@ import pkg2ndsemesterexamproject.gui.CreatePane;
  */
 public class OrderOverViewController implements Initializable
 {
-    
+
     private double orderPaneWidth = 200;
     private double orderPaneHeigth = 150;
     private final int minMargenEdgeX = 25;
@@ -52,14 +52,14 @@ public class OrderOverViewController implements Initializable
     private IProductionOrder selectedProductionOrder;
     @FXML
     private AnchorPane orderOverviewAnchor;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         orderOverviewAnchor.getStyleClass().add("panetest");
-        
+
     }
-    
+
     public void setProductionOrder(IProductionOrder productionOrder)
     {
         selectedProductionOrder = productionOrder;
@@ -105,7 +105,7 @@ public class OrderOverViewController implements Initializable
         List<Pane> panes = new ArrayList();
         for (IDepartmentTask orders : selectedProductionOrder.getDepartmentTasks())
         {
-            
+
             panes.add(CreatePane.createOrderInGUI(selectedProductionOrder, orders, 1.0));
         }
         int counter = 0;
@@ -114,12 +114,12 @@ public class OrderOverViewController implements Initializable
             pane.setLayoutX(minMargenEdgeX + counter * (orderPaneWidth + minMargenX));
             pane.setLayoutY(250);
             Label label = new Label(selectedProductionOrder.getDepartmentTasks().get(counter).getDepartment().getName());
-            label.setLayoutX(minMargenEdgeX + counter * (orderPaneWidth + minMargenX));
-            label.setLayoutY(230);
-            orderOverviewAnchor.getChildren().add(label);
-            
+            label.setLayoutX(10);
+            label.setLayoutY(10);
+            pane.getChildren().add(label);
+            orderOverviewAnchor.getChildren().add(pane);
             counter++;
         }
-        
+
     }
 }
