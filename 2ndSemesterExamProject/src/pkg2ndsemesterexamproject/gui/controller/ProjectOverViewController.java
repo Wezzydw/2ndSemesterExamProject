@@ -84,7 +84,7 @@ public class ProjectOverViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        borderPane.getStyleClass().add("backgroundPicture");
+     
         try
         {
             model = new OverViewModel();
