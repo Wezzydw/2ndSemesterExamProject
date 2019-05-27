@@ -25,6 +25,6 @@
             <Image url="@css/belman2.png" />
          </image>
       </ImageView>
-      <JFXProgressBar fx:id="scanProgress" layoutX="645.0" layoutY="508.0" prefHeight="11.0" prefWidth="206.0" progress="0.0" />
+      <JFXProgressBar fx:id="scanProgress" layoutX="645.0" layoutY="508.0" prefHeight="11.0" prefWidth="167.0" progress="0.0" AnchorPane.bottomAnchor="120.0" AnchorPane.rightAnchor="15.0" />
    </children>
 </AnchorPane>
