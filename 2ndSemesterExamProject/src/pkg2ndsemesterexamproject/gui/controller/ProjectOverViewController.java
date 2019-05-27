@@ -343,12 +343,14 @@ public class ProjectOverViewController implements Initializable
         gc.fillRect(0, 0, progressInterval * startToNow, 20);
         gc.setStroke(Color.BLACK);
         gc.strokeRect(0, 0, 585, 20);
-
+        gc.setFill(Color.WHITE);
+        gc.fillRect(progressInterval * startToNow, 0, 585, 20);
+        
         gc1.setFill(Color.GREEN);
         Long daysBetween1 = ChronoUnit.DAYS.between(po.getDepartmentTasks().get(0).getStartDate(), po.getDelivery().getDeliveryTime());
         int progressInterval1 = (int) (585 / daysBetween1);
         LocalDateTime todayIs1 = LocalDateTime.now();
-        Long startToNow1 = ChronoUnit.DAYS.between(dt.getStartDate(), todayIs1);
+        Long startToNow1 = ChronoUnit.DAYS.between(po.getDepartmentTasks().get(0).getStartDate(), todayIs1);
         gc1.fillRect(0, 0, progressInterval1 * startToNow1, 20);
         gc1.setFill(Color.WHITE);
         gc1.fillRect(progressInterval1 * startToNow1, 0, 585, 20);
