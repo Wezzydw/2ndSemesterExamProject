@@ -95,7 +95,7 @@ public class DepartmentScreenViewController implements Initializable
         guiUpdateLimit.setCycleCount(1);
         lblZoom.setText("" + postSlider.getValue() + "%");
         LocalDate date = LocalDate.now();
-        lblDate.setText(date.format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
+        lblDate.setText(date.format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
         scrollPane.setFitToWidth(true);
 
         updateFlowRate();

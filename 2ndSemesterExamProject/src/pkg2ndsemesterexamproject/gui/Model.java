@@ -140,6 +140,7 @@ public class Model {
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
+        stage.setResizable(false);
         stage.showAndWait();
         display.closeWindow();
         stage.close();
@@ -174,7 +175,6 @@ public class Model {
                             oldHash = orders.hashCode();
                         }
                     });
-
                 }
             });
             t.start();
@@ -287,7 +287,6 @@ public class Model {
     sendes der en meddelse om at IT-service burde kontaktes.
      */
     public boolean checkConnection() {
-
         return true;
     }
 
