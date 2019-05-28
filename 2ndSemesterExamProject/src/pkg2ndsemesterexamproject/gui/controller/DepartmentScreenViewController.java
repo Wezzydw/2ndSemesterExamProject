@@ -12,6 +12,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -48,8 +50,7 @@ import pkg2ndsemesterexamproject.gui.Model;
  *
  * @author andreas
  */
-public class DepartmentScreenViewController implements Initializable
-{
+public class DepartmentScreenViewController implements Initializable {
 
     @FXML
     private ComboBox<ISortStrategy> comboBox;
@@ -76,18 +77,16 @@ public class DepartmentScreenViewController implements Initializable
     private double scrollValue;
     private double lastDrag;
     private Timeline guiUpdateLimit;
+    private final long updateTime = 5000;
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
-        try
-        {
-            model = new Model(departmentAnchorPane, borderPane);
-        } catch (IOException | SQLException ex)
-        {
+    public void initialize(URL url, ResourceBundle rb) {
+        try {
+            model = new Model(departmentAnchorPane);
+        } catch (IOException | SQLException ex) {
             Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -95,7 +94,9 @@ public class DepartmentScreenViewController implements Initializable
         guiUpdateLimit.setCycleCount(1);
         lblZoom.setText("" + postSlider.getValue() + "%");
         LocalDate date = LocalDate.now();
-        lblDate.setText(date.format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
+        WeekFields weekFields = WeekFields.of(Locale.getDefault()); 
+        int weekNumber = date.get(weekFields.weekOfWeekBasedYear());
+        lblDate.setText("["+weekNumber+ ":" +date.getDayOfWeek().getValue()+"]");
         scrollPane.setFitToWidth(true);
 
         updateFlowRate();
@@ -117,18 +118,13 @@ public class DepartmentScreenViewController implements Initializable
      * @return
      * @throws RuntimeException
      */
-    private Timeline initializeGUIUpdateLimit() throws RuntimeException
-    {
-        return new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>()
-        {
+    private Timeline initializeGUIUpdateLimit() throws RuntimeException {
+        return new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event)
-            {
-                try
-                {
+            public void handle(ActionEvent event) {
+                try {
                     model.placeOrderInUI();
-                } catch (SQLException ex)
-                {
+                } catch (SQLException ex) {
                     Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
                     throw new RuntimeException(ex);
                 }
@@ -137,24 +133,21 @@ public class DepartmentScreenViewController implements Initializable
 
     }
 
-    private void updateFlowRate()
-    {
+    private void updateFlowRate() {
         guiUpdateLimit.play();
     }
 
     /**
      * Denne metode sætter comboboxens itmes og laver deres onAction.
      */
-    private void setComboBox()
-    {
+    private void setComboBox() {
         comboBox.getItems().add(new SortCustomer());
         comboBox.getItems().add(new SortEndDate());
         comboBox.getItems().add(new SortOrderId());
         comboBox.getItems().add(new SortReady());
         comboBox.getItems().add(new SortStartDate());
         comboBox.setOnAction((ActionEvent event)
-                ->
-        {
+                -> {
             sortStrategy = comboBox.getSelectionModel().getSelectedItem();
             comboChanged(sortStrategy);
             updateFlowRate();
@@ -166,26 +159,21 @@ public class DepartmentScreenViewController implements Initializable
     /**
      * Denne metode kalder metoden model.msOnDepartmentView.
      */
-    public void comboChanged(ISortStrategy sortStrategy)
-    {
+    public void comboChanged(ISortStrategy sortStrategy) {
         model.setSortStrategy(sortStrategy);
     }
 
-    public void initListeners()
-    {
-        borderPane.widthProperty().addListener(new ChangeListener<Number>()
-        {
+    public void initListeners() {
+        borderPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
-            {
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 updateFlowRate();
             }
         });
     }
 
     @FXML
-    private void searchBar(KeyEvent event)
-    {
+    private void searchBar(KeyEvent event) {
         model.setSearchString(txtSearchfield.getText().toLowerCase().trim());
         updateFlowRate();
     }
@@ -196,8 +184,7 @@ public class DepartmentScreenViewController implements Initializable
      *
      * @param department
      */
-    public void setDepartment(Department department)
-    {
+    public void setDepartment(Department department) {
         currentDepartment = department;
         lblText.setText(department.getName());
         model.setSelectedDepartmentName(currentDepartment.getName());
@@ -206,8 +193,7 @@ public class DepartmentScreenViewController implements Initializable
     /**
      * Denne metode sætter viewet til fullscreen
      */
-    public void setFullscreen()
-    {
+    public void setFullscreen() {
         Stage stage = (Stage) borderPane.getScene().getWindow();
         stage.setFullScreen(true);
     }
@@ -216,33 +202,23 @@ public class DepartmentScreenViewController implements Initializable
      * Denne metode opdatere gui'en men med en thred.sleep delay på 5000ms så,
      * den kun opdatere programmet hver 5 sekund for at reducere lag
      */
-    public void functionThatUpdatedGUIEvery5Seconds()
-    {
+    public void functionThatUpdatedGUIEvery5Seconds() {
 
-        Thread t = new Thread(new Runnable()
-        {
+        Thread t = new Thread(new Runnable() {
             @Override
-            public void run()
-            {
-                while (true)
-                {
-                    try
-                    {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException ex)
-                    {
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(updateTime);
+                    } catch (InterruptedException ex) {
                         Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    Platform.runLater(new Runnable()
-                    {
+                    Platform.runLater(new Runnable() {
                         @Override
-                        public void run()
-                        {
-                            try
-                            {
+                        public void run() {
+                            try {
                                 model.runDataCheckInDataHandler();
-                            } catch (SQLException ex)
-                            {
+                            } catch (SQLException ex) {
                                 throw new RuntimeException();
                             }
                             updateFlowRate();
@@ -263,28 +239,23 @@ public class DepartmentScreenViewController implements Initializable
      * @param event
      */
     @FXML
-    private void scrollOnDragQueen(MouseEvent event)
-    {
+    private void scrollOnDragQueen(MouseEvent event) {
         double apHeight = departmentAnchorPane.getHeight();
         double bpHeight = borderPane.getHeight();
-        if (lastDrag > event.getSceneY() && lastDrag > 0)
-        {
+        if (lastDrag > event.getSceneY() && lastDrag > 0) {
             scrollValue = scrollValue + bpHeight / apHeight / 50;
-        } else if (lastDrag < event.getSceneY() && lastDrag > 0)
-        {
+        } else if (lastDrag < event.getSceneY() && lastDrag > 0) {
             scrollValue = scrollValue - bpHeight / apHeight / 50;
         }
-        if (scrollValue < 0)
-        {
+        if (scrollValue < 0) {
             scrollValue = 0;
         }
-        if (scrollValue > 1)
-        {
+        if (scrollValue > 1) {
             scrollValue = 1;
         }
         lastDrag = event.getSceneY();
         scrollPane.setVvalue(scrollValue);
-        
+
     }
 
     /**
@@ -296,8 +267,7 @@ public class DepartmentScreenViewController implements Initializable
      * @param event
      */
     @FXML
-    private void sliderZoom(MouseEvent event)
-    {
+    private void sliderZoom(MouseEvent event) {
         lblZoom.setText("" + postSlider.getValue() + "%");
         model.zoomControl(postSlider.getValue());
         model.resizeStickyNotes();
@@ -305,10 +275,8 @@ public class DepartmentScreenViewController implements Initializable
     }
 
     @FXML
-    private void onF11Pressed(KeyEvent event)
-    {
-        if (event.getCode().equals(KeyCode.F11))
-        {
+    private void onF11Pressed(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.F11)) {
             setFullscreen();
         }
     }

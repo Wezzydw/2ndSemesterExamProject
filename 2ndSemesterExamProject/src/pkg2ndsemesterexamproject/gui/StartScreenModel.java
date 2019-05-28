@@ -15,20 +15,21 @@ import pkg2ndsemesterexamproject.bll.PassThrough;
  *
  * @author Wezzy
  */
-public class StartScreenModel
-{
-    private PassThrough ptl;
-    public StartScreenModel() throws IOException
-    {
+public class StartScreenModel {
+
+    private final PassThrough ptl;
+
+    public StartScreenModel() throws IOException {
         ptl = new PassThrough();
     }
+
     /**
      * Dene metode retunere en liste af departments
-     * @return List<IDepartment> 
-     * @throws SQLException 
+     *
+     * @return List<IDepartment>
+     * @throws SQLException
      */
-    public List<IDepartment> getAllDepartments() throws SQLException
-    {
+    public List<IDepartment> getAllDepartments() throws SQLException {
         return ptl.getAllDepartments();
     }
 }

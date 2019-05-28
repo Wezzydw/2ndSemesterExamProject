@@ -19,11 +19,10 @@ import pkg2ndsemesterexamproject.dal.ReadConfig;
  *
  * @author Wezzy Laptop
  */
-public class DataHandler implements IDataHandler
-{
+public class DataHandler {
 
-    private PassThrough passThrough;
-    private Search searcher;
+    private final PassThrough passThrough;
+    private final Search searcher;
     private int oldHash = 0;
     private boolean isNewData = true;
     private List<IProductionOrder> data;
@@ -31,8 +30,7 @@ public class DataHandler implements IDataHandler
     private ISortStrategy oldSortStrategy = null;
     private List<IProductionOrder> oldData;
 
-    public DataHandler() throws IOException, SQLException
-    {
+    public DataHandler() throws IOException, SQLException {
         passThrough = new PassThrough();
         searcher = new Search();
         data = new ArrayList();
@@ -45,15 +43,14 @@ public class DataHandler implements IDataHandler
      * til true, hvis den er det samme som oldHash, sættes den false.
      * @throws SQLException 
      */
-    public void runDataCheck() throws SQLException
-    {
+    
+
+    public void runDataCheck() throws SQLException {
         data = passThrough.getAllProductionOrders();
 
-        if (data.hashCode() != oldHash)
-        {
+        if (data.hashCode() != oldHash) {
             isNewData = true;
-        } else
-        {
+        } else {
             isNewData = false;
         }
         oldHash = data.hashCode();
@@ -63,8 +60,9 @@ public class DataHandler implements IDataHandler
      * Denne behandles af runDataCheck
      * @return isNewData true/false efter hvad runDataCheck() sætter den til.
      */
-    public boolean isThereNewData()
-    {
+    
+
+    public boolean isThereNewData() {
         return isNewData;
     }
 
@@ -79,16 +77,12 @@ public class DataHandler implements IDataHandler
      * @throws SQLException
      * @throws IOException
      */
-    public List<IProductionOrder> getAllRelevantProductionOrders(String departmentName, String searchString, ISortStrategy strategy) throws SQLException, IOException
-    {
-        if (oldSortStrategy != null && oldSearchString != null)
-        {
-            if (oldSearchString.equals(searchString) && oldSortStrategy.equals(strategy) && !isNewData)
-            {
+    public List<IProductionOrder> getAllRelevantProductionOrders(String departmentName, String searchString, ISortStrategy strategy) throws SQLException, IOException {
+        if (oldSortStrategy != null && oldSearchString != null) {
+            if (oldSearchString.equals(searchString) && oldSortStrategy.equals(strategy) && !isNewData) {
                 return oldData;
             }
-        } else
-        {
+        } else {
             oldSortStrategy = strategy;
             oldSearchString = searchString;
         }
@@ -98,16 +92,13 @@ public class DataHandler implements IDataHandler
         List<IProductionOrder> returnList = new ArrayList();
 
         loop:
-        for (IProductionOrder iProductionOrder : data)
-        {
-            for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks())
-            {
+        for (IProductionOrder iProductionOrder : data) {
+            for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {
                 if (departmentName.equals(departmentTask.getDepartment().getName())
                         && !departmentTask.getFinishedOrder()
                         && (departmentTask.getStartDate().minusDays(ReadConfig.getOffsetFromDepartmentName(departmentName)).isBefore(today)
                         || departmentTask.getStartDate().minusDays(ReadConfig.getOffsetFromDepartmentName(departmentName)).isEqual(today)
-                        || departmentTask.getStartDate().isEqual(today)))
-                {
+                        || departmentTask.getStartDate().isEqual(today))) {
 
                     returnList.add(iProductionOrder);
                     continue loop;
@@ -117,12 +108,9 @@ public class DataHandler implements IDataHandler
         return oldData = strategy.sort(searcher.searchAllProductionOrders(searchString, returnList, departmentName.toLowerCase()), departmentName);
     }
 
-    public IDepartmentTask getTaskForDepartment(IProductionOrder po, String departmentName)
-    {
-        for (IDepartmentTask departmentTask : po.getDepartmentTasks())
-        {
-            if (departmentTask.getDepartment().getName().equals(departmentName))
-            {
+    public IDepartmentTask getTaskForDepartment(IProductionOrder po, String departmentName) {
+        for (IDepartmentTask departmentTask : po.getDepartmentTasks()) {
+            if (departmentTask.getDepartment().getName().equals(departmentName)) {
                 return departmentTask;
             }
         }

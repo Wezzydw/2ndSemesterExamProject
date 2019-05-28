@@ -17,24 +17,19 @@ import pkg2ndsemesterexamproject.bll.PassThrough;
  *
  * @author Wezzy
  */
-public class OverViewModel
-{
+public class OverViewModel {
 
-    private PassThrough ptl;
+    private final PassThrough ptl;
 
-    public OverViewModel() throws IOException
-    {
+    public OverViewModel() throws IOException {
         ptl = new PassThrough();
     }
 
-    public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException
-    {
+    public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException {
         return ptl.getWorkersFromDB();
     }
 
-    public void orderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException
-    {
+    public void orderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException {
         ptl.sendOrderIsDone(dt, po);
-//        msOnDepartmentView(anchorPane, borderPane);
     }
 }

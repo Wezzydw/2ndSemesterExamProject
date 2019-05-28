@@ -7,7 +7,6 @@ package pkg2ndsemesterexamproject.dal;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.be.Order;
 import java.util.List;
 import pkg2ndsemesterexamproject.be.IDepartment;
@@ -54,16 +53,5 @@ public class GetData implements IGetData {
     public List<IProductionOrder> getAllProductionOrders() throws SQLException {
         return poDAO.getAllInfo();
     }
-
-//    @Override
-    public List<Order> getAllOrders() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void getCircleColour()
-    {
-       poDAO.updateCircleColour();
-    }
-
    
 }

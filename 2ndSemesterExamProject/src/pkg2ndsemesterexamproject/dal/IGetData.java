@@ -6,8 +6,6 @@
 package pkg2ndsemesterexamproject.dal;
 
 import java.sql.SQLException;
-import pkg2ndsemesterexamproject.be.Department;
-import pkg2ndsemesterexamproject.be.Order;
 import java.util.List;
 import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
@@ -27,6 +25,4 @@ public interface IGetData
     List<IWorker> getAllWorkers()throws SQLException;
     
     List<IProductionOrder> getAllProductionOrders() throws SQLException;
-    
-    public void getCircleColour();
 }

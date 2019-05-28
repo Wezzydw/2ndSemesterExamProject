@@ -10,10 +10,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane fx:id="borderPane" scaleShape="false" stylesheets="@css/PostItCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController">
    <center>
-      <AnchorPane id="AnchorPane" fx:id="mainPane" minWidth="-Infinity" prefHeight="376.0" prefWidth="777.0" stylesheets="@css/PostItCSS.css">
+      <AnchorPane id="AnchorPane" fx:id="mainPane" minWidth="-Infinity" prefHeight="376.0" prefWidth="776.0" stylesheets="@css/PostItCSS.css">
          <children>
             <SplitPane dividerPositions="0.15" layoutX="573.0" layoutY="81.0" orientation="VERTICAL" prefHeight="254.0" prefWidth="171.0" stylesheets="@css/PostItCSS.css" AnchorPane.bottomAnchor="74.0" AnchorPane.rightAnchor="10.0">
               <items>
@@ -52,6 +51,6 @@
       </AnchorPane>
    </center>
    <top>
-      <TabPane fx:id="tabPane" prefHeight="26.0" prefWidth="777.0" stylesheets="@css/PostItCSS.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" />
+      <TabPane fx:id="tabPane" prefHeight="36.0" prefWidth="777.0" stylesheets="@css/PostItCSS.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" />
    </top>
 </BorderPane>

@@ -19,7 +19,7 @@ import java.util.Properties;
 public class DatabaseConnection
 {
     private static final String PROP_FILE = "database/database.settings";
-    private SQLServerDataSource ds;
+    private final SQLServerDataSource ds;
     
     /**
      * Sørger for at oprette forbindelse til databasen.

@@ -13,9 +13,9 @@ import javafx.beans.property.StringProperty;
  *
  * @author Wezzy Laptop
  */
-public class Customer implements ICustomer{
+public class Customer implements ICustomer {
 
-    private String name;
+    private final String name;
 
     public Customer(String name) {
         this.name = name;
@@ -23,15 +23,16 @@ public class Customer implements ICustomer{
 
     @Override
     public String getName() {
-        return name.toString();
+        return name;
     }
 
     @Override
     public String toString() {
-        return name;
+        return "" + name;
     }
-    
-        public StringProperty getCustomerProperty() {
+
+    @Override
+    public StringProperty getCustomerProperty() {
         return new SimpleStringProperty(getName());
     }
 

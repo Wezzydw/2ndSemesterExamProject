@@ -15,10 +15,5 @@ import pkg2ndsemesterexamproject.be.IProductionOrder;
 public interface ISortStrategy
 {
 
-    /**
-     *
-     * @param <error>
-     * @return
-     */
     public List<IProductionOrder> sort(List<IProductionOrder> list, String departmentName);
 }
