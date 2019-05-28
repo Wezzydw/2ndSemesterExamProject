@@ -23,17 +23,6 @@ import pkg2ndsemesterexamproject.be.ProductionOrder;
  * @author mpoul
  */
 public class SearchTest {
-    
-    public SearchTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
 
     @Test
     public void testSearchAllProductionOrders() throws Exception {

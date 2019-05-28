@@ -53,9 +53,21 @@ public class SortOrderIdTest {
     @Test
     public void testSortDifferentOrderLengths() {
         
-        IProductionOrder po1 = new ProductionOrder(new Order("123-456"), new Delivery(LocalDate.now()), new Customer("Føtex"), new ArrayList());
-        IProductionOrder po2 = new ProductionOrder(new Order("6734-823"), new Delivery(LocalDate.now()), new Customer("Bilka"), new ArrayList());
-        IProductionOrder po3 = new ProductionOrder(new Order("1345-3324"), new Delivery(LocalDate.now()), new Customer("Fakta"), new ArrayList());
+        IProductionOrder po1 = new ProductionOrder(
+                new Order("123-456"), 
+                new Delivery(LocalDate.now()), 
+                new Customer("Føtex"), 
+                new ArrayList());
+        IProductionOrder po2 = new ProductionOrder(
+                new Order("6734-823"), 
+                new Delivery(LocalDate.now()), 
+                new Customer("Bilka"), 
+                new ArrayList());
+        IProductionOrder po3 = new ProductionOrder(
+                new Order("1345-3324"), 
+                new Delivery(LocalDate.now()), 
+                new Customer("Fakta"), 
+                new ArrayList());
                 
         List<IProductionOrder> list = new ArrayList();
         list.add(po1);
