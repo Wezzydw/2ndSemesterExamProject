@@ -52,7 +52,7 @@ public class SearchTest {
                 new Delivery(LocalDate.now()), 
                 new Customer("Fakta"), 
                 new ArrayList());
-        String searchString = "3";
+        String searchString = "345";
         List<IProductionOrder> orders = new ArrayList();
         orders.add(po1);
         orders.add(po2);
@@ -61,7 +61,6 @@ public class SearchTest {
         Search instance = new Search();
         List<IProductionOrder> expResult = new ArrayList();
         expResult.add(po1);
-        expResult.add(po2);
         expResult.add(po3);
         List<IProductionOrder> result = instance.searchAllProductionOrders(
                 searchString, orders, departmentName);
