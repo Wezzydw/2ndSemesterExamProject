@@ -7,29 +7,17 @@ package pkg2ndsemesterexamproject.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
@@ -40,8 +28,7 @@ import pkg2ndsemesterexamproject.gui.CreatePane;
  *
  * @author marce
  */
-public class OrderOverViewController implements Initializable
-{
+public class OrderOverViewController implements Initializable {
 
     private double orderPaneWidth = 200;
     private double orderPaneHeigth = 150;
@@ -54,14 +41,12 @@ public class OrderOverViewController implements Initializable
     private AnchorPane orderOverviewAnchor;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         orderOverviewAnchor.getStyleClass().add("panetest");
 
     }
 
-    public void setProductionOrder(IProductionOrder productionOrder)
-    {
+    public void setProductionOrder(IProductionOrder productionOrder) {
         selectedProductionOrder = productionOrder;
         placeOrderInOverView();
     }
@@ -72,27 +57,20 @@ public class OrderOverViewController implements Initializable
      * @param po
      * @param dpt
      */
-    private void goToOrderOverview(IProductionOrder po, IDepartmentTask dpt)
-    {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
+    private void goToOrderOverview(IProductionOrder po, IDepartmentTask dpt) {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/OrderOverView.fxml"));
-        try
-        {
+        try {
             loader.load();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             System.out.println("Error" + ex);
         }
-        OrderOverViewController display = loader.getController();
-        //display.startClock();
-        //display.setData(dpt, po);
-        //display.setOrder(dpt, po);
+
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
         stage.showAndWait();
-        //display.closeWindow();
         stage.close();
     }
 
@@ -100,17 +78,14 @@ public class OrderOverViewController implements Initializable
      * Denne metode sørger for at alle de panes der bliver sat ind i vores
      * orderoverview, sættes pænt op med det ønskede mellemrum imellem hinanden.
      */
-    public void placeOrderInOverView()
-    {
+    public void placeOrderInOverView() {
         List<Pane> panes = new ArrayList();
-        for (IDepartmentTask orders : selectedProductionOrder.getDepartmentTasks())
-        {
+        for (IDepartmentTask orders : selectedProductionOrder.getDepartmentTasks()) {
 
             panes.add(CreatePane.createOrderInGUI(selectedProductionOrder, orders, 1.0));
         }
         int counter = 0;
-        for (Pane pane : panes)
-        {
+        for (Pane pane : panes) {
             pane.setLayoutX(minMargenEdgeX + counter * (orderPaneWidth + minMargenX));
             pane.setLayoutY(250);
             Label label = new Label(selectedProductionOrder.getDepartmentTasks().get(counter).getDepartment().getName());
@@ -120,6 +95,5 @@ public class OrderOverViewController implements Initializable
             orderOverviewAnchor.getChildren().add(pane);
             counter++;
         }
-
     }
 }

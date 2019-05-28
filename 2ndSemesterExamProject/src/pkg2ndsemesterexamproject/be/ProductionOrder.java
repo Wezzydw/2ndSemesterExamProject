@@ -8,7 +8,6 @@ package pkg2ndsemesterexamproject.be;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  *
@@ -16,10 +15,10 @@ import java.util.Objects;
  */
 public class ProductionOrder implements IProductionOrder {
 
-    private IOrder order;
-    private IDelivery delivery;
-    private ICustomer customer;
-    private List<IDepartmentTask> departmenTask;
+    private final IOrder order;
+    private final IDelivery delivery;
+    private final ICustomer customer;
+    private final List<IDepartmentTask> departmenTask;
 
     public ProductionOrder(IOrder order, IDelivery delivery, ICustomer customer, List<IDepartmentTask> tasks) {
         this.order = order;

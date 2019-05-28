@@ -9,11 +9,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -26,10 +24,9 @@ import pkg2ndsemesterexamproject.be.IProductionOrder;
  *
  * @author Wezzy
  */
-public class CreatePane
-{
-    public static Pane createOrderInGUI(IProductionOrder po, IDepartmentTask dpt, Double scale)       
-    {//IProductionOrder po, IDepartmentTask dp
+public class CreatePane {
+
+    public static Pane createOrderInGUI(IProductionOrder po, IDepartmentTask dpt, Double scale) {
         Label invis = new Label();
         invis.setMinSize(0, 0);
         List<IDepartmentTask> tasks = po.getDepartmentTasks();
@@ -47,18 +44,14 @@ public class CreatePane
         orderPane.setShape(rec);
         Circle circle = new Circle(13 * scale);
         circle.setFill(Paint.valueOf("Green"));
-        for (int i = 0; i < tasks.size(); i++)
-        {
-            if (tasks.get(i).equals(dpt) && i > 0)
-            {
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).equals(dpt) && i > 0) {
                 task = tasks.get(i - 1);
             }
         }
-        if (task == null || task.getFinishedOrder())
-        {
+        if (task == null || task.getFinishedOrder()) {
             circle.setFill(Paint.valueOf("Green"));
-        } else
-        {
+        } else {
             circle.setFill(Paint.valueOf("Red"));
         }
 
@@ -88,13 +81,11 @@ public class CreatePane
         Long startToNow = ChronoUnit.DAYS.between(dpt.getStartDate(), todayIs);
         double dd = progressInterval * startToNow;
         gc.setFill(Color.GREEN);
-        if (progressInterval * startToNow > 175 * scale)
-        {
+        if (progressInterval * startToNow > 175 * scale) {
             gc.setFill(Color.RED);
             dd = 175 * scale;
         }
         gc.fillRect(0, 0, dd, 20 * scale);
-//        gc.fillRect(0, 0, 160, 15);
         gc.setStroke(Color.BLACK);
         gc.strokeRect(0, 0, 175 * scale, 15 * scale);
 
@@ -126,17 +117,6 @@ public class CreatePane
 
         invis.setLayoutX(200 * scale);
         invis.setLayoutY(150 * scale);
-
-//        EventHandler<MouseEvent> event1 = (MouseEvent e)
-//                ->
-//        {
-//            if (e.getClickCount() == 2)
-//            {
-//                goToOverview(po, dpt);
-//            }
-//        };
-//
-//        orderPane.setOnMousePressed(event1);
 
         orderPane.getChildren().addAll(circle, orderNum, startDate, endDate, customer, invis);
 

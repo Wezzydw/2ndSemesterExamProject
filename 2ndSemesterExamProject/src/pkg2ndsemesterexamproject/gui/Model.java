@@ -8,44 +8,24 @@ package pkg2ndsemesterexamproject.gui;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-
 import java.util.ArrayList;
 import pkg2ndsemesterexamproject.be.Department;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import static javafx.scene.paint.Color.BLACK;
-import static javafx.scene.paint.Color.color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
-import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.bll.DataHandler;
 import pkg2ndsemesterexamproject.bll.PassThrough;
 import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
@@ -59,49 +39,31 @@ import pkg2ndsemesterexamproject.bll.Search;
  */
 public class Model {
 
-    private IPassthrough ptl;
     private double orderPaneWidth = 200;
     private double orderPaneHeigth = 150;
     private final int minMargenEdgeX = 25;
     private final int minMargenEdgeY = 10;
     private final int minMargenX = 20;
     private final int minMargenY = 10;
-    private long lastTime = 0;
 
-    private AnchorPane anchorPane;
-    private BorderPane borderPane;
+    private final AnchorPane anchorPane;
     private List<Pane> stickyNotes;
-    private DataHandler dataHandler;
+    private final DataHandler dataHandler;
     private String selectedDepartmentName;
-    private Search search;
     private String searchString = "";
     private ISortStrategy strategy;
     private double scalePost = 1;
     private List<IProductionOrder> orders = null;
     private int oldHash = 0;
 
-    public Model(AnchorPane anchorPane, BorderPane borderPane) throws IOException, SQLException {
+    public Model(AnchorPane anchorPane) throws IOException, SQLException {
         this.anchorPane = anchorPane;
-        this.borderPane = borderPane;
         stickyNotes = new ArrayList();
-        ptl = new PassThrough();
         dataHandler = new DataHandler();
-
-        search = new Search();
     }
 
     public void setSelectedDepartmentName(String name) {
         selectedDepartmentName = name;
-    }
-
-    /*
-    Henter alle departments fra databasen
-     */
- /*
-    
-     */
-    public void setMenuItems(MenuButton MenuButton, List<Department> allDepartments) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /*
@@ -131,7 +93,7 @@ public class Model {
         try {
             loader.load();
         } catch (IOException ex) {
-            throw new IOException();
+            throw new IOException(ex);
         }
         ProjectOverViewController display = loader.getController();
         display.startClock();
@@ -178,8 +140,6 @@ public class Model {
                 }
             });
             t.start();
-        } else {
-            System.out.println("Else");
         }
     }
 
@@ -270,24 +230,8 @@ public class Model {
         for (IDepartmentTask IdepartmentTask : departmentTask) {
             if (IdepartmentTask.getFinishedOrder() == true) {
                 circle.setFill(Paint.valueOf("Green"));
-
             }
-            //if (IdepartmentTask.getStartDate().isBefore(otherTime));
-            //circle.setFill(Paint.valueOf("Yellow"));
-
-//            else {
-//                circle.setFill(Paint.valueOf("Red"));
-//            }
-//            
         }
-    }
-
-    /*
-    denne metode viser brugeren om de har forbindelse til databasen, og hvis ikke
-    sendes der en meddelse om at IT-service burde kontaktes.
-     */
-    public boolean checkConnection() {
-        return true;
     }
 
     public void setSearchString(String string) {

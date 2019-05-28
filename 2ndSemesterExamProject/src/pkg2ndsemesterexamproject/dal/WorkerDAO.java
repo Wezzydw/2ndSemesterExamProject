@@ -20,18 +20,19 @@ import pkg2ndsemesterexamproject.be.Worker;
  * @author mpoul
  */
 public class WorkerDAO {
-    
+
     private DatabaseConnection conProvider;
 
     public WorkerDAO() throws IOException {
         conProvider = new DatabaseConnection();
     }
+
     /*
     Metoden skaber forbindelse til databasen og henter de efterspurgte informationer
     om workers ind i programmeet og adder workersne dertil.
-    */
+     */
     public List<IWorker> getAllWorkers() throws SQLException {
-        
+
         List<IWorker> allWorkers = new ArrayList();
         try (Connection con = conProvider.getConnection()) {
             String a = "SELECT * FROM Worker;";
@@ -50,7 +51,6 @@ public class WorkerDAO {
         } catch (SQLException ex) {
             throw new SQLException("No data from getAllWorkers" + ex);
         }
-        
 
         return allWorkers;
     }

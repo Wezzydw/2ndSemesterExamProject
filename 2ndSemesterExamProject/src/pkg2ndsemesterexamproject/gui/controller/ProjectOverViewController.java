@@ -47,8 +47,7 @@ import pkg2ndsemesterexamproject.gui.OverViewModel;
  *
  * @author andreas
  */
-public class ProjectOverViewController implements Initializable
-{
+public class ProjectOverViewController implements Initializable {
 
     private ObservableList<IWorker> allWorkers = FXCollections.observableArrayList();
     private IDepartmentTask departmentTask;
@@ -56,7 +55,6 @@ public class ProjectOverViewController implements Initializable
 
     private OverViewModel model;
     private Label lblOrder;
-    private Label lblDeliveryDate;
     @FXML
     private Label lblClock;
 
@@ -65,8 +63,6 @@ public class ProjectOverViewController implements Initializable
     private ListView<IWorker> lstView;
     @FXML
     private AnchorPane mainPane;
-    @FXML
-    private BorderPane borderPane;
     @FXML
     private TabPane tabPane;
     private Text txtCustomer;
@@ -82,44 +78,38 @@ public class ProjectOverViewController implements Initializable
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
-     
-        try
-        {
+    public void initialize(URL url, ResourceBundle rb) {
+
+        try {
             model = new OverViewModel();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         updateListViewWorkersAssigned();
-        
-        
+
     }
-/**
- * denne metode kalder clockUpdate så at vores clock i viewet bliver sat,
- * og den rigtige tid vises.
- */
-    public void startClock()
-    {
+
+    /**
+     * denne metode kalder clockUpdate så at vores clock i viewet bliver sat, og
+     * den rigtige tid vises.
+     */
+    public void startClock() {
         executor = Executors.newSingleThreadExecutor();
         executor.submit(()
-                ->
-        {
+                -> {
             clockUpdate();
         });
     }
-/**
- * denne metode stopper tråden der holder vores clock kørende
- */    
-    public void closeWindow()
-    {
+
+    /**
+     * denne metode stopper tråden der holder vores clock kørende
+     */
+    public void closeWindow() {
         executor.shutdownNow();
     }
 
     @FXML
-    private void orderIsDone(ActionEvent event)
-    {
+    private void orderIsDone(ActionEvent event) {
         Button btnYes = new Button("Yes");
         Button btnNo = new Button("No");
         Label lblTxt = new Label("Are you 100% sure that you are done with\n this DepartmentTask");
@@ -136,17 +126,15 @@ public class ProjectOverViewController implements Initializable
         Scene scene = new Scene(root, 300, 250);
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);
-        btnYes.setOnAction((ActionEvent event1) ->
-        {
-            try
-            {
+        btnYes.setOnAction((ActionEvent event1)
+                -> {
+            try {
                 model.orderIsDone(departmentTask, productionOrder);
                 primaryStage.close();
                 Stage stage11 = (Stage) lblOrder.getScene().getWindow();
                 stage11.close();
 
-            } catch (SQLException ex)
-            {
+            } catch (SQLException ex) {
                 Button btnOk = new Button("Ok");
 
                 Label lblNoConnection = new Label("There is no connection to the DB");
@@ -161,8 +149,8 @@ public class ProjectOverViewController implements Initializable
                 Scene scene2 = new Scene(root2, 300, 250);
                 Stage primaryStage2 = new Stage();
                 primaryStage2.setScene(scene2);
-                btnOk.setOnAction((ActionEvent event3) ->
-                {
+                btnOk.setOnAction((ActionEvent event3)
+                        -> {
                     primaryStage2.close();
                     Stage stage1 = (Stage) lblTxt.getScene().getWindow();
                     stage1.close();
@@ -172,24 +160,22 @@ public class ProjectOverViewController implements Initializable
                 Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        btnNo.setOnAction((ActionEvent event2) ->
-        {
+        btnNo.setOnAction((ActionEvent event2)
+                -> {
             primaryStage.close();
         });
         primaryStage.show();
     }
-/**
- * denne metode tager fat i localdatetime og får herved localtime. If statementsne,
- * sørger  for at vi får tiden vist med de rigtige decimaler.
- */
-    private void clockUpdate()
-    {
-        try
-        {
-            while (true)
-            {
-                Platform.runLater(() ->
-                {
+
+    /**
+     * denne metode tager fat i localdatetime og får herved localtime. If
+     * statementsne, sørger for at vi får tiden vist med de rigtige decimaler.
+     */
+    private void clockUpdate() {
+        try {
+            while (true) {
+                Platform.runLater(()
+                        -> {
                     String sec = "";
                     String min = "";
                     String hour = "";
@@ -199,16 +185,13 @@ public class ProjectOverViewController implements Initializable
                     sec = "" + second;
                     min = "" + minute;
                     hour = "" + hours;
-                    if (second < 10)
-                    {
+                    if (second < 10) {
                         sec = "0" + second;
                     }
-                    if (minute < 10)
-                    {
+                    if (minute < 10) {
                         min = "0" + minute;
                     }
-                    if (hours < 10)
-                    {
+                    if (hours < 10) {
                         hour = "0" + hours;
                     }
                     String clock = hour + ":" + min + ":" + sec;
@@ -216,41 +199,34 @@ public class ProjectOverViewController implements Initializable
                 });
                 TimeUnit.SECONDS.sleep(1);
             }
-        } catch (InterruptedException ex)
-        {
+        } catch (InterruptedException ex) {
             System.out.println("Closed Window");
         }
     }
-/**
- * 
- */
-    private void updateListViewWorkersAssigned()
-    {
+
+    /**
+     *
+     */
+    private void updateListViewWorkersAssigned() {
         allWorkers.clear();
-        try
-        {
-            for (IWorker iWorker : model.updateListViewWorkersAssigned())
-            {
+        try {
+            for (IWorker iWorker : model.updateListViewWorkersAssigned()) {
                 allWorkers.add(iWorker);
             }
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             Logger.getLogger(ProjectOverViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         lstView.setItems(allWorkers);
     }
 
-    public void setOrder(IDepartmentTask dt, IProductionOrder po)
-    {
+    public void setOrder(IDepartmentTask dt, IProductionOrder po) {
         this.departmentTask = dt;
         this.productionOrder = po;
     }
 
-    public void setData(IDepartmentTask dt, IProductionOrder po)
-    {
+    public void setData(IDepartmentTask dt, IProductionOrder po) {
         txtCustomer = new Text("Customer: " + po.getCustomer().toString());
         txtOrder = new Text("Order number: " + po.getOrder().toString());
         txtStartDate = new Text(dt.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
@@ -259,10 +235,6 @@ public class ProjectOverViewController implements Initializable
         txtRealized = new Text("Realized progress");
         txtRStartDate = new Text(po.getDepartmentTasks().get(0).getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
         txtDeliveryDate = new Text(po.getDelivery().getDeliveryTime().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
-//        lblCustomer.setText("Customer: " + po.getCustomer().toString());
-//        lblOrder.setText("Order number: " + po.getOrder().toString());
-//        lblStartDate.setText(dt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
-//        lblEndDate.setText(dt.getEndDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
         txtCustomer.setLayoutX(5);
         txtCustomer.setLayoutY(215);
         txtOrder.setLayoutX(5);
@@ -279,7 +251,7 @@ public class ProjectOverViewController implements Initializable
         txtRealized.setLayoutY(45);
         txtDeliveryDate.setLayoutX(502);
         txtDeliveryDate.setLayoutY(45);
-        
+
         txtCustomer.getStyleClass().add("fancytext");
         txtOrder.getStyleClass().add("fancytext");
         txtStartDate.getStyleClass().add("fancytext2");
@@ -288,29 +260,23 @@ public class ProjectOverViewController implements Initializable
         txtRealized.getStyleClass().add("fancytext2");
         txtRStartDate.getStyleClass().add("fancytext2");
         txtDeliveryDate.getStyleClass().add("fancytext2");
-        
-        
+
         int indexOfDepartment = 0;
         int counter = 0;
 
-        for (IDepartmentTask tasks : po.getDepartmentTasks())
-        {
-            if (tasks.equals(dt))
-            {
+        for (IDepartmentTask tasks : po.getDepartmentTasks()) {
+            if (tasks.equals(dt)) {
                 indexOfDepartment = counter;
             }
             counter++;
         }
-        for (int i = 0; i <= indexOfDepartment; i++)
-        {
+        for (int i = 0; i <= indexOfDepartment; i++) {
             Tab ta = new Tab();
             ta.setText(po.getDepartmentTasks().get(i).getDepartment().toString());
-            if (po.getDepartmentTasks().get(i).getFinishedOrder())
-            {
+            if (po.getDepartmentTasks().get(i).getFinishedOrder()) {
                 ta.setStyle("-fx-background-color: Green;");
 
-            } else
-            {
+            } else {
                 ta.setStyle("-fx-background-color: Red;");
             }
             tabPane.getTabs().add(ta);
@@ -345,7 +311,7 @@ public class ProjectOverViewController implements Initializable
         gc.strokeRect(0, 0, 585, 20);
         gc.setFill(Color.WHITE);
         gc.fillRect(progressInterval * startToNow, 0, 585, 20);
-        
+
         gc1.setFill(Color.GREEN);
         Long daysBetween1 = ChronoUnit.DAYS.between(po.getDepartmentTasks().get(0).getStartDate(), po.getDelivery().getDeliveryTime());
         int progressInterval1 = (int) (585 / daysBetween1);
@@ -354,7 +320,7 @@ public class ProjectOverViewController implements Initializable
         gc1.fillRect(0, 0, progressInterval1 * startToNow1, 20);
         gc1.setFill(Color.WHITE);
         gc1.fillRect(progressInterval1 * startToNow1, 0, 585, 20);
-        
+
         gc1.setStroke(Color.BLACK);
         gc1.strokeRect(0, 0, 585, 20);
 
