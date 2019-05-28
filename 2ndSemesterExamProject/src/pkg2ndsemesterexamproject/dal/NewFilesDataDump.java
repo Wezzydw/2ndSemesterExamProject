@@ -23,7 +23,7 @@ import pkg2ndsemesterexamproject.be.IWorker;
  */
 public class NewFilesDataDump {
 
-   private DatabaseConnection conProvider;
+    private DatabaseConnection conProvider;
 
     public NewFilesDataDump() throws IOException {
         this.conProvider = new DatabaseConnection();
@@ -49,7 +49,7 @@ public class NewFilesDataDump {
                         }
                         writeDepartmentToDB(departments);
                         writeWorkerToDB(jf.extractWorkersFromJSON(file));
-                        
+
 //                    } else if (file.getName().endsWith(".xlsx")) {
 //                        List<IProductionOrder> nonDuplicateDataList = removeDuplicates(file, ".xlsx");
 //                        List<IDepartment> departments = new ArrayList();
@@ -63,7 +63,7 @@ public class NewFilesDataDump {
 //                        writeDepartmentToDB(departments);
 //                        writeWorkerToDB(jf.extractWorkersFromJSON(file));
 //                        
-                    } else if(file.getName().endsWith(".csv")) {
+                    } else if (file.getName().endsWith(".csv")) {
                         List<IProductionOrder> nonDuplicateDataList = removeDuplicates(file, ".csv");
                         List<IDepartment> departments = new ArrayList();
                         writeProductionOrderToDB(nonDuplicateDataList);
@@ -80,10 +80,8 @@ public class NewFilesDataDump {
             }
         }
     }
-    
-    public List<IProductionOrder> removeDuplicates(File f, String type) throws IOException, SQLException
-    {
-        //Det fra datadumper der er vigtgit
+
+    public List<IProductionOrder> removeDuplicates(File f, String type) throws IOException, SQLException {
         JSONFormater jf = new JSONFormater();
         GetData getData = new GetData();
         CSVFormatter cf = new CSVFormatter();
@@ -91,13 +89,13 @@ public class NewFilesDataDump {
         List<IProductionOrder> productionOrdersFromDB = getData.getAllProductionOrders();
         List<IProductionOrder> productionOrdersFromFile = new ArrayList();
         List<IProductionOrder> nonDublicateOrders = new ArrayList();
-        if(type.equals(".txt")){
-            productionOrdersFromFile = jf.extractProductionOrdersFromJSON();
+        if (type.equals(".txt")) {
+            productionOrdersFromFile = jf.extractProductionOrdersFromJSON(f);
         }
-        if(type.equals(".csv")){
+        if (type.equals(".csv")) {
             productionOrdersFromFile = cf.extractProductionOrders(f);
         }
-        if(type.equals(".xlsx")){
+        if (type.equals(".xlsx")) {
             productionOrdersFromFile = xf.extractProductionOrders(f);
         }
         outerLoop:
@@ -115,8 +113,8 @@ public class NewFilesDataDump {
         }
         return nonDublicateOrders;
     }
-    
-public void writeDepartmentToDB(List<IDepartment> d) throws SQLException {
+
+    public void writeDepartmentToDB(List<IDepartment> d) throws SQLException {
         try (Connection con = conProvider.getConnection()) {
             String query = "INSERT INTO Department (dName) VALUES(?);";
             PreparedStatement prst = con.prepareStatement(query);
@@ -129,6 +127,7 @@ public void writeDepartmentToDB(List<IDepartment> d) throws SQLException {
             prst.executeBatch();
 
         } catch (SQLException ex) {
+            throw new SQLException(ex);
         }
     }
 
@@ -138,13 +137,6 @@ public void writeDepartmentToDB(List<IDepartment> d) throws SQLException {
             PreparedStatement prst = con.prepareStatement(query);
             List<IDepartmentTask> dTask = po.getDepartmentTasks();
             for (IDepartmentTask departmentTask : dTask) {
-//                if (departmentTask.getFinishedOrder())
-//                {
-//                    prst.setInt(1, 1);
-//                } else
-//                {
-//                    prst.setInt(1, 0);
-//                }
                 prst.setBoolean(1, departmentTask.getFinishedOrder());
                 prst.setString(2, departmentTask.getStartDate().toString());
                 prst.setString(3, departmentTask.getEndDate().toString());
@@ -154,6 +146,7 @@ public void writeDepartmentToDB(List<IDepartment> d) throws SQLException {
             }
             prst.executeBatch();
         } catch (SQLException ex) {
+            throw new SQLException(ex);
         }
     }
 
@@ -170,6 +163,7 @@ public void writeDepartmentToDB(List<IDepartment> d) throws SQLException {
             }
             prst.executeBatch();
         } catch (SQLException ex) {
+            throw new SQLException(ex);
         }
     }
 
@@ -187,25 +181,26 @@ public void writeDepartmentToDB(List<IDepartment> d) throws SQLException {
 
             prst.executeBatch();
         } catch (SQLException ex) {
+            throw new SQLException(ex);
         }
     }
-    
-    private List<IDepartment> nonDepartmentDuplicate(List<IDepartment> departments) throws IOException, SQLException{
-        GetData getData = new GetData();
-        List<IDepartment> nonDublicateDepartments = new ArrayList(); 
-        outerLoop:
-        for (IDepartment departmentFromDB : getData.getAllDepartments()) {
-            int count = 0;
-            for (IDepartment departmentFile : departments) {
-                if (departmentFromDB.getName().equals(departmentFile.getName())) {
-                    continue outerLoop;
-                } else if (count == departments.size() - 1) {
-                    nonDublicateDepartments.add(departmentFile);
-                } else {
-                    count++;
-                }
-            }
-        }
-        return nonDublicateDepartments;
-    }
+
+//    private List<IDepartment> nonDepartmentDuplicate(List<IDepartment> departments) throws IOException, SQLException {
+//        GetData getData = new GetData();
+//        List<IDepartment> nonDublicateDepartments = new ArrayList();
+//        outerLoop:
+//        for (IDepartment departmentFromDB : getData.getAllDepartments()) {
+//            int count = 0;
+//            for (IDepartment departmentFile : departments) {
+//                if (departmentFromDB.getName().equals(departmentFile.getName())) {
+//                    continue outerLoop;
+//                } else if (count == departments.size() - 1) {
+//                    nonDublicateDepartments.add(departmentFile);
+//                } else {
+//                    count++;
+//                }
+//            }
+//        }
+//        return nonDublicateDepartments;
+//    }
 }

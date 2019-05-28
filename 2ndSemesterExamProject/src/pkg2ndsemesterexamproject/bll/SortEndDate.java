@@ -5,11 +5,7 @@
  */
 package pkg2ndsemesterexamproject.bll;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import pkg2ndsemesterexamproject.be.DepartmentTask;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 
@@ -36,7 +32,6 @@ public class SortEndDate implements ISortStrategy {
                     if (list1.get(i).getDepartmentTasks().get(j).getDepartment().getName().equals(departmentName)) {
                         if (temp != null && temp2 != null) {
                             if (list1.get(i).getDepartmentTasks().get(j).getEndDate().isBefore(temp.getEndDate())) {
-                                //list1.sort(c); kig på comparter og sådan noget
                                 if (i - 1 >= 0) {
                                     swapPlaces(i, i - 1);
                                 }
@@ -55,11 +50,6 @@ public class SortEndDate implements ISortStrategy {
         IProductionOrder temp = list1.get(i);
         list1.set(i, list1.get(j));
         list1.set(j, temp);
-    }
-
-    @Override
-    public String toString() {
-        return "End Date";
     }
 
 }

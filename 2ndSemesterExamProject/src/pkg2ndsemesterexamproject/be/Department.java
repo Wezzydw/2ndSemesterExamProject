@@ -5,8 +5,6 @@
  */
 package pkg2ndsemesterexamproject.be;
 
-import java.time.LocalDate;
-
 /**
  *
  * @author andreas

@@ -87,24 +87,20 @@ and open the template in the editor.
 .backgroundPicture{
     -fx-background-image:url(belman.jpg);
     -fx-background-size: cover;
-    -fx-opacity:0.75;
+    
    
 }
 .fancytext {
     -fx-font: Bold 40px Calibri;
     -fx-fill: white;
-    -fx-stroke: black;
-    -fx-stroke-width: 2;
 }
 .tab-pane .tab-header-area .tab-header-background {
     -fx-opacity: 0;
 }
 .fancytext2{
-    -fx-font: Bold 18px Calibri;
+    -fx-font: Bold 20px Calibri;
     /*-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);*/
     -fx-fill: white;
-    -fx-stroke: black;
-    -fx-stroke-width: 1;
 }
 
 

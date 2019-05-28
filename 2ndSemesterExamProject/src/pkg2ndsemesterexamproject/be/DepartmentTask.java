@@ -6,7 +6,6 @@
 package pkg2ndsemesterexamproject.be;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,10 +16,10 @@ import java.util.Objects;
 public class DepartmentTask implements IDepartmentTask {
 
     private List<IWorker> activeWorkers;
-    private IDepartment department;
-    private Boolean finishedOrder;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private final IDepartment department;
+    private final Boolean finishedOrder;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
     public DepartmentTask(IDepartment department, Boolean finishedOrder, LocalDate startDate, LocalDate endDate) {
         this.activeWorkers = activeWorkers;

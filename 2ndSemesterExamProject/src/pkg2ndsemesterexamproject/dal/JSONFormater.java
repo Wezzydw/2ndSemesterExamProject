@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -58,7 +57,7 @@ public class JSONFormater {
         BufferedReader br = new BufferedReader(fr);
         String line;
         String data = "";
-        while((line = br.readLine()) != null){
+        while ((line = br.readLine()) != null) {
             data += line;
         }
         String[] array = data.split("\\[");
@@ -87,17 +86,6 @@ public class JSONFormater {
                 indexEnd = string.indexOf('}', indexStart);
 
                 String saleryNumber = string.substring(indexStart, indexEnd);
-
-//            int initialsStartIndex = string.indexOf("Initials", 0);
-//            int initialsEndIndex = string.indexOf(",", initialsStartIndex);
-//            String initials = string.substring(initialsStartIndex + initialsIndexLength, initialsEndIndex - 1);
-//
-//            int nameStartIndex = string.indexOf("Name", initialsEndIndex);
-//            int nameEndIndex = string.indexOf(",", nameStartIndex);
-//            String name = string.substring(nameStartIndex + nameIndexLength, nameEndIndex-1);
-//            int saleryNumberStartIndex = string.indexOf("Name", nameEndIndex);
-//            int saleryEndIndex = string.indexOf(",", saleryNumberStartIndex);
-//            String saleryNumber = string.substring(saleryNumberStartIndex + saleryNumberIndexLength, saleryEndIndex-1);
                 int s = Integer.parseInt(saleryNumber);
                 workers.add(new Worker(name, initials, s));
             }
@@ -112,8 +100,8 @@ public class JSONFormater {
      * @return List<IProductionOrder>
      * @throws IOException
      */
-    public List<IProductionOrder> extractProductionOrdersFromJSON() throws IOException {
-        String[] array = loadData().split("ProductionOrder:");
+    public List<IProductionOrder> extractProductionOrdersFromJSON(File file) throws IOException {
+        String[] array = loadData(file).split("ProductionOrder:");
         List<ICustomer> customers = new ArrayList();
         List<IDelivery> deliveries = new ArrayList();
         List<IDepartmentTask> departmentTasks = new ArrayList();
@@ -190,9 +178,9 @@ public class JSONFormater {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public String loadData() throws FileNotFoundException, IOException {
-        
-        FileReader filereader = new FileReader(new File("./data/JSON.txt"));
+    public String loadData(File file) throws FileNotFoundException, IOException {
+
+        FileReader filereader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(filereader);
         String data = "";
         String line;

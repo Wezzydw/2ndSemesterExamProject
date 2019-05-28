@@ -9,11 +9,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -67,18 +65,15 @@ public class CreatePane
         IDepartmentTask task = null;
         List<IDepartmentTask> tasks = po.getDepartmentTasks();
         Circle circle = new Circle(13 * scale);
-        for (int i = 0; i < tasks.size(); i++)
-        {
-            if (tasks.get(i).equals(dpt) && i > 0)
-            {
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).equals(dpt) && i > 0) {
                 task = tasks.get(i - 1);
             }
         }
-        if (task == null || task.getFinishedOrder())
-        {
+        if (task == null || task.getFinishedOrder()) {
             circle.setFill(Paint.valueOf("Green"));
-        } else
-        {
+        } else {
             circle.setFill(Paint.valueOf("Red"));
         }
         return circle;
@@ -128,5 +123,5 @@ public class CreatePane
         
         canvas.setLayoutX(13 * scale);
         canvas.setLayoutY(130 * scale);
-    }        
+    }  
 }
