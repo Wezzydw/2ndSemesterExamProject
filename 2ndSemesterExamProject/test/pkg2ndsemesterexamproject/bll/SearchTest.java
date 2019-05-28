@@ -37,13 +37,22 @@ public class SearchTest {
 
     @Test
     public void testSearchAllProductionOrders() throws Exception {
-        System.out.println("searchAllProductionOrders");
-        
-        IProductionOrder po1 = new ProductionOrder(new Order("123456"), new Delivery(LocalDate.now()), new Customer("Føtex"), new ArrayList());
-        IProductionOrder po2 = new ProductionOrder(new Order("673482"), new Delivery(LocalDate.now()), new Customer("Bilka"), new ArrayList());
-        IProductionOrder po3 = new ProductionOrder(new Order("134533"), new Delivery(LocalDate.now()), new Customer("Fakta"), new ArrayList());
-        
-        String searchString = "3";
+        IProductionOrder po1 = new ProductionOrder(
+                new Order("123456"), 
+                new Delivery(LocalDate.now()), 
+                new Customer("Føtex"), 
+                new ArrayList());
+        IProductionOrder po2 = new ProductionOrder(
+                new Order("673482"), 
+                new Delivery(LocalDate.now()), 
+                new Customer("Bilka"), 
+                new ArrayList());
+        IProductionOrder po3 = new ProductionOrder(
+                new Order("134533"), 
+                new Delivery(LocalDate.now()), 
+                new Customer("Fakta"), 
+                new ArrayList());
+        String searchString = "345";
         List<IProductionOrder> orders = new ArrayList();
         orders.add(po1);
         orders.add(po2);
@@ -52,9 +61,9 @@ public class SearchTest {
         Search instance = new Search();
         List<IProductionOrder> expResult = new ArrayList();
         expResult.add(po1);
-        expResult.add(po2);
         expResult.add(po3);
-        List<IProductionOrder> result = instance.searchAllProductionOrders(searchString, orders, departmentName);
+        List<IProductionOrder> result = instance.searchAllProductionOrders(
+                searchString, orders, departmentName);
         assertEquals(expResult, result);
     }
     

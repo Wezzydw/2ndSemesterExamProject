@@ -37,6 +37,13 @@ public class DataHandler {
         oldData = new ArrayList();
         runDataCheck();
     }
+    
+    /**
+     * Hvis data listens hashværdi ikke er det samme som oldHash, sættes isNewData
+     * til true, hvis den er det samme som oldHash, sættes den false.
+     * @throws SQLException 
+     */
+    
 
     public void runDataCheck() throws SQLException {
         data = passThrough.getAllProductionOrders();
@@ -48,19 +55,25 @@ public class DataHandler {
         }
         oldHash = data.hashCode();
     }
+    
+    /**
+     * Denne behandles af runDataCheck
+     * @return isNewData true/false efter hvad runDataCheck() sætter den til.
+     */
+    
 
     public boolean isThereNewData() {
         return isNewData;
     }
 
     /**
-     * Denne metode laver en liste over alle proktionsordre fra databasen. Disse
+     * Denne metode laver en liste over alle produktionsordre fra databasen. Disse
      * ordre.........
      *
      * @param departmentName
      * @param searchString
      * @param strategy
-     * @return
+     * @return En liste af ProductionOrder
      * @throws SQLException
      * @throws IOException
      */
