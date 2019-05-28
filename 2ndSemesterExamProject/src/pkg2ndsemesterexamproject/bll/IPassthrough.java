@@ -9,12 +9,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import pkg2ndsemesterexamproject.be.Department;
 import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.be.IWorker;
-import pkg2ndsemesterexamproject.be.Order;
 
 /**
  *
@@ -22,9 +20,6 @@ import pkg2ndsemesterexamproject.be.Order;
  */
 public interface IPassthrough
 {
-    public String loadData () throws FileNotFoundException, IOException;
-    
-    public void extractWorkersFromJSON()throws FileNotFoundException, IOException;
 
     public List<IWorker> getWorkersFromDB()throws SQLException;
        
@@ -36,8 +31,6 @@ public interface IPassthrough
     
     List<IProductionOrder> getAllProductionOrders() throws SQLException;
     
-    public void getCircleColour();
-    
-    public void scanFolderForNewFiles();
+    public void scanFolderForNewFiles() throws IOException;
    
 }

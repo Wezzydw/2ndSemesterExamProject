@@ -11,13 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import pkg2ndsemesterexamproject.be.Customer;
 import pkg2ndsemesterexamproject.be.Delivery;
 import pkg2ndsemesterexamproject.be.Department;
@@ -38,20 +33,6 @@ import pkg2ndsemesterexamproject.be.Worker;
  * @author Wezzy Laptop
  */
 public class CSVFormatter implements IFormatter {
-
-    public List<String> testerString() throws FileNotFoundException, IOException {
-        FileReader filereader = new FileReader(new File("./data/result.csv"));
-        BufferedReader bufferedReader = new BufferedReader(filereader);
-        List<String> data = new ArrayList();
-        String line;
-
-        while ((line = bufferedReader.readLine()) != null) {
-            System.out.println(line);
-            data.add(line);
-        }
-
-        return data;
-    }
 
     @Override
     public List<IProductionOrder> extractProductionOrders(File file) throws FileNotFoundException, IOException {
@@ -179,19 +160,15 @@ public class CSVFormatter implements IFormatter {
                 startIndex = string.indexOf(",");
                 endIndex = string.indexOf(",", startIndex + 1);
                 String initials = string.substring(startIndex + 2, endIndex - 1);
-                System.out.println("Initials: " + initials);
 
                 startIndex = endIndex;
                 endIndex = string.indexOf(",", startIndex + 1);
                 String name = string.substring(startIndex + 2, endIndex - 1);
-                System.out.println("Name: " + name);
 
                 startIndex = endIndex;
                 endIndex = string.indexOf(",", startIndex + 1);
                 String SN = string.substring(startIndex + 2, endIndex - 1);
                 int sn = Integer.parseInt(SN);
-                System.out.println("sn: " + sn);
-
                 workers.add(new Worker(name, initials, sn));
             } else {
                 if (isAfterFirstRun) {

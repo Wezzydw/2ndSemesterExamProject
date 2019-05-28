@@ -13,28 +13,22 @@ import pkg2ndsemesterexamproject.be.IProductionOrder;
  *
  * @author andreas
  */
-public class SortReady implements ISortStrategy
-{
+public class SortReady implements ISortStrategy {
 
     @Override
-    public List<IProductionOrder> sort(List<IProductionOrder> list, String departmentName)
-    {
+    public List<IProductionOrder> sort(List<IProductionOrder> list, String departmentName) {
         return readySort(list, departmentName);
     }
-    
-    private List<IProductionOrder> readySort(List<IProductionOrder> list, String departmentName){
+
+    private List<IProductionOrder> readySort(List<IProductionOrder> list, String departmentName) {
         List<IProductionOrder> done = new ArrayList();
         List<IProductionOrder> notDone = new ArrayList();
-        for (int i = 0; i < list.size(); i++)
-        {
-            for (int j = 0; j < list.get(i).getDepartmentTasks().size(); j++)
-            {
-                if(list.get(i).getDepartmentTasks().get(j).getDepartment().getName().equals(departmentName)){
-                    if(j-1 == -1 || list.get(i).getDepartmentTasks().get(j-1).getFinishedOrder())
-                    {
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = 0; j < list.get(i).getDepartmentTasks().size(); j++) {
+                if (list.get(i).getDepartmentTasks().get(j).getDepartment().getName().equals(departmentName)) {
+                    if (j - 1 == -1 || list.get(i).getDepartmentTasks().get(j - 1).getFinishedOrder()) {
                         done.add(list.get(i));
-                    }
-                    else{
+                    } else {
                         notDone.add(list.get(i));
                     }
                 }
@@ -44,10 +38,4 @@ public class SortReady implements ISortStrategy
         return done;
     }
 
-    @Override
-    public String toString()
-    {
-        return "Ready";
-    }
-    
 }

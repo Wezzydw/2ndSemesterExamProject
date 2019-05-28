@@ -4,7 +4,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pkg2ndsemesterexamproject.bll;
 
 import java.io.FileNotFoundException;
@@ -35,24 +34,16 @@ public class PassThrough implements IPassthrough {
     }
 
     @Override
-    public String loadData() throws FileNotFoundException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void extractWorkersFromJSON() throws FileNotFoundException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public List<IWorker> getWorkersFromDB() throws SQLException {
         return getDataFromDB.getAllWorkers();
     }
+
     /**
-     * Denne metode retunere ne liste af departments
-     * som den får fra getDataFromDB.getAllDepartments()
+     * Denne metode retunere ne liste af departments som den får fra
+     * getDataFromDB.getAllDepartments()
+     *
      * @return List<IDepartment>
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public List<IDepartment> getAllDepartments() throws SQLException {
@@ -74,15 +65,11 @@ public class PassThrough implements IPassthrough {
         getDataFromDB.sendOrderIsDone(dt, po);
     }
 
-    public void getCircleColour() {
-        getDataFromDB.getCircleColour();
-    }
-
-    public void scanFolderForNewFiles() {
+    public void scanFolderForNewFiles() throws IOException {
         try {
             scanFolder.updateFiles();
         } catch (IOException ex) {
-            Logger.getLogger(PassThrough.class.getName()).log(Level.SEVERE, null, ex);
+            throw new IOException(ex);
         }
     }
 

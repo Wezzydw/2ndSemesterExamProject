@@ -11,9 +11,9 @@ package pkg2ndsemesterexamproject.be;
  */
 public class Worker implements IWorker {
 
-    private String name;
-    private String initials;
-    private int salaryNumber;
+    private final String name;
+    private final String initials;
+    private final int salaryNumber;
 
     @Override
     public String toString() {

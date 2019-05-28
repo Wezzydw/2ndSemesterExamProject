@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import pkg2ndsemesterexamproject.be.Customer;
 import pkg2ndsemesterexamproject.be.Delivery;
@@ -73,19 +72,16 @@ public class ProductionOrderDAO {
     public List<IDepartmentTask> getAllTasksForProductionOrder(String orderNum) throws SQLException {
         List<IDepartmentTask> tasks = new ArrayList();
         try (Connection con = conProvider.getConnection()) {
-//            String a = "SELECT * FROM DepartmentTask;";
             String a = "SELECT * From DepartmentTask WHERE orderNumber = ?;";
             PreparedStatement prst = con.prepareStatement(a);
             prst.setString(1, orderNum);
             ResultSet rs = prst.executeQuery();
 
             while (rs.next()) {
-                int id = rs.getInt("id");
                 boolean done = rs.getBoolean("isFinished");
                 String sDate = rs.getString("startDate");
                 String eDate = rs.getString("endDate");
                 String department = rs.getString("department");
-                String orderNumber = rs.getString("orderNumber");
                 LocalDate endDate = LocalDate.parse(eDate);
                 LocalDate startDate = LocalDate.parse(sDate);
 
@@ -97,10 +93,12 @@ public class ProductionOrderDAO {
         }
         return tasks;
     }
+
     /**
      * Denne metode retunere
+     *
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     public List<IDepartment> getAllDepartments() throws SQLException {
         List<IDepartment> departments = new ArrayList();
@@ -120,37 +118,8 @@ public class ProductionOrderDAO {
         return departments;
     }
 
-    public void updateCircleColour() {
-        try (Connection con = conProvider.getConnection()) {
-
-//            prst.execute();
-            System.out.println("DILLERBANG");
-        } catch (SQLException ex) {
-
-        }
-    }
-
-//    private List<IWorker> getAllWorkers() throws SQLException{
-//        List<IWorker> workers = new ArrayList();
-//        try (Connection con = conProvider.getConnection()) {
-//            String a = "SELECT * FROM DepartmentTask;";
-//            PreparedStatement prst = con.prepareStatement(a);
-//            ResultSet rs = prst.executeQuery();
-//
-//            while (rs.next()) {
-//                String workerName = rs.getString("name");
-//                String initials = rs.getString("initials");
-//                int salaryNumber = rs.getInt("salaryNumber");
-//                workers.add(new Worker(workerName, initials, salaryNumber));
-//            }
-//        } catch (SQLException ex) {
-//            throw new SQLException("No data from getAllWorkers" + ex);
-//        }        
-//        return workers;        
-//    }
     public List<IProductionOrder> getAllInfo() throws SQLException {
         List<IProductionOrder> po = new ArrayList();
-        List<IDepartmentTask> dt = new ArrayList();
         List<IDepartmentTask> tasks = new ArrayList();
         IProductionOrder test = null;
         try (Connection con = conProvider.getConnection()) {
@@ -160,8 +129,7 @@ public class ProductionOrderDAO {
                     + " ORDER BY orderNumber";
             PreparedStatement prst = con.prepareStatement(a);
             ResultSet rs = prst.executeQuery();
-            boolean tmp = false;
-            while ((tmp = rs.next())) {
+            while (rs.next()) {
                 String cust = rs.getString("customerName");
                 String deliveryDate = rs.getString("deliveryDate");
                 boolean done = rs.getBoolean("isFinished");
@@ -177,11 +145,6 @@ public class ProductionOrderDAO {
 
                 IDelivery delivery = new Delivery(ld);
                 ICustomer customer = new Customer(cust);
-//                if (po.isEmpty()) {
-//                    IProductionOrder test = new ProductionOrder(order, delivery, customer, tasks);
-//                    Department dpart = new Department(department);
-//                    test.getDepartmentTasks().add(new DepartmentTask(dpart, done, startDate, endDate));
-//                } 
 
                 if (test == null) {
 
@@ -200,67 +163,12 @@ public class ProductionOrderDAO {
                     test.getDepartmentTasks().add(new DepartmentTask(dpart, done, startDate, endDate));
 
                 }
-
-//
-                //                Iterator<IProductionOrder> it = po.iterator();
-                //
-                //                while (it.hasNext()) {
-                //                    IProductionOrder att = it.next();
-                //
-                //                    if (!att.getOrder().getOrderNumber().equals(order.getOrderNumber())) {
-                //
-                //                        IProductionOrder test = new ProductionOrder(order, delivery, customer, tasks);
-                //                        Department dpart = new Department(department);
-                //                        test.getDepartmentTasks().add(new DepartmentTask(dpart, done, startDate, endDate));
-                //                        po.add(test);
-                //                    } else {
-                //                        Department dpart = new Department(department);
-                //                        att.addDepartmentTask(new DepartmentTask(dpart, done, startDate, endDate));
-                //                    }
-                //                }
-                //
-                //                if (po.isEmpty()) {
-                //                    IProductionOrder test = new ProductionOrder(order, delivery, customer, tasks);
-                //                    Department dpart = new Department(department);
-                //                    test.getDepartmentTasks().add(new DepartmentTask(dpart, done, startDate, endDate));
-                //                    po.add(test);
-                //                }
-                //                if (!po.contains(order)) {
-                //                    IProductionOrder test = new ProductionOrder(order, delivery, customer, tasks);
-                //                    Department dpart = new Department(department);
-                //                    test.getDepartmentTasks().add(new DepartmentTask(dpart, done, startDate, endDate));
-                ////                    po.add(test);
-                //            }else {
-                //                    for (IProductionOrder ass : po) {
-                //                        if (ass.getOrder().equals(order)) {
-                //                            Department dpart = new Department(department);
-                //                            ass.addDepartmentTask(new DepartmentTask(dpart, done, startDate, endDate));
-                //                        }
-                //                    }
-                //                }
-                {
-
-                }
             }
             po.add(test);
         } catch (SQLException ex) {
             throw new SQLException("No data from getProductionOrders" + ex);
         }
 
-        for (int i = 1;
-                i < po.size();
-                i++) {
-            if (po.get(i).getOrder().getOrderNumber().equals(po.get(i - 1).getOrder().getOrderNumber())) {
-                po.remove(po.get(i));
-            }
-        }
-        for (IDepartmentTask task : tasks) {
-            for (IProductionOrder iProductionOrder : po) {
-//                if(iProductionOrder.getOrder().getOrderNumber().equals(task.)){
-//                    
-//                }
-            }
-        }
         return po;
     }
 
@@ -274,12 +182,11 @@ public class ProductionOrderDAO {
 
             prst.execute();
         } catch (SQLException ex) {
-                throw new SQLException(ex);
+            throw new SQLException(ex);
         }
     }
 
-    void logToDB(IDepartmentTask dt, IProductionOrder po)
-    {
+    void logToDB(IDepartmentTask dt, IProductionOrder po) throws SQLException {
         try (Connection con = conProvider.getConnection()) {
             String a = "INSERT INTO Log (logDateTime, logDepartment, logAction, logOrderNumber) VALUES(?,?,?,?);";
             PreparedStatement prst = con.prepareStatement(a);
@@ -287,10 +194,10 @@ public class ProductionOrderDAO {
             prst.setString(2, dt.getDepartment().getName());
             prst.setString(3, "Der er trykket på 'Task er færdig'");
             prst.setString(4, po.getOrder().getOrderNumber());
-            
+
             prst.execute();
         } catch (SQLException ex) {
-
+            throw new SQLException(ex);
         }
     }
 

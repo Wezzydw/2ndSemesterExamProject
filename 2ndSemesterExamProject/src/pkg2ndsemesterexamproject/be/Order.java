@@ -13,9 +13,9 @@ import javafx.beans.property.StringProperty;
  *
  * @author andreas
  */
-public class Order implements IOrder
-{
-    private String number;
+public class Order implements IOrder {
+
+    private final String number;
 
     public Order(String number) {
         this.number = "" + number;
@@ -30,7 +30,7 @@ public class Order implements IOrder
     public String toString() {
         return number;
     }
-    
+
     public StringProperty getOrderProperty() {
         return new SimpleStringProperty(getOrderNumber());
     }
@@ -42,6 +42,4 @@ public class Order implements IOrder
         return hash;
     }
 
-    
-    
 }
