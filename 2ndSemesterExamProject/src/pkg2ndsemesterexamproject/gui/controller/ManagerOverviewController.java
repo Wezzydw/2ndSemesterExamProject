@@ -75,6 +75,7 @@ public class ManagerOverviewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         scanProgress.setVisible(false);
         managerAnchor.getStyleClass().add("backgroundPicture");
+        managerAnchor.setOpacity(0.75); 
         try {
             model = new ManagerModel();
         } catch (IOException ex) {

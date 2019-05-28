@@ -84,7 +84,7 @@ public class ProjectOverViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-//        borderPane.getStyleClass().add("backgroundPicture");
+        borderPane.setStyle("-fx-background-color:grey");
         try
         {
             model = new OverViewModel();
@@ -256,17 +256,17 @@ public class ProjectOverViewController implements Initializable
         txtStartDate = new Text(dt.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
         txtEndDate = new Text(dt.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
         txtActual = new Text("Estimated progress");
-//        lblCustomer.setText("Customer: " + po.getCustomer().toString());
-//        lblOrder.setText("Order number: " + po.getOrder().toString());
-//        lblStartDate.setText(dt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
-//        lblEndDate.setText(dt.getEndDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
+        //lblCustomer.setText("Customer: " + po.getCustomer().toString());
+        //lblOrder.setText("Order number: " + po.getOrder().toString());
+        //lblStartDate.setText(dt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
+        //lblEndDate.setText(dt.getEndDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")));
         txtCustomer.setLayoutX(5);
-        txtCustomer.setLayoutY(215);
+        txtCustomer.setLayoutY(195);
         txtOrder.setLayoutX(5);
-        txtOrder.setLayoutY(165);
+        txtOrder.setLayoutY(140);
         txtStartDate.setLayoutX(5);
         txtStartDate.setLayoutY(370);
-        txtEndDate.setLayoutX(502);
+        txtEndDate.setLayoutX(495);
         txtEndDate.setLayoutY(370);
         txtActual.setLayoutX(230);
         txtActual.setLayoutY(370);
