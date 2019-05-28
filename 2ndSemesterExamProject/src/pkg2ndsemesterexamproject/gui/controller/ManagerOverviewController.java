@@ -33,7 +33,8 @@ import pkg2ndsemesterexamproject.gui.ManagerModel;
  *
  * @author marce
  */
-public class ManagerOverviewController implements Initializable {
+public class ManagerOverviewController implements Initializable
+{
 
     private ManagerModel model;
     @FXML
@@ -48,29 +49,33 @@ public class ManagerOverviewController implements Initializable {
     private JFXProgressBar scanProgress;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
         scanProgress.setVisible(false);
         managerAnchor.getStyleClass().add("backgroundPicture");
         managerAnchor.setOpacity(0.75);
-        try {
+        try
+        {
             model = new ManagerModel();
-        } catch (IOException ex) {
+        } catch (IOException ex)
+        {
             Logger.getLogger(StartScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        orderNum.setCellValueFactory(celldata -> celldata.getValue().getOrder().getOrderProperty());
+        customer.setCellValueFactory(celldata -> celldata.getValue().getCustomer().getCustomerProperty());
 
-        if (!tableView.getItems().isEmpty()) {
-            orderNum.setCellValueFactory(celldata -> celldata.getValue().getOrder().getOrderProperty());
-            customer.setCellValueFactory(celldata -> celldata.getValue().getCustomer().getCustomerProperty());
-        }
-        try {
-            getlistOfOrders();
-        } catch (SQLException ex) {
+        try
+        {
+            model.scanFolderForNewFiles();
+        } catch (IOException ex)
+        {
             Logger.getLogger(ManagerOverviewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        try {
-            model.scanFolderForNewFiles();
-        } catch (IOException ex) {
+        try
+        {
+            getlistOfOrders();
+        } catch (SQLException ex)
+        {
             Logger.getLogger(ManagerOverviewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -82,10 +87,9 @@ public class ManagerOverviewController implements Initializable {
      *
      * @throws SQLException
      */
-    public void getlistOfOrders() throws SQLException {
-
+    public void getlistOfOrders() throws SQLException
+    {
         tableView.setItems(model.getObservableProductionOrders());
-
     }
 
     /**
@@ -94,10 +98,13 @@ public class ManagerOverviewController implements Initializable {
      * @param event
      */
     @FXML
-    private void scanFolderForNewFiles(ActionEvent event) {
-        try {
+    private void scanFolderForNewFiles(ActionEvent event)
+    {
+        try
+        {
             model.scanFolderForNewFiles();
-        } catch (IOException ex) {
+        } catch (IOException ex)
+        {
             Logger.getLogger(ManagerOverviewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         model.checkScanFolder(scanProgress);
@@ -113,13 +120,17 @@ public class ManagerOverviewController implements Initializable {
      * @param event
      */
     @FXML
-    private void whenClicked(MouseEvent event) {
-        if (tableView.getSelectionModel().getSelectedItem() != null) {
+    private void whenClicked(MouseEvent event)
+    {
+        if (tableView.getSelectionModel().getSelectedItem() != null)
+        {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/OrderOverView.fxml"));
-            try {
+            try
+            {
                 loader.load();
-            } catch (IOException ex) {
+            } catch (IOException ex)
+            {
                 System.out.println("Error" + ex);
             }
             OrderOverViewController display = loader.getController();

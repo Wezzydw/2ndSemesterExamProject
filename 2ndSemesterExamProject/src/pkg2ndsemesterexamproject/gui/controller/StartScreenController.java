@@ -4,7 +4,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pkg2ndsemesterexamproject.gui.controller;
 
 import java.io.IOException;
@@ -41,39 +40,43 @@ import pkg2ndsemesterexamproject.gui.StartScreenModel;
  *
  * @author andreas
  */
-public class StartScreenController implements Initializable {
-    
+public class StartScreenController implements Initializable
+{
+
     @FXML
     private MenuButton menuButton;
     @FXML
     private AnchorPane startAnchor;
-    
+
     private StartScreenModel model;
     private List<IDepartment> allDepartments;
     @FXML
     private BorderPane bp;
 
     /**
-     * Initializes the controller class.
-     * Den laver en ny model, og derefter prøver den at få alle
-     * departments fra model.getAllDepartments
-     * hvis den fanger en SQLExeption laver den et pop up vindue
-     * til sidst kaldes setUpMenuButtons
+     * Initializes the controller class. Den laver en ny model, og derefter
+     * prøver den at få alle departments fra model.getAllDepartments hvis den
+     * fanger en SQLExeption laver den et pop up vindue til sidst kaldes
+     * setUpMenuButtons
+     *
      * @param url
      * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
         startAnchor.getStyleClass().add("backgroundPicture");
         Text txt = new Text("Choose a department or manager:");
         txt.getStyleClass().add("startScreenText");
         txt.setTextAlignment(TextAlignment.CENTER);
         bp.setBottom(txt);
-        
-        try {
+
+        try
+        {
             model = new StartScreenModel();
             allDepartments = model.getAllDepartments();
-        } catch (IOException ex) {
+        } catch (IOException ex)
+        {
             Logger.getLogger(StartScreenController.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("IOExeption: " + ex);
         } catch (SQLException ex)
@@ -82,51 +85,60 @@ public class StartScreenController implements Initializable {
             Logger.getLogger(StartScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
         setUpMenuButtons();
-    }   
+    }
+
     /**
-     * Denne metode laver et event og laver menuItems
-     * for hver department der er, disse Items gives onAction den
-     * event som er blevet lavet, til sidst bliver alle knapperne 
-     * tilføjet til menuButton
+     * Denne metode laver et event og laver menuItems for hver department der
+     * er, disse Items gives onAction den event som er blevet lavet, til sidst
+     * bliver alle knapperne tilføjet til menuButton
      */
-    private void setUpMenuButtons(){
-        EventHandler<ActionEvent> event1 = (ActionEvent e) -> {
+    private void setUpMenuButtons()
+    {
+        EventHandler<ActionEvent> event1 = (ActionEvent e) ->
+        {
             Department temp;
             MenuItem selectedItem = (MenuItem) e.getSource();
             String selectedItemName = selectedItem.getText();
-            for (IDepartment allDepartment : allDepartments) {
-                if (allDepartment.getName().equals(selectedItemName)) {
+            for (IDepartment allDepartment : allDepartments)
+            {
+                if (allDepartment.getName().equals(selectedItemName))
+                {
                     temp = (Department) allDepartment;
                     selectDepartment(temp);
                 }
             }
         };
         List<MenuItem> departmentBtns = new ArrayList();
-        if (allDepartments != null) {
+        if (allDepartments != null)
+        {
             allDepartments.add(new Department("Manager"));
-            for (IDepartment depar : allDepartments) {
+            for (IDepartment depar : allDepartments)
+            {
                 MenuItem item = new MenuItem(depar.getName());//label skal være allDepartment.getName() fra BE laget 
                 item.setOnAction(event1);
                 departmentBtns.add(item);
             }
         }
         menuButton.getItems().addAll(departmentBtns);
-    }   
+    }
 
     /**
-     * Denne metode skifter fra den nuværende FXML fil
-     * og kører ManagerOverview FXML og dens controller
+     * Denne metode skifter fra den nuværende FXML fil og kører ManagerOverview
+     * FXML og dens controller
      */
-    private void goToManagerScreen() {
+    private void goToManagerScreen()
+    {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/ManagerOverview.fxml"));
-        try {
+        try
+        {
             loader.load();
-        } catch (IOException ex) {
+        } catch (IOException ex)
+        {
             System.out.println("Error" + ex);
         }
         ManagerOverviewController display = loader.getController();
-        
+
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
@@ -136,18 +148,22 @@ public class StartScreenController implements Initializable {
     }
 
     /**
-     * Denne metodes skifter fra den nuværende FXML fil
-     * og kører DepartmentScreenView FXML og dens controller
-     * Den kører metoden setDepartment() inde fra 
-     * DepartmentScreenViewController med department som parameter
-     * @param department 
+     * Denne metodes skifter fra den nuværende FXML fil og kører
+     * DepartmentScreenView FXML og dens controller Den kører metoden
+     * setDepartment() inde fra DepartmentScreenViewController med department
+     * som parameter
+     *
+     * @param department
      */
-    private void goToDepartmentScreen(Department department) {
+    private void goToDepartmentScreen(Department department)
+    {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/DepartmentScreenView.fxml"));
-        try {
+        try
+        {
             loader.load();
-        } catch (IOException ex) {
+        } catch (IOException ex)
+        {
             System.out.println("Error" + ex);
         }
         DepartmentScreenViewController display = loader.getController();
@@ -160,25 +176,31 @@ public class StartScreenController implements Initializable {
         stage.showAndWait();
 //        stage1.close();
     }
+
     /**
-     * Denne metode tager en department og ud fra dens navn 
-     * kører metoden goToManagerScreen() hvis dens navn er manager,
-     * ellers kører den metoden goToDepartmentScreen() med department 
-     * som en parameter
-     * @param department 
+     * Denne metode tager en department og ud fra dens navn kører metoden
+     * goToManagerScreen() hvis dens navn er manager, ellers kører den metoden
+     * goToDepartmentScreen() med department som en parameter
+     *
+     * @param department
      */
-    private void selectDepartment(Department department) {
-        if (department.getName().equals("Manager")) {
+    private void selectDepartment(Department department)
+    {
+        if (department.getName().equals("Manager"))
+        {
             goToManagerScreen();
-        } else {
+        } else
+        {
             goToDepartmentScreen(department);
-        }        
+        }
     }
+
     /**
-     * Denne metode laver et pop up vindue, 
-     * som fortæller at der ikke er forbindelse til databasen
+     * Denne metode laver et pop up vindue, som fortæller at der ikke er
+     * forbindelse til databasen
      */
-    private void popUpScreen(){
+    private void popUpScreen()
+    {
         Button btnOk = new Button("Ok");
 
         Label lblNoConnection = new Label("There is no connection to the DB");
@@ -193,8 +215,9 @@ public class StartScreenController implements Initializable {
         Scene scene = new Scene(root2, 300, 250);
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);
-        btnOk.setOnAction((ActionEvent event) -> {
-           primaryStage.close();
+        btnOk.setOnAction((ActionEvent event) ->
+        {
+            primaryStage.close();
         });
         primaryStage.setAlwaysOnTop(true);
         primaryStage.show();

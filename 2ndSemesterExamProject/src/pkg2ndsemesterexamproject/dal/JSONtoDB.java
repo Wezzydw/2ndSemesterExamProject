@@ -38,7 +38,6 @@ public class JSONtoDB {
     private void dataDumper() throws IOException, SQLException {
         JSONFormatter jf = new JSONFormatter();
         writeProductionOrderToDB(jf.extractProductionOrdersFromJSON());
-        System.out.println(jf.getDepartments());
         writeDepartmentToDB(jf.getDepartments());
 
         writeWorkerToDB(jf.extractWorkersFromJSON());

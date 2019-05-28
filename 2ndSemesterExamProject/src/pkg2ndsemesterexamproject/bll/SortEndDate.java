@@ -51,5 +51,10 @@ public class SortEndDate implements ISortStrategy {
         list1.set(i, list1.get(j));
         list1.set(j, temp);
     }
+    
+      @Override
+    public String toString() {
+        return "End Date";
+    }
 
 }

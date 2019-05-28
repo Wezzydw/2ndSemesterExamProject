@@ -37,5 +37,8 @@ public class SortReady implements ISortStrategy {
         done.addAll(notDone);
         return done;
     }
-
+  @Override
+    public String toString() {
+        return "By Ready";
+    }
 }
