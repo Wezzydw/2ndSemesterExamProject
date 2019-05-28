@@ -8,8 +8,10 @@ package pkg2ndsemesterexamproject.bll;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.dal.GetData;
@@ -42,7 +44,22 @@ public class Search {
                     toReturn.add(ipo);
                     continue loop;
                 }
+
+                //lblDate.setText("["+weekNumber+ ":" +date.getDayOfWeek().getValue()+"]");
                 if (idt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")).contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName)) {
+                    toReturn.add(ipo);
+                    continue loop;
+                }
+                WeekFields weekFields = WeekFields.of(Locale.getDefault());
+                int weekNumber = idt.getEndDate().get(weekFields.weekOfWeekBasedYear());
+                String txtEndDate = "[" + weekNumber + ":" + idt.getEndDate().getDayOfWeek().getValue() + "]";
+                if (txtEndDate.contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName)) {
+                    toReturn.add(ipo);
+                    continue loop;
+                }
+                weekNumber = idt.getStartDate().get(weekFields.weekOfWeekBasedYear());
+                String txtStartDate = "[" + weekNumber + ":" + idt.getStartDate().getDayOfWeek().getValue() + "]";
+                if (txtStartDate.contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName)) {
                     toReturn.add(ipo);
                     continue loop;
                 }

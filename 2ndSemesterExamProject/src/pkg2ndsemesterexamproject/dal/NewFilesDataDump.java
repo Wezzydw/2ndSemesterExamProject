@@ -50,19 +50,6 @@ public class NewFilesDataDump {
                         writeDepartmentToDB(departments);
                         writeWorkerToDB(jf.extractWorkersFromJSON(file));
 
-//                    } else if (file.getName().endsWith(".xlsx")) {
-//                        List<IProductionOrder> nonDuplicateDataList = removeDuplicates(file, ".xlsx");
-//                        List<IDepartment> departments = new ArrayList();
-//                        writeProductionOrderToDB(nonDuplicateDataList);
-//                        for (IProductionOrder iProductionOrder : nonDuplicateDataList) {
-//                            writeDepartmentTaskToDB(iProductionOrder);
-//                            for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {
-//                                departments.add(departmentTask.getDepartment());
-//                            }
-//                        }
-//                        writeDepartmentToDB(departments);
-//                        writeWorkerToDB(jf.extractWorkersFromJSON(file));
-//                        
                     } else if (file.getName().endsWith(".csv")) {
                         List<IProductionOrder> nonDuplicateDataList = removeDuplicates(file, ".csv");
                         List<IDepartment> departments = new ArrayList();
@@ -85,7 +72,6 @@ public class NewFilesDataDump {
         JSONFormater jf = new JSONFormater();
         GetData getData = new GetData();
         CSVFormatter cf = new CSVFormatter();
-        XLSXFormatter xf = new XLSXFormatter();
         List<IProductionOrder> productionOrdersFromDB = getData.getAllProductionOrders();
         List<IProductionOrder> productionOrdersFromFile = new ArrayList();
         List<IProductionOrder> nonDublicateOrders = new ArrayList();
@@ -94,9 +80,6 @@ public class NewFilesDataDump {
         }
         if (type.equals(".csv")) {
             productionOrdersFromFile = cf.extractProductionOrders(f);
-        }
-        if (type.equals(".xlsx")) {
-            productionOrdersFromFile = xf.extractProductionOrders(f);
         }
         outerLoop:
         for (IProductionOrder iProductionOrderDB : productionOrdersFromDB) {
@@ -185,22 +168,4 @@ public class NewFilesDataDump {
         }
     }
 
-//    private List<IDepartment> nonDepartmentDuplicate(List<IDepartment> departments) throws IOException, SQLException {
-//        GetData getData = new GetData();
-//        List<IDepartment> nonDublicateDepartments = new ArrayList();
-//        outerLoop:
-//        for (IDepartment departmentFromDB : getData.getAllDepartments()) {
-//            int count = 0;
-//            for (IDepartment departmentFile : departments) {
-//                if (departmentFromDB.getName().equals(departmentFile.getName())) {
-//                    continue outerLoop;
-//                } else if (count == departments.size() - 1) {
-//                    nonDublicateDepartments.add(departmentFile);
-//                } else {
-//                    count++;
-//                }
-//            }
-//        }
-//        return nonDublicateDepartments;
-//    }
 }
