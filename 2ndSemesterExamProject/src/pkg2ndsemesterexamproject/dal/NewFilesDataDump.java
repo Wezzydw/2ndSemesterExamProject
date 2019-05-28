@@ -50,19 +50,6 @@ public class NewFilesDataDump {
                         writeDepartmentToDB(departments);
                         writeWorkerToDB(jf.extractWorkersFromJSON(file));
 
-//                    } else if (file.getName().endsWith(".xlsx")) {
-//                        List<IProductionOrder> nonDuplicateDataList = removeDuplicates(file, ".xlsx");
-//                        List<IDepartment> departments = new ArrayList();
-//                        writeProductionOrderToDB(nonDuplicateDataList);
-//                        for (IProductionOrder iProductionOrder : nonDuplicateDataList) {
-//                            writeDepartmentTaskToDB(iProductionOrder);
-//                            for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {
-//                                departments.add(departmentTask.getDepartment());
-//                            }
-//                        }
-//                        writeDepartmentToDB(departments);
-//                        writeWorkerToDB(jf.extractWorkersFromJSON(file));
-//                        
                     } else if (file.getName().endsWith(".csv")) {
                         List<IProductionOrder> nonDuplicateDataList = removeDuplicates(file, ".csv");
                         List<IDepartment> departments = new ArrayList();
