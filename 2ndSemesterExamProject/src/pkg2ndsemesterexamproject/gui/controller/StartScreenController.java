@@ -66,7 +66,7 @@ public class StartScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         startAnchor.getStyleClass().add("backgroundPicture");
         Text txt = new Text("Choose a department or manager:");
-        txt.getStyleClass().add("fancytext");
+        txt.getStyleClass().add("startScreenText");
         txt.setTextAlignment(TextAlignment.CENTER);
         bp.setBottom(txt);
         

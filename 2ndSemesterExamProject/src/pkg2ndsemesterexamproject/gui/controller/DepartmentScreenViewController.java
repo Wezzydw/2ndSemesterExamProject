@@ -12,6 +12,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -95,7 +97,9 @@ public class DepartmentScreenViewController implements Initializable
         guiUpdateLimit.setCycleCount(1);
         lblZoom.setText("" + postSlider.getValue() + "%");
         LocalDate date = LocalDate.now();
-        lblDate.setText(date.format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
+        WeekFields weekFields = WeekFields.of(Locale.getDefault()); 
+        int weekNumber = date.get(weekFields.weekOfWeekBasedYear());
+        lblDate.setText("["+weekNumber+ ":" +date.getDayOfWeek().getValue()+"]");
         scrollPane.setFitToWidth(true);
 
         updateFlowRate();
