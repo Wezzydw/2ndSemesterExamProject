@@ -5,10 +5,7 @@
  */
 package pkg2ndsemesterexamproject.bll;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -19,14 +16,7 @@ public class SearchTest {
     public SearchTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
+ 
     @Test
     public void testSearchAllProductionOrders() throws Exception {
     }
