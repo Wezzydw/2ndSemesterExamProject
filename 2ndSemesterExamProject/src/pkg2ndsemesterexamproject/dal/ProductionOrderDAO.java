@@ -52,7 +52,7 @@ public class ProductionOrderDAO {
             String a = "SELECT * FROM ProductionOrder;";
             PreparedStatement prst = con.prepareStatement(a);
             ResultSet rs = prst.executeQuery();
-
+            
             while (rs.next()) {
                 String orderNumber = rs.getString("orderId");
                 String cust = rs.getString("customerName");
