@@ -32,9 +32,21 @@ public class SortOrderIdTest {
     @Test
     public void testSort() {
         
-        IProductionOrder po1 = new ProductionOrder(new Order("123456"), new Delivery(LocalDate.now()), new Customer("Føtex"), new ArrayList());
-        IProductionOrder po2 = new ProductionOrder(new Order("673482"), new Delivery(LocalDate.now()), new Customer("Bilka"), new ArrayList());
-        IProductionOrder po3 = new ProductionOrder(new Order("134533"), new Delivery(LocalDate.now()), new Customer("Fakta"), new ArrayList());
+        IProductionOrder po1 = new ProductionOrder(
+                new Order("123456"), 
+                new Delivery(LocalDate.now()), 
+                new Customer("Føtex"), 
+                new ArrayList());
+        IProductionOrder po2 = new ProductionOrder(
+                new Order("673482"), 
+                new Delivery(LocalDate.now()), 
+                new Customer("Bilka"), 
+                new ArrayList());
+        IProductionOrder po3 = new ProductionOrder(
+                new Order("134533"), 
+                new Delivery(LocalDate.now()), 
+                new Customer("Fakta"), 
+                new ArrayList());
                 
         List<IProductionOrder> list = new ArrayList();
         list.add(po1);
@@ -59,12 +71,12 @@ public class SortOrderIdTest {
                 new Customer("Føtex"), 
                 new ArrayList());
         IProductionOrder po2 = new ProductionOrder(
-                new Order("6734-823"), 
+                new Order("6734-8234"), 
                 new Delivery(LocalDate.now()), 
                 new Customer("Bilka"), 
                 new ArrayList());
         IProductionOrder po3 = new ProductionOrder(
-                new Order("1345-3324"), 
+                new Order("1345-332"), 
                 new Delivery(LocalDate.now()), 
                 new Customer("Fakta"), 
                 new ArrayList());
@@ -77,8 +89,8 @@ public class SortOrderIdTest {
         SortOrderId instance = new SortOrderId();
         List<IProductionOrder> expResult = new ArrayList();
         expResult.add(po1);
-        expResult.add(po2);
         expResult.add(po3);
+        expResult.add(po2);
         List<IProductionOrder> result = instance.sort(list, departmentName);
         assertEquals(expResult, result);
     }
