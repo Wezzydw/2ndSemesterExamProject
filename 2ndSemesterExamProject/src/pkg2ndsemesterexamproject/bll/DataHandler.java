@@ -57,7 +57,6 @@ public class DataHandler {
 
     /**
      * Denne behandles af runDataCheck
-     *
      * @return isNewData true/false efter hvad runDataCheck() sætter den til.
      */
     public boolean isThereNewData() {
@@ -108,7 +107,14 @@ public class DataHandler {
         return oldData = strategy.sort(searcher.searchAllProductionOrders(searchString, returnList, departmentName.toLowerCase()), departmentName);
 
     }
-
+    
+    /**
+     * Itererer gennem listen af DepartmentTasks som en ProductionOrder indeholder
+     * og returnerer en DepartmentTask for pågældende Department.
+     * @param po
+     * @param departmentName
+     * @return DepartmentTask()
+     */
     public IDepartmentTask getTaskForDepartment(IProductionOrder po, String departmentName) {
         for (IDepartmentTask departmentTask : po.getDepartmentTasks()) {
             if (departmentTask.getDepartment().getName().equals(departmentName)) {

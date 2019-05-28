@@ -29,7 +29,17 @@ public class Search {
         getData = new GetData();
 
     }
-
+    
+    /**
+     * Denne metode kigger på EndDate, StartDate, Customer navn og Ordrenummer i en ProductionOrder,
+     * og returnerer den eller de ordre brugeren søger på.
+     * @param searchString Søgeordet brugeren skriver ind i textfeltet i viewet.
+     * @param orders en liste med alle ProductionOrder.
+     * @param departmentName Department som ProductionOrder tilhører.
+     * @return en liste af den eller de ProductionOrder brugeren søger på: 
+     * EndDate, StartDate, Customer navn og Ordrenummer.
+     * @throws SQLException 
+     */
     public List<IProductionOrder> searchAllProductionOrders(String searchString, List<IProductionOrder> orders, String departmentName) throws SQLException {
         if (searchString.isEmpty()) {
             return orders;
