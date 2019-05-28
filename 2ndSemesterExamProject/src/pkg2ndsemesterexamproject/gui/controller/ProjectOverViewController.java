@@ -314,11 +314,15 @@ public class ProjectOverViewController implements Initializable
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        gc.setFill(Color.GREEN);
         Long daysBetween = ChronoUnit.DAYS.between(dt.getStartDate(), dt.getEndDate());
         int progressInterval = (int) (585 / daysBetween);
         LocalDateTime todayIs = LocalDateTime.now();
         Long startToNow = ChronoUnit.DAYS.between(dt.getStartDate(), todayIs);
+        gc.setFill(Color.GREEN);
+        if (progressInterval * startToNow > 585)
+        {
+            gc.setFill(Color.RED);
+        }
         gc.fillRect(0, 0, progressInterval * startToNow, 20);
         gc.setStroke(Color.BLACK);
         gc.strokeRect(0, 0, 585, 20);
