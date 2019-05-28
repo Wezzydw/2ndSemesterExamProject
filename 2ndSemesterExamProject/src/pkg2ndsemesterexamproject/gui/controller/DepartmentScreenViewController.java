@@ -87,7 +87,7 @@ public class DepartmentScreenViewController implements Initializable {
         try {
             model = new Model(departmentAnchorPane);
         } catch (IOException | SQLException ex) {
-            Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("initialize error" +ex);
         }
 
         guiUpdateLimit = initializeGUIUpdateLimit();
@@ -125,8 +125,7 @@ public class DepartmentScreenViewController implements Initializable {
                 try {
                     model.placeOrderInUI();
                 } catch (SQLException ex) {
-                    Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-                    throw new RuntimeException(ex);
+                    System.out.println("updateGUI error " + ex);
                 }
             }
         }));
@@ -211,7 +210,7 @@ public class DepartmentScreenViewController implements Initializable {
                     try {
                         Thread.sleep(updateTime);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(DepartmentScreenViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("Update 5 seconds error " + ex);
                     }
                     Platform.runLater(new Runnable() {
                         @Override
@@ -219,7 +218,7 @@ public class DepartmentScreenViewController implements Initializable {
                             try {
                                 model.runDataCheckInDataHandler();
                             } catch (SQLException ex) {
-                                throw new RuntimeException();
+                               System.out.println("run datacheck error " + ex);
                             }
                             updateFlowRate();
                         }

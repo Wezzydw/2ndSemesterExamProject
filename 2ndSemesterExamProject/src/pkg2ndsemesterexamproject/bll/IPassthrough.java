@@ -21,16 +21,16 @@ import pkg2ndsemesterexamproject.be.IWorker;
 public interface IPassthrough
 {
 
-    public List<IWorker> getWorkersFromDB()throws SQLException;
-       
+    public List<IWorker> getWorkersFromDB() throws SQLException;
+
     List<IDepartment> getAllDepartments() throws SQLException;
-    
+
     void sendOrderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException;
-    
-    List<IWorker> getAllWorkers()throws SQLException;
-    
+
+    List<IWorker> getAllWorkers() throws SQLException;
+
     List<IProductionOrder> getAllProductionOrders() throws SQLException;
-    
-    public void scanFolderForNewFiles() throws IOException;
-   
+
+    public void scanFolderForNewFiles() throws IOException, SQLException;
+
 }

@@ -23,18 +23,21 @@ import pkg2ndsemesterexamproject.dal.ScanFolder;
  *
  * @author andreas
  */
-public class PassThrough implements IPassthrough {
+public class PassThrough implements IPassthrough
+{
 
     GetData getDataFromDB;
     ScanFolder scanFolder;
 
-    public PassThrough() throws IOException {
+    public PassThrough() throws IOException
+    {
         getDataFromDB = new GetData();
         scanFolder = new ScanFolder();
     }
 
     @Override
-    public List<IWorker> getWorkersFromDB() throws SQLException {
+    public List<IWorker> getWorkersFromDB() throws SQLException
+    {
         return getDataFromDB.getAllWorkers();
     }
 
@@ -46,32 +49,38 @@ public class PassThrough implements IPassthrough {
      * @throws SQLException
      */
     @Override
-    public List<IDepartment> getAllDepartments() throws SQLException {
+    public List<IDepartment> getAllDepartments() throws SQLException
+    {
         return getDataFromDB.getAllDepartments();
     }
 
     @Override
-    public List<IWorker> getAllWorkers() throws SQLException {
+    public List<IWorker> getAllWorkers() throws SQLException
+    {
         return getDataFromDB.getAllWorkers();
     }
 
     @Override
-    public List<IProductionOrder> getAllProductionOrders() throws SQLException {
+    public List<IProductionOrder> getAllProductionOrders() throws SQLException
+    {
         return getDataFromDB.getAllProductionOrders();
     }
 
     @Override
-    public void sendOrderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException {
+    public void sendOrderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException
+    {
         getDataFromDB.sendOrderIsDone(dt, po);
     }
 
-    public void scanFolderForNewFiles() throws IOException {
-        try {
+    @Override
+    public void scanFolderForNewFiles() throws IOException, SQLException
+    {
+        try
+        {
             scanFolder.updateFiles();
-        } catch (IOException ex) {
-            throw new IOException(ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(PassThrough.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | SQLException ex)
+        {
+            throw ex;
         }
     }
 

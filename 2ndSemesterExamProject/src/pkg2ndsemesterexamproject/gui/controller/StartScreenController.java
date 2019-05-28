@@ -75,14 +75,10 @@ public class StartScreenController implements Initializable
         {
             model = new StartScreenModel();
             allDepartments = model.getAllDepartments();
-        } catch (IOException ex)
-        {
-            Logger.getLogger(StartScreenController.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("IOExeption: " + ex);
-        } catch (SQLException ex)
+        } catch (IOException | SQLException ex)
         {
             popUpScreen();
-            Logger.getLogger(StartScreenController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("IOExeption: " + ex);
         }
         setUpMenuButtons();
     }

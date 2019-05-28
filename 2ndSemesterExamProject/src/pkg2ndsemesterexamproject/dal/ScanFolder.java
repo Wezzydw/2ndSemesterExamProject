@@ -28,12 +28,13 @@ public class ScanFolder
 
     public ScanFolder() throws IOException
     {
-        allFiles = loadSavedFile();
+        allFiles = new ArrayList();
         dataDump = new NewFilesDataDump();
     }
 
     public void updateFiles() throws IOException, SQLException
     {
+        allFiles = loadSavedFile();
         File files = new File("data/");
         File[] listOfFiles = files.listFiles();
         List<String> filePaths = new ArrayList<>();

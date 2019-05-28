@@ -59,7 +59,7 @@ public class ManagerOverviewController implements Initializable
             model = new ManagerModel();
         } catch (IOException ex)
         {
-            Logger.getLogger(StartScreenController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("manager init error " + ex);
         }
         orderNum.setCellValueFactory(celldata -> celldata.getValue().getOrder().getOrderProperty());
         customer.setCellValueFactory(celldata -> celldata.getValue().getCustomer().getCustomerProperty());
@@ -67,16 +67,16 @@ public class ManagerOverviewController implements Initializable
         try
         {
             model.scanFolderForNewFiles();
-        } catch (IOException ex)
+        } catch (IOException | SQLException ex)
         {
-            Logger.getLogger(ManagerOverviewController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("scanFolder error " + ex);
         }
         try
         {
             getlistOfOrders();
         } catch (SQLException ex)
         {
-            Logger.getLogger(ManagerOverviewController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("getAllOrders in manager " + ex);
         }
 
     }
@@ -103,12 +103,11 @@ public class ManagerOverviewController implements Initializable
         try
         {
             model.scanFolderForNewFiles();
-        } catch (IOException ex)
+        } catch (IOException | SQLException ex)
         {
-            Logger.getLogger(ManagerOverviewController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error scanning new folder");
         }
         model.checkScanFolder(scanProgress);
-
     }
 
     /**
@@ -131,7 +130,7 @@ public class ManagerOverviewController implements Initializable
                 loader.load();
             } catch (IOException ex)
             {
-                System.out.println("Error" + ex);
+                System.out.println("selectedTable error" + ex);
             }
             OrderOverViewController display = loader.getController();
             display.setProductionOrder(tableView.getSelectionModel().getSelectedItem());

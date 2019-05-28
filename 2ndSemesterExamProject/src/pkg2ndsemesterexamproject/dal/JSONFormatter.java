@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -53,8 +52,15 @@ public class JSONFormatter {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public List<IWorker> extractWorkersFromJSON() throws FileNotFoundException, IOException {
-        String[] array = loadData().split("\\[");
+    public List<IWorker> extractWorkersFromJSON(File file) throws FileNotFoundException, IOException {
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+        String line;
+        String data = "";
+        while ((line = br.readLine()) != null) {
+            data += line;
+        }
+        String[] array = data.split("\\[");
         String workerString = array[1];
         String[] workersString = workerString.split("\\{");
         List<IWorker> workers = new ArrayList();
@@ -80,17 +86,6 @@ public class JSONFormatter {
                 indexEnd = string.indexOf('}', indexStart);
 
                 String saleryNumber = string.substring(indexStart, indexEnd);
-
-//            int initialsStartIndex = string.indexOf("Initials", 0);
-//            int initialsEndIndex = string.indexOf(",", initialsStartIndex);
-//            String initials = string.substring(initialsStartIndex + initialsIndexLength, initialsEndIndex - 1);
-//
-//            int nameStartIndex = string.indexOf("Name", initialsEndIndex);
-//            int nameEndIndex = string.indexOf(",", nameStartIndex);
-//            String name = string.substring(nameStartIndex + nameIndexLength, nameEndIndex-1);
-//            int saleryNumberStartIndex = string.indexOf("Name", nameEndIndex);
-//            int saleryEndIndex = string.indexOf(",", saleryNumberStartIndex);
-//            String saleryNumber = string.substring(saleryNumberStartIndex + saleryNumberIndexLength, saleryEndIndex-1);
                 int s = Integer.parseInt(saleryNumber);
                 workers.add(new Worker(name, initials, s));
             }
@@ -105,8 +100,8 @@ public class JSONFormatter {
      * @return List<IProductionOrder>
      * @throws IOException
      */
-    public List<IProductionOrder> extractProductionOrdersFromJSON() throws IOException {
-        String[] array = loadData().split("ProductionOrder:");
+    public List<IProductionOrder> extractProductionOrdersFromJSON(File file) throws IOException {
+        String[] array = loadData(file).split("ProductionOrder:");
         List<ICustomer> customers = new ArrayList();
         List<IDelivery> deliveries = new ArrayList();
         List<IDepartmentTask> departmentTasks = new ArrayList();
@@ -126,7 +121,6 @@ public class JSONFormatter {
             end = array[i].indexOf("+", start);
             long timeInMilis = Long.parseLong(array[i].substring(start, end));
             LocalDateTime timeAt0 = LocalDateTime.of(1970, 1, 1, 0, 0);
-
             LocalDateTime deliveryDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
             IDelivery delivery = new Delivery(deliveryDate.toLocalDate());
             deliveries.add(delivery);
@@ -142,7 +136,7 @@ public class JSONFormatter {
                 start = departmentStringArray[j].indexOf("EndDate") + 17;
                 end = departmentStringArray[j].indexOf('+', start);
                 timeInMilis = Long.parseLong(departmentStringArray[j].substring(start, end));
-                timeAt0 = LocalDateTime.of(1970, 1, 1,0,0);
+                timeAt0 = LocalDateTime.of(1970, 1, 1, 0, 0);
                 LocalDateTime endDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
 
                 start = departmentStringArray[j].indexOf("FinishedOrder") + 15;
@@ -156,7 +150,7 @@ public class JSONFormatter {
                 start = departmentStringArray[j].indexOf("StartDate") + 19;
                 end = departmentStringArray[j].indexOf('+', start);
                 timeInMilis = Long.parseLong(departmentStringArray[j].substring(start, end));
-                timeAt0 = LocalDateTime.of(1970, 1, 1,0,0);
+                timeAt0 = LocalDateTime.of(1970, 1, 1, 0, 0);
                 LocalDateTime startDate = timeAt0.plus(timeInMilis, ChronoUnit.MILLIS);
                 IDepartmentTask departmentTask = new DepartmentTask(department, isOrderFinished, startDate.toLocalDate(), endDate.toLocalDate());
                 this.departmenttasks.add(departmentTask);
@@ -172,6 +166,7 @@ public class JSONFormatter {
             IProductionOrder productionOrder = new ProductionOrder(order, delivery, customer, departmentTasks);
             productionOrders.add(productionOrder);
             departmentTasks = new ArrayList();
+
         }
         return productionOrders;
     }
@@ -183,8 +178,9 @@ public class JSONFormatter {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public String loadData() throws FileNotFoundException, IOException {
-        FileReader filereader = new FileReader(new File("./data/JSON.txt"));
+    public String loadData(File file) throws FileNotFoundException, IOException {
+
+        FileReader filereader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(filereader);
         String data = "";
         String line;

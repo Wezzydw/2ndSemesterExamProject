@@ -47,7 +47,7 @@ public class ManagerModel {
         return managerOBS;
     }
 
-    public void scanFolderForNewFiles() throws IOException {
+    public void scanFolderForNewFiles() throws IOException, SQLException {
         managerPassThrough.scanFolderForNewFiles();
     }
 
