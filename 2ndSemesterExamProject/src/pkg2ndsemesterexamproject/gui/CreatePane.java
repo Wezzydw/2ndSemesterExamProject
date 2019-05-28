@@ -8,7 +8,9 @@ package pkg2ndsemesterexamproject.gui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.WeekFields;
 import java.util.List;
+import java.util.Locale;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -32,8 +34,14 @@ public class CreatePane
         invis.setMinSize(0, 0);
         Label orderNum = new Label(po.getOrder().toString());
         Label customer = new Label("Customer: " + po.getCustomer().getName());
-        Label startDate = new Label(dpt.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
-        Label endDate = new Label(dpt.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
+        
+//        WeekFields weekFields = WeekFields.of(Locale.getDefault()); 
+        
+        WeekFields weekFields = WeekFields.of(Locale.getDefault()); 
+        int weekNumber = dpt.getStartDate().get(weekFields.weekOfWeekBasedYear());
+        int weekNumberEndDate = dpt.getEndDate().get(weekFields.weekOfWeekBasedYear());
+        Label startDate = new Label("["+weekNumber + ":" +dpt.getStartDate().getDayOfWeek().getValue()+"]");
+        Label endDate = new Label("["+weekNumberEndDate + ":" +dpt.getEndDate().getDayOfWeek().getValue()+"]");
         Pane orderPane = new Pane();
         orderPane.setMaxSize(200 * scale, 150 * scale);
         orderPane.getStyleClass().add("pane");
@@ -115,7 +123,7 @@ public class CreatePane
         startDate.setLayoutX(15 * scale);
         startDate.setLayoutY(100 * scale);
 
-        endDate.setLayoutX(115 * scale);
+        endDate.setLayoutX(150 * scale);
         endDate.setLayoutY(100 * scale);
 
         invis.setLayoutX(200 * scale);
