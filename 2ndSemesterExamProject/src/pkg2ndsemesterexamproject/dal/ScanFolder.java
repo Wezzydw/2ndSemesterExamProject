@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +23,14 @@ import java.util.List;
 public class ScanFolder {
 
     private List<String> allFiles;
+    private NewFilesDataDump dataDump;
 
     public ScanFolder() throws IOException {
         allFiles = loadSavedFile();
+        dataDump = new NewFilesDataDump();
     }
 
-    public void updateFiles() throws IOException {
+    public void updateFiles() throws IOException, SQLException {
         File files = new File("data/");
         File[] listOfFiles = files.listFiles();
         List<String> filePaths = new ArrayList<>();
@@ -35,6 +38,8 @@ public class ScanFolder {
             if (file.isFile()) {
                 if ((file.getName().endsWith(".xlsx") || file.getName().endsWith(".csv") || file.getName().endsWith(".txt")) && !hasFileBeenSaved(file.getName())) {
                     filePaths.add(file.getName());
+                    dataDump.WriteDataFromNewFilesToDb(file);
+                    System.out.println("Næste");
                     writeSavedFile(file.getName());
                     allFiles.add(file.getName());
                 }
@@ -65,15 +70,15 @@ public class ScanFolder {
 
     public boolean hasFileBeenSaved(String filepaths) throws IOException {
         List<String> filesToRead = allFiles;
-        if(filepaths.equals("readfiles.txt")){
+        if (filepaths.equals("readfiles.txt")) {
             return true;
         }
         for (String string : filesToRead) {
-            
-                if (string.equals(filepaths)) {
-                    
-                    return true;
-                
+
+            if (string.equals(filepaths)) {
+
+                return true;
+
             }
         }
         return false;

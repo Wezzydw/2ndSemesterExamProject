@@ -29,43 +29,53 @@ public class NewFilesDataDump {
         this.conProvider = new DatabaseConnection();
     }
 
-    public void WriteDataFromNewFilesToDb() throws IOException, SQLException {
-        File files = new File("data/");
-        File[] listOfFiles = files.listFiles();
+    public void WriteDataFromNewFilesToDb(File file) throws IOException, SQLException {
+//        File files = new File("data/");
+//        File[] listOfFiles = files.listFiles();
         ScanFolder sf = new ScanFolder();
         JSONFormater jf = new JSONFormater();
-        for (File file : listOfFiles) {
-            if (file.isFile()) {
-                if (sf.hasFileBeenSaved(file.getName()) != true) {
-                    if (file.getName().endsWith(".txt")) {
-                        List<IProductionOrder> nonDuplicateDataList = removeDuplicates(file, ".txt");
-                        List<IDepartment> departments = new ArrayList();
-                        writeProductionOrderToDB(nonDuplicateDataList);
-                        for (IProductionOrder iProductionOrder : nonDuplicateDataList) {
-                            writeDepartmentTaskToDB(iProductionOrder);
-                            for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {
-                                departments.add(departmentTask.getDepartment());
-                            }
-                        }
-                        writeDepartmentToDB(departments);
-                        writeWorkerToDB(jf.extractWorkersFromJSON(file));
 
-                    } else if (file.getName().endsWith(".csv")) {
-                        List<IProductionOrder> nonDuplicateDataList = removeDuplicates(file, ".csv");
-                        List<IDepartment> departments = new ArrayList();
-                        writeProductionOrderToDB(nonDuplicateDataList);
-                        for (IProductionOrder iProductionOrder : nonDuplicateDataList) {
-                            writeDepartmentTaskToDB(iProductionOrder);
-                            for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {
-                                departments.add(departmentTask.getDepartment());
-                            }
+        if (file.isFile()) {
+            if (sf.hasFileBeenSaved(file.getName()) != true) {
+                if (file.getName().endsWith(".txt")) {
+                    System.out.println("Wirete");
+                    List<IProductionOrder> nonDuplicateDataList = removeDuplicates(file, ".txt");
+                    //List<IDepartment> departments = new ArrayList();
+                    //writeProductionOrderToDB(nonDuplicateDataList);
+                    //List<IDepartment> tmp = new ArrayList();
+                    for (IProductionOrder iProductionOrder : nonDuplicateDataList) {
+                        //writeDepartmentTaskToDB(iProductionOrder);
+
+                        for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {
+                            //tmp.add(departmentTask.getDepartment());
+
                         }
-                        writeDepartmentToDB(departments);
-                        writeWorkerToDB(jf.extractWorkersFromJSON(file));
                     }
+                    JSONFormatter js = new JSONFormatter();
+                    System.out.println(js.getDepartments());
+                    writeDepartmentToDB(js.getDepartments());
+                    for (IProductionOrder iProductionOrder : nonDuplicateDataList) {
+                        writeDepartmentTaskToDB(iProductionOrder);
+                    }
+                    
+                    writeWorkerToDB(js.extractWorkersFromJSON());
+
+//                } else if (file.getName().endsWith(".csv")) {
+//                    List<IProductionOrder> nonDuplicateDataList = removeDuplicates(file, ".csv");
+//                    List<IDepartment> departments = new ArrayList();
+//                    writeProductionOrderToDB(nonDuplicateDataList);
+//                    for (IProductionOrder iProductionOrder : nonDuplicateDataList) {
+//                        writeDepartmentTaskToDB(iProductionOrder);
+//                        for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {
+//                            departments.add(departmentTask.getDepartment());
+//                        }
+//                    }
+//                    writeDepartmentToDB(departments);
+//                    writeWorkerToDB(jf.extractWorkersFromJSON(file));
                 }
             }
         }
+
     }
 
     public List<IProductionOrder> removeDuplicates(File f, String type) throws IOException, SQLException {
@@ -73,6 +83,7 @@ public class NewFilesDataDump {
         GetData getData = new GetData();
         CSVFormatter cf = new CSVFormatter();
         List<IProductionOrder> productionOrdersFromDB = getData.getAllProductionOrders();
+
         List<IProductionOrder> productionOrdersFromFile = new ArrayList();
         List<IProductionOrder> nonDublicateOrders = new ArrayList();
         if (type.equals(".txt")) {
@@ -80,6 +91,10 @@ public class NewFilesDataDump {
         }
         if (type.equals(".csv")) {
             productionOrdersFromFile = cf.extractProductionOrders(f);
+        }
+
+        if (productionOrdersFromDB.get(0) == null) {
+            return productionOrdersFromFile;
         }
         outerLoop:
         for (IProductionOrder iProductionOrderDB : productionOrdersFromDB) {
@@ -104,11 +119,10 @@ public class NewFilesDataDump {
 
             for (IDepartment department : d) {
                 prst.setString(1, department.getName());
-                prst.addBatch();
+                prst.execute();
             }
 
-            prst.executeBatch();
-
+//            prst.executeBatch();
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }

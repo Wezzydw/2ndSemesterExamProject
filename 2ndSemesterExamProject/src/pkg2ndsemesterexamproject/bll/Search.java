@@ -44,8 +44,6 @@ public class Search {
                     toReturn.add(ipo);
                     continue loop;
                 }
-
-                //lblDate.setText("["+weekNumber+ ":" +date.getDayOfWeek().getValue()+"]");
                 if (idt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")).contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName)) {
                     toReturn.add(ipo);
                     continue loop;

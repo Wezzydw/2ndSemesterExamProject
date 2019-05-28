@@ -70,6 +70,8 @@ public class PassThrough implements IPassthrough {
             scanFolder.updateFiles();
         } catch (IOException ex) {
             throw new IOException(ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PassThrough.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

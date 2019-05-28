@@ -37,14 +37,13 @@ public class DataHandler {
         oldData = new ArrayList();
         runDataCheck();
     }
-    
-    /**
-     * Hvis data listens hashværdi ikke er det samme som oldHash, sættes isNewData
-     * til true, hvis den er det samme som oldHash, sættes den false.
-     * @throws SQLException 
-     */
-    
 
+    /**
+     * Hvis data listens hashværdi ikke er det samme som oldHash, sættes
+     * isNewData til true, hvis den er det samme som oldHash, sættes den false.
+     *
+     * @throws SQLException
+     */
     public void runDataCheck() throws SQLException {
         data = passThrough.getAllProductionOrders();
 
@@ -55,20 +54,19 @@ public class DataHandler {
         }
         oldHash = data.hashCode();
     }
-    
+
     /**
      * Denne behandles af runDataCheck
+     *
      * @return isNewData true/false efter hvad runDataCheck() sætter den til.
      */
-    
-
     public boolean isThereNewData() {
         return isNewData;
     }
 
     /**
-     * Denne metode laver en liste over alle produktionsordre fra databasen. Disse
-     * ordre.........
+     * Denne metode laver en liste over alle produktionsordre fra databasen.
+     * Disse ordre.........
      *
      * @param departmentName
      * @param searchString
@@ -90,22 +88,25 @@ public class DataHandler {
         oldSortStrategy = strategy;
         LocalDate today = LocalDate.now();
         List<IProductionOrder> returnList = new ArrayList();
+        if (data.get(0) != null) {
+            System.out.println(data);
+            loop:
+            for (IProductionOrder iProductionOrder : data) {
+                for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {
+                    if (departmentName.equals(departmentTask.getDepartment().getName())
+                            && !departmentTask.getFinishedOrder()
+                            && (departmentTask.getStartDate().minusDays(ReadConfig.getOffsetFromDepartmentName(departmentName)).isBefore(today)
+                            || departmentTask.getStartDate().minusDays(ReadConfig.getOffsetFromDepartmentName(departmentName)).isEqual(today)
+                            || departmentTask.getStartDate().isEqual(today))) {
 
-        loop:
-        for (IProductionOrder iProductionOrder : data) {
-            for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {
-                if (departmentName.equals(departmentTask.getDepartment().getName())
-                        && !departmentTask.getFinishedOrder()
-                        && (departmentTask.getStartDate().minusDays(ReadConfig.getOffsetFromDepartmentName(departmentName)).isBefore(today)
-                        || departmentTask.getStartDate().minusDays(ReadConfig.getOffsetFromDepartmentName(departmentName)).isEqual(today)
-                        || departmentTask.getStartDate().isEqual(today))) {
-
-                    returnList.add(iProductionOrder);
-                    continue loop;
+                        returnList.add(iProductionOrder);
+                        continue loop;
+                    }
                 }
             }
         }
         return oldData = strategy.sort(searcher.searchAllProductionOrders(searchString, returnList, departmentName.toLowerCase()), departmentName);
+
     }
 
     public IDepartmentTask getTaskForDepartment(IProductionOrder po, String departmentName) {

@@ -51,15 +51,17 @@ public class ManagerOverviewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         scanProgress.setVisible(false);
         managerAnchor.getStyleClass().add("backgroundPicture");
-        managerAnchor.setOpacity(0.75); 
+        managerAnchor.setOpacity(0.75);
         try {
             model = new ManagerModel();
         } catch (IOException ex) {
             Logger.getLogger(StartScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        orderNum.setCellValueFactory(celldata -> celldata.getValue().getOrder().getOrderProperty());
-        customer.setCellValueFactory(celldata -> celldata.getValue().getCustomer().getCustomerProperty());
 
+        if (!tableView.getItems().isEmpty()) {
+            orderNum.setCellValueFactory(celldata -> celldata.getValue().getOrder().getOrderProperty());
+            customer.setCellValueFactory(celldata -> celldata.getValue().getCustomer().getCustomerProperty());
+        }
         try {
             getlistOfOrders();
         } catch (SQLException ex) {
