@@ -11,14 +11,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -89,7 +86,6 @@ public class DepartmentScreenViewController implements Initializable {
         } catch (IOException | SQLException ex) {
             System.out.println("initialize error" +ex);
         }
-
         guiUpdateLimit = initializeGUIUpdateLimit();
         guiUpdateLimit.setCycleCount(1);
         lblZoom.setText("" + postSlider.getValue() + "%");
@@ -102,10 +98,9 @@ public class DepartmentScreenViewController implements Initializable {
         updateFlowRate();
         functionThatUpdatedGUIEvery5Seconds();
         initListeners();
-
+        
         sortStrategy = new SortOrderId();
         setComboBox();
-
         scrollValue = 0;
         lastDrag = -1;
     }
@@ -114,8 +109,7 @@ public class DepartmentScreenViewController implements Initializable {
      * metoden her sørger for at programmet ikke konstant opdaterer, som kan
      * medføre funktionalitets problemer. Istedet opdateres hver aktion hver 0.1
      * sekund så der herved ikke forekommer ringe funktionalitet i form af lag.
-     *
-     * @return
+     * @return Timeline
      * @throws RuntimeException
      */
     private Timeline initializeGUIUpdateLimit() throws RuntimeException {
@@ -126,10 +120,10 @@ public class DepartmentScreenViewController implements Initializable {
                     model.placeOrderInUI();
                 } catch (SQLException ex) {
                     System.out.println("updateGUI error " + ex);
+                    //ingen forbindelse til databasen
                 }
             }
         }));
-
     }
 
     private void updateFlowRate() {
@@ -152,16 +146,20 @@ public class DepartmentScreenViewController implements Initializable {
             updateFlowRate();
         });
         comboChanged(new SortStartDate());
-
     }
 
     /**
      * Denne metode kalder metoden model.msOnDepartmentView.
+     * @param sortStrategy er den valgte sortStrategy
      */
     public void comboChanged(ISortStrategy sortStrategy) {
         model.setSortStrategy(sortStrategy);
     }
-
+    
+    /**
+     * Denne metode checker om man har gjort vinduet større eller mindre
+     * hvis den er blevet ændret kalder den updateFlowRate()
+     */
     public void initListeners() {
         borderPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -170,7 +168,12 @@ public class DepartmentScreenViewController implements Initializable {
             }
         });
     }
-
+    
+    /**
+     * Denne metode registrer tastatur tryk og sender det skrevne ned 
+     * i metoden model.setSearchString()
+     * @param event er tastatur tryk inde i searchbaren 
+     */
     @FXML
     private void searchBar(KeyEvent event) {
         model.setSearchString(txtSearchfield.getText().toLowerCase().trim());
@@ -180,8 +183,7 @@ public class DepartmentScreenViewController implements Initializable {
     /**
      * Denne metode sætter department i lblText og currentDepartment til
      * parameteren department, derefter kaldes model.setSelecetedDepartment
-     *
-     * @param department
+     * @param department er den department der er blevet valgt af brugeren
      */
     public void setDepartment(Department department) {
         currentDepartment = department;
@@ -224,7 +226,6 @@ public class DepartmentScreenViewController implements Initializable {
                         }
                     });
                 }
-
             }
         });
         t.setDaemon(true);
@@ -234,11 +235,10 @@ public class DepartmentScreenViewController implements Initializable {
     /**
      * Denne metode tager event som parameter, dette event er når man trykker og
      * trækker med musen, dette scroller an på hvilken retting du trækker musen
-     *
-     * @param event
+     * @param event er når man trækker med musen
      */
     @FXML
-    private void scrollOnDragQueen(MouseEvent event) {
+    private void scrollOnDrag(MouseEvent event) {
         double apHeight = departmentAnchorPane.getHeight();
         double bpHeight = borderPane.getHeight();
         if (lastDrag > event.getSceneY() && lastDrag > 0) {
@@ -254,16 +254,14 @@ public class DepartmentScreenViewController implements Initializable {
         }
         lastDrag = event.getSceneY();
         scrollPane.setVvalue(scrollValue);
-
     }
 
     /**
      * Denne metode sætter slideren på den nærmeste 1tiende du slipper musen ved
      * og sætter lblZoom til den værdi, derefter kalder den model.zoomControl()
      * med værdien fra slideren og updatere GUI med metoden
-     * model.msOnDepartmentView
-     *
-     * @param event
+     * model.resizeStickyNotes()
+     * @param event er når man slipper efter man har trykket på slideren
      */
     @FXML
     private void sliderZoom(MouseEvent event) {
@@ -272,12 +270,15 @@ public class DepartmentScreenViewController implements Initializable {
         model.resizeStickyNotes();
         updateFlowRate();
     }
-
+    /**
+     * Denne metode checker om man trykker på f11 
+     * hvis man trykker på f11 sættes scene til fullscreen
+     * @param event er når man trykker på en knap på tastaturet
+     */
     @FXML
     private void onF11Pressed(KeyEvent event) {
         if (event.getCode().equals(KeyCode.F11)) {
             setFullscreen();
         }
     }
-
 }
