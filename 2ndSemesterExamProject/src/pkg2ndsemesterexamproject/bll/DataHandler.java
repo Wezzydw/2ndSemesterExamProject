@@ -52,6 +52,8 @@ public class DataHandler {
         } else {
             isNewData = false;
         }
+        System.out.println(data.hashCode());
+        System.out.println(oldHash);
         oldHash = data.hashCode();
         
         
