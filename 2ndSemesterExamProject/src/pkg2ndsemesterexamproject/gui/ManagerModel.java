@@ -31,27 +31,45 @@ public class ManagerModel {
 
         managerPassThrough = new PassThrough();
     }
-
+/** kalder managerpassthrough metoden 
+ * @return en liste af alle productionsorders
+ * @throws SQLException 
+ */
     public List<IProductionOrder> getProductionOrders() throws SQLException {
         return managerPassThrough.getAllProductionOrders();
 
     }
-
+/**
+ * converter strings til simplestringproperty
+ * @param string
+ * @return en ny simplestringproperty
+ */
     public StringProperty stringConverter(String string) {
         return new SimpleStringProperty(string);
     }
-
+/**
+ * metoden tager fat i listen af productionsorders og laver den om til en observeablelist
+ * @return en observeablelist managerOBS
+ * @throws SQLException 
+ */
     public ObservableList<IProductionOrder> getObservableProductionOrders() throws SQLException {
         ObservableList managerOBS = FXCollections.observableArrayList();
         managerOBS.addAll(getProductionOrders());
         return managerOBS;
     }
-
+/**
+ * metoden managerpassThrough kaldes på scanfolderfornewfiles
+ * @throws IOException
+ * @throws SQLException 
+ */
     public void scanFolderForNewFiles() throws IOException, SQLException {
         managerPassThrough.scanFolderForNewFiles();
     }
-
-    public void checkScanFolder(JFXProgressBar scanProgress) {
+/**
+ * metoden laver en progressbar der kører hvis scanfolder for files bliver aktiveret
+ * @param scanProgress 
+ */
+    public void setProgressBarToScanFolder(JFXProgressBar scanProgress) {
 
         if (thread == null || !thread.isAlive()) {
 

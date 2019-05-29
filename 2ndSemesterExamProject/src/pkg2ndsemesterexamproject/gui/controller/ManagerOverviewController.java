@@ -110,7 +110,7 @@ public class ManagerOverviewController implements Initializable {
         } catch (IOException | SQLException ex) {
             System.out.println("Error scanning new folder");
         }
-        model.checkScanFolder(scanProgress);
+        model.setProgressBarToScanFolder(scanProgress);
     }
 
     /**

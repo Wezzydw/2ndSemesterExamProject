@@ -24,11 +24,21 @@ public class OverViewModel {
     public OverViewModel() throws IOException {
         ptl = new PassThrough();
     }
-
+/**
+ * kalder metoden ptl
+ * @return workers fra DB
+ * @throws IOException
+ * @throws SQLException 
+ */
     public List<IWorker> updateListViewWorkersAssigned() throws IOException, SQLException {
         return ptl.getWorkersFromDB();
     }
-
+/**
+ * kalder metoden ptl sendorderisdone
+ * @param dt
+ * @param po
+ * @throws SQLException 
+ */
     public void orderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException {
         ptl.sendOrderIsDone(dt, po);
     }
