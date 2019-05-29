@@ -78,6 +78,7 @@ public class ScanFolder
         {
             readFile.add(line);
         }
+        br.close();
         return readFile;
     }
     

@@ -74,7 +74,7 @@ public class DepartmentScreenViewController implements Initializable {
     private double scrollValue;
     private double lastDrag;
     private Timeline guiUpdateLimit;
-    private final long updateTime = 5000;
+    private static final long updateTime = 5000;
 
     /**
      * Initializes the controller class.

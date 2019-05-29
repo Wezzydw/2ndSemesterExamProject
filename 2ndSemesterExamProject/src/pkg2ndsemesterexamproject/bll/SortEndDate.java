@@ -37,7 +37,7 @@ public class SortEndDate implements ISortStrategy {
      * @param departmentName Kommer fra den Department forespørgsel bliver lavet.
      * @return en sorteret liste af endDates fra tidligst til senest.
      */
-    private List<IProductionOrder> sortByEnd(List<IProductionOrder> list, String departmentName) {
+    private List<IProductionOrder> sortByEnd(List<IProductionOrder> list1, String departmentName) {
         IDepartmentTask temp = null;
         IProductionOrder temp2 = null;
         for (int k = 0; k < list1.size(); k++) {
@@ -66,9 +66,11 @@ public class SortEndDate implements ISortStrategy {
      * @param j index i listen.
      */
     private void swapPlaces(int i, int j) {
-        IProductionOrder temp = list1.get(i);
-        list1.set(i, list1.get(j));
-        list1.set(j, temp);
+        if (list1 != null){
+            IProductionOrder temp = list1.get(i);
+            list1.set(i, list1.get(j));
+            list1.set(j, temp);
+        }
     }
     
       @Override
