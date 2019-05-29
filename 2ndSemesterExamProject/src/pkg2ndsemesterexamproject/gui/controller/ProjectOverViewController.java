@@ -93,8 +93,7 @@ public class ProjectOverViewController implements Initializable
     public void startClock()
     {
         executor = Executors.newSingleThreadExecutor();
-        executor.submit(()
-                ->
+        executor.submit(() ->
         {
             clockUpdate();
         });

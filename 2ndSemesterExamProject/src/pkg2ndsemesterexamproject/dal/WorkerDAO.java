@@ -48,6 +48,7 @@ public class WorkerDAO {
 
                 allWorkers.add(worker);
             }
+            prst.close();
         } catch (SQLException ex) {
             throw new SQLException("No data from getAllWorkers" + ex);
         }
