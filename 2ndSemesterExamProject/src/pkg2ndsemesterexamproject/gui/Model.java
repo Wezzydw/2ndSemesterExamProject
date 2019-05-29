@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -102,6 +103,9 @@ public class Model {
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
+        stage.getIcons().add(new Image("pkg2ndsemesterexamproject/gui/view/css/logo-13.jpg"));
+        stage.setTitle("DepartmentTask: Ordernum: " + po.getOrder().getOrderNumber() 
+                + " Department: " + dpt.getDepartment().getName());
         stage.setResizable(false);
         stage.showAndWait();
         display.closeWindow();
