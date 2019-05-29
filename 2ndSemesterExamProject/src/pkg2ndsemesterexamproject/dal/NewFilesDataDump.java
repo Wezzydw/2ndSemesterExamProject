@@ -159,7 +159,7 @@ public class NewFilesDataDump {
 
             prst.executeBatch();
         } catch (SQLException ex) {
-            throw new SQLException(ex);
+            throw new SQLException("Error writing department name to DB "+ex);
         }
     }
 
@@ -178,7 +178,7 @@ public class NewFilesDataDump {
             }
             prst.executeBatch();
         } catch (SQLException ex) {
-            throw ex;
+            throw new SQLException("Error writing departmentTask to DB "+ex);
         }
     }
 
@@ -195,11 +195,12 @@ public class NewFilesDataDump {
             }
             prst.executeBatch();
         } catch (SQLException ex) {
-            throw ex;
+            throw new SQLException("Error writing productionOrder to DB "+ex);
         }
     }
 
     private void writeWorkerToDB(List<IWorker> w) throws SQLException {
+        
         try (Connection con = conProvider.getConnection()) {
             String query = "INSERT INTO Worker (name, initials, salaryNumber) VALUES(?,?,?);";
             PreparedStatement prst = con.prepareStatement(query);
@@ -213,7 +214,7 @@ public class NewFilesDataDump {
 
             prst.executeBatch();
         } catch (SQLException ex) {
-            throw ex;
+            throw new SQLException("Error writing worker to DB "+ex);
         }
     }
 

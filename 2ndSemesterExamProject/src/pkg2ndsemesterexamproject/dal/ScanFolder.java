@@ -31,12 +31,14 @@ public class ScanFolder
         allFiles = new ArrayList();
         dataDump = new NewFilesDataDump();
     }
-    
+
     /**
-     * Denne metode kigger mappen "data" igennem, og tjekker om der er tilføjet 
-     * nye csv- eller txt-filer. Er der tilføjet nye filer, kaldes writeSavedFile metoden.
+     * Denne metode kigger mappen "data" igennem, og tjekker om der er tilføjet
+     * nye csv- eller txt-filer. Er der tilføjet nye filer, kaldes
+     * writeSavedFile metoden.
+     *
      * @throws IOException
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void updateFiles() throws IOException, SQLException
     {
@@ -59,13 +61,15 @@ public class ScanFolder
         }
 
     }
-    
+
     /**
      * Denne metode sørger for at læse filen "readfiles" for navne på filer som
      * er skrevet ned i filen.
-     * @return En liste af Strings, med navne på filer som allerede er blevet læst.
+     *
+     * @return En liste af Strings, med navne på filer som allerede er blevet
+     * læst.
      * @throws FileNotFoundException
-     * @throws IOException 
+     * @throws IOException
      */
     public List<String> loadSavedFile() throws FileNotFoundException, IOException
     {
@@ -81,11 +85,12 @@ public class ScanFolder
         br.close();
         return readFile;
     }
-    
+
     /**
      * Denne metode skriver filnavne ned i "readfiles.txt" filen.
+     *
      * @param linesToWrite filnavne der skal skrives ned i "readfiles.txt".
-     * @throws IOException 
+     * @throws IOException
      */
     public void writeSavedFile(String linesToWrite) throws IOException
     {
@@ -95,14 +100,15 @@ public class ScanFolder
         bw.newLine();
         bw.close();
     }
-    
+
     /**
      * Denne metode kigger i "readfiles.txt" og tjekker om filnavnene er skrevet
      * i "readfiles.txt" filen.
+     *
      * @param filepaths Filnavn der tjekkes for.
      * @return boolean: True hvis et filnavn allerede står i "readfiles.txt".
      * False hvis et filnavn ikke allerede står i "readfiles.txt".
-     * @throws IOException 
+     * @throws IOException
      */
     public boolean hasFileBeenSaved(String filepaths) throws IOException
     {
