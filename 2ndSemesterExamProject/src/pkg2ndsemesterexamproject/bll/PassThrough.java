@@ -34,7 +34,11 @@ public class PassThrough implements IPassthrough
         getDataFromDB = new GetData();
         scanFolder = new ScanFolder();
     }
-
+/**
+ * 
+ * @return metoden returnere en liste af Workers
+ * @throws SQLException 
+ */
     @Override
     public List<IWorker> getWorkersFromDB() throws SQLException
     {
@@ -42,9 +46,8 @@ public class PassThrough implements IPassthrough
     }
 
     /**
-     * Denne metode retunere ne liste af departments som den får fra
+     * Denne metode retunere en liste af departments som den får fra
      * getDataFromDB.getAllDepartments()
-     *
      * @return List<IDepartment>
      * @throws SQLException
      */
@@ -53,25 +56,42 @@ public class PassThrough implements IPassthrough
     {
         return getDataFromDB.getAllDepartments();
     }
-
+    /**
+     * 
+     * @return returnere en liste af workers
+     * @throws SQLException 
+     */
     @Override
     public List<IWorker> getAllWorkers() throws SQLException
     {
         return getDataFromDB.getAllWorkers();
     }
-
+    /**
+     * 
+     * @return retunere en liste af productionsorders fra db
+     * @throws SQLException 
+     */
     @Override
     public List<IProductionOrder> getAllProductionOrders() throws SQLException
     {
         return getDataFromDB.getAllProductionOrders();
     }
-
+    /**
+     * Metoden kalder getdatafromdb metoden
+     * @param dt
+     * @param po
+     * @throws SQLException 
+     */
     @Override
     public void sendOrderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException
     {
         getDataFromDB.sendOrderIsDone(dt, po);
     }
-
+    /**
+     * Metoden kalder scanfolder metoden
+     * @throws IOException
+     * @throws SQLException 
+     */
     @Override
     public void scanFolderForNewFiles() throws IOException, SQLException
     {
