@@ -51,7 +51,7 @@ public class CSVFormatter implements IFormatter {
             int endIndex = 0;
             if (string.contains("ProductionOrder:")) {
                 startIndex = string.indexOf("Customer:");
-                startIndex = string.indexOf(",", startIndex);
+                startIndex = string.indexOf(',', startIndex);
                 endIndex = string.indexOf(",", startIndex + 1);
                 String customerName = string.substring(startIndex + 2, endIndex - 1);
 

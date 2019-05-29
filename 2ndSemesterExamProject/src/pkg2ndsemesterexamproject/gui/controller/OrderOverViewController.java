@@ -27,7 +27,7 @@ public class OrderOverViewController implements Initializable {
 
     @FXML
     private AnchorPane orderOverviewAnchor;
-    
+
     private double orderPaneWidth = 200;
     private double orderPaneHeigth = 150;
     private final int minMargenEdgeX = 25;
@@ -40,10 +40,11 @@ public class OrderOverViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         orderOverviewAnchor.getStyleClass().add("panetest");
     }
-    
+
     /**
-     * Denne metode sætter selectedProductionOrder til productionOrder
-     * og kalder metoden placeORderInOverView()
+     * Denne metode sætter selectedProductionOrder til productionOrder og kalder
+     * metoden placeORderInOverView()
+     *
      * @param productionOrder er den productionOrder som bliver sendt med
      */
     public void setProductionOrder(IProductionOrder productionOrder) {
@@ -61,16 +62,38 @@ public class OrderOverViewController implements Initializable {
 
             panes.add(CreatePane.createOrderInGUI(selectedProductionOrder, orders, 1.0));
         }
+
+        placeStickyNotes(true, panes);
+    }
+
+    public void placeStickyNotes(boolean isToBeAdded, List<Pane> panes) {
         int counter = 0;
-        for (Pane pane : panes) {
-            pane.setLayoutX(minMargenEdgeX + counter * (orderPaneWidth + minMargenX));
-            pane.setLayoutY(250);
-            Label label = new Label(selectedProductionOrder.getDepartmentTasks().get(counter).getDepartment().getName());
-            label.setLayoutX(10);
-            label.setLayoutY(10);
-            pane.getChildren().add(label);
-            orderOverviewAnchor.getChildren().add(pane);
-            counter++;
+        System.out.println(orderOverviewAnchor.getPrefWidth());
+        outerloop:
+        for (int k = 0; k < panes.size(); k++) {
+            for (int j = 0; j < calcNumberOfXPanes(orderOverviewAnchor.getPrefWidth()); j++) {
+                panes.get(counter).setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
+                panes.get(counter).setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
+
+                if (isToBeAdded) {
+                    orderOverviewAnchor.getChildren().add(panes.get(counter));
+                }
+
+                if (counter == panes.size() - 1) {
+                    break outerloop;
+                }
+
+                counter++;
+
+            }
+
         }
+    }
+
+    public int calcNumberOfXPanes(double anchorWidth) {
+        double viewWidth = anchorWidth;
+        double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
+        int xNumberOfPanes = (int) (numberOfPanes);
+        return xNumberOfPanes;
     }
 }
