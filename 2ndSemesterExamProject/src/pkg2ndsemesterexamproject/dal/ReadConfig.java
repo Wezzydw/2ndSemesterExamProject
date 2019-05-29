@@ -16,7 +16,14 @@ import java.io.IOException;
  * @author Wezzy Laptop
  */
 public class ReadConfig {
-
+/**
+ * denne metode læser en afsides fil, der tjekker filen for offsets på vores
+ * departments, så vores departments kan se task før de må opstartes.
+ * @param name
+ * @return offset
+ * @throws FileNotFoundException
+ * @throws IOException 
+ */
     public static int getOffsetFromDepartmentName(String name) throws FileNotFoundException, IOException {
         int offset = 0;
         File file = new File("lib/config.offset");
