@@ -90,7 +90,6 @@ public class DataHandler {
         LocalDate today = LocalDate.now();
         List<IProductionOrder> returnList = new ArrayList();
         if (data.get(0) != null) {
-            System.out.println(data);
             loop:
             for (IProductionOrder iProductionOrder : data) {
                 for (IDepartmentTask departmentTask : iProductionOrder.getDepartmentTasks()) {
