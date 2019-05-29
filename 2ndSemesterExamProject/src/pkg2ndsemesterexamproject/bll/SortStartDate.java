@@ -77,9 +77,11 @@ public class SortStartDate implements ISortStrategy
      */
     private void swapPlaces(int i, int j)
     {
-        IProductionOrder temp = list1.get(i);
-        list1.set(i, list1.get(j));
-        list1.set(j, temp);
+        if (list1 != null){
+            IProductionOrder temp = list1.get(i);
+            list1.set(i, list1.get(j));
+            list1.set(j, temp);
+        }
     }
 
     @Override

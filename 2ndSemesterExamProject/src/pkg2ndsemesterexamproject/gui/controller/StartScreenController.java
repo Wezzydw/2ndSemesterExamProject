@@ -137,6 +137,8 @@ public class StartScreenController implements Initializable
         Parent p = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
+        stage.getIcons().add(new Image("pkg2ndsemesterexamproject/gui/view/css/logo-13.jpg"));
+        stage.setTitle("Manager Screen");
         Stage stage1 = (Stage) menuButton.getScene().getWindow();
         stage.showAndWait();
 //        stage1.close();
@@ -167,7 +169,7 @@ public class StartScreenController implements Initializable
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
         stage.getIcons().add(new Image("pkg2ndsemesterexamproject/gui/view/css/logo-13.jpg"));
-        stage.setTitle("Start Screen");
+        stage.setTitle("Department: " + department);
         Stage stage1 = (Stage) menuButton.getScene().getWindow();
         stage.setFullScreen(true);
         stage.showAndWait();

@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -131,10 +132,13 @@ public class ManagerOverviewController implements Initializable {
             }
             OrderOverViewController display = loader.getController();
             display.setProductionOrder(tableView.getSelectionModel().getSelectedItem());
-            tableView.getSelectionModel().clearSelection();
             Parent p = loader.getRoot();
             Stage stage = new Stage();
             stage.setScene(new Scene(p));
+            stage.getIcons().add(new Image("pkg2ndsemesterexamproject/gui/view/css/logo-13.jpg"));
+            stage.setTitle("Order number: "
+                    + tableView.getSelectionModel().getSelectedItem().getOrder().getOrderNumber());
+            tableView.getSelectionModel().clearSelection();
             stage.showAndWait();
             stage.close();
         }
