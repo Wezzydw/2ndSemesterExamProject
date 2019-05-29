@@ -100,7 +100,7 @@ public class CreatePane
         double dd = progressInterval * startToNow;
         gc.setFill(Color.GREEN);
         
-        if (progressInterval * startToNow > 175 * scale)
+        if (startToNow > daysBetween)
         {
             gc.setFill(Color.RED);
             dd = 175 * scale;

@@ -10,21 +10,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.gui.ManagerModel;
 
@@ -36,7 +32,6 @@ import pkg2ndsemesterexamproject.gui.ManagerModel;
 public class ManagerOverviewController implements Initializable
 {
 
-    private ManagerModel model;
     @FXML
     private TableView<IProductionOrder> tableView;
     @FXML
@@ -47,6 +42,8 @@ public class ManagerOverviewController implements Initializable
     private AnchorPane managerAnchor;
     @FXML
     private JFXProgressBar scanProgress;
+
+    private ManagerModel model;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -71,31 +68,27 @@ public class ManagerOverviewController implements Initializable
         {
             System.out.println("scanFolder error " + ex);
         }
-        try
-        {
-            getlistOfOrders();
-        } catch (SQLException ex)
-        {
-            System.out.println("getAllOrders in manager " + ex);
-        }
-
+        getListOfOrders();
     }
 
     /**
      * Denne metode får fat i alle productiionsorders fra databasen til vores
      * tableview.
-     *
-     * @throws SQLException
      */
-    public void getlistOfOrders() throws SQLException
+    public void getListOfOrders()
     {
-        tableView.setItems(model.getObservableProductionOrders());
+        try
+        {
+            tableView.setItems(model.getObservableProductionOrders());
+        } catch (SQLException ex)
+        {
+            //popup ingen database connecion eller tom database
+        }
     }
 
     /**
      * Denne metode kalder scanFolderForNewFiles metoden.
-     *
-     * @param event
+     * @param event er når man trykker på knappen "Scan folder"
      */
     @FXML
     private void scanFolderForNewFiles(ActionEvent event)
@@ -115,8 +108,7 @@ public class ManagerOverviewController implements Initializable
      * loader den det rigtige fxml view og starter det op, samt registrere
      * hvilken ordre vi klikker på og åbner et nyt view op med den rigtige
      * information i sig.
-     *
-     * @param event
+     * @param event er når man trykker på en celle i tableviewet
      */
     @FXML
     private void whenClicked(MouseEvent event)
