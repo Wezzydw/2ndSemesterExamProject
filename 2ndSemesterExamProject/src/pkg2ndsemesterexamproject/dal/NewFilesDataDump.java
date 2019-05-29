@@ -158,7 +158,6 @@ public class NewFilesDataDump {
             }
 
             prst.executeBatch();
-
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }

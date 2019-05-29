@@ -116,7 +116,7 @@ public class Model {
     Denne metode sørge for at vi kan placere alle departmentTask/panes i vores
     departmentview uden begrænsninger, samt gør designet mere brugervenligt.
      */
-    public void placeOrderInUI() throws SQLException {
+    public void placeOrderInUI() {
         if (selectedDepartmentName != null && stickyNotes != null) {
             Thread t = new Thread(new Runnable() {
                 @Override

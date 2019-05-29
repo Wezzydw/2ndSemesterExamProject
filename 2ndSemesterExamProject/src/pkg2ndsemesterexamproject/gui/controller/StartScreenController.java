@@ -77,7 +77,7 @@ public class StartScreenController implements Initializable
         } catch (IOException | SQLException ex)
         {
             popUpScreen();
-            System.out.println("IOExeption: " + ex);
+
         }
         setUpMenuButtons();
     }
@@ -130,7 +130,7 @@ public class StartScreenController implements Initializable
             loader.load();
         } catch (IOException ex)
         {
-            System.out.println("Error" + ex);
+            ExceptionsHandler.errorPopUpScreen(ex);
         }
 
         Parent p = loader.getRoot();
@@ -160,7 +160,7 @@ public class StartScreenController implements Initializable
             loader.load();
         } catch (IOException ex)
         {
-            System.out.println("Error" + ex);
+            ExceptionsHandler.errorPopUpScreen(ex);
         }
         DepartmentScreenViewController display = loader.getController();
         display.setDepartment(department);

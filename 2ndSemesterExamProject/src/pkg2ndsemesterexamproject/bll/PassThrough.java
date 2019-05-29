@@ -95,13 +95,7 @@ public class PassThrough implements IPassthrough
     @Override
     public void scanFolderForNewFiles() throws IOException, SQLException
     {
-        try
-        {
-            scanFolder.updateFiles();
-        } catch (IOException | SQLException ex)
-        {
-            throw ex;
-        }
+        scanFolder.updateFiles();
     }
 
 }

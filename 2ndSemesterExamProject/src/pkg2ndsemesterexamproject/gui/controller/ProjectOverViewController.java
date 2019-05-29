@@ -47,6 +47,7 @@ import pkg2ndsemesterexamproject.gui.OverViewModel;
  */
 public class ProjectOverViewController implements Initializable
 {
+
     @FXML
     private Label lblClock;
     @FXML
@@ -57,7 +58,7 @@ public class ProjectOverViewController implements Initializable
     private AnchorPane mainPane;
     @FXML
     private TabPane tabPane;
-    
+
     private ExecutorService executor;
     private ObservableList<IWorker> allWorkers = FXCollections.observableArrayList();
     private IDepartmentTask departmentTask;
@@ -81,7 +82,7 @@ public class ProjectOverViewController implements Initializable
             model = new OverViewModel();
         } catch (IOException ex)
         {
-            System.out.println("projectoverView error " + ex);
+            ExceptionsHandler.errorPopUpScreen(ex);
         }
         updateListViewWorkersAssigned();
     }
@@ -108,9 +109,10 @@ public class ProjectOverViewController implements Initializable
     }
 
     /**
-     * Denne metode laver et pop up, for om man er sikker på at det er 
-     * korrect at man vil sætte ordren til 'done' hvis man trykker ja
-     * kører den model.orderIsDone() som sender det ned igennem systemet
+     * Denne metode laver et pop up, for om man er sikker på at det er korrect
+     * at man vil sætte ordren til 'done' hvis man trykker ja kører den
+     * model.orderIsDone() som sender det ned igennem systemet
+     *
      * @param event er når man trykker på knappen
      */
     @FXML
@@ -151,12 +153,15 @@ public class ProjectOverViewController implements Initializable
         });
         primaryStage.show();
     }
+
     /**
-     * Denne metode laver et nyt vindue som skriver at der ikke er 
-     * forbindelse til databasen
+     * Denne metode laver et nyt vindue som skriver at der ikke er forbindelse
+     * til databasen
+     *
      * @param lblTxt er et label som er på det første popup vindue
      */
-    private void noConnectionPopUp(Label lblTxt){
+    private void noConnectionPopUp(Label lblTxt)
+    {
         Button btnOk = new Button("Ok");
 
         Label lblNoConnection = new Label("There is no connection to the DB");
@@ -179,6 +184,7 @@ public class ProjectOverViewController implements Initializable
         });
         primaryStage2.show();
     }
+
     /**
      * denne metode tager fat i localdatetime og får herved localtime. If
      * statementsne, sørger for at vi får tiden vist med de rigtige decimaler.
@@ -222,12 +228,13 @@ public class ProjectOverViewController implements Initializable
             //denne exception regner vi med sker når man lukker vinduet
             //og den ødelægger ikke noget i programmet
             //derfor er der ikke nogen grund til at håntere den
+            ExceptionsHandler.errorPopUpScreen(ex);
         }
     }
 
     /**
-     * Denne metode sætter listviewets data til worker 
-     * den får workers fra model.updateListViewWorkerAssigned()
+     * Denne metode sætter listviewets data til worker den får workers fra
+     * model.updateListViewWorkerAssigned()
      */
     private void updateListViewWorkersAssigned()
     {
@@ -240,14 +247,15 @@ public class ProjectOverViewController implements Initializable
             }
         } catch (IOException | SQLException ex)
         {
-            System.out.println("update workers error \n ingen forbindelse " + ex);
+            ExceptionsHandler.errorPopUpScreen(ex);
         }
         lstView.setItems(allWorkers);
     }
-    
+
     /**
-     * Denne metode sætter de locale variabler afen DepartmentTask og
-     * Production order lig med dt og po
+     * Denne metode sætter de locale variabler afen DepartmentTask og Production
+     * order lig med dt og po
+     *
      * @param dt er den departmenttask som bliver vist
      * @param po er den productionorder som dt er en del af
      */
@@ -256,9 +264,11 @@ public class ProjectOverViewController implements Initializable
         this.departmentTask = dt;
         this.productionOrder = po;
     }
+
     /**
-     * Denne metode sætter dataen som vi får fra po og dt ind i de 
-     * Text som de passer til
+     * Denne metode sætter dataen som vi får fra po og dt ind i de Text som de
+     * passer til
+     *
      * @param dt er den departmenttask som bliver vist
      * @param po er den productionorder som dt er en del af
      */
@@ -269,7 +279,7 @@ public class ProjectOverViewController implements Initializable
         txtStartDate = new Text(dt.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
         txtEndDate = new Text(dt.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
         txtActual = new Text("Estimated progress");
-        
+
         txtCustomer.getStyleClass().add("fancytext");
         txtOrder.getStyleClass().add("fancytext");
         txtStartDate.getStyleClass().add("fancytext2");
@@ -283,15 +293,18 @@ public class ProjectOverViewController implements Initializable
         Canvas canvas = new Canvas(585, 20);
         makeProgressBar(canvas, dt);
         setLayouts(canvas);
-        
+
         mainPane.getChildren().addAll(canvas, txtCustomer, txtEndDate, txtStartDate, txtOrder, txtActual);
     }
+
     /**
      * Denne metode laver tabs ud fra alle departmenttasks for dt og dt i po
+     *
      * @param po er den productionorder som dt er en del af
      * @param dt er den departmenttask som bliver vist
      */
-    private void makeTabs(IProductionOrder po, IDepartmentTask dt){
+    private void makeTabs(IProductionOrder po, IDepartmentTask dt)
+    {
         int indexOfDepartment = 0;
         int counter = 0;
 
@@ -318,11 +331,14 @@ public class ProjectOverViewController implements Initializable
             tabPane.getTabs().add(ta);
         }
     }
+
     /**
      * I denne metode bliver alle vores text og canvas placeret det rigtige sted
+     *
      * @param canvas som skal placeres
      */
-    private void setLayouts(Canvas canvas){
+    private void setLayouts(Canvas canvas)
+    {
         canvas.setLayoutX(5);
         canvas.setLayoutY(376);
         txtCustomer.setLayoutX(5);
@@ -336,14 +352,16 @@ public class ProjectOverViewController implements Initializable
         txtActual.setLayoutX(230);
         txtActual.setLayoutY(370);
     }
-    
+
     /**
-     * Denne metode laver en progressbar med informationer den får fra 
+     * Denne metode laver en progressbar med informationer den får fra
      * parameteren dt
+     *
      * @param canvas er det canvas progressbaren bliver lavet på
      * @param dt er den departmenttask man sender med
      */
-    private void makeProgressBar(Canvas canvas, IDepartmentTask dt){
+    private void makeProgressBar(Canvas canvas, IDepartmentTask dt)
+    {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         Long daysBetween = ChronoUnit.DAYS.between(dt.getStartDate(), dt.getEndDate());
@@ -359,10 +377,11 @@ public class ProjectOverViewController implements Initializable
         gc.setStroke(Color.BLACK);
         gc.strokeRect(0, 0, 585, 20);
         gc.setFill(Color.WHITE);
-        if(progressInterval * startToNow < 0){
-            gc.fillRect(0, 0, 585, 20);   
-        }
-        else{
+        if (progressInterval * startToNow < 0)
+        {
+            gc.fillRect(0, 0, 585, 20);
+        } else
+        {
             gc.fillRect(progressInterval * startToNow, 0, 585, 20);
         }
     }
