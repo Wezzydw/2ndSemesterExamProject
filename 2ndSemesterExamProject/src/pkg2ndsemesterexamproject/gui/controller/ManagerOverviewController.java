@@ -29,8 +29,7 @@ import pkg2ndsemesterexamproject.gui.ManagerModel;
  *
  * @author marce
  */
-public class ManagerOverviewController implements Initializable
-{
+public class ManagerOverviewController implements Initializable {
 
     @FXML
     private TableView<IProductionOrder> tableView;
@@ -46,26 +45,39 @@ public class ManagerOverviewController implements Initializable
     private ManagerModel model;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
+
         scanProgress.setVisible(false);
         managerAnchor.getStyleClass().add("backgroundPicture");
         managerAnchor.setOpacity(0.75);
-        try
-        {
+        try {
             model = new ManagerModel();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             System.out.println("manager init error " + ex);
         }
-        orderNum.setCellValueFactory(celldata -> celldata.getValue().getOrder().getOrderProperty());
-        customer.setCellValueFactory(celldata -> celldata.getValue().getCustomer().getCustomerProperty());
 
-        try
-        {
+        //Catch nullpointer expection og bed user om at slette readfiles.txt og tjekke forbindelse til db
+        orderNum.setCellValueFactory(celldata -> {
+            try {
+                return celldata.getValue().getOrder().getOrderProperty();
+            } catch (NullPointerException ex) {
+                System.out.println("Shit is fucked up, check document");
+                return null;
+            }
+        });
+
+        customer.setCellValueFactory(celldata -> {
+            try {
+                return celldata.getValue().getCustomer().getCustomerProperty();
+            } catch (NullPointerException ex) {
+                System.out.println("Shit is fucked up, check document");
+                return null;
+            }
+        });
+
+        try {
             model.scanFolderForNewFiles();
-        } catch (IOException | SQLException ex)
-        {
+        } catch (IOException | SQLException ex) {
             System.out.println("scanFolder error " + ex);
         }
         getListOfOrders();
@@ -91,13 +103,10 @@ public class ManagerOverviewController implements Initializable
      * @param event er når man trykker på knappen "Scan folder"
      */
     @FXML
-    private void scanFolderForNewFiles(ActionEvent event)
-    {
-        try
-        {
+    private void scanFolderForNewFiles(ActionEvent event) {
+        try {
             model.scanFolderForNewFiles();
-        } catch (IOException | SQLException ex)
-        {
+        } catch (IOException | SQLException ex) {
             System.out.println("Error scanning new folder");
         }
         model.checkScanFolder(scanProgress);
@@ -111,17 +120,13 @@ public class ManagerOverviewController implements Initializable
      * @param event er når man trykker på en celle i tableviewet
      */
     @FXML
-    private void whenClicked(MouseEvent event)
-    {
-        if (tableView.getSelectionModel().getSelectedItem() != null)
-        {
+    private void whenClicked(MouseEvent event) {
+        if (tableView.getSelectionModel().getSelectedItem() != null) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/OrderOverView.fxml"));
-            try
-            {
+            try {
                 loader.load();
-            } catch (IOException ex)
-            {
+            } catch (IOException ex) {
                 System.out.println("selectedTable error" + ex);
             }
             OrderOverViewController display = loader.getController();

@@ -185,10 +185,13 @@ public class Model {
         }
     }
 
-    /*
-    denne metode justere på vores y-akse, således at programmet udvider sig selv,
+    /**
+     * denne metode justere på vores y-akse, således at programmet udvider sig selv,
     hvis nødvendigt for at få alle efterspurgte stickyNotes puttes ind i viewet.
+     * @param anchorWidth bestemmer det antal panes der er plads til.
+     * @return antal af panes
      */
+  
     public double calcAnchorPaneY(double anchorWidth) {
         int xNumberOfPanes = calcNumberOfXPanes(anchorWidth);
         if (xNumberOfPanes == 0) {
@@ -209,14 +212,6 @@ public class Model {
         return xNumberOfPanes;
     }
 
-    /*
-    returnere alle workers fra databasen, så vi kan finde ud af hvilke projekter,
-    de er tilmeldt.
-     */
- /*
-    Metoden gør at vi kan flowcontrolle, så der max kan blive opdateret 10 gange
-    i sekundet, for at undgå konstante updates, der ville skabe delay i programmet
-     */
     public void setSortStrategy(ISortStrategy strategy) {
         this.strategy = strategy;
     }

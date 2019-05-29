@@ -33,7 +33,15 @@ import pkg2ndsemesterexamproject.be.Worker;
  * @author Wezzy Laptop
  */
 public class CSVFormatter implements IFormatter {
-
+    
+    /**
+     * Denne metode sørger for at trække alle relevante informationer ud af en
+     * CSV-fil, som er nødvendig for at lave en ProductionOrder.
+     * @param file CSV-filen der skal læses igennem, og hentes info ud af.
+     * @return En liste af ProductionOrders.
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     @Override
     public List<IProductionOrder> extractProductionOrders(File file) throws FileNotFoundException, IOException {
         List<IProductionOrder> productionOrders = new ArrayList();
@@ -148,7 +156,15 @@ public class CSVFormatter implements IFormatter {
         }
         return productionOrders;
     }
-
+    
+    /**
+     * Denne metode læser CSV-filen og trækker nødvendig info der skal udbruges 
+     * til at lave en Worker.
+     * @param file CSV-filen der trækkes info ud fra.
+     * @return En liste af Workers læst ud fra filen.
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     @Override
     public List<IWorker> extractWorkers(File file) throws FileNotFoundException, IOException {
         List<IWorker> workers = new ArrayList();
@@ -180,7 +196,15 @@ public class CSVFormatter implements IFormatter {
 
         return workers;
     }
-
+    
+    /**
+     * Denne metode sørger for at lave alt tekst i CSV-filen om til en liste af 
+     * Strings som behandles af extractProductionOrders og extractWorkers.
+     * @param file CSV-filen der omdannes til en liste af Strings.
+     * @return En liste af Strings.
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     @Override
     public List<String> fileToStringArray(File file) throws FileNotFoundException, IOException {
         FileReader filereader = new FileReader(file);
