@@ -13,8 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -149,7 +147,7 @@ public class StartScreenController implements Initializable
      * setDepartment() inde fra DepartmentScreenViewController med department
      * som parameter
      *
-     * @param department
+     * @param department som brugeren har valgt
      */
     private void goToDepartmentScreen(Department department)
     {
@@ -178,7 +176,7 @@ public class StartScreenController implements Initializable
      * goToManagerScreen() hvis dens navn er manager, ellers kører den metoden
      * goToDepartmentScreen() med department som en parameter
      *
-     * @param department
+     * @param department som brugeren vælger
      */
     private void selectDepartment(Department department)
     {
