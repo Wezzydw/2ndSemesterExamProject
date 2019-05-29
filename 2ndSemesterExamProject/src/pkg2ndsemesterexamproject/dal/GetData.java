@@ -37,18 +37,31 @@ public class GetData implements IGetData {
     public List<IDepartment> getAllDepartments() throws SQLException {
         return poDAO.getAllDepartments();
     }
-
+/**
+ * kalder poDAO for at update den ordre der sendes og logger informationen til DB
+ * @param dt
+ * @param po
+ * @throws SQLException 
+ */
     @Override
     public void sendOrderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException {
         poDAO.updateOrderToDone(dt, po);
         poDAO.logToDB(dt, po);
     }
-
+/**
+ * returnere en liste af workers
+ * @return workers
+ * @throws SQLException 
+ */
     @Override
     public List<IWorker> getAllWorkers() throws SQLException {
         return wDAO.getAllWorkers();
     }
-
+/**
+ * kalder poDAO for at få information om productionsorders
+ * @return en liste af productionorders
+ * @throws SQLException 
+ */
     @Override
     public List<IProductionOrder> getAllProductionOrders() throws SQLException {
         return poDAO.getAllInfo();

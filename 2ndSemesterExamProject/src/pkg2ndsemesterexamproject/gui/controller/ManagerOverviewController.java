@@ -49,7 +49,7 @@ public class ManagerOverviewController implements Initializable {
 
         scanProgress.setVisible(false);
         managerAnchor.getStyleClass().add("backgroundPicture");
-        managerAnchor.setOpacity(0.75);
+        
         try {
             model = new ManagerModel();
         } catch (IOException ex) {

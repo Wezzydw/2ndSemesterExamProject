@@ -68,6 +68,15 @@ public class CreatePane
         return orderPane;
 
     }
+    /**
+     * denne metode tjekker listen af departmenttasks og deres status og laver
+     * en circle på tasksne som sættes til grøn eller rød farve efter taskens 
+     * status
+     * @param po listen af productionorder
+     * @param dpt departmentasksne som der tjekkes status på
+     * @param scale sørger for at circle scaler med når vores scalering ændres
+     * @return 
+     */
     private static Circle makeCircle(IProductionOrder po, IDepartmentTask dpt, double scale){
         
         IDepartmentTask task = null;
@@ -86,6 +95,14 @@ public class CreatePane
         }
         return circle;
     }
+    /**
+     * metode sætter et canvas der bliver fyldt ud med den progress den enkelte
+     * departmenttask har. Er canvas grøn betyder det progress er on time, er den
+     * rød er tasken bagud
+     * @param scale sørger for at progressbaren scaler med når scalingen ændres
+     * @param canvas det er den bar der viser progressen
+     * @param dpt det er departmenttasken vi aflæser information fra.
+     */
     private static void makeProgressBar(double scale, Canvas canvas, IDepartmentTask dpt){
         
         canvas.setLayoutX(13 * scale);
@@ -110,6 +127,17 @@ public class CreatePane
         gc.strokeRect(0, 0, 175 * scale, 15 * scale);
         
     }
+    /**
+     * metoden placere alle de forskellige objekter på de rigtige positioner på panet.
+     * @param circle
+     * @param orderNum
+     * @param customer
+     * @param startDate
+     * @param endDate
+     * @param invis
+     * @param canvas
+     * @param scale 
+     */
     private static void setLayouts(Circle circle, Label orderNum, Label customer, Label startDate, Label endDate, Label invis, Canvas canvas, double scale){
         circle.setLayoutX(180 * scale);
         circle.setLayoutY(20 * scale);
