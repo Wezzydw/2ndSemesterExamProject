@@ -53,6 +53,8 @@ public class DataHandler {
             isNewData = false;
         }
         oldHash = data.hashCode();
+        
+        
     }
 
     /**

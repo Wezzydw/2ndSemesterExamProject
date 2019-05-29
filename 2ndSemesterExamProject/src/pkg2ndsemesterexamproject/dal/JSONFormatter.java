@@ -96,7 +96,6 @@ public class JSONFormatter {
     /**
      * Tager string fra loadData() og trækker alle productionOrders ud af denne
      * Og samler alle i en liste med alt dets indhold.
-     *
      * @return List<IProductionOrder>
      * @throws IOException
      */
@@ -173,7 +172,6 @@ public class JSONFormatter {
 
     /**
      * Loader JSONdata fra hardcoded fil placering
-     *
      * @return String
      * @throws FileNotFoundException
      * @throws IOException
