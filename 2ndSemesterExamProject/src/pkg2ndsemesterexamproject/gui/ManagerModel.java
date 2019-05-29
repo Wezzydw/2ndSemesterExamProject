@@ -24,8 +24,8 @@ public class ManagerModel {
 
     private PassThrough managerPassThrough;
     private Thread thread = null;
-    private final int progressRuntime = 1500;
-    private final int progressRuns = 100;
+    private static final int progressRuntime = 1500;
+    private static final int progressRuns = 100;
 
     public ManagerModel() throws IOException {
 

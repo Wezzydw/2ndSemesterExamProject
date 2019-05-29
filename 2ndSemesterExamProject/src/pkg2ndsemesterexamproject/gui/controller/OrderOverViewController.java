@@ -30,10 +30,10 @@ public class OrderOverViewController implements Initializable {
     
     private double orderPaneWidth = 200;
     private double orderPaneHeigth = 150;
-    private final int minMargenEdgeX = 25;
-    private final int minMargenEdgeY = 10;
-    private final int minMargenX = 20;
-    private final int minMargenY = 10;
+    private static final int minMargenEdgeX = 25;
+    private static final int minMargenEdgeY = 10;
+    private static final int minMargenX = 20;
+    private static final int minMargenY = 10;
     private IProductionOrder selectedProductionOrder;
 
     @Override

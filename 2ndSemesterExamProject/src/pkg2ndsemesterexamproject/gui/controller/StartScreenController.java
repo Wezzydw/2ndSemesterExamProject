@@ -132,7 +132,6 @@ public class StartScreenController implements Initializable
         {
             System.out.println("Error" + ex);
         }
-        ManagerOverviewController display = loader.getController();
 
         Parent p = loader.getRoot();
         Stage stage = new Stage();
@@ -141,7 +140,7 @@ public class StartScreenController implements Initializable
         stage.setTitle("Manager Screen");
         Stage stage1 = (Stage) menuButton.getScene().getWindow();
         stage.showAndWait();
-//        stage1.close();
+        stage1.close();
     }
 
     /**
@@ -173,7 +172,7 @@ public class StartScreenController implements Initializable
         Stage stage1 = (Stage) menuButton.getScene().getWindow();
         stage.setFullScreen(true);
         stage.showAndWait();
-//        stage1.close();
+        stage1.close();
     }
 
     /**

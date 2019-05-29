@@ -42,10 +42,10 @@ public class Model {
 
     private double orderPaneWidth = 200;
     private double orderPaneHeigth = 150;
-    private final int minMargenEdgeX = 25;
-    private final int minMargenEdgeY = 10;
-    private final int minMargenX = 20;
-    private final int minMargenY = 10;
+    private static final int minMargenEdgeX = 25;
+    private static final int minMargenEdgeY = 10;
+    private static final int minMargenX = 20;
+    private static final int minMargenY = 10;
 
     private final AnchorPane anchorPane;
     private List<Pane> stickyNotes;
@@ -173,19 +173,14 @@ public class Model {
             for (int j = 0; j < calcNumberOfXPanes(anchorPane.getWidth()); j++) {
                 stickyNotes.get(counter).setLayoutX(minMargenEdgeX + j * (orderPaneWidth + minMargenX));
                 stickyNotes.get(counter).setLayoutY(minMargenEdgeY + k * (orderPaneHeigth + minMargenY));
-
                 if (isToBeAdded) {
                     anchorPane.getChildren().add(stickyNotes.get(counter));
                 }
-
                 if (counter == stickyNotes.size() - 1) {
                     break outerloop;
                 }
-
                 counter++;
-
             }
-
         }
     }
 
@@ -218,19 +213,6 @@ public class Model {
 
     public void setSortStrategy(ISortStrategy strategy) {
         this.strategy = strategy;
-    }
-
-    /*
-    Denne metode sørge for at visuelt vise projectes tilstand i form at en farve
-    beskrivelse på en cirkel, der viser hvad status er på projectet.
-     */
-    public void ChangeColour(Circle circle) {
-        List<IDepartmentTask> departmentTask = new ArrayList();
-        for (IDepartmentTask IdepartmentTask : departmentTask) {
-            if (IdepartmentTask.getFinishedOrder() == true) {
-                circle.setFill(Paint.valueOf("Green"));
-            }
-        }
     }
 
     public void setSearchString(String string) {
