@@ -5,20 +5,15 @@
  */
 package pkg2ndsemesterexamproject.gui.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.gui.CreatePane;
@@ -30,6 +25,9 @@ import pkg2ndsemesterexamproject.gui.CreatePane;
  */
 public class OrderOverViewController implements Initializable {
 
+    @FXML
+    private AnchorPane orderOverviewAnchor;
+    
     private double orderPaneWidth = 200;
     private double orderPaneHeigth = 150;
     private final int minMargenEdgeX = 25;
@@ -37,41 +35,20 @@ public class OrderOverViewController implements Initializable {
     private final int minMargenX = 20;
     private final int minMargenY = 10;
     private IProductionOrder selectedProductionOrder;
-    @FXML
-    private AnchorPane orderOverviewAnchor;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         orderOverviewAnchor.getStyleClass().add("panetest");
-
     }
-
+    
+    /**
+     * Denne metode sætter selectedProductionOrder til productionOrder
+     * og kalder metoden placeORderInOverView()
+     * @param productionOrder er den productionOrder som bliver sendt med
+     */
     public void setProductionOrder(IProductionOrder productionOrder) {
         selectedProductionOrder = productionOrder;
         placeOrderInOverView();
-    }
-
-    /**
-     * denne metode åbner vores orderoverview.????????????
-     *
-     * @param po
-     * @param dpt
-     */
-    private void goToOrderOverview(IProductionOrder po, IDepartmentTask dpt) {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/OrderOverView.fxml"));
-        try {
-            loader.load();
-        } catch (IOException ex) {
-            System.out.println("Go to orderOverview error " + ex);
-        }
-
-        Parent p = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(p));
-        stage.showAndWait();
-        stage.close();
     }
 
     /**
