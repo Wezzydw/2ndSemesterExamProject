@@ -43,7 +43,11 @@ public class ProductionOrderDAO {
             throw new IOException("No database connection established " + ex);
         }
     }
-
+/**
+ * laver connection til databasen og henter de efterspurgte information derfra.
+ * @return en liste af productionorders med orderid customername og deliverydate
+ * @throws SQLException 
+ */
     public List<IProductionOrder> getProductionOrders() throws SQLException {
         List<IProductionOrder> po = new ArrayList();
 
@@ -68,7 +72,13 @@ public class ProductionOrderDAO {
         }
         return po;
     }
-
+/**
+ * laver connection til databasen og henter de efterspurgte informationer derfra.
+ * @param orderNum
+ * @return en liste af departmenttask som indeholder information og ordrens status
+ * samt start og endDate og hvilken department tasken er fra.
+ * @throws SQLException 
+ */
     public List<IDepartmentTask> getAllTasksForProductionOrder(String orderNum) throws SQLException {
         List<IDepartmentTask> tasks = new ArrayList();
         try (Connection con = conProvider.getConnection()) {
@@ -95,9 +105,9 @@ public class ProductionOrderDAO {
     }
 
     /**
-     * Denne metode retunere
-     *
-     * @return
+     * Denne metode laver connection til databasen og tager fat i alle departments
+     * som strings og laver en ny department i en liste
+     * @return en liste af departments      DET HER SKAL NOK RETTES TIL JEG MARC ER DUM
      * @throws SQLException
      */
     public List<IDepartment> getAllDepartments() throws SQLException {
@@ -117,7 +127,12 @@ public class ProductionOrderDAO {
         }
         return departments;
     }
-
+/**
+ * metoden laver connection til databasen laver en liste af productionorders og task
+ * hvori den gemmer alle informationer vedrørerende dem.
+ * @return en liste af productionorders
+ * @throws SQLException 
+ */
     public List<IProductionOrder> getAllInfo() throws SQLException {
         List<IProductionOrder> po = new ArrayList();
         List<IDepartmentTask> tasks = new ArrayList();
@@ -171,7 +186,14 @@ public class ProductionOrderDAO {
 
         return po;
     }
-
+/**
+ * denne metode skaber connection til databasen og tager fat i den/de ordre der er
+ * blevet markeret som finished ved at tjekke ordernumber og department og opdatere
+ * statussen derpå
+ * @param dt objekt departmenttask hvis status der skal tjekkes
+ * @param po objekt productionorder hvis status der skal tjekkes
+ * @throws SQLException 
+ */
     public void updateOrderToDone(IDepartmentTask dt, IProductionOrder po) throws SQLException {
         try (Connection con = conProvider.getConnection()) {
             String a = "UPDATE DepartmentTask SET isFinished = ? WHERE (orderNumber = ? AND department = ?);";
@@ -185,7 +207,13 @@ public class ProductionOrderDAO {
             throw new SQLException(ex);
         }
     }
-
+/**
+ * tager information fra fra departmentstask og productionsordre status og logger
+ * dem til databasen og gemmer logtid, department, action og logordernumber derpå.
+ * @param dt objekt departmenttask hvis data der skal logges til DB
+ * @param po objekt productionorder hvis data der skal logges til DB
+ * @throws SQLException 
+ */
     void logToDB(IDepartmentTask dt, IProductionOrder po) throws SQLException {
         try (Connection con = conProvider.getConnection()) {
             String a = "INSERT INTO Log (logDateTime, logDepartment, logAction, logOrderNumber) VALUES(?,?,?,?);";
