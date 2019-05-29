@@ -16,13 +16,27 @@ import pkg2ndsemesterexamproject.be.IProductionOrder;
 public class SortEndDate implements ISortStrategy {
 
     private List<IProductionOrder> list1;
-
+    
+    /**
+     * Kalder Klassens sortByEnd() metode, og sender listen af afdelingens
+     * ProductionOrders med.
+     * @param list Listen af afdelingens ProductionOrders.
+     * @param departmentName Kommer fra den Department forespørgsel bliver lavet.
+     * @return Listen den får retur fra sortByEnd().
+     */
     @Override
     public List<IProductionOrder> sort(List<IProductionOrder> list, String departmentName) {
         list1 = list;
         return sortByEnd(list1, departmentName);
     }
-
+    
+    /**
+     * Sorterer listen af ProductionOrders for de forskellige tasks endDate.
+     * Fra tidligst til senest.
+     * @param list Listen den henter oppe fra sort() metoden.
+     * @param departmentName Kommer fra den Department forespørgsel bliver lavet.
+     * @return en sorteret liste af endDates fra tidligst til senest.
+     */
     private List<IProductionOrder> sortByEnd(List<IProductionOrder> list, String departmentName) {
         IDepartmentTask temp = null;
         IProductionOrder temp2 = null;
@@ -45,7 +59,12 @@ public class SortEndDate implements ISortStrategy {
         }
         return list1;
     }
-
+    
+    /**
+     * Denne metode sørger for at skifte pladser for index i og j. 
+     * @param i index i listen.
+     * @param j index i listen.
+     */
     private void swapPlaces(int i, int j) {
         IProductionOrder temp = list1.get(i);
         list1.set(i, list1.get(j));
