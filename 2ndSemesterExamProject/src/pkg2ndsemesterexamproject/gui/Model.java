@@ -67,15 +67,11 @@ public class Model {
         selectedDepartmentName = name;
     }
 
-    /*
-    Metoden registerer om ordren er færdig og sender den videre ned igennem lagene
+    /**
+     * Denne metode udregner scale værdien, ud fra slider-værdien.
+     * @param sliderVal slider værdi, der bliver sendt fra GUI'en når brugeren
+     * trækker i slideren.
      */
- /*
-    Denne metode laver vores departmentview/panes samt tilføjelser labels med de 
-    nødvendige informationer, en cirkel med status på ordre, samt en bar over 
-    projectets nuværende situation
-     */
-    //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
     public void zoomControl(double sliderVal) {
         double scale = sliderVal / 100;
         orderPaneHeigth = 150 * scale;
@@ -83,9 +79,12 @@ public class Model {
         scalePost = scale;
     }
 
-    /*
-    skifter fra det generelle overview over alle departmenttask til en specific 
-    departmenttask.
+    /**
+     * skifter fra det generelle overview over alle departmenttask til en specific 
+     * departmenttask.
+     * @param po et objekt af ProductionOrder
+     * @param dpt et objekt af DepartmentTask
+     * @throws IOException 
      */
     private void goToOverview(IProductionOrder po, IDepartmentTask dpt) throws IOException {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
 
@@ -111,10 +110,10 @@ public class Model {
         display.closeWindow();
         stage.close();
     }
-
-    /*
-    Denne metode sørge for at vi kan placere alle departmentTask/panes i vores
-    departmentview uden begrænsninger, samt gør designet mere brugervenligt.
+    
+    /**
+     * Denne metode sørger for at vi kan placere alle departmentTask/panes i vores
+     * departmentview uden begrænsninger, samt gør designet mere brugervenligt.
      */
     public void placeOrderInUI() {
         if (selectedDepartmentName != null && stickyNotes != null) {
@@ -146,12 +145,13 @@ public class Model {
             t.start();
         }
     }
-/**
- * metoden tager fat i vores liste af productionorders og indsætter alle de stickynotes
- * fra den ordre af.
- * @param orders er det der indeholder den information der gør muligt at vide hvor mange
- * stickynotes der skal placeres
- */
+    
+    /**
+    * metoden tager fat i vores liste af productionorders og indsætter alle de stickynotes
+    * fra den ordre af.
+    * @param orders er det der indeholder den information der gør muligt at vide hvor mange
+    * stickynotes der skal placeres
+    */
     public void fillStickyNotes(List<IProductionOrder> orders) {
         stickyNotes.clear();
         for (IProductionOrder productionOrders : orders) {
@@ -170,12 +170,13 @@ public class Model {
             stickyNotes.add(p);
         }
     }
-/**
- * denne metode gør at stickynotes bliver placeret med korrekt på skærmen, 
- * som udregnes af skærmens størrelse, så layouttet er brugervenligt
- * @param isToBeAdded hvis denne er true skal tilføjes stickynotes tilføjes til skærmen.
- * er den false bliver der kun flyttet rundt på notesne.
- */
+    
+    /**
+    * denne metode gør at stickynotes bliver placeret med korrekt på skærmen, 
+    * som udregnes af skærmens størrelse, så layouttet er brugervenligt
+    * @param isToBeAdded hvis denne er true skal tilføjes stickynotes tilføjes til skærmen.
+    * er den false bliver der kun flyttet rundt på notesne.
+    */
     public void placeStickyNotes(boolean isToBeAdded) {
         int counter = 0;
         outerloop:
@@ -196,11 +197,10 @@ public class Model {
 
     /**
      * denne metode justere på vores y-akse, således at programmet udvider sig selv,
-    hvis nødvendigt for at få alle efterspurgte stickyNotes puttes ind i viewet.
+     * hvis nødvendigt for at få alle efterspurgte stickyNotes puttes ind i viewet.
      * @param anchorWidth bestemmer det antal panes der er plads til.
      * @return antal af panes
-     */
-  
+     */  
     public double calcAnchorPaneY(double anchorWidth) {
         int xNumberOfPanes = calcNumberOfXPanes(anchorWidth);
         if (xNumberOfPanes == 0) {
@@ -213,43 +213,46 @@ public class Model {
         }
         return (yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes);
     }
-/**
- * denne metode beregner det antal panes der er plads til i vores view
- * @param anchorWidth
- * @return det antal af panes
- */
     
+    /**
+    * denne metode beregner det antal panes der er plads til i vores view
+    * @param anchorWidth
+    * @return det antal af panes
+    */
     public int calcNumberOfXPanes(double anchorWidth) {
         double viewWidth = anchorWidth;
         double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
         int xNumberOfPanes = (int) (numberOfPanes);
         return xNumberOfPanes;
     }
-/**
- * denne metode sætter this strategy
- * @param strategy 
- */
+    
+    /**
+    * denne metode sætter this strategy
+    * @param strategy 
+    */
     public void setSortStrategy(ISortStrategy strategy) {
         this.strategy = strategy;
     }
 
-/**
- * sætter searchstring
- * @param string 
- */
+    /**
+    * sætter searchstring
+    * @param string 
+    */
     public void setSearchString(String string) {
         searchString = string;
     }
-/**
- * kalder dataHandler runDataCheck
- * @throws SQLException 
- */
+    
+    /**
+    * kalder dataHandler runDataCheck
+    * @throws SQLException 
+    */
     public void runDataCheckInDataHandler() throws SQLException {
         dataHandler.runDataCheck();
     }
-/**
- * metoden fylder sticky notes med alt information fra orders
- */
+    
+    /**
+    * metoden fylder sticky notes med alt information fra orders
+    */
     public void resizeStickyNotes() {
         fillStickyNotes(orders);
         anchorPane.getChildren().clear();
