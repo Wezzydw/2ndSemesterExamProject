@@ -50,7 +50,9 @@ public class ScanFolder
         {
             if (file.isFile())
             {
-                if ((file.getName().endsWith(".csv") || file.getName().endsWith(".txt")) && !hasFileBeenSaved(file.getName()))
+                if ((file.getName().endsWith(".csv")
+                        || file.getName().endsWith(".txt"))
+                        && !hasFileBeenSaved(file.getName()))
                 {
                     filePaths.add(file.getName());
                     dataDump.WriteDataFromNewFilesToDb(file);
@@ -59,7 +61,6 @@ public class ScanFolder
                 }
             }
         }
-
     }
 
     /**

@@ -283,7 +283,6 @@ public class ProjectOverViewController implements Initializable {
     private void makeTabs(IProductionOrder po, IDepartmentTask dt) {
         int indexOfDepartment = 0;
         int counter = 0;
-
         for (IDepartmentTask tasks : po.getDepartmentTasks()) {
             if (tasks.equals(dt)) {
                 indexOfDepartment = counter;

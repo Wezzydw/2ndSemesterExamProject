@@ -104,7 +104,7 @@ public class Model {
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
         stage.getIcons().add(new Image("pkg2ndsemesterexamproject/gui/view/css/logo-13.jpg"));
-        stage.setTitle("DepartmentTask: Ordernum: " + po.getOrder().getOrderNumber() 
+        stage.setTitle("DepartmentTask: Ordernum: " + po.getOrder().getOrderNumber()
                 + " Department: " + dpt.getDepartment().getName());
         stage.setResizable(false);
         stage.showAndWait();
@@ -122,7 +122,8 @@ public class Model {
                 @Override
                 public void run() {
                     try {
-                        orders = dataHandler.getAllRelevantProductionOrders(selectedDepartmentName, searchString, strategy);
+                        orders = dataHandler.getAllRelevantProductionOrders(
+                                selectedDepartmentName, searchString, strategy);
                     } catch (SQLException | IOException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -137,7 +138,8 @@ public class Model {
                             } else {
                                 placeStickyNotes(false);
                             }
-                            anchorPane.setPrefHeight(calcAnchorPaneY(anchorPane.getWidth()));
+                            anchorPane.setPrefHeight(calcAnchorPaneY(
+                                    anchorPane.getWidth()));
                             oldHash = orders.hashCode();
                         }
                     });
@@ -146,12 +148,14 @@ public class Model {
             t.start();
         }
     }
-/**
- * metoden tager fat i vores liste af productionorders og indsætter alle de stickynotes
- * fra den ordre af.
- * @param orders er det der indeholder den information der gør muligt at vide hvor mange
- * stickynotes der skal placeres
- */
+
+    /**
+     * metoden tager fat i vores liste af productionorders og indsætter alle de
+     * stickynotes fra den ordre af.
+     *
+     * @param orders er det der indeholder den information der gør muligt at
+     * vide hvor mange stickynotes der skal placeres
+     */
     public void fillStickyNotes(List<IProductionOrder> orders) {
         stickyNotes.clear();
         for (IProductionOrder productionOrders : orders) {
@@ -170,12 +174,14 @@ public class Model {
             stickyNotes.add(p);
         }
     }
-/**
- * denne metode gør at stickynotes bliver placeret med korrekt på skærmen, 
- * som udregnes af skærmens størrelse, så layouttet er brugervenligt
- * @param isToBeAdded hvis denne er true skal tilføjes stickynotes tilføjes til skærmen.
- * er den false bliver der kun flyttet rundt på notesne.
- */
+
+    /**
+     * denne metode gør at stickynotes bliver placeret med korrekt på skærmen,
+     * som udregnes af skærmens størrelse, så layouttet er brugervenligt
+     *
+     * @param isToBeAdded hvis denne er true skal tilføjes stickynotes tilføjes
+     * til skærmen. er den false bliver der kun flyttet rundt på notesne.
+     */
     public void placeStickyNotes(boolean isToBeAdded) {
         int counter = 0;
         outerloop:
@@ -195,12 +201,13 @@ public class Model {
     }
 
     /**
-     * denne metode justere på vores y-akse, således at programmet udvider sig selv,
-    hvis nødvendigt for at få alle efterspurgte stickyNotes puttes ind i viewet.
+     * denne metode justere på vores y-akse, således at programmet udvider sig
+     * selv, hvis nødvendigt for at få alle efterspurgte stickyNotes puttes ind
+     * i viewet.
+     *
      * @param anchorWidth bestemmer det antal panes der er plads til.
      * @return antal af panes
      */
-  
     public double calcAnchorPaneY(double anchorWidth) {
         int xNumberOfPanes = calcNumberOfXPanes(anchorWidth);
         if (xNumberOfPanes == 0) {
@@ -213,43 +220,50 @@ public class Model {
         }
         return (yNumberOfPanes * orderPaneHeigth + minMargenY * yNumberOfPanes);
     }
-/**
- * denne metode beregner det antal panes der er plads til i vores view
- * @param anchorWidth
- * @return det antal af panes
- */
-    
+
+    /**
+     * denne metode beregner det antal panes der er plads til i vores view
+     *
+     * @param anchorWidth
+     * @return det antal af panes
+     */
     public int calcNumberOfXPanes(double anchorWidth) {
         double viewWidth = anchorWidth;
         double numberOfPanes = viewWidth / (orderPaneWidth + minMargenX);
         int xNumberOfPanes = (int) (numberOfPanes);
         return xNumberOfPanes;
     }
-/**
- * denne metode sætter this strategy
- * @param strategy 
- */
+
+    /**
+     * denne metode sætter this strategy
+     *
+     * @param strategy
+     */
     public void setSortStrategy(ISortStrategy strategy) {
         this.strategy = strategy;
     }
 
-/**
- * sætter searchstring
- * @param string 
- */
+    /**
+     * sætter searchstring
+     *
+     * @param string
+     */
     public void setSearchString(String string) {
         searchString = string;
     }
-/**
- * kalder dataHandler runDataCheck
- * @throws SQLException 
- */
+
+    /**
+     * kalder dataHandler runDataCheck
+     *
+     * @throws SQLException
+     */
     public void runDataCheckInDataHandler() throws SQLException {
         dataHandler.runDataCheck();
     }
-/**
- * metoden fylder sticky notes med alt information fra orders
- */
+
+    /**
+     * metoden fylder sticky notes med alt information fra orders
+     */
     public void resizeStickyNotes() {
         fillStickyNotes(orders);
         anchorPane.getChildren().clear();

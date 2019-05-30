@@ -260,18 +260,17 @@ public class ProductionOrderDAO
     {
         try (Connection con = conProvider.getConnection())
         {
-            String a = "INSERT INTO Log (logDateTime, logDepartment, logAction, logOrderNumber) VALUES(?,?,?,?);";
+            String a = "INSERT INTO Log (logDateTime, logDepartment, "
+                    + "logAction, logOrderNumber) VALUES(?,?,?,?);";
             PreparedStatement prst = con.prepareStatement(a);
             prst.setString(1, LocalDateTime.now().toString());
             prst.setString(2, dt.getDepartment().getName());
             prst.setString(3, "Der er trykket på 'Task er færdig'");
             prst.setString(4, po.getOrder().getOrderNumber());
-
             prst.execute();
         } catch (SQLException ex)
         {
             throw new SQLException("Error logging to DB " + ex);
         }
     }
-
 }
