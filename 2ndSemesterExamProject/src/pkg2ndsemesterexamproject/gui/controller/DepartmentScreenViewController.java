@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg2ndsemesterexamproject.gui.controller;
 
 import com.jfoenix.controls.JFXSlider;
@@ -42,11 +37,6 @@ import pkg2ndsemesterexamproject.bll.SortReady;
 import pkg2ndsemesterexamproject.bll.SortStartDate;
 import pkg2ndsemesterexamproject.gui.Model;
 
-/**
- * FXML Controller class
- *
- * @author andreas
- */
 public class DepartmentScreenViewController implements Initializable {
 
     @FXML

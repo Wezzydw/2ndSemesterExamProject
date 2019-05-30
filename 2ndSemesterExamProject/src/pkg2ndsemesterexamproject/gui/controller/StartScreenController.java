@@ -1,9 +1,3 @@
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg2ndsemesterexamproject.gui.controller;
 
 import java.io.IOException;
@@ -34,23 +28,17 @@ import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.gui.StartScreenModel;
 
-/**
- * FXML Controller class
- *
- * @author andreas
- */
-public class StartScreenController implements Initializable
-{
+public class StartScreenController implements Initializable {
 
     @FXML
     private MenuButton menuButton;
     @FXML
     private AnchorPane startAnchor;
+    @FXML
+    private BorderPane bp;
 
     private StartScreenModel model;
     private List<IDepartment> allDepartments;
-    @FXML
-    private BorderPane bp;
 
     /**
      * Initializes the controller class. Den laver en ny model, og derefter
@@ -62,22 +50,17 @@ public class StartScreenController implements Initializable
      * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         startAnchor.getStyleClass().add("backgroundPicture");
         Text txt = new Text("Choose a department or manager:");
         txt.getStyleClass().add("startScreenText");
         txt.setTextAlignment(TextAlignment.CENTER);
         bp.setBottom(txt);
-
-        try
-        {
+        try {
             model = new StartScreenModel();
             allDepartments = model.getAllDepartments();
-        } catch (IOException | SQLException ex)
-        {
+        } catch (IOException | SQLException ex) {
             popUpScreen();
-
         }
         setUpMenuButtons();
     }
@@ -87,28 +70,23 @@ public class StartScreenController implements Initializable
      * er, disse Items gives onAction den event som er blevet lavet, til sidst
      * bliver alle knapperne tilføjet til menuButton
      */
-    private void setUpMenuButtons()
-    {
-        EventHandler<ActionEvent> event1 = (ActionEvent e) ->
-        {
+    private void setUpMenuButtons() {
+        EventHandler<ActionEvent> event1 = (ActionEvent e)
+                -> {
             Department temp;
             MenuItem selectedItem = (MenuItem) e.getSource();
             String selectedItemName = selectedItem.getText();
-            for (IDepartment allDepartment : allDepartments)
-            {
-                if (allDepartment.getName().equals(selectedItemName))
-                {
+            for (IDepartment allDepartment : allDepartments) {
+                if (allDepartment.getName().equals(selectedItemName)) {
                     temp = (Department) allDepartment;
                     selectDepartment(temp);
                 }
             }
         };
         List<MenuItem> departmentBtns = new ArrayList();
-        if (allDepartments != null)
-        {
+        if (allDepartments != null) {
             allDepartments.add(new Department("Manager"));
-            for (IDepartment depar : allDepartments)
-            {
+            for (IDepartment depar : allDepartments) {
                 MenuItem item = new MenuItem(depar.getName());//label skal være allDepartment.getName() fra BE laget 
                 item.setOnAction(event1);
                 departmentBtns.add(item);
@@ -121,15 +99,12 @@ public class StartScreenController implements Initializable
      * Denne metode skifter fra den nuværende FXML fil og kører ManagerOverview
      * FXML og dens controller
      */
-    private void goToManagerScreen()
-    {
+    private void goToManagerScreen() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/ManagerOverview.fxml"));
-        try
-        {
+        try {
             loader.load();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             ExceptionsHandler.errorPopUpScreen(ex);
         }
 
@@ -151,15 +126,12 @@ public class StartScreenController implements Initializable
      *
      * @param department som brugeren har valgt
      */
-    private void goToDepartmentScreen(Department department)
-    {
+    private void goToDepartmentScreen(Department department) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/DepartmentScreenView.fxml"));
-        try
-        {
+        try {
             loader.load();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             ExceptionsHandler.errorPopUpScreen(ex);
         }
         DepartmentScreenViewController display = loader.getController();
@@ -182,13 +154,10 @@ public class StartScreenController implements Initializable
      *
      * @param department som brugeren vælger
      */
-    private void selectDepartment(Department department)
-    {
-        if (department.getName().equals("Manager"))
-        {
+    private void selectDepartment(Department department) {
+        if (department.getName().equals("Manager")) {
             goToManagerScreen();
-        } else
-        {
+        } else {
             goToDepartmentScreen(department);
         }
     }
@@ -197,8 +166,7 @@ public class StartScreenController implements Initializable
      * Denne metode laver et pop up vindue, som fortæller at der ikke er
      * forbindelse til databasen
      */
-    private void popUpScreen()
-    {
+    private void popUpScreen() {
         Button btnOk = new Button("Ok");
 
         Label lblNoConnection = new Label("There is no connection to the DB");
@@ -213,8 +181,8 @@ public class StartScreenController implements Initializable
         Scene scene = new Scene(root2, 300, 250);
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);
-        btnOk.setOnAction((ActionEvent event) ->
-        {
+        btnOk.setOnAction((ActionEvent event)
+                -> {
             primaryStage.close();
         });
         primaryStage.setAlwaysOnTop(true);

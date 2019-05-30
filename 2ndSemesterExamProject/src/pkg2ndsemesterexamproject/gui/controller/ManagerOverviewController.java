@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg2ndsemesterexamproject.gui.controller;
 
 import com.jfoenix.controls.JFXProgressBar;
@@ -26,13 +21,7 @@ import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.gui.ManagerModel;
 
-/**
- * FXML Controller class
- *
- * @author marce
- */
-public class ManagerOverviewController implements Initializable
-{
+public class ManagerOverviewController implements Initializable {
 
     @FXML
     private TableView<IProductionOrder> tableView;
@@ -49,51 +38,40 @@ public class ManagerOverviewController implements Initializable
     private static final long updateTime = 5000;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
-
+    public void initialize(URL url, ResourceBundle rb) {
         scanProgress.setVisible(false);
         managerAnchor.getStyleClass().add("backgroundPicture");
         functionThatUpdatedGUIEvery5Seconds();
 
-        try
-        {
+        try {
             model = new ManagerModel();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             ExceptionsHandler.errorPopUpScreen(ex);
         }
 
-        //Catch nullpointer expection og bed user om at slette readfiles.txt og tjekke forbindelse til db
-        orderNum.setCellValueFactory(celldata ->
-        {
-            try
-            {
+        orderNum.setCellValueFactory(celldata
+                -> {
+            try {
                 return celldata.getValue().getOrder().getOrderProperty();
-            } catch (NullPointerException ex)
-            {
+            } catch (NullPointerException ex) {
                 ExceptionsHandler.errorPopUpScreen(ex);
                 return null;
             }
         });
 
-        customer.setCellValueFactory(celldata ->
-        {
-            try
-            {
+        customer.setCellValueFactory(celldata
+                -> {
+            try {
                 return celldata.getValue().getCustomer().getCustomerProperty();
-            } catch (NullPointerException ex)
-            {
+            } catch (NullPointerException ex) {
                 ExceptionsHandler.errorPopUpScreen(ex);
                 return null;
             }
         });
 
-        try
-        {
+        try {
             model.scanFolderForNewFiles();
-        } catch (IOException | SQLException ex)
-        {
+        } catch (IOException | SQLException ex) {
             ExceptionsHandler.errorPopUpScreen(ex);
         }
         getListOfOrders();
@@ -103,13 +81,10 @@ public class ManagerOverviewController implements Initializable
      * Denne metode får fat i alle productiionsorders fra databasen til vores
      * tableview.
      */
-    public void getListOfOrders()
-    {
-        try
-        {
+    public void getListOfOrders() {
+        try {
             tableView.setItems(model.getObservableProductionOrders());
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ExceptionsHandler.errorPopUpScreen(ex);
         }
     }
@@ -120,13 +95,10 @@ public class ManagerOverviewController implements Initializable
      * @param event er når man trykker på knappen "Scan folder"
      */
     @FXML
-    private void scanFolderForNewFiles(ActionEvent event)
-    {
-        try
-        {
+    private void scanFolderForNewFiles(ActionEvent event) {
+        try {
             model.scanFolderForNewFiles();
-        } catch (IOException | SQLException ex)
-        {
+        } catch (IOException | SQLException ex) {
             ExceptionsHandler.errorPopUpScreen(ex);
         }
         model.setProgressBarToScanFolder(scanProgress);
@@ -141,17 +113,13 @@ public class ManagerOverviewController implements Initializable
      * @param event er når man trykker på en celle i tableviewet
      */
     @FXML
-    private void whenClicked(MouseEvent event)
-    {
-        if (tableView.getSelectionModel().getSelectedItem() != null)
-        {
+    private void whenClicked(MouseEvent event) {
+        if (tableView.getSelectionModel().getSelectedItem() != null) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/pkg2ndsemesterexamproject/gui/view/OrderOverView.fxml"));
-            try
-            {
+            try {
                 loader.load();
-            } catch (IOException ex)
-            {
+            } catch (IOException ex) {
                 ExceptionsHandler.errorPopUpScreen(ex);
             }
             OrderOverViewController display = loader.getController();
@@ -172,28 +140,19 @@ public class ManagerOverviewController implements Initializable
      * Denne metode opdatere gui'en men med en thred.sleep delay på 5000ms så,
      * den kun opdatere programmet hver 5 sekund for at reducere lag
      */
-    public void functionThatUpdatedGUIEvery5Seconds()
-    {
-
-        Thread t = new Thread(new Runnable()
-        {
+    public void functionThatUpdatedGUIEvery5Seconds() {
+        Thread t = new Thread(new Runnable() {
             @Override
-            public void run()
-            {
-                while (true)
-                {
-                    try
-                    {
+            public void run() {
+                while (true) {
+                    try {
                         Thread.sleep(updateTime);
-                    } catch (InterruptedException ex)
-                    {
+                    } catch (InterruptedException ex) {
                         ExceptionsHandler.errorPopUpScreen(ex);
                     }
-                    Platform.runLater(new Runnable()
-                    {
+                    Platform.runLater(new Runnable() {
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             getListOfOrders();
                         }
                     });

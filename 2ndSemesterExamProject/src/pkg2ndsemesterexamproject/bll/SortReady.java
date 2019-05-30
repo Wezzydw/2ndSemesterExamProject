@@ -1,43 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg2ndsemesterexamproject.bll;
 
 import java.util.ArrayList;
 import java.util.List;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 
-/**
- *
- * @author andreas
- */
 public class SortReady implements ISortStrategy {
-    
+
     /**
      * Denne metode kalder readySort og sender en liste af ProductionOrder med
      * ned.
+     *
      * @param list Listen af afdelingens ProductionOrders.
-     * @param departmentName Kommer fra den Department forespørgsel bliver lavet.
-     * @return En sorteret liste af af ProductionOrder, alt efter
-     * om en ProductionOrder er sat til Ready(om afdelingen kan påbegynde deres
-     * task).
+     * @param departmentName Kommer fra den Department forespørgsel bliver
+     * lavet.
+     * @return En sorteret liste af af ProductionOrder, alt efter om en
+     * ProductionOrder er sat til Ready(om afdelingen kan påbegynde deres task).
      */
     @Override
     public List<IProductionOrder> sort(List<IProductionOrder> list, String departmentName) {
         return readySort(list, departmentName);
     }
-    
+
     /**
      * Denne metode sørger for at sortere listen af ProductionOrder, alt efter
      * om en ProductionOrder er sat til Ready(om afdelingen kan påbegynde deres
      * task)
+     *
      * @param list Listen af ProductionOrder den henter oppe fra sort metoden.
-     * @param departmentName Kommer fra den Department forespørgsel bliver lavet.
-     * @return En sorteret liste af af ProductionOrder, alt efter
-     * om en ProductionOrder er sat til Ready(om afdelingen kan påbegynde deres
-     * task).
+     * @param departmentName Kommer fra den Department forespørgsel bliver
+     * lavet.
+     * @return En sorteret liste af af ProductionOrder, alt efter om en
+     * ProductionOrder er sat til Ready(om afdelingen kan påbegynde deres task).
      */
     private List<IProductionOrder> readySort(List<IProductionOrder> list, String departmentName) {
         List<IProductionOrder> done = new ArrayList();
@@ -56,7 +49,8 @@ public class SortReady implements ISortStrategy {
         done.addAll(notDone);
         return done;
     }
-  @Override
+
+    @Override
     public String toString() {
         return "By Ready";
     }

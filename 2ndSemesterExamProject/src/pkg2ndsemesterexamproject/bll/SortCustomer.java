@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg2ndsemesterexamproject.bll;
 
 import java.util.Collections;
@@ -10,16 +5,14 @@ import java.util.Comparator;
 import java.util.List;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 
-/**
- *
- * @author andreas
- */
 public class SortCustomer implements ISortStrategy, Comparator<IProductionOrder> {
-    
+
     /**
-     * Bruger klassens compare metode til at sortere listen af ProductionOrder 
+     * Bruger klassens compare metode til at sortere listen af ProductionOrder
+     *
      * @param list Listen af ProductionOrders der skal sorteres.
-     * @param departmentName Kommer fra den Department forespørgsel bliver lavet.
+     * @param departmentName Kommer fra den Department forespørgsel bliver
+     * lavet.
      * @return en sorterer en liste af ProductionOrder i alfabetisk rækkefølge
      * efter kunde navn.
      */
@@ -29,13 +22,14 @@ public class SortCustomer implements ISortStrategy, Comparator<IProductionOrder>
         Collections.sort(list1, this);
         return list1;
     }
-    
+
     /**
      * Sammenligner Kunde navn fra 2 objekter af ProductionOrder
+     *
      * @param o1 ProductionOrder objekt 1
      * @param o2 ProductionOrder objekt 2
-     * @return en int-værdi alt efter om String(kunde navn) i o1 kommer før eller
-     * efter String(Kunde navn) i o2.
+     * @return en int-værdi alt efter om String(kunde navn) i o1 kommer før
+     * eller efter String(Kunde navn) i o2.
      */
     @Override
     public int compare(IProductionOrder o1, IProductionOrder o2) {
@@ -46,5 +40,4 @@ public class SortCustomer implements ISortStrategy, Comparator<IProductionOrder>
     public String toString() {
         return "Customer";
     }
-
 }

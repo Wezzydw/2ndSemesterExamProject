@@ -1,9 +1,3 @@
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg2ndsemesterexamproject.gui;
 
 import java.io.IOException;
@@ -26,10 +20,6 @@ import pkg2ndsemesterexamproject.bll.DataHandler;
 import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
 import pkg2ndsemesterexamproject.bll.ISortStrategy;
 
-/**
- *
- * @author andreas
- */
 public class Model {
 
     private double orderPaneWidth = 200;
@@ -40,14 +30,15 @@ public class Model {
     private static final int minMargenY = 10;
 
     private final AnchorPane anchorPane;
-    private List<Pane> stickyNotes;
     private final DataHandler dataHandler;
+    private double scalePost = 1;
+    private int oldHash = 0;
+
+    private List<Pane> stickyNotes;
+    private List<IProductionOrder> orders = null;
     private String selectedDepartmentName;
     private String searchString = "";
     private ISortStrategy strategy;
-    private double scalePost = 1;
-    private List<IProductionOrder> orders = null;
-    private int oldHash = 0;
 
     public Model(AnchorPane anchorPane) throws IOException, SQLException {
         this.anchorPane = anchorPane;
@@ -55,6 +46,11 @@ public class Model {
         dataHandler = new DataHandler();
     }
 
+    /**
+     * Sætter selectedDepartmentName til den param name
+     *
+     * @param name
+     */
     public void setSelectedDepartmentName(String name) {
         selectedDepartmentName = name;
     }
@@ -128,7 +124,6 @@ public class Model {
                                 fillStickyNotes(orders);
                                 anchorPane.getChildren().clear();
                                 placeStickyNotes(true);
-
                             } else {
                                 placeStickyNotes(false);
                             }
@@ -207,7 +202,6 @@ public class Model {
         if (xNumberOfPanes == 0) {
             xNumberOfPanes = 1;
         }
-
         int yNumberOfPanes = (int) (stickyNotes.size() / xNumberOfPanes);
         if (stickyNotes.size() % xNumberOfPanes != 0) {
             yNumberOfPanes += 1;

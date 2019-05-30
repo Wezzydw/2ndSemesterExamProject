@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg2ndsemesterexamproject.dal;
 
 import java.io.IOException;
@@ -15,10 +10,6 @@ import java.util.List;
 import pkg2ndsemesterexamproject.be.IWorker;
 import pkg2ndsemesterexamproject.be.Worker;
 
-/**
- *
- * @author mpoul
- */
 public class WorkerDAO {
 
     private DatabaseConnection conProvider;
@@ -28,10 +19,11 @@ public class WorkerDAO {
     }
 
     /**
-     * Metoden skaber forbindelse til databasen og henter de efterspurgte informationer
-     * om workers ind i programmet og tilføjer Workers dertil.
+     * Metoden skaber forbindelse til databasen og henter de efterspurgte
+     * informationer om workers ind i programmet og tilføjer Workers dertil.
+     *
      * @return Listen af Workers hentet fra databasen.
-     * @throws SQLException 
+     * @throws SQLException
      */
     public List<IWorker> getAllWorkers() throws SQLException {
 
@@ -47,14 +39,12 @@ public class WorkerDAO {
                 int salaryNumber = rs.getInt("salaryNumber");
 
                 Worker worker = new Worker(name, initials, salaryNumber);
-
                 allWorkers.add(worker);
             }
             prst.close();
         } catch (SQLException ex) {
             throw new SQLException("No data from getAllWorkers" + ex);
         }
-
         return allWorkers;
     }
 }

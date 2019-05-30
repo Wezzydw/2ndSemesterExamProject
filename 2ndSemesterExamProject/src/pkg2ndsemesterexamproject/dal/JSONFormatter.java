@@ -1,9 +1,3 @@
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg2ndsemesterexamproject.dal;
 
 import java.io.BufferedReader;
@@ -30,10 +24,6 @@ import pkg2ndsemesterexamproject.be.Worker;
 import pkg2ndsemesterexamproject.be.ICustomer;
 import pkg2ndsemesterexamproject.be.IWorker;
 
-/**
- *
- * @author Wezzy Laptop
- */
 public class JSONFormatter {
 
     private List<IDepartment> departments;
@@ -96,6 +86,7 @@ public class JSONFormatter {
     /**
      * Tager string fra loadData() og trækker alle productionOrders ud af denne
      * Og samler alle i en liste med alt dets indhold.
+     *
      * @return En liste af alle ProductionOrders.
      * @throws IOException
      */
@@ -165,13 +156,13 @@ public class JSONFormatter {
             IProductionOrder productionOrder = new ProductionOrder(order, delivery, customer, departmentTasks);
             productionOrders.add(productionOrder);
             departmentTasks = new ArrayList();
-
         }
         return productionOrders;
     }
 
     /**
      * Læser linjerne fra JSON-filen og returnerer dem som en lang string
+     *
      * @param file JSON-filen der skal læses fra.
      * @return Linjerne fra JSON-filen som én String.
      * @throws FileNotFoundException

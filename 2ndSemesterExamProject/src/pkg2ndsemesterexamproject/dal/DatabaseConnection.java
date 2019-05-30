@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg2ndsemesterexamproject.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
@@ -12,18 +7,15 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.Properties;
 
-/**
- *
- * @author andreas
- */
-public class DatabaseConnection
-{
+public class DatabaseConnection {
+
     private static final String PROP_FILE = "database/database.settings";
     private final SQLServerDataSource ds;
-    
+
     /**
      * Sørger for at oprette forbindelse til databasen.
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     public DatabaseConnection() throws IOException {
         Properties databaseProperties = new Properties();
@@ -35,6 +27,12 @@ public class DatabaseConnection
         ds.setPassword(databaseProperties.getProperty("pw"));
     }
 
+    /**
+     * returner connection.
+     *
+     * @return Connection
+     * @throws SQLServerException
+     */
     public Connection getConnection() throws SQLServerException {
         return ds.getConnection();
     }

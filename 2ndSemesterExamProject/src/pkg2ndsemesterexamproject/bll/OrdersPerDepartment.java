@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg2ndsemesterexamproject.bll;
 
 import java.time.LocalDate;
@@ -12,15 +7,13 @@ import pkg2ndsemesterexamproject.be.IDepartment;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 
-/**
- *
- * @author andreas
- */
 public class OrdersPerDepartment {
-    
+
     /**
      * Genererer en liste af ProductionOrder ud fra Department der er sendt med
-     * @param department et objekt af Department, der skal laves en liste af ProductionOrder til.
+     *
+     * @param department et objekt af Department, der skal laves en liste af
+     * ProductionOrder til.
      * @param po en liste af alle ProductionOrder
      * @return En liste af ProductionOrder ud fra Department der er sendt med
      */
@@ -39,11 +32,13 @@ public class OrdersPerDepartment {
         }
         return rele;
     }
-    
+
     /**
      * Denne metode laver en liste af alle DepartmentTasks i en ProductionOrder
      * som kom før den DepartmentTask som er inde i denne Department.
-     * @param po Et objekt af ProductionOrder som DepartmentTasks skal hentes ud af.
+     *
+     * @param po Et objekt af ProductionOrder som DepartmentTasks skal hentes ud
+     * af.
      * @param department Afdelingen som forespørgslen bliver foretaget i.
      * @return En liste af DepartmentTasks
      */
@@ -59,10 +54,11 @@ public class OrdersPerDepartment {
         }
         return before;
     }
-    
+
     /**
      * Finder en DepartmentTask ud fra det departmentName man sender ind, ud fra
      * listen af DepartmentTasks en ProductionOrder indeholder.
+     *
      * @param po indeholder en liste af DepartmentTasks
      * @param departmentName Department man skal finde DepartmentTasks til.
      * @return En DepartmentTask ud fra det departmentName man sender ind.

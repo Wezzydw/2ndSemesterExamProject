@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg2ndsemesterexamproject.bll;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,22 +11,18 @@ import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.dal.GetData;
 import pkg2ndsemesterexamproject.dal.IGetData;
 
-/**
- *
- * @author Wezzy Laptop
- */
 public class Search {
 
     IGetData getData;
 
     public Search() throws IOException {
         getData = new GetData();
-
     }
 
     /**
      * Denne metode kigger på EndDate, StartDate, Customer navn og Ordrenummer i
      * en ProductionOrder, og returnerer den eller de ordre brugeren søger på.
+     *
      * @param searchString Søgeordet brugeren skriver ind i textfeltet i viewet.
      * @param orders en liste med alle ProductionOrder.
      * @param departmentName Department som ProductionOrder tilhører.
@@ -63,18 +53,15 @@ public class Search {
                     toReturn.add(ipo);
                     continue loop;
                 }
-
             }
             if (ipo.getCustomer().getName().toLowerCase().contains(searchString)) {
                 toReturn.add(ipo);
                 continue loop;
             }
-
             if (ipo.getOrder().getOrderNumber().toLowerCase().contains(searchString)) {
                 toReturn.add(ipo);
                 continue loop;
             }
-
         }
         return toReturn;
     }

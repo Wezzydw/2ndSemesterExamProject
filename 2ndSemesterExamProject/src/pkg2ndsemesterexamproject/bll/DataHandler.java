@@ -1,9 +1,3 @@
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg2ndsemesterexamproject.bll;
 
 import java.io.IOException;
@@ -15,10 +9,6 @@ import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.dal.ReadConfig;
 
-/**
- *
- * @author Wezzy Laptop
- */
 public class DataHandler {
 
     private final PassThrough passThrough;
@@ -46,14 +36,12 @@ public class DataHandler {
      */
     public void runDataCheck() throws SQLException {
         data = passThrough.getAllProductionOrders();
-
         if (data.hashCode() != oldHash) {
             isNewData = true;
         } else {
             isNewData = false;
         }
         oldHash = data.hashCode();
-
     }
 
     /**
@@ -67,9 +55,10 @@ public class DataHandler {
 
     /**
      * Denne metode sørger få alle relavante ProductionOrders frem. Dataen fra
-     * databasen bliver kørt igennem et tjek for om departmentname matcher, og for
-     * at dpt ikke er færdig, og om startdato er inden for kriterierne for at blive
-     * vist i viewet. 
+     * databasen bliver kørt igennem et tjek for om departmentname matcher, og
+     * for at dpt ikke er færdig, og om startdato er inden for kriterierne for
+     * at blive vist i viewet.
+     *
      * @param departmentName Afdelingsnavnet forespørgsel bliver foretaget i.
      * @param searchString Er inputtet fra søgefeltet.
      * @param strategy Er den valgte strategy fra comboboxen.
@@ -107,7 +96,6 @@ public class DataHandler {
             }
         }
         return oldData = strategy.sort(searcher.searchAllProductionOrders(searchString, returnList, departmentName.toLowerCase()), departmentName);
-
     }
 
     /**
@@ -116,7 +104,7 @@ public class DataHandler {
      *
      * @param po
      * @param departmentName
-
+     *
      * @return DepartmentTask()
      */
     public IDepartmentTask getTaskForDepartment(IProductionOrder po, String departmentName) {
@@ -127,5 +115,4 @@ public class DataHandler {
         }
         return null;
     }
-
 }
