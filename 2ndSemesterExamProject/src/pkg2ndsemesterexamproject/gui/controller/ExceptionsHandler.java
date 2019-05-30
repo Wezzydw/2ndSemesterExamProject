@@ -5,6 +5,7 @@
  */
 package pkg2ndsemesterexamproject.gui.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,29 +17,37 @@ import javafx.stage.Stage;
  *
  * @author Wezzy
  */
-public class ExceptionsHandler
-{
+public class ExceptionsHandler {
 
-    public static void errorPopUpScreen(Exception ex)
-    {
-        Button btnOk = new Button("Ok");
-        Label lblNoConnection = new Label("" + ex);
-        lblNoConnection.setLayoutX(40);
-        lblNoConnection.setLayoutY(80);
-        btnOk.setLayoutX(100);
-        btnOk.setLayoutY(125);
+    public static void errorPopUpScreen(Exception ex) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Button btnOk = new Button("Ok");
+                Label error = new Label("Error");
+                Label errorMessage = new Label("" + ex.getMessage());
+                error.setLayoutX(10);
+                error.setLayoutY(10);
+                errorMessage.setLayoutX(10);
+                errorMessage.setLayoutY(30);
+                btnOk.setLayoutX(100);
+                btnOk.setLayoutY(125);
 
-        Pane root2 = new Pane();
-        root2.getChildren().addAll(btnOk, lblNoConnection);
+                Pane root2 = new Pane();
+                root2.getChildren().addAll(btnOk, errorMessage, error);
 
-        Scene scene = new Scene(root2, 300, 250);
-        Stage primaryStage = new Stage();
-        primaryStage.setScene(scene);
-        btnOk.setOnAction((ActionEvent event) ->
-        {
-            primaryStage.close();
+                Scene scene = new Scene(root2, 300, 250);
+                Stage primaryStage = new Stage();
+                primaryStage.setScene(scene);
+                btnOk.setOnAction((ActionEvent event)
+                        -> {
+                    primaryStage.close();
+                });
+                primaryStage.setAlwaysOnTop(true);
+                primaryStage.show();
+
+            }
         });
-        primaryStage.setAlwaysOnTop(true);
-        primaryStage.show();
+
     }
 }

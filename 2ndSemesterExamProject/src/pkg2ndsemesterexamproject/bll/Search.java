@@ -29,16 +29,17 @@ public class Search {
         getData = new GetData();
 
     }
-    
+
     /**
-     * Denne metode kigger på EndDate, StartDate, Customer navn og Ordrenummer i en ProductionOrder,
-     * og returnerer den eller de ordre brugeren søger på.
+     * Denne metode kigger på EndDate, StartDate, Customer navn og Ordrenummer i
+     * en ProductionOrder, og returnerer den eller de ordre brugeren søger på.
+     *
      * @param searchString Søgeordet brugeren skriver ind i textfeltet i viewet.
      * @param orders en liste med alle ProductionOrder.
      * @param departmentName Department som ProductionOrder tilhører.
-     * @return en liste af den eller de ProductionOrder brugeren søger på: 
+     * @return en liste af den eller de ProductionOrder brugeren søger på:
      * EndDate, StartDate, Customer navn og Ordrenummer.
-     * @throws SQLException 
+     * @throws SQLException
      */
     public List<IProductionOrder> searchAllProductionOrders(String searchString, List<IProductionOrder> orders, String departmentName) throws SQLException {
         if (searchString.isEmpty()) {
@@ -50,14 +51,6 @@ public class Search {
         for (IProductionOrder ipo : orders) {
             for (IDepartmentTask idt : ipo.getDepartmentTasks()) {
 
-                if (idt.getEndDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")).contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName)) {
-                    toReturn.add(ipo);
-                    continue loop;
-                }
-                if (idt.getStartDate().format(DateTimeFormatter.ofPattern("d/MM/YYYY")).contains(searchString) && idt.getDepartment().getName().toLowerCase().equals(departmentName)) {
-                    toReturn.add(ipo);
-                    continue loop;
-                }
                 WeekFields weekFields = WeekFields.of(Locale.getDefault());
                 int weekNumber = idt.getEndDate().get(weekFields.weekOfWeekBasedYear());
                 String txtEndDate = "[" + weekNumber + ":" + idt.getEndDate().getDayOfWeek().getValue() + "]";

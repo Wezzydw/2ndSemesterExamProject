@@ -229,6 +229,7 @@ public class DepartmentScreenViewController implements Initializable
             {
                 while (true)
                 {
+                    
                     try
                     {
                         Thread.sleep(updateTime);
@@ -241,6 +242,7 @@ public class DepartmentScreenViewController implements Initializable
                         @Override
                         public void run()
                         {
+                            
                             try
                             {
                                 model.runDataCheckInDataHandler();

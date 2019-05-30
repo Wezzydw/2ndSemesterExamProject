@@ -45,8 +45,7 @@ import pkg2ndsemesterexamproject.gui.OverViewModel;
  *
  * @author andreas
  */
-public class ProjectOverViewController implements Initializable
-{
+public class ProjectOverViewController implements Initializable {
 
     @FXML
     private Label lblClock;
@@ -74,14 +73,11 @@ public class ProjectOverViewController implements Initializable
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         borderPane.setStyle("-fx-background-color:grey");
-        try
-        {
+        try {
             model = new OverViewModel();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             ExceptionsHandler.errorPopUpScreen(ex);
         }
         updateListViewWorkersAssigned();
@@ -91,11 +87,10 @@ public class ProjectOverViewController implements Initializable
      * denne metode kalder clockUpdate så vores clock i viewet bliver sat, og
      * den rigtige tid vises.
      */
-    public void startClock()
-    {
+    public void startClock() {
         executor = Executors.newSingleThreadExecutor();
-        executor.submit(() ->
-        {
+        executor.submit(()
+                -> {
             clockUpdate();
         });
     }
@@ -103,8 +98,7 @@ public class ProjectOverViewController implements Initializable
     /**
      * denne metode stopper tråden der holder vores clock kørende
      */
-    public void closeWindow()
-    {
+    public void closeWindow() {
         executor.shutdownNow();
     }
 
@@ -116,8 +110,7 @@ public class ProjectOverViewController implements Initializable
      * @param event er når man trykker på knappen
      */
     @FXML
-    private void orderIsDone(ActionEvent event)
-    {
+    private void orderIsDone(ActionEvent event) {
         Button btnYes = new Button("Yes");
         Button btnNo = new Button("No");
         Label lblTxt = new Label("Are you 100% sure that you are done with\n this DepartmentTask");
@@ -134,21 +127,19 @@ public class ProjectOverViewController implements Initializable
         Scene scene = new Scene(root, 300, 250);
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);
-        btnYes.setOnAction((ActionEvent event1) ->
-        {
-            try
-            {
+        btnYes.setOnAction((ActionEvent event1)
+                -> {
+            try {
                 model.orderIsDone(departmentTask, productionOrder);
                 primaryStage.close();
                 Stage stage7 = (Stage) lblClock.getScene().getWindow();
                 stage7.close();
-            } catch (SQLException ex)
-            {
+            } catch (SQLException ex) {
                 noConnectionPopUp(lblTxt);
             }
         });
-        btnNo.setOnAction((ActionEvent event2) ->
-        {
+        btnNo.setOnAction((ActionEvent event2)
+                -> {
             primaryStage.close();
         });
         primaryStage.show();
@@ -160,8 +151,7 @@ public class ProjectOverViewController implements Initializable
      *
      * @param lblTxt er et label som er på det første popup vindue
      */
-    private void noConnectionPopUp(Label lblTxt)
-    {
+    private void noConnectionPopUp(Label lblTxt) {
         Button btnOk = new Button("Ok");
 
         Label lblNoConnection = new Label("There is no connection to the DB");
@@ -176,8 +166,8 @@ public class ProjectOverViewController implements Initializable
         Scene scene2 = new Scene(root2, 300, 250);
         Stage primaryStage2 = new Stage();
         primaryStage2.setScene(scene2);
-        btnOk.setOnAction((ActionEvent event3) ->
-        {
+        btnOk.setOnAction((ActionEvent event3)
+                -> {
             primaryStage2.close();
             Stage stage1 = (Stage) lblTxt.getScene().getWindow();
             stage1.close();
@@ -189,14 +179,11 @@ public class ProjectOverViewController implements Initializable
      * denne metode tager fat i localdatetime og får herved localtime. If
      * statementsne, sørger for at vi får tiden vist med de rigtige decimaler.
      */
-    private void clockUpdate()
-    {
-        try
-        {
-            while (true)
-            {
-                Platform.runLater(() ->
-                {
+    private void clockUpdate() {
+        try {
+            while (true) {
+                Platform.runLater(()
+                        -> {
                     String sec = "";
                     String min = "";
                     String hour = "";
@@ -206,16 +193,13 @@ public class ProjectOverViewController implements Initializable
                     sec = "" + second;
                     min = "" + minute;
                     hour = "" + hours;
-                    if (second < 10)
-                    {
+                    if (second < 10) {
                         sec = "0" + second;
                     }
-                    if (minute < 10)
-                    {
+                    if (minute < 10) {
                         min = "0" + minute;
                     }
-                    if (hours < 10)
-                    {
+                    if (hours < 10) {
                         hour = "0" + hours;
                     }
                     String clock = hour + ":" + min + ":" + sec;
@@ -223,12 +207,11 @@ public class ProjectOverViewController implements Initializable
                 });
                 TimeUnit.SECONDS.sleep(1);
             }
-        } catch (InterruptedException ex)
-        {
+        } catch (InterruptedException ex) {
             //denne exception regner vi med sker når man lukker vinduet
             //og den ødelægger ikke noget i programmet
-            //derfor er der ikke nogen grund til at håntere den
-            ExceptionsHandler.errorPopUpScreen(ex);
+            //derfor er der ikke nogen grund til at håndtere den
+            //ExceptionsHandler.errorPopUpScreen(ex);
         }
     }
 
@@ -236,17 +219,13 @@ public class ProjectOverViewController implements Initializable
      * Denne metode sætter listviewets data til worker den får workers fra
      * model.updateListViewWorkerAssigned()
      */
-    private void updateListViewWorkersAssigned()
-    {
+    private void updateListViewWorkersAssigned() {
         allWorkers.clear();
-        try
-        {
-            for (IWorker iWorker : model.updateListViewWorkersAssigned())
-            {
+        try {
+            for (IWorker iWorker : model.updateListViewWorkersAssigned()) {
                 allWorkers.add(iWorker);
             }
-        } catch (IOException | SQLException ex)
-        {
+        } catch (IOException | SQLException ex) {
             ExceptionsHandler.errorPopUpScreen(ex);
         }
         lstView.setItems(allWorkers);
@@ -259,8 +238,7 @@ public class ProjectOverViewController implements Initializable
      * @param dt er den departmenttask som bliver vist
      * @param po er den productionorder som dt er en del af
      */
-    public void setOrder(IDepartmentTask dt, IProductionOrder po)
-    {
+    public void setOrder(IDepartmentTask dt, IProductionOrder po) {
         this.departmentTask = dt;
         this.productionOrder = po;
     }
@@ -272,8 +250,7 @@ public class ProjectOverViewController implements Initializable
      * @param dt er den departmenttask som bliver vist
      * @param po er den productionorder som dt er en del af
      */
-    public void setData(IDepartmentTask dt, IProductionOrder po)
-    {
+    public void setData(IDepartmentTask dt, IProductionOrder po) {
         txtCustomer = new Text("Customer: " + po.getCustomer().toString());
         txtOrder = new Text("Order number: " + po.getOrder().toString());
         txtStartDate = new Text(dt.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
@@ -303,29 +280,23 @@ public class ProjectOverViewController implements Initializable
      * @param po er den productionorder som dt er en del af
      * @param dt er den departmenttask som bliver vist
      */
-    private void makeTabs(IProductionOrder po, IDepartmentTask dt)
-    {
+    private void makeTabs(IProductionOrder po, IDepartmentTask dt) {
         int indexOfDepartment = 0;
         int counter = 0;
 
-        for (IDepartmentTask tasks : po.getDepartmentTasks())
-        {
-            if (tasks.equals(dt))
-            {
+        for (IDepartmentTask tasks : po.getDepartmentTasks()) {
+            if (tasks.equals(dt)) {
                 indexOfDepartment = counter;
             }
             counter++;
         }
-        for (int i = 0; i <= indexOfDepartment; i++)
-        {
+        for (int i = 0; i <= indexOfDepartment; i++) {
             Tab ta = new Tab();
             ta.setText(po.getDepartmentTasks().get(i).getDepartment().toString());
-            if (po.getDepartmentTasks().get(i).getFinishedOrder())
-            {
+            if (po.getDepartmentTasks().get(i).getFinishedOrder()) {
                 ta.setStyle("-fx-background-color: Green;");
 
-            } else
-            {
+            } else {
                 ta.setStyle("-fx-background-color: Red;");
             }
             tabPane.getTabs().add(ta);
@@ -337,8 +308,7 @@ public class ProjectOverViewController implements Initializable
      *
      * @param canvas som skal placeres
      */
-    private void setLayouts(Canvas canvas)
-    {
+    private void setLayouts(Canvas canvas) {
         canvas.setLayoutX(5);
         canvas.setLayoutY(376);
         txtCustomer.setLayoutX(5);
@@ -360,8 +330,7 @@ public class ProjectOverViewController implements Initializable
      * @param canvas er det canvas progressbaren bliver lavet på
      * @param dt er den departmenttask man sender med
      */
-    private void makeProgressBar(Canvas canvas, IDepartmentTask dt)
-    {
+    private void makeProgressBar(Canvas canvas, IDepartmentTask dt) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         Long daysBetween = ChronoUnit.DAYS.between(dt.getStartDate(), dt.getEndDate());
@@ -369,19 +338,16 @@ public class ProjectOverViewController implements Initializable
         LocalDateTime todayIs = LocalDateTime.now();
         Long startToNow = ChronoUnit.DAYS.between(dt.getStartDate(), todayIs);
         gc.setFill(Color.GREEN);
-        if (progressInterval * startToNow > 585)
-        {
+        if (progressInterval * startToNow > 585) {
             gc.setFill(Color.RED);
         }
         gc.fillRect(0, 0, progressInterval * startToNow, 20);
         gc.setStroke(Color.BLACK);
         gc.strokeRect(0, 0, 585, 20);
         gc.setFill(Color.WHITE);
-        if (progressInterval * startToNow < 0)
-        {
+        if (progressInterval * startToNow < 0) {
             gc.fillRect(0, 0, 585, 20);
-        } else
-        {
+        } else {
             gc.fillRect(progressInterval * startToNow, 0, 585, 20);
         }
     }
