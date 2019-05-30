@@ -51,7 +51,6 @@ public class ProductionOrderDAO
     /**
      * laver connection til databasen og henter de efterspurgte information
      * derfra.
-     *
      * @return en liste af productionorders med orderid customername og
      * deliverydate
      * @throws SQLException
@@ -88,7 +87,6 @@ public class ProductionOrderDAO
     /**
      * laver connection til databasen og henter de efterspurgte informationer
      * derfra.
-     *
      * @param orderNum
      * @return en liste af departmenttask som indeholder information og ordrens
      * status samt start og endDate og hvilken department tasken er fra.
@@ -126,7 +124,6 @@ public class ProductionOrderDAO
     /**
      * Denne metode laver connection til databasen og tager fat i alle
      * departments som strings og laver en ny department i en liste
-     *
      * @return en liste af departments DET HER SKAL NOK RETTES TIL JEG MARC ER
      * DUM
      * @throws SQLException
@@ -156,7 +153,6 @@ public class ProductionOrderDAO
     /**
      * metoden laver connection til databasen laver en liste af productionorders
      * og task hvori den gemmer alle informationer vedrørerende dem.
-     *
      * @return en liste af productionorders
      * @throws SQLException
      */
@@ -225,7 +221,6 @@ public class ProductionOrderDAO
      * denne metode skaber connection til databasen og tager fat i den/de ordre
      * der er blevet markeret som finished ved at tjekke ordernumber og
      * department og opdatere statussen derpå
-     *
      * @param dt objekt departmenttask hvis status der skal tjekkes
      * @param po objekt productionorder hvis status der skal tjekkes
      * @throws SQLException
@@ -251,7 +246,6 @@ public class ProductionOrderDAO
      * tager information fra fra departmentstask og productionsordre status og
      * logger dem til databasen og gemmer logtid, department, action og
      * logordernumber derpå.
-     *
      * @param dt objekt departmenttask hvis data der skal logges til DB
      * @param po objekt productionorder hvis data der skal logges til DB
      * @throws SQLException

@@ -69,8 +69,9 @@ public class OrderOverViewController implements Initializable
     }
 
     /**
-     *
-     * @return @throws RuntimeException
+     * Denne metode bruges til flowcontrol, så den kun kan køres 1 gang hvert 0.1 sekund.
+     * @return en tidslinje.
+     * @throws RuntimeException
      */
     private Timeline initializeGUIUpdateLimit() throws RuntimeException
     {
@@ -111,6 +112,12 @@ public class OrderOverViewController implements Initializable
         placeStickyNotes(true);
     }
 
+    /**
+    * denne metode gør at stickynotes bliver placeret med korrekt på skærmen, 
+    * som udregnes af skærmens størrelse, så layouttet er brugervenligt
+    * @param isToBeAdded hvis denne er true skal tilføjes stickynotes tilføjes til skærmen.
+    * er den false bliver der kun flyttet rundt på notesne.
+    */
     public void placeStickyNotes(boolean isToBeAdded)
     {
         int counter = 0;
@@ -145,6 +152,12 @@ public class OrderOverViewController implements Initializable
         }
     }
 
+    /**
+     * Denne metode regner ud hvor mange Panes der kan være i viewet ud fra
+     * bredden på Anchorpanet
+     * @param anchorWidth Bredden på Anchorpanet.
+     * @return en heltalsværdi over hvor mange Panes der kan tilføjes.
+     */
     public int calcNumberOfXPanes(double anchorWidth)
     {
         double viewWidth = anchorWidth;

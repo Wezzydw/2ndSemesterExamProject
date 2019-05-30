@@ -28,6 +28,14 @@ import pkg2ndsemesterexamproject.be.IProductionOrder;
  */
 public class CreatePane
 {
+    /**
+     * Denne metoder laver panet, samt kalder de metoder der sætter placeringen
+     * i viewet, samt skalere panes.
+     * @param po Objektet af ProductionOrder DepartmentTask bliver hentet fra.
+     * @param dpt DepartmentTask der bliver lavet et Pane over.
+     * @param scale Værdien den skal skaleres med.
+     * @return Panet der skal tilføjes viewet.
+     */
     public static Pane createOrderInGUI(IProductionOrder po, IDepartmentTask dpt, Double scale)       
     {
         Label invis = new Label();
@@ -128,7 +136,7 @@ public class CreatePane
         
     }
     /**
-     * metoden placere alle de forskellige objekter på de rigtige positioner på panet.
+     * metoden placere alle de forskellige komponenter på de rigtige positioner på panet.
      * @param circle
      * @param orderNum
      * @param customer

@@ -33,7 +33,14 @@ public class NewFilesDataDump {
         this.conProvider = new DatabaseConnection();
         getData = new GetData();
     }
-
+    
+    /**
+     * Denne metode sørger for at skrive alle informationer fra nye filer ned
+     * i databasen. Den tjekker at der ikke bliver skrevet duplikeret data.
+     * @param file Ny fil som er tilføjet datamappen, og ikke allerede er skrevet.
+     * @throws IOException
+     * @throws SQLException 
+     */
     public void WriteDataFromNewFilesToDb(File file) throws IOException, SQLException {
         JSONFormatter jsonFormatter = new JSONFormatter();
         CSVFormatter csv = new CSVFormatter();
@@ -65,7 +72,16 @@ public class NewFilesDataDump {
             writeDepartmentTaskToDB(noDuplicatesProductionOrder);
         }
     }
-
+    
+    /**
+     * Denne metoder sørger for at workers ikke bliver duplikeret i databasen, ved
+     * at sammenligne en liste hentet fra databasen, og liste lavet af workers fra
+     * filen.
+     * @param workersFromFile Listen af workers hentet fra filen.
+     * @return en sorteret liste, hvor alle workers der er i databasen i forvejen
+     * ikke er blevet tilføjet.
+     * @throws SQLException 
+     */
     private List<IWorker> removeDuplicateFromWorkers(List<IWorker> workersFromFile) throws SQLException {
         List<IWorker> workersFromDB = getData.getAllWorkers();
 
@@ -88,7 +104,16 @@ public class NewFilesDataDump {
         }
         return nonDuplicateWorkers;
     }
-
+    
+    /**
+     * Denne metoder sørger for at Departments ikke bliver duplikeret i databasen, ved
+     * at sammenligne en liste hentet fra databasen, og liste lavet af Departments fra
+     * filen.
+     * @param departmentsFromFile listen af Departments hentet fra filen.
+     * @return En sorteret liste, hvor alle Departments der allerede findes i databasen
+     * er sorteret fra.
+     * @throws SQLException 
+     */
     private List<IDepartment> removeDuplicateFromDepartment(List<IDepartment> departmentsFromFile) throws SQLException {
         List<IDepartment> departmentsFromDB = getData.getAllDepartments();
         List<IDepartment> nonDuplicateDepartments = new ArrayList();
@@ -122,7 +147,17 @@ public class NewFilesDataDump {
 
         return nonDuplicateDepartments;
     }
-
+    
+    /**
+     * Denne metoder sørger for at ProductionOrder ikke bliver duplikeret i databasen, ved
+     * at sammenligne en liste hentet fra databasen, og liste lavet af ProductionOrder fra
+     * filen.
+     * @param productionOrdersFromFile Listen af ProductionOrders hentet fra filen.
+     * @return En sorteret liste, hvor alle ProductionOrders der allerede findes i
+     * databasen er sorteret fra.
+     * @throws IOException
+     * @throws SQLException 
+     */
     private List<IProductionOrder> removeDuplicateFromProductionOrder(List<IProductionOrder> productionOrdersFromFile) throws IOException, SQLException {
 
         List<IProductionOrder> productionOrdersFromDB = getData.getAllProductionOrders();
@@ -146,7 +181,12 @@ public class NewFilesDataDump {
 
         return nonDublicateOrders;
     }
-
+    
+    /**
+     * Denne metode skriver alle nye Departments ned til databesen.
+     * @param d En liste af nye Departments.
+     * @throws SQLException 
+     */
     private void writeDepartmentToDB(List<IDepartment> d) throws SQLException {
         try (Connection con = conProvider.getConnection()) {
             String query = "INSERT INTO Department (dName) VALUES(?);";
@@ -162,7 +202,12 @@ public class NewFilesDataDump {
             throw new SQLException("Error writing department name to DB "+ex);
         }
     }
-
+    
+    /**
+     * Denne metode skriver alle nye DepartmentTasks ned i databasen.
+     * @param po En ny ProductionOrder.
+     * @throws SQLException 
+     */
     private void writeDepartmentTaskToDB(IProductionOrder po) throws SQLException {
         try (Connection con = conProvider.getConnection()) {
             String query = "INSERT INTO DepartmentTask(isFinished, startDate, endDate, department, orderNumber) VALUES(?,?,?,?,?);";
@@ -181,7 +226,12 @@ public class NewFilesDataDump {
             throw new SQLException("Error writing departmentTask to DB "+ex);
         }
     }
-
+    
+    /**
+     * Denne metode skriver nye ProductionOrders ned til databasen.
+     * @param pos En liste af nye ProductionOrders.
+     * @throws SQLException 
+     */
     private void writeProductionOrderToDB(List<IProductionOrder> pos) throws SQLException {
         try (Connection con = conProvider.getConnection()) {
             String query = "INSERT INTO ProductionOrder (customerName, deliveryDate, orderId) VALUES(?,?,?);";
@@ -198,7 +248,12 @@ public class NewFilesDataDump {
             throw new SQLException("Error writing productionOrder to DB "+ex);
         }
     }
-
+    
+    /**
+     * Denne metode skriver nye Workers ned i databasen.
+     * @param w En liste af nye Workers.
+     * @throws SQLException 
+     */
     private void writeWorkerToDB(List<IWorker> w) throws SQLException {
         
         try (Connection con = conProvider.getConnection()) {

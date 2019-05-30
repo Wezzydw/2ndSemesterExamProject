@@ -9,30 +9,22 @@ package pkg2ndsemesterexamproject.gui;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import pkg2ndsemesterexamproject.be.Department;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuButton;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.bll.DataHandler;
-import pkg2ndsemesterexamproject.bll.PassThrough;
 import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
-import pkg2ndsemesterexamproject.bll.IPassthrough;
 import pkg2ndsemesterexamproject.bll.ISortStrategy;
-import pkg2ndsemesterexamproject.bll.Search;
 
 /**
  *
@@ -67,15 +59,12 @@ public class Model {
         selectedDepartmentName = name;
     }
 
-    /*
-    Metoden registerer om ordren er færdig og sender den videre ned igennem lagene
+    /**
+     * Denne metode udregner scale værdien, ud fra slider-værdien.
+     *
+     * @param sliderVal slider værdi, der bliver sendt fra GUI'en når brugeren
+     * trækker i slideren.
      */
- /*
-    Denne metode laver vores departmentview/panes samt tilføjelser labels med de 
-    nødvendige informationer, en cirkel med status på ordre, samt en bar over 
-    projectets nuværende situation
-     */
-    //public Pane createOrderInGUI(int orederNum, String startDate, String endDate){
     public void zoomControl(double sliderVal) {
         double scale = sliderVal / 100;
         orderPaneHeigth = 150 * scale;
@@ -83,9 +72,13 @@ public class Model {
         scalePost = scale;
     }
 
-    /*
-    skifter fra det generelle overview over alle departmenttask til en specific 
-    departmenttask.
+    /**
+     * skifter fra det generelle overview over alle departmenttask til en
+     * specific departmenttask.
+     *
+     * @param po et objekt af ProductionOrder
+     * @param dpt et objekt af DepartmentTask
+     * @throws IOException
      */
     private void goToOverview(IProductionOrder po, IDepartmentTask dpt) throws IOException {//skal nok også bruge en order eller noget, så vi kan få alt relevant information med 
 
@@ -112,9 +105,10 @@ public class Model {
         stage.close();
     }
 
-    /*
-    Denne metode sørge for at vi kan placere alle departmentTask/panes i vores
-    departmentview uden begrænsninger, samt gør designet mere brugervenligt.
+    /**
+     * Denne metode sørger for at vi kan placere alle departmentTask/panes i
+     * vores departmentview uden begrænsninger, samt gør designet mere
+     * brugervenligt.
      */
     public void placeOrderInUI() {
         if (selectedDepartmentName != null && stickyNotes != null) {
