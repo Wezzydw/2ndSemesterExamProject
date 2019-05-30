@@ -194,7 +194,6 @@ public class ManagerOverviewController implements Initializable
                         @Override
                         public void run()
                         {
-                            System.out.println("updateList");
                             getListOfOrders();
                         }
                     });

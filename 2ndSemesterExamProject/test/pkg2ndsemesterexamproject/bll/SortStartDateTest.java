@@ -42,7 +42,6 @@ public class SortStartDateTest {
     @Test
     public void testSort() 
     {
-        System.out.println("sort");
         DepartmentTask deptask1 = new DepartmentTask(new Department("Afdeling 1"), Boolean.FALSE, LocalDate.of(2019, Month.APRIL, 07), LocalDate.of(2019, Month.MAY, 29));
         DepartmentTask deptask2 = new DepartmentTask(new Department("Afdeling 1"), Boolean.FALSE, LocalDate.of(2019, Month.MARCH, 10), LocalDate.of(2019, Month.JUNE, 20));
         DepartmentTask deptask3 = new DepartmentTask(new Department("Afdeling 1"), Boolean.FALSE, LocalDate.of(2019, Month.APRIL, 19), LocalDate.of(2019, Month.JULY, 13));

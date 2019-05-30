@@ -30,7 +30,6 @@ public class SortCustomerTest {
     @Test
     public void testSort() 
     {
-        System.out.println("sort");
         IProductionOrder po1 = new ProductionOrder(new Order("123456"), new Delivery(LocalDate.now()), new Customer("Føtex"), new ArrayList());
         IProductionOrder po2 = new ProductionOrder(new Order("6734824"), new Delivery(LocalDate.now()), new Customer("Bilka"), new ArrayList());
         IProductionOrder po3 = new ProductionOrder(new Order("1345346"), new Delivery(LocalDate.now()), new Customer("Fakta"), new ArrayList());
@@ -52,7 +51,6 @@ public class SortCustomerTest {
     @Test
     public void testNullSort() 
     {
-        System.out.println("sort");
         IProductionOrder po1 = new ProductionOrder(new Order("123456"), new Delivery(LocalDate.now()), new Customer("Føtex"), new ArrayList());
         IProductionOrder po2 = new ProductionOrder(new Order("6734824"), new Delivery(LocalDate.now()), new Customer("Bilka"), new ArrayList());
         IProductionOrder po3 = new ProductionOrder(new Order("1345346"), new Delivery(LocalDate.now()), new Customer("Fakta"), new ArrayList());
@@ -72,7 +70,6 @@ public class SortCustomerTest {
     @Test
     public void testSortSameObjects() 
     {
-        System.out.println("sort");
         IProductionOrder po1 = new ProductionOrder(new Order("123456"), new Delivery(LocalDate.now()), new Customer("Føtex"), new ArrayList());
         IProductionOrder po2 = new ProductionOrder(new Order("6734824"), new Delivery(LocalDate.now()), new Customer("Bilka"), new ArrayList());
         IProductionOrder po3 = new ProductionOrder(new Order("1345346"), new Delivery(LocalDate.now()), new Customer("Fakta"), new ArrayList());

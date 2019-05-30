@@ -63,7 +63,6 @@ public class ManagerModel {
  * @throws SQLException 
  */
     public void scanFolderForNewFiles() throws IOException, SQLException {
-        System.out.println("tester");
         managerPassThrough.scanFolderForNewFiles();
     }
 /**

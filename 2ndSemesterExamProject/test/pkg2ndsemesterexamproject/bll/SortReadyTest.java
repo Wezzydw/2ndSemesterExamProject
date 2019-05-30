@@ -31,7 +31,6 @@ public class SortReadyTest {
 
     @Test
     public void testSort() {
-        System.out.println("Sort");
         
         DepartmentTask deptask1 = new DepartmentTask(new Department("Afdeling 1"), true, LocalDate.of(2019, Month.FEBRUARY, 07), LocalDate.of(2019, Month.MAY, 29));
         DepartmentTask deptask2 = new DepartmentTask(new Department("Afdeling 2"), false, LocalDate.of(2019, Month.MARCH, 10), LocalDate.of(2019, Month.JUNE, 20));
