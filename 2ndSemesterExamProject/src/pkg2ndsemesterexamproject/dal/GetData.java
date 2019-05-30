@@ -39,8 +39,8 @@ public class GetData implements IGetData {
     }
 /**
  * kalder poDAO for at update den ordre der sendes og logger informationen til DB
- * @param dt
- * @param po
+ * @param dt Det objekt af DepartmentTask som bliver markeret som færdig.
+ * @param po Det objekt af ProductionOrder som indeholde DepartmentTasken.
  * @throws SQLException 
  */
     @Override

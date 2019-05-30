@@ -66,12 +66,13 @@ public class DataHandler {
     }
 
     /**
-     * Denne metode laver en liste over alle produktionsordre fra databasen.
-     * Disse ordre.........
-     *
-     * @param departmentName
-     * @param searchString
-     * @param strategy
+     * Denne metode sørger få alle relavante ProductionOrders frem. Dataen fra
+     * databasen bliver kørt igennem et tjek for om departmentname matcher, og for
+     * at dpt ikke er færdig, og om startdato er inden for kriterierne for at blive
+     * vist i viewet. 
+     * @param departmentName Afdelingsnavnet forespørgsel bliver foretaget i.
+     * @param searchString Er inputtet fra søgefeltet.
+     * @param strategy Er den valgte strategy fra comboboxen.
      * @return En liste af ProductionOrder
      * @throws SQLException
      * @throws IOException
@@ -112,8 +113,8 @@ public class DataHandler {
     /**
      * Itererer gennem listen af DepartmentTasks som en ProductionOrder indeholder
      * og returnerer en DepartmentTask for pågældende Department.
-     * @param po
-     * @param departmentName
+     * @param po Et objekt ProductionOrder.
+     * @param departmentName Afdelingsnavnet forespørgslen bliver foretaget i.
      * @return DepartmentTask()
      */
     public IDepartmentTask getTaskForDepartment(IProductionOrder po, String departmentName) {

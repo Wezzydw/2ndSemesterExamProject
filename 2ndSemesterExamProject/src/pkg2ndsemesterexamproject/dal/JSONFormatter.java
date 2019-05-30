@@ -48,7 +48,7 @@ public class JSONFormatter {
      * Trækker alle workers ud af JSON string fra loadData, og returnerer en
      * liste over disse
      *
-     * @return List<IWorker>
+     * @return En liste af alle Workers.
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -96,7 +96,7 @@ public class JSONFormatter {
     /**
      * Tager string fra loadData() og trækker alle productionOrders ud af denne
      * Og samler alle i en liste med alt dets indhold.
-     * @return List<IProductionOrder>
+     * @return En liste af alle ProductionOrders.
      * @throws IOException
      */
     public List<IProductionOrder> extractProductionOrdersFromJSON(File file) throws IOException {
@@ -171,8 +171,9 @@ public class JSONFormatter {
     }
 
     /**
-     * Loader JSONdata fra hardcoded fil placering
-     * @return String
+     * Læser linjerne fra JSON-filen og returnerer dem som en lang string
+     * @param file JSON-filen der skal læses fra.
+     * @return Linjerne fra JSON-filen som én String.
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -190,8 +191,7 @@ public class JSONFormatter {
     }
 
     /**
-     *
-     * @return List<IDepartment>
+     * @return Liste af Departments
      */
     public List<IDepartment> getDepartments() {
         return departments;

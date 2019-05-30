@@ -27,9 +27,11 @@ public class WorkerDAO {
         conProvider = new DatabaseConnection();
     }
 
-    /*
-    Metoden skaber forbindelse til databasen og henter de efterspurgte informationer
-    om workers ind i programmeet og adder workersne dertil.
+    /**
+     * Metoden skaber forbindelse til databasen og henter de efterspurgte informationer
+     * om workers ind i programmet og tilføjer Workers dertil.
+     * @return Listen af Workers hentet fra databasen.
+     * @throws SQLException 
      */
     public List<IWorker> getAllWorkers() throws SQLException {
 

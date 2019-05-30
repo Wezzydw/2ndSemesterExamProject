@@ -19,7 +19,7 @@ public class ReadConfig {
 /**
  * denne metode læser en afsides fil, der tjekker filen for offsets på vores
  * departments, så vores departments kan se task før de må opstartes.
- * @param name
+ * @param name Navnet på Department der skal hentes Offset fra.
  * @return offset
  * @throws FileNotFoundException
  * @throws IOException 

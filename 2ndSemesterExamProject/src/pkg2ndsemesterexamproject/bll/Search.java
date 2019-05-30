@@ -33,7 +33,6 @@ public class Search {
     /**
      * Denne metode kigger på EndDate, StartDate, Customer navn og Ordrenummer i
      * en ProductionOrder, og returnerer den eller de ordre brugeren søger på.
-     *
      * @param searchString Søgeordet brugeren skriver ind i textfeltet i viewet.
      * @param orders en liste med alle ProductionOrder.
      * @param departmentName Department som ProductionOrder tilhører.

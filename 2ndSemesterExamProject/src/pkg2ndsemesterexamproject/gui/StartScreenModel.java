@@ -25,8 +25,7 @@ public class StartScreenModel {
 
     /**
      * Dene metode retunere en liste af departments
-     *
-     * @return List<IDepartment>
+     * @return Liste Departments
      * @throws SQLException
      */
     public List<IDepartment> getAllDepartments() throws SQLException {

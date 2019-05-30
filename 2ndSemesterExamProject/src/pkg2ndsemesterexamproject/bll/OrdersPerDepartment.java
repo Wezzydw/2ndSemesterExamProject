@@ -41,10 +41,11 @@ public class OrdersPerDepartment {
     }
     
     /**
-     * 
-     * @param po 
-     * @param department 
-     * @return 
+     * Denne metode laver en liste af alle DepartmentTasks i en ProductionOrder
+     * som kom før den DepartmentTask som er inde i denne Department.
+     * @param po Et objekt af ProductionOrder som DepartmentTasks skal hentes ud af.
+     * @param department Afdelingen som forespørgslen bliver foretaget i.
+     * @return En liste af DepartmentTasks
      */
     public List<IDepartmentTask> getAlltasksBefore(IProductionOrder po, IDepartment department) {
         List<IDepartmentTask> before = new ArrayList();

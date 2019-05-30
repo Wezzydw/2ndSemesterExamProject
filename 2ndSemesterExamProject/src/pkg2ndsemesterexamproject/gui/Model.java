@@ -9,30 +9,22 @@ package pkg2ndsemesterexamproject.gui;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import pkg2ndsemesterexamproject.be.Department;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuButton;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import pkg2ndsemesterexamproject.be.IDepartmentTask;
 import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.bll.DataHandler;
-import pkg2ndsemesterexamproject.bll.PassThrough;
 import pkg2ndsemesterexamproject.gui.controller.ProjectOverViewController;
-import pkg2ndsemesterexamproject.bll.IPassthrough;
 import pkg2ndsemesterexamproject.bll.ISortStrategy;
-import pkg2ndsemesterexamproject.bll.Search;
 
 /**
  *

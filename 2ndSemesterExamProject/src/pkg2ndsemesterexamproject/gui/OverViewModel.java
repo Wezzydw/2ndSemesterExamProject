@@ -35,8 +35,8 @@ public class OverViewModel {
     }
 /**
  * kalder metoden ptl sendorderisdone
- * @param dt
- * @param po
+ * @param dt DepartmentTask der skal sættes til done.
+ * @param po Det objekt af ProductionOrder som indeholder DepartmentTask.
  * @throws SQLException 
  */
     public void orderIsDone(IDepartmentTask dt, IProductionOrder po) throws SQLException {
