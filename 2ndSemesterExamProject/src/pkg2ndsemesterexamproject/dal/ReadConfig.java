@@ -20,7 +20,7 @@ public class ReadConfig {
     public static int getOffsetFromDepartmentName(String name)
             throws FileNotFoundException, IOException {
         int offset = 0;
-        File file = new File("lib/config.offset");
+        File file = new File("data/config.offset");
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
         String line = "";
