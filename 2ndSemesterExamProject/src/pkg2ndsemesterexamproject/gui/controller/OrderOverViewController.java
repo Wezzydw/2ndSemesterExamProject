@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -20,10 +21,10 @@ import pkg2ndsemesterexamproject.be.IProductionOrder;
 import pkg2ndsemesterexamproject.gui.CreatePane;
 
 public class OrderOverViewController implements Initializable {
-
+    
     @FXML
     private AnchorPane orderOverviewAnchor;
-
+    
     private double orderPaneWidth = 200;
     private double orderPaneHeigth = 150;
     private static final int minMargenEdgeX = 25;
@@ -33,7 +34,7 @@ public class OrderOverViewController implements Initializable {
     private IProductionOrder selectedProductionOrder;
     private Timeline guiUpdateLimit;
     private List<Pane> panes;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         panes = new ArrayList();
@@ -83,7 +84,12 @@ public class OrderOverViewController implements Initializable {
      */
     public void placeOrderInOverView() {
         for (IDepartmentTask orders : selectedProductionOrder.getDepartmentTasks()) {
-            panes.add(CreatePane.createOrderInGUI(selectedProductionOrder, orders, 1.0));
+            Pane p = CreatePane.createOrderInGUI(selectedProductionOrder, orders, 1.0);
+            panes.add(p);
+            Label label = new Label(orders.getDepartment().getName());
+            p.getChildren().add(label);
+            label.setLayoutX(10);
+            label.setLayoutY(10);
         }
         placeStickyNotes(true);
     }
@@ -101,7 +107,7 @@ public class OrderOverViewController implements Initializable {
         if (width == 0) {
             width = orderOverviewAnchor.getPrefWidth();
         }
-
+        
         outerloop:
         for (int k = 0; k < panes.size(); k++) {
             for (int j = 0; j < calcNumberOfXPanes(width); j++) {
