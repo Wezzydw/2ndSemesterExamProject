@@ -117,6 +117,7 @@ public class ProjectOverViewController implements Initializable {
         Scene scene = new Scene(root, 300, 250);
         Stage primaryStage = new Stage();
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         btnYes.setOnAction((ActionEvent event1)
                 -> {
             try {
